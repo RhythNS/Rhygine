@@ -1,7 +1,9 @@
 #pragma once
 #include <bitset>
 #include <queue>
+
 #include "Tickable.h"
+#include <Windows.h>
 
 constexpr auto RH_MOUSE_LEFT = 0;
 constexpr auto RH_MOUSE_RIGHT = 1;

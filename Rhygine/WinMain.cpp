@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "RhyException.h"
+#include "TestScene.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -13,7 +14,19 @@ int CALLBACK WinMain(
 	//Window window(hInstance, lpCmdLine, nCmdShow, test);
 	try {
 
-		Window window(hInstance, lpCmdLine, nCmdShow);
+		TestScene scene;
+		
+		Window::WindowDefinition winDef = { 0 };
+		winDef.hInstance = hInstance;
+		winDef.lpCmdLine = lpCmdLine;
+		winDef.nCmdShow = nCmdShow;
+		winDef.startScene = &scene;
+		winDef.width = 1600;
+		winDef.height = 800;
+		winDef.top = 100;
+		winDef.left = 100;
+
+		Window window(winDef);
 
 		return window.MainLoop();
 	}

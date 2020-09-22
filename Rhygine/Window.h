@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Windows.h>
 #include <string>
 #include <vector>
@@ -6,19 +7,38 @@
 #include "Keys.h"
 #include "Time.h"
 #include "Mouse.h"
-#include "Gfx.h"
+
+class Gfx;
+class Scene;
+class Tickable;
 
 class Window
 {
 public:
+
+	struct WindowDefinition {
+	public:
+		HINSTANCE hInstance;
+		LPSTR lpCmdLine;
+		int nCmdShow;
+		Scene* startScene;
+		int width;
+		int height;
+		int left;
+		int top;
+	};
+
 	Window() = delete;
-	Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow);
+	Window(WindowDefinition definition);
 	~Window();
 	
  	static Window* GetInstance();
-	inline HWND GetWindowHandle();
-	inline HINSTANCE GetHInstance();
-	
+	Scene* GetCurrentScene();
+	HWND* GetWindowHandle();
+	HINSTANCE* GetHInstance();
+	int GetWidth();
+	int GetHeight();
+
 	int MainLoop();
 
 	void AddTickable(Tickable* tickable);
@@ -37,5 +57,9 @@ private:
 	HWND windowHandle;
 	HINSTANCE hInstance;
 	Gfx* gfx;
+	Scene* currentScene;
+
+	int width;
+	int height;
 };
 

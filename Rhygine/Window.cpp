@@ -1,16 +1,28 @@
-#include <string>
+#include "Window.h"
+
 #include <thread>
 #include <iostream>
+#include <string>
+//#include <strsafe.h>
 
-#include <strsafe.h>
-
-#include "Window.h"
 #include "RhyException.h"
+#include "Keys.h"
+#include "Time.h"
+#include "Mouse.h"
+#include "Gfx.h"
+#include "Scene.h"
+#include "Tickable.h"
 
 //Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, Scene scene) : hInstance(hInstance), currentScene(scene)
-Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) : hInstance(hInstance)
+//Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, Scene* startScene) : hInstance(hInstance), currentScene(startScene)
+Window::Window(WindowDefinition definition) :
+	hInstance(definition.hInstance),
+	currentScene(definition.startScene),
+	width(definition.width),
+	height(definition.height)
 {
 	instance = this;
+	currentScene->window = this;
 	tickables.push_back(&time);
 	tickables.push_back(&mouse);
 	tickables.push_back(&keys);
@@ -18,13 +30,18 @@ Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) : hInstance(h
 	DWORD dwExStyle = 0;
 	LPCSTR lpWindowName = "Window 1";
 	DWORD dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-	int X = 0;
-	int Y = 0;
-	int nWidth = 1600;
-	int nHeight = 900;
 	HWND hWndParent = nullptr;
 	HMENU hMenu = nullptr;
 	LPVOID lpParam = nullptr;
+
+	RECT wr;
+	wr.left = definition.left;
+	wr.right = definition.width + wr.left;
+	wr.top = definition.top;
+	wr.bottom = definition.height + wr.top;
+
+	if (!AdjustWindowRect(&wr, dwStyle, FALSE))
+		throw RHY_EXCEP("Could not adjust window rect!");
 
 	// Register class
 	WNDCLASSEX windowClass = { 0 };
@@ -48,10 +65,10 @@ Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) : hInstance(h
 			className.c_str(),
 			lpWindowName,
 			dwStyle,
-			X,
-			Y,
-			nWidth,
-			nHeight,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			wr.right - wr.left,
+			wr.bottom - wr.top,
 			hWndParent,
 			hMenu,
 			hInstance,
@@ -61,7 +78,7 @@ Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow) : hInstance(h
 	if (windowHandle == nullptr)
 		throw RHY_EXCEP("Could not create window!");
 
-	gfx = new Gfx(windowHandle);
+	gfx = new Gfx(this);
 
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
@@ -78,14 +95,29 @@ inline Window* Window::GetInstance()
 	return instance;
 }
 
-inline HWND Window::GetWindowHandle()
+Scene* Window::GetCurrentScene()
 {
-	return windowHandle;
+	return currentScene;
 }
 
-inline HINSTANCE Window::GetHInstance()
+HWND* Window::GetWindowHandle()
 {
-	return hInstance;
+	return &windowHandle;
+}
+
+HINSTANCE* Window::GetHInstance()
+{
+	return &hInstance;
+}
+
+int Window::GetWidth()
+{
+	return width;
+}
+
+int Window::GetHeight()
+{
+	return height;
 }
 
 int Window::MainLoop()
@@ -113,7 +145,10 @@ int Window::MainLoop()
 			i->Tick();
 		}
 
+		//currentScene->Update();
 		gfx->BeginDraw();
+		//currentScene->Draw();
+		gfx->DebugDraw();
 		gfx->EndDraw();
 
 		auto frameTime = timeNow - timeBefore;
@@ -150,17 +185,17 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			PostMessageA(hWnd, WM_CLOSE, 0, 0);
 			break;
 		}
-		keys.PressKey((unsigned char) wParam);
+		keys.PressKey((unsigned char)wParam);
 
 		break;
 
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
-		keys.ReleaseKey((unsigned char) wParam);
+		keys.ReleaseKey((unsigned char)wParam);
 		break;
 
 	case WM_CHAR:
-		keys.CharTyped((unsigned char) wParam);
+		keys.CharTyped((unsigned char)wParam);
 		break;
 
 	case WM_KILLFOCUS:
@@ -201,7 +236,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_XBUTTONDOWN: // mouse button 3, 4
 		// Hiword from w param is 1 for xbutton1 and 2 for xbutton2. So just add that to the middle
 		// mouse button value (2) to get either (3) for X1 or (4) for X2.
-		mouse.ButtonClicked(HIWORD(wParam) + RH_MOUSE_MIDDLE); 
+		mouse.ButtonClicked(HIWORD(wParam) + RH_MOUSE_MIDDLE);
 		break;
 
 	case WM_XBUTTONUP:
@@ -216,7 +251,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		break;
 	}
 
-		// Quit Events ----
+	// Quit Events ----
 	case WM_CLOSE:
 		// insert auto save stuff and a display like: "do you really want to close the program?"
 		DestroyWindow(hWnd);

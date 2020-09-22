@@ -3,19 +3,26 @@
 #include <d3d11.h>
 #include <wrl.h>
 
+class Window;
+
 class Gfx
 {
+	friend class Window;
 public:
 	Gfx() = delete;
-	Gfx(HWND windowHandle);
+	Gfx(Window* window);
 
 	void BeginDraw();
+	void DebugDraw();
 	void EndDraw();
 
 private:
+	Window* window;
+
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> swap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView;
 };
 
