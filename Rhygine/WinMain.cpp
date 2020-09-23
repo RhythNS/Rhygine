@@ -10,8 +10,6 @@ int CALLBACK WinMain(
 	LPSTR     lpCmdLine,
 	int       nCmdShow)
 {
-	//TestScene test;
-	//Window window(hInstance, lpCmdLine, nCmdShow, test);
 	try {
 
 		TestScene scene;
