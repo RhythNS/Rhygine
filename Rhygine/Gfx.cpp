@@ -2,6 +2,7 @@
 #include "RhyException.h"
 #include "Window.h"
 #include "Scene.h"
+#include "Keys.h"
 
 #include <Windows.h>
 #include <d3dcompiler.h>
@@ -9,7 +10,7 @@
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-Gfx::Gfx(Window* window) : window(window)
+Gfx::Gfx(Window* window) : window(window), camera({ 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f })
 {
 	HWND windowHandle = *window->GetWindowHandle();
 
@@ -159,8 +160,10 @@ void Gfx::DebugDraw()
 	unsigned int indexOffset = 0;
 	context->IASetIndexBuffer(indexBuffer.Get(), format, indexOffset);
 
-	float angle = window->time.GetTimeSinceStart(), x = 0, z = 0;
+	//float angle = window->time.GetTimeSinceStart(), x = 0, z = 0;
+	float angle = 0, x = 0, z = 0;
 
+	camera.HandleInput(window);
 
 	struct MatrixConstantBuffer {
 		DirectX::XMMATRIX transform;
@@ -172,6 +175,7 @@ void Gfx::DebugDraw()
 					DirectX::XMMatrixRotationZ(angle) *
 					DirectX::XMMatrixRotationX(angle) *
 					DirectX::XMMatrixTranslation(x, 0.0f, z + 10.0f) *
+					camera.GetMatrix() *
 					DirectX::XMMatrixPerspectiveLH(1.0f, (float)window->GetHeight() / (float)window->GetWidth(), 0.5f, 100.0f)
 				)
 			}

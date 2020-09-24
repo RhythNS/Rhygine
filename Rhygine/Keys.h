@@ -11,25 +11,25 @@ public:
 	class KeyEvent {
 	public:
 		KeyEvent(bool keyDown, unsigned char key) : keyDown(keyDown), key(key) {}
-		inline bool GetWasKeyDown() { return keyDown; }
-		inline char GetKey() { return key; }
+		bool GetWasKeyDown() { return keyDown; }
+		char GetKey() { return key; }
 	private:
 		bool keyDown;
 		char key;
 	};
 
-	inline bool IsKeyDown(unsigned char key);
-	inline bool IsKeyDownThisFrame(unsigned char key);
-	inline bool IsKeyUp(unsigned char key);
-	inline bool IsKeyUpThisFrame(unsigned char key);
+	bool IsKeyDown(unsigned char key);
+	bool IsKeyDownThisFrame(unsigned char key);
+	bool IsKeyUp(unsigned char key);
+	bool IsKeyUpThisFrame(unsigned char key);
 
-	inline bool HasKeyEvent();
-	inline KeyEvent PeekKey();
-	inline KeyEvent PopKey();
+	bool HasKeyEvent();
+	KeyEvent PeekKey();
+	KeyEvent PopKey();
 
-	inline bool HasChar();
-	inline unsigned char PeekChar();
-	inline unsigned char PopChar();
+	bool HasChar();
+	unsigned char PeekChar();
+	unsigned char PopChar();
 
 private:
 	void PressKey(unsigned char key);

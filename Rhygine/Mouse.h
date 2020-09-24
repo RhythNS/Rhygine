@@ -5,11 +5,11 @@
 #include "Tickable.h"
 #include <Windows.h>
 
-constexpr auto RH_MOUSE_LEFT = 0;
-constexpr auto RH_MOUSE_RIGHT = 1;
-constexpr auto RH_MOUSE_MIDDLE = 2;
-constexpr auto RH_MOUSE_X1 = 3;
-constexpr auto RH_MOUSE_X2 = 4;
+constexpr int RH_MOUSE_LEFT = 0;
+constexpr int RH_MOUSE_RIGHT = 1;
+constexpr int RH_MOUSE_MIDDLE = 2;
+constexpr int RH_MOUSE_X1 = 3;
+constexpr int RH_MOUSE_X2 = 4;
 
 class Mouse : public Tickable
 {
@@ -25,24 +25,24 @@ public:
 	class ButtonEvent {
 	public:
 		ButtonEvent(bool buttonDown, Button button) : buttonDown(buttonDown), button(button) {}
-		inline bool GetWasButtonDown() { return buttonDown; }
-		inline Button GetButton() { return button; }
+		bool GetWasButtonDown() { return buttonDown; }
+		Button GetButton() { return button; }
 	private:
 		bool buttonDown;
 		Button button;
 	};
 
-	inline int GetX();
-	inline int GetY();
-	inline float GetScrollDelta();
-	inline bool IsButtonDown(int button);
-	inline bool IsButtonDownThisFrame(int button);
-	inline bool IsButtonUp(int button);
-	inline bool IsButtonUpThisFrame(int button);
+	int GetX();
+	int GetY();
+	float GetScrollDelta();
+	bool IsButtonDown(int button);
+	bool IsButtonDownThisFrame(int button);
+	bool IsButtonUp(int button);
+	bool IsButtonUpThisFrame(int button);
 
-	inline bool HasButtonEvent();
-	inline ButtonEvent PeekButton();
-	inline ButtonEvent PopButton();
+	bool HasButtonEvent();
+	ButtonEvent PeekButton();
+	ButtonEvent PopButton();
 
 private:
 	void Move(int x, int y);

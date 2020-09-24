@@ -1,52 +1,52 @@
 #include "Mouse.h"
 #include <Windows.h>
 
-inline int Mouse::GetX()
+int Mouse::GetX()
 {
 	return x;
 }
 
-inline int Mouse::GetY()
+int Mouse::GetY()
 {
 	return y;
 }
 
-inline float Mouse::GetScrollDelta()
+float Mouse::GetScrollDelta()
 {
 	return prevScroll;
 }
 
-inline bool Mouse::IsButtonDown(int button)
+bool Mouse::IsButtonDown(int button)
 {
 	return currentButtons[button];
 }
 
-inline bool Mouse::IsButtonDownThisFrame(int button)
+bool Mouse::IsButtonDownThisFrame(int button)
 {
 	return currentButtons[button] && !prevButtons[button];
 }
 
-inline bool Mouse::IsButtonUp(int button)
+bool Mouse::IsButtonUp(int button)
 {
 	return !currentButtons[button];
 }
 
-inline bool Mouse::IsButtonUpThisFrame(int button)
+bool Mouse::IsButtonUpThisFrame(int button)
 {
 	return !currentButtons[button] && !prevButtons[button];
 }
 
-inline bool Mouse::HasButtonEvent()
+bool Mouse::HasButtonEvent()
 {
 	return events.size() > 0;
 }
 
-inline Mouse::ButtonEvent Mouse::PeekButton()
+Mouse::ButtonEvent Mouse::PeekButton()
 {
 	return events.front();
 }
 
-inline Mouse::ButtonEvent Mouse::PopButton()
+Mouse::ButtonEvent Mouse::PopButton()
 {
 	ButtonEvent buttonEvent = events.front();
 	events.pop();

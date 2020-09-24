@@ -3,6 +3,8 @@
 #include <d3d11.h>
 #include <wrl.h>
 
+#include "TestCamera.h"
+
 class Window;
 
 class Gfx
@@ -18,6 +20,7 @@ public:
 
 private:
 	Window* window;
+	TestCamera camera;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> swap;

@@ -1,53 +1,53 @@
 #include "Keys.h"
 
-inline bool Keys::IsKeyDown(unsigned char key)
+bool Keys::IsKeyDown(unsigned char key)
 {
 	return currentKeys[key];
 }
 
-inline bool Keys::IsKeyDownThisFrame(unsigned char key)
+bool Keys::IsKeyDownThisFrame(unsigned char key)
 {
 	return currentKeys[key] && !prevKeys[key];
 }
 
-inline bool Keys::IsKeyUp(unsigned char key)
+bool Keys::IsKeyUp(unsigned char key)
 {
 	return !currentKeys[key];
 }
 
-inline bool Keys::IsKeyUpThisFrame(unsigned char key)
+bool Keys::IsKeyUpThisFrame(unsigned char key)
 {
 	return !currentKeys[key] && prevKeys[key];
 }
 
-inline bool Keys::HasKeyEvent()
+bool Keys::HasKeyEvent()
 {
 	return events.size() > 0;
 }
 
-inline Keys::KeyEvent Keys::PeekKey()
+Keys::KeyEvent Keys::PeekKey()
 {
 	return events.front();
 }
 
-inline Keys::KeyEvent Keys::PopKey()
+Keys::KeyEvent Keys::PopKey()
 {
 	KeyEvent front = events.front();
 	events.pop();
 	return front;
 }
 
-inline bool Keys::HasChar()
+bool Keys::HasChar()
 {
 	return chars.size() > 0;
 }
 
-inline unsigned char Keys::PeekChar()
+unsigned char Keys::PeekChar()
 {
 	return chars.front();
 }
 
-inline unsigned char Keys::PopChar()
+unsigned char Keys::PopChar()
 {
 	unsigned char frontChar = chars.front();
 	chars.pop();
