@@ -44,17 +44,31 @@ void TestCamera::HandleInput(Window* window)
 
 DirectX::XMMATRIX TestCamera::GetMatrix()
 {
-	DirectX::XMVECTOR upVector = DirectX::XMVector3Transform(
-		DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f),
-		DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z)
+	/*
+	// forward vector 
+	DirectX::XMVECTOR forward = DirectX::XMVector3Transform(
+		DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
+		DirectX::XMMatrixRotationRollPitchYaw(rotation.x, -rotation.y, rotation.z)
 	);
 
+	DirectX::XMVECTOR upVector = DirectX::XMVector3Transform(
+		forward,
+		DirectX::XMMatrixRotationRollPitchYaw(-90.0f, 0.0f, 0.0f)
+	);
+
+	DirectX::XMVECTOR pos = DirectX::XMVectorSet(position.x, position.y, position.z, 0.0f);
+
 	return DirectX::XMMatrixLookAtLH(
-		DirectX::XMVectorSet(position.x, position.y, position.z, 0.0f),
-		DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f),
+		pos,
+		DirectX::XMVectorAdd(pos, forward),
 		upVector
 	);
+	*/
 
 	//	return DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z) *
 	//		DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+
+	return
+		DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
+		DirectX::XMMatrixRotationRollPitchYaw(rotation.x, -rotation.y, rotation.z);
 }

@@ -160,8 +160,8 @@ void Gfx::DebugDraw()
 	unsigned int indexOffset = 0;
 	context->IASetIndexBuffer(indexBuffer.Get(), format, indexOffset);
 
-	//float angle = window->time.GetTimeSinceStart(), x = 0, z = 0;
-	float angle = 0, x = 0, z = 0;
+	float angle = window->time.GetTimeSinceStart(), x = 0, y = 0, z = 0;
+	//float angle = 0, x = 0, z = 0;
 
 	camera.HandleInput(window);
 
@@ -172,9 +172,8 @@ void Gfx::DebugDraw()
 		{
 			DirectX::XMMatrixTranspose(
 					DirectX::XMMatrixScaling(4.0f, 4.0f, 4.0f) *
-					DirectX::XMMatrixRotationZ(angle) *
-					DirectX::XMMatrixRotationX(angle) *
-					DirectX::XMMatrixTranslation(x, 0.0f, z + 10.0f) *
+					DirectX::XMMatrixRotationRollPitchYaw(0, angle, 0) *
+					DirectX::XMMatrixTranslation(x, y, z) *
 					camera.GetMatrix() *
 					DirectX::XMMatrixPerspectiveLH(1.0f, (float)window->GetHeight() / (float)window->GetWidth(), 0.5f, 100.0f)
 				)
