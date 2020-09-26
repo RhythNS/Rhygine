@@ -82,6 +82,8 @@ Window::Window(WindowDefinition definition) :
 
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
+
+	currentScene->Init();
 }
 
 
@@ -93,6 +95,11 @@ Window::~Window()
 inline Window* Window::GetInstance()
 {
 	return instance;
+}
+
+Gfx* Window::GetGfx()
+{
+	return gfx;
 }
 
 Scene* Window::GetCurrentScene()
@@ -145,10 +152,10 @@ int Window::MainLoop()
 			i->Tick();
 		}
 
-		//currentScene->Update();
+		currentScene->Update();
 		gfx->BeginDraw();
-		//currentScene->Draw();
-		gfx->DebugDraw();
+		currentScene->Draw();
+		//gfx->DebugDraw();
 		gfx->EndDraw();
 
 		auto frameTime = timeNow - timeBefore;

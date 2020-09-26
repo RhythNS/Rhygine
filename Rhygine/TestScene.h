@@ -3,6 +3,7 @@
 
 class TestScene : public Scene
 {
+	void Init();
 	void Update();
 	void Draw();
 };

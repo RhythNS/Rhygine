@@ -7,6 +7,10 @@
 #include <wrl.h>
 #include <d3d11.h>
 
+void TestScene::Init()
+{
+}
+
 void TestScene::Update()
 {
 }

@@ -12,6 +12,7 @@
 
 Gfx::Gfx(Window* window) : window(window), camera({ 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f })
 {
+	instance = this;
 	HWND windowHandle = *window->GetWindowHandle();
 
 	DXGI_SWAP_CHAIN_DESC desc = {};
@@ -97,8 +98,24 @@ void Gfx::BeginDraw()
 {
 	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
 	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	context->OMSetRenderTargets(1, target.GetAddressOf(), nullptr);
+
+	D3D11_VIEWPORT viewport = { 0 };
+	viewport.Width = window->GetWidth();
+	viewport.Height = window->GetHeight();
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	context->RSSetViewports(1, &viewport);
 }
 
+void Gfx::DrawIndexed(UINT indexCount)
+{
+	context->DrawIndexed(indexCount, 0, 0);
+}
+/*
 void Gfx::DebugDraw()
 {
 	struct Vertex {
@@ -112,7 +129,6 @@ void Gfx::DebugDraw()
 			unsigned char a;
 		} color;
 	};
-
 
 	Vertex verts[] = {
 		{-0.5f, -0.5f, 0.5f, 255,0,0,0},
@@ -238,8 +254,11 @@ void Gfx::DebugDraw()
 	//context->DrawIndexed(std::size(indexes), 0, 0);
 	context->DrawIndexed((UINT)std::size(indexes), 0, 0);
 }
+*/
 
 void Gfx::EndDraw()
 {
 	THROW_IF_FAILED(swap->Present(1, 0));
 }
+
+Gfx* Gfx::instance;

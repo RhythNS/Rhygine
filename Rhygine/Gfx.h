@@ -6,21 +6,25 @@
 #include "TestCamera.h"
 
 class Window;
+class Bindable;
 
 class Gfx
 {
 	friend class Window;
+	friend class Bindable;
 public:
 	Gfx() = delete;
 	Gfx(Window* window);
 
 	void BeginDraw();
-	void DebugDraw();
+	void DrawIndexed(UINT indexCount);
 	void EndDraw();
 
+	TestCamera camera;
 private:
 	Window* window;
-	TestCamera camera;
+
+	static Gfx* instance;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> swap;

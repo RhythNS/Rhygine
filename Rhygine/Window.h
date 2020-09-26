@@ -33,6 +33,7 @@ public:
 	~Window();
 	
  	static Window* GetInstance();
+	Gfx* GetGfx();
 	Scene* GetCurrentScene();
 	HWND* GetWindowHandle();
 	HINSTANCE* GetHInstance();

@@ -145,27 +145,47 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="TestCamera.cpp" />
+    <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="VertBuffer.cpp" />
+    <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bindable.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="GeoShader.h" />
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RhyException.h" />
     <ClInclude Include="Gfx.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="PixShader.h" />
     <ClInclude Include="TestCamera.h" />
+    <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Tickable.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="VertBuffer.h" />
+    <ClInclude Include="VertShader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
