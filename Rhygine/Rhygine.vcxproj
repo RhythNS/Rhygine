@@ -146,10 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
-    <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
-    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -160,7 +158,6 @@
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="VertBuffer.cpp" />
     <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />

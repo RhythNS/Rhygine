@@ -3,7 +3,6 @@
 #include <thread>
 #include <iostream>
 #include <string>
-//#include <strsafe.h>
 
 #include "RhyException.h"
 #include "Keys.h"
@@ -92,7 +91,7 @@ Window::~Window()
 	delete gfx;
 }
 
-inline Window* Window::GetInstance()
+Window* Window::GetInstance()
 {
 	return instance;
 }

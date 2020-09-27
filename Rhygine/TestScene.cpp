@@ -9,12 +9,15 @@
 
 void TestScene::Init()
 {
+	pyramid.Init();
 }
 
 void TestScene::Update()
 {
+	pyramid.Update();
 }
 
 void TestScene::Draw()
 {
+	pyramid.Draw();
 }

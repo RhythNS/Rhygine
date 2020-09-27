@@ -3,7 +3,7 @@
 
 #include <d3dcompiler.h>
 
-PixShader::PixShader(LPCWSTR fileName, Microsoft::WRL::ComPtr<ID3DBlob> blob)
+PixShader::PixShader(LPCWSTR fileName)
 {
 	THROW_IF_FAILED(D3DReadFileToBlob(fileName, &blob));
 	THROW_IF_FAILED(GetDevice()->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shaderPointer));
@@ -12,4 +12,9 @@ PixShader::PixShader(LPCWSTR fileName, Microsoft::WRL::ComPtr<ID3DBlob> blob)
 void PixShader::Bind()
 {
 	GetContext()->PSSetShader(shaderPointer.Get(), nullptr, 0);
+}
+
+ID3DBlob* PixShader::GetBlob()
+{
+	return blob.Get();
 }

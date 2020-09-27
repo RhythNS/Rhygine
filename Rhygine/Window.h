@@ -15,7 +15,6 @@ class Tickable;
 class Window
 {
 public:
-
 	struct WindowDefinition {
 	public:
 		HINSTANCE hInstance;

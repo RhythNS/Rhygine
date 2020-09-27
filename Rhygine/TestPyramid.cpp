@@ -10,7 +10,11 @@
 
 #include <vector>
 
-TestPyramid::TestPyramid()
+TestPyramid::TestPyramid() : consBuffer(nullptr), indexBuffer(nullptr)
+{
+}
+
+void TestPyramid::Init()
 {
 	struct Vertex {
 		struct {
@@ -38,7 +42,7 @@ TestPyramid::TestPyramid()
 		2,1,0, 0,3,2
 	};
 
-	bindables.push_back(std::make_unique<VertBuffer<Vertex>>(verts));
+	bindables.push_back(std::make_unique<VertBuffer<Vertex>>(verts, 0));
 
 	bindables.push_back(std::make_unique<IndexBufferUS>(indexes));
 	indexBuffer = static_cast<IndexBufferUS*>(bindables.end()->get());
@@ -57,11 +61,11 @@ TestPyramid::TestPyramid()
 	);
 
 	bindables.push_back(std::make_unique<ConstantVS<MatrixConstantBuffer>>(matConsBuffer));
-	//consBuffer = static_cast<ConstantBuffer<MatrixConstantBuffer>*>(bindables.end()->get());
+	consBuffer = static_cast<ConstantVS<MatrixConstantBuffer>*>(bindables.end()->get());
 
-	Microsoft::WRL::ComPtr<ID3DBlob> blob;
-	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.cso", blob));
-	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.cso", blob));
+	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.cso"));
+	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.cso"));
+	ID3DBlob* blob = ( static_cast<VertShader*>( bindables.end()->get() ) )->GetBlob();
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },

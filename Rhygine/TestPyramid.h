@@ -10,12 +10,13 @@ class Bindable;
 
 class TestPyramid
 {
+public:
 	struct MatrixConstantBuffer {
 		DirectX::XMMATRIX transform;
 	};
 
-public:
 	TestPyramid();
+	void Init();
 	void Update();
 	void Draw();
 private:

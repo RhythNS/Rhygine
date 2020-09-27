@@ -4,9 +4,11 @@
 class PixShader : public Bindable
 {
 public:
-	PixShader(LPCWSTR fileName, Microsoft::WRL::ComPtr<ID3DBlob> blob);
+	PixShader(LPCWSTR fileName);
 	void Bind();
+	ID3DBlob* GetBlob();
 private:
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> shaderPointer;
+	Microsoft::WRL::ComPtr<ID3DBlob> blob;
 };
 
