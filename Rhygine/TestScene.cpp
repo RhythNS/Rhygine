@@ -1,23 +1,30 @@
+#include "RhyWin.h"
+#include <d3dcompiler.h>
+
 #include "TestScene.h"
 #include "RhyException.h"
 #include "Window.h"
-
-#include <Windows.h>
-#include <d3dcompiler.h>
-#include <wrl.h>
-#include <d3d11.h>
+#include "TestPyramid.h"
+#include "TestModel.h"
 
 void TestScene::Init()
 {
-	pyramid.Init();
+	gameobjects.push_back(std::make_unique<TestPyramid>());
+	gameobjects.push_back(std::make_unique<TestModel>());
+	
+
+	for (auto& gameobject : gameobjects)
+		gameobject->Init();
 }
 
 void TestScene::Update()
 {
-	pyramid.Update();
+	for (auto& gameobject : gameobjects)
+		gameobject->Update();
 }
 
 void TestScene::Draw()
 {
-	pyramid.Draw();
+	for (auto& gameobject : gameobjects)
+		gameobject->Draw();
 }

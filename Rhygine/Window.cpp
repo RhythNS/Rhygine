@@ -12,8 +12,6 @@
 #include "Scene.h"
 #include "Tickable.h"
 
-//Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, Scene scene) : hInstance(hInstance), currentScene(scene)
-//Window::Window(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow, Scene* startScene) : hInstance(hInstance), currentScene(startScene)
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),
 	currentScene(definition.startScene),
@@ -136,7 +134,7 @@ int Window::MainLoop()
 	MSG msg;
 	while (true)
 	{
-		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 			if (msg.message == WM_QUIT)
 				return (int)msg.wParam;
 
@@ -151,6 +149,7 @@ int Window::MainLoop()
 			i->Tick();
 		}
 
+		gfx->camera.HandleInput(this);
 		currentScene->Update();
 		gfx->BeginDraw();
 		currentScene->Draw();

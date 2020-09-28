@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include "RhyWin.h"
 
 #include "Window.h"
 #include "RhyException.h"

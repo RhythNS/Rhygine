@@ -48,9 +48,6 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Gfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Keys.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +79,15 @@
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="TestPyramid.cpp">
+      <Filter>Source Files\Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModel.cpp">
+      <Filter>Source Files\Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Gfx.cpp">
       <Filter>Source Files\Gameobjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -148,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="TestPyramid.h">
       <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModel.h">
+      <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameobject.h">
+      <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RhyWin.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

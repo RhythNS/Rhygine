@@ -1,6 +1,5 @@
 #pragma once
-#include <d3d11.h>
-#include <wrl.h>
+#include "RhyWin.h"
 #include <vector>
 
 #include "Bindable.h"
@@ -14,7 +13,7 @@ public:
 	}
 	VertBuffer(std::vector<Vertex> verts, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
-		desc.ByteWidth = sizeof(Vertex) * verts.size();
+		desc.ByteWidth = (UINT)(sizeof(Vertex) * verts.size());
 		desc.StructureByteStride = sizeof(Vertex);
 
 		D3D11_SUBRESOURCE_DATA vertData = {  };

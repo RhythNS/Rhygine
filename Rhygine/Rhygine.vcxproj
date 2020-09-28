@@ -70,6 +70,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -146,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
     <ClCompile Include="InputLayout.cpp" />
@@ -155,6 +168,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="TestCamera.cpp" />
+    <ClCompile Include="TestModel.cpp" />
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -165,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Gameobject.h" />
     <ClInclude Include="GeoShader.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
@@ -174,9 +189,11 @@
     <ClInclude Include="Gfx.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="RhyWin.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="TestCamera.h" />
+    <ClInclude Include="TestModel.h" />
     <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Tickable.h" />

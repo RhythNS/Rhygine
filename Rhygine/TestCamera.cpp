@@ -40,12 +40,17 @@ void TestCamera::HandleInput(Window* window)
 	if (window->keys.IsKeyDown('U'))
 		rotation.y -= 5 * delta;
 
+	if (window->keys.IsKeyDownThisFrame(VK_SPACE))
+	{
+		rotation = { 0,0,0 };
+		position = { 0,0,0 };
+	}
 }
 
 DirectX::XMMATRIX TestCamera::GetMatrix()
 {
 	/*
-	// forward vector 
+	// forward vector
 	DirectX::XMVECTOR forward = DirectX::XMVector3Transform(
 		DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f),
 		DirectX::XMMatrixRotationRollPitchYaw(rotation.x, -rotation.y, rotation.z)

@@ -1,5 +1,5 @@
 #include "Mouse.h"
-#include <Windows.h>
+#include "RhyWin.h"
 
 int Mouse::GetX()
 {

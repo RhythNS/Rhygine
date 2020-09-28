@@ -1,22 +1,22 @@
 #pragma once
 #include "Bindable.h"
-#include <wrl.h>
+#include "RhyWin.h"
 #include <vector>
 
 template <class Constant>
 class ConstantBuffer : public Bindable
 {
 public:
-	ConstantBuffer(std::vector<Constant> cons) : ConstantBuffer(cons, GetDefaultDescription())
+	ConstantBuffer(Constant cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot)
 	{
 	}
-	ConstantBuffer(std::vector<Constant> cons, D3D11_BUFFER_DESC desc) : constant(cons)
+	ConstantBuffer(Constant cons, D3D11_BUFFER_DESC desc, int slot) : constant(cons), slot(slot)
 	{
-		desc.ByteWidth = sizeof(Constant) * cons.size();
-		desc.StructureByteStride = sizeof(Constant);
+		desc.ByteWidth = sizeof(Constant);
+		desc.StructureByteStride = 0;
 
 		D3D11_SUBRESOURCE_DATA data = { 0 };
-		data.pSysMem = cons.data();
+		data.pSysMem = &cons;
 		THROW_IF_FAILED(GetDevice()->CreateBuffer(&desc, &data, &constantBuffer));
 	}
 	virtual void Bind() = 0;
@@ -24,9 +24,14 @@ public:
 	{
 		GetContext()->UpdateSubresource(constantBuffer.Get(), 0, 0, &constant, 0, 0);
 	}
-	std::vector<Constant>& GetConstant()
+	Constant& GetConstant()
 	{
 		return constant;
+	}
+	void SetAndUpdate(Constant newConstant) 
+	{
+		constant = newConstant;
+		Update();
 	}
 	int slot;
 protected:
@@ -34,12 +39,12 @@ protected:
 	{
 		D3D11_BUFFER_DESC desc = { 0 };
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		desc.Usage = D3D11_USAGE_DYNAMIC;
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		desc.MiscFlags = 0;
+		desc.Usage = D3D11_USAGE_DEFAULT;
+	//	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	//	desc.MiscFlags = 0;
 		return desc;
 	}
-	std::vector<Constant> constant;
+	Constant constant;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> constantBuffer;
 };
 

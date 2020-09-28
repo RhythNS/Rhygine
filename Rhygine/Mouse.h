@@ -3,7 +3,7 @@
 #include <queue>
 
 #include "Tickable.h"
-#include <Windows.h>
+#include "RhyWin.h"
 
 constexpr int RH_MOUSE_LEFT = 0;
 constexpr int RH_MOUSE_RIGHT = 1;

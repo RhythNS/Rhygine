@@ -1,7 +1,9 @@
 #pragma once
-#include "Scene.h"
+#include <vector>
+#include <memory>
 
-#include "TestPyramid.h"
+#include "Scene.h"
+#include "Gameobject.h"
 
 class TestScene : public Scene
 {
@@ -10,6 +12,6 @@ public:
 	void Update();
 	void Draw();
 private:
-	TestPyramid pyramid;
+	std::vector<std::unique_ptr<Gameobject>> gameobjects;
 };
 

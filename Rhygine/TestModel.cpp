@@ -1,22 +1,19 @@
-#include "TestPyramid.h"
+#include "TestModel.h"
+#include "RhyException.h"
 #include "VertBuffer.h"
 #include "PixShader.h"
 #include "VertShader.h"
 #include "InputLayout.h"
 #include "PrimitiveTopolpgy.h"
-#include "Window.h"
-#include "Gfx.h"
-#include "TestCamera.h"
+#include "RhyWin.h"
 
-#include <vector>
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
 
-TestPyramid::TestPyramid()
+void TestModel::Init()
 {
-}
-
-void TestPyramid::Init()
-{
-	position = { 0.0f, 0.0f, 10.0f };
+	position = { -10.0f, 0.0f, 10.0f };
 
 	struct Vertex {
 		struct {
@@ -30,19 +27,34 @@ void TestPyramid::Init()
 		} color;
 	};
 
-	std::vector<Vertex> verts = {
-		{-0.5f, -0.5f, 0.5f, 255,0,0,0},
-		{0.5f, -0.5f, 0.5f, 0,255,0,0},
-		{0.5f, -0.5f, -0.5f, 0,0,255,0},
-		{-0.5f, -0.5f, -0.5f, 255,0,0},
-		{0.0f, 0.5f, 0.0f, 0,255,0,0},
-	};
+	std::vector<Vertex> verts;
 
-	std::vector<unsigned short> indexes{
-		3,4,2, 2,4,1,
-		1,4,0, 0,4,3,
-		2,1,0, 0,3,2
-	};
+	std::vector<unsigned short> indexes;
+
+
+	const std::string pFile = "TestModels\\spot.obj";
+	
+	Assimp::Importer importer;
+
+	const aiScene* scene = importer.ReadFile(pFile,
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices);
+
+	const aiMesh* mesh = scene->mMeshes[0];
+
+	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+	{
+		verts.push_back(
+			{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, 255, 0, 0, 0 }
+		);
+	}
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	{
+		const aiFace& face = mesh->mFaces[i];
+		indexes.push_back(face.mIndices[0]);
+		indexes.push_back(face.mIndices[1]);
+		indexes.push_back(face.mIndices[2]);
+	}
 
 	bindables.push_back(std::make_unique<VertBuffer<Vertex>>(verts, 0));
 

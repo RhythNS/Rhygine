@@ -1,6 +1,5 @@
 #pragma once
-#include <d3d11.h>
-#include <wrl.h>
+#include "RhyWin.h"
 #include <vector>
 
 #include "Bindable.h"
@@ -10,10 +9,10 @@ template <class Index>
 class IndexBuffer : public Bindable
 {
 public:
-	IndexBuffer(std::vector<Index> inds) : IndexBuffer<Index>(inds, GetDefaultDescription()) {}
-	IndexBuffer(std::vector<Index> inds, D3D11_BUFFER_DESC desc) : size(inds.size())
+	IndexBuffer(std::vector<Index> inds, int slot) : IndexBuffer<Index>(inds, GetDefaultDescription(), slot) {}
+	IndexBuffer(std::vector<Index> inds, D3D11_BUFFER_DESC desc, int slot) : size((int)inds.size()), slot(slot)
 	{
-		desc.ByteWidth = sizeof(Index) * inds.size();
+		desc.ByteWidth = (UINT)(sizeof(Index) * inds.size());
 		desc.StructureByteStride = sizeof(Index);
 		D3D11_SUBRESOURCE_DATA indexData = { };
 		indexData.pSysMem = inds.data();

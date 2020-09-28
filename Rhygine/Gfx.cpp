@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "Keys.h"
 
-#include <Windows.h>
+#include "RhyWin.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #pragma comment(lib,"d3d11.lib")
@@ -102,8 +102,8 @@ void Gfx::BeginDraw()
 	context->OMSetRenderTargets(1, target.GetAddressOf(), nullptr);
 
 	D3D11_VIEWPORT viewport = { 0 };
-	viewport.Width = window->GetWidth();
-	viewport.Height = window->GetHeight();
+	viewport.Width = (float)window->GetWidth();
+	viewport.Height = (float)window->GetHeight();
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1;
 	viewport.TopLeftX = 0;
