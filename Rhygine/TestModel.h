@@ -6,4 +6,3 @@ class TestModel : public Gameobject
 public:
 	virtual void Init();
 };
-

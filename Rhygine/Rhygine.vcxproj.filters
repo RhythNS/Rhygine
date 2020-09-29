@@ -34,6 +34,9 @@
     <Filter Include="Source Files\Gameobjects">
       <UniqueIdentifier>{63cf5f88-9091-43ac-8c5a-05fe4ec4e4a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Includers">
+      <UniqueIdentifier>{7bdb1b47-d8de-42d9-ad20-870ac5ff96ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -89,6 +92,12 @@
     </ClCompile>
     <ClCompile Include="Gfx.cpp">
       <Filter>Source Files\Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTexture.cpp">
+      <Filter>Source Files\Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +170,17 @@
     <ClInclude Include="Gameobject.h">
       <Filter>Header Files\Gameobjects</Filter>
     </ClInclude>
+    <ClInclude Include="TestTexture.h">
+      <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
     <ClInclude Include="RhyWin.h">
-      <Filter>Header Files</Filter>
+      <Filter>Includers</Filter>
+    </ClInclude>
+    <ClInclude Include="RhySTB.h">
+      <Filter>Includers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +188,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="BasicPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TexVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TexPix.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

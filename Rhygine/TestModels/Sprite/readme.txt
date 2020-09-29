@@ -1,0 +1,1 @@
+Taken from: https://www.gameart2d.com/cute-girl-free-sprites.html
