@@ -5,11 +5,14 @@
 #include "VertShader.h"
 #include "InputLayout.h"
 #include "PrimitiveTopolpgy.h"
+#include "Sampler.h"
+#include "Texture.h"
 #include "RhyWin.h"
+#include "Window.h"
 
-#include <assimp/Importer.hpp>      // C++ importer interface
-#include <assimp/scene.h>           // Output data structure
-#include <assimp/postprocess.h>     // Post processing flags
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 void TestModel::Init()
 {
@@ -20,20 +23,15 @@ void TestModel::Init()
 			float x, y, z;
 		} pos;
 		struct {
-			unsigned char r;
-			unsigned char g;
-			unsigned char b;
-			unsigned char a;
-		} color;
+			float u;
+			float v;
+		} texCoords;
 	};
 
 	std::vector<Vertex> verts;
-
 	std::vector<unsigned short> indexes;
 
-
 	const std::string pFile = "TestModels\\spot.obj";
-	
 	Assimp::Importer importer;
 
 	const aiScene* scene = importer.ReadFile(pFile,
@@ -44,10 +42,12 @@ void TestModel::Init()
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
+		const aiVector3D* texVec = &mesh->mTextureCoords[0][i];
 		verts.push_back(
-			{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, 255, 0, 0, 0 }
+			{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, texVec->x, 1-texVec->y}
 		);
 	}
+
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		const aiFace& face = mesh->mFaces[i];
@@ -68,14 +68,26 @@ void TestModel::Init()
 	bindables.push_back(std::make_unique<ConstantVS<MatrixConstantBuffer>>(matConsBuffer, 0));
 	consBuffer = static_cast<ConstantVS<MatrixConstantBuffer>*>(bindables[bindables.size() - 1].get());
 
+	bindables.push_back(std::make_unique<Texture>("TestModels\\spot_texture.png", 0));
 
-	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.cso"));
-	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.cso"));
+	bindables.push_back(std::make_unique<Sampler>(0));
+
+	bindables.push_back(std::make_unique<PixShader>(L"TexPix.cso"));
+	bindables.push_back(std::make_unique<VertShader>(L"TexVert.cso"));
 	ID3DBlob* blob = (static_cast<VertShader*>(bindables[bindables.size() - 1].get()))->GetBlob();
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
-		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	bindables.push_back(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+}
+
+void TestModel::Update()
+{
+	float delta = Window::GetInstance()->time.GetDelta();
+	rotation.y += delta * 0.5f;
+	rotation.x += delta * 0.8f;
+	rotation.z += delta;
+	Gameobject::Update();
 }

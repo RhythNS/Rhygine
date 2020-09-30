@@ -173,6 +173,7 @@
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
+    <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="TestCamera.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="RhySTB.h" />
     <ClInclude Include="RhyWin.h" />
+    <ClInclude Include="Sampler.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="TestCamera.h" />

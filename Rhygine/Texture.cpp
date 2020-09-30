@@ -9,10 +9,20 @@
 Texture::Texture(const char* fileName, int slot) : slot(slot)
 {
 	int x, y, n;
-	unsigned char* image = stbi_load(fileName, &x, &y, &n, 4);
 
-	if (image == nullptr)
-		throw RHY_EXCEP("Image could not be loaded");
+	unsigned char* load = stbi_load(fileName, &x, &y, &n, 4);
+
+	if (load == nullptr)
+		throw RHY_EXCEP(stbi_failure_reason());
+
+	std::vector<unsigned char> image(x * y * 4);
+	for (int i = 0; i < x * y * n; i += 4)
+	{
+		image[i]	 = load[i + 2];
+		image[i + 1] = load[i + 1];
+		image[i + 2] = load[i];
+		image[i + 3] = load[i + 3];
+	}
 
 	D3D11_TEXTURE2D_DESC desc = { 0 };
 	desc.Width = x;
@@ -21,24 +31,25 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 	desc.ArraySize = 1;
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UINT;
+	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 
 	D3D11_SUBRESOURCE_DATA data = { 0 };
-	data.pSysMem = &image;
+	data.pSysMem = image.data();
 	data.SysMemPitch = x * sizeof(unsigned char) * 4;
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex;
 	THROW_IF_FAILED(GetDevice()->CreateTexture2D(&desc, &data, &tex));
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC resourceView = { };
-	resourceView.Format = DXGI_FORMAT_R8G8B8A8_UINT;
+	resourceView.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	resourceView.Texture2D.MipLevels = 1;
 	resourceView.Texture2D.MostDetailedMip = 0;
 	resourceView.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	THROW_IF_FAILED(GetDevice()->CreateShaderResourceView(tex.Get(), &resourceView, &texturePointer));
 
+	stbi_image_free(load);
 }
 
 void Texture::Bind()

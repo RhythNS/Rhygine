@@ -10,6 +10,7 @@ class Bindable;
 class TestPyramid : public Gameobject
 {
 public:
-	TestPyramid();
+	TestPyramid(Vector position);
 	void Init();
+	void Update();
 };

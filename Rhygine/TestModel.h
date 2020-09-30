@@ -4,5 +4,6 @@
 class TestModel : public Gameobject
 {
 public:
-	virtual void Init();
+	void Init();
+	void Update();
 };

@@ -10,14 +10,15 @@
 
 #include <vector>
 
-TestPyramid::TestPyramid()
+TestPyramid::TestPyramid(Vector pos)
 {
+	position.x = pos.x;
+	position.y = pos.y;
+	position.z = pos.z;
 }
 
 void TestPyramid::Init()
 {
-	position = { 0.0f, 0.0f, 10.0f };
-
 	struct Vertex {
 		struct {
 			float x, y, z;
@@ -66,4 +67,10 @@ void TestPyramid::Init()
 		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	bindables.push_back(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+}
+
+void TestPyramid::Update()
+{
+	rotation.y += Window::GetInstance()->time.GetDelta();
+	Gameobject::Update();
 }

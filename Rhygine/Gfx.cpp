@@ -67,6 +67,21 @@ Gfx::Gfx(Window* window) : window(window), camera({ 0.0f, 0.0f, 0.0f }, { 0.0f, 
 	stencilDesc.DepthEnable = true;
 	stencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	stencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	stencilDesc.StencilEnable = true;
+	stencilDesc.StencilReadMask = 0xFF;
+	stencilDesc.StencilWriteMask = 0xFF;
+
+	stencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	stencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	stencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	stencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	stencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	stencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	stencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	stencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> stencilState;
 	THROW_IF_FAILED(device->CreateDepthStencilState(&stencilDesc, &stencilState));
 
@@ -99,7 +114,7 @@ void Gfx::BeginDraw()
 	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
 	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	context->OMSetRenderTargets(1, target.GetAddressOf(), nullptr);
+	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
 
 	D3D11_VIEWPORT viewport = { 0 };
 	viewport.Width = (float)window->GetWidth();
@@ -115,146 +130,6 @@ void Gfx::DrawIndexed(UINT indexCount)
 {
 	context->DrawIndexed(indexCount, 0, 0);
 }
-/*
-void Gfx::DebugDraw()
-{
-	struct Vertex {
-		struct {
-			float x, y, z;
-		} pos;
-		struct {
-			unsigned char r;
-			unsigned char g;
-			unsigned char b;
-			unsigned char a;
-		} color;
-	};
-
-	Vertex verts[] = {
-		{-0.5f, -0.5f, 0.5f, 255,0,0,0},
-		{0.5f, -0.5f, 0.5f, 0,255,0,0},
-		{0.5f, -0.5f, -0.5f, 0,0,255,0},
-		{-0.5f, -0.5f, -0.5f, 255,0,0},
-		{0.0f, 0.5f, 0.0f, 0,255,0,0},
-	};
-
-	const unsigned short indexes[]{
-		3,4,2, 2,4,1,
-		1,4,0, 0,4,3,
-		2,1,0, 0,3,2
-	};
-
-	Microsoft::WRL::ComPtr<ID3D11Buffer> vertBuffer;
-	D3D11_BUFFER_DESC vertBufferDesc = { };
-	vertBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertBufferDesc.CPUAccessFlags = 0;
-	vertBufferDesc.MiscFlags = 0;
-	vertBufferDesc.ByteWidth = sizeof(verts);
-	vertBufferDesc.StructureByteStride = sizeof(Vertex);
-	D3D11_SUBRESOURCE_DATA vertData = {  };
-	vertData.pSysMem = verts;
-	THROW_IF_FAILED(device->CreateBuffer(&vertBufferDesc, &vertData, &vertBuffer));
-
-	unsigned int strides = sizeof(Vertex);
-	unsigned int vertOffset = 0;
-	context->IASetVertexBuffers(0, 1, vertBuffer.GetAddressOf(), &strides, &vertOffset);
-
-	Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer;
-	D3D11_BUFFER_DESC indexBufferDesc = {  };
-	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.CPUAccessFlags = 0;
-	indexBufferDesc.MiscFlags = 0;
-	indexBufferDesc.ByteWidth = sizeof(indexes);
-	indexBufferDesc.StructureByteStride = sizeof(unsigned short);
-	D3D11_SUBRESOURCE_DATA indexData = { };
-	indexData.pSysMem = indexes;
-	THROW_IF_FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
-
-	DXGI_FORMAT format = DXGI_FORMAT_R16_UINT;
-	unsigned int indexOffset = 0;
-	context->IASetIndexBuffer(indexBuffer.Get(), format, indexOffset);
-
-	float angle = window->time.GetTimeSinceStart(), x = 0, y = 0, z = 0;
-	//float angle = 0, x = 0, z = 0;
-
-	camera.HandleInput(window);
-
-	struct MatrixConstantBuffer {
-		DirectX::XMMATRIX transform;
-	};
-	MatrixConstantBuffer matConsBuff{
-		{
-			DirectX::XMMatrixTranspose(
-					DirectX::XMMatrixScaling(4.0f, 4.0f, 4.0f) *
-					DirectX::XMMatrixRotationRollPitchYaw(0, angle, 0) *
-					DirectX::XMMatrixTranslation(x, y, z) *
-					camera.GetMatrix() *
-					DirectX::XMMatrixPerspectiveLH(1.0f, (float)window->GetHeight() / (float)window->GetWidth(), 0.5f, 100.0f)
-				)
-			}
-	};
-	Microsoft::WRL::ComPtr<ID3D11Buffer> transformConstantBuffer;
-	D3D11_BUFFER_DESC constantBufferDesc = { 0 };
-	constantBufferDesc.ByteWidth = sizeof(matConsBuff);
-	constantBufferDesc.StructureByteStride = 0;
-	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	constantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	constantBufferDesc.MiscFlags = 0;
-	D3D11_SUBRESOURCE_DATA transformConstantData = { 0 };
-	transformConstantData.pSysMem = &matConsBuff;
-	THROW_IF_FAILED(device->CreateBuffer(&constantBufferDesc, &transformConstantData, &transformConstantBuffer));
-
-	context->VSSetConstantBuffers(0, 1, transformConstantBuffer.GetAddressOf());
-
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixelShader;
-	Microsoft::WRL::ComPtr<ID3DBlob> blob;
-	THROW_IF_FAILED(D3DReadFileToBlob(L"BasicPix.cso", &blob));
-	THROW_IF_FAILED(device->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &pixelShader));
-
-	context->PSSetShader(pixelShader.Get(), nullptr, 0);
-
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertShader;
-	THROW_IF_FAILED(D3DReadFileToBlob(L"BasicVert.cso", &blob));
-	THROW_IF_FAILED(device->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &vertShader));
-
-	context->VSSetShader(vertShader.Get(), nullptr, 0);
-
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;
-	D3D11_INPUT_ELEMENT_DESC inputLayoutDesc[] = {
-		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	THROW_IF_FAILED(
-		device->CreateInputLayout(
-			inputLayoutDesc,
-			std::size(inputLayoutDesc),
-			blob->GetBufferPointer(),
-			blob->GetBufferSize(),
-			&inputLayout)
-	);
-
-	context->IASetInputLayout(inputLayout.Get());
-
-	context->OMSetRenderTargets(1, target.GetAddressOf(), nullptr);
-
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	D3D11_VIEWPORT viewport = { 0 };
-	viewport.Width = window->GetWidth();
-	viewport.Height = window->GetHeight();
-	viewport.MinDepth = 0;
-	viewport.MaxDepth = 1;
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	context->RSSetViewports(1, &viewport);
-
-	//context->DrawIndexed(std::size(indexes), 0, 0);
-	context->DrawIndexed((UINT)std::size(indexes), 0, 0);
-}
-*/
 
 void Gfx::EndDraw()
 {

@@ -14,7 +14,7 @@ public:
 	virtual void Draw();
 private:
 	int atTexture = 0;
-	float timeToChange = 0.15f;
+	float timeToChange = 1.0f / 30.0f;
 	float timer = timeToChange;
 	std::vector<std::unique_ptr<Texture>> textures;
 };

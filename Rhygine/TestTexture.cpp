@@ -5,6 +5,7 @@
 #include "VertShader.h"
 #include "InputLayout.h"
 #include "PrimitiveTopolpgy.h"
+#include "Sampler.h"
 
 #include <string>
 
@@ -50,16 +51,17 @@ void TestTexture::Init()
 
 	for (int i = 1; i < 21; i++)
 	{
-		bindables.push_back(std::make_unique<Texture>(("TestModels\\Sprite\\Walk (" + std::to_string(i) + ").png").c_str(), 0));
+		textures.push_back(std::make_unique<Texture>(("TestModels\\Sprite\\Walk (" + std::to_string(i) + ").png").c_str(), 0));
 	}
 
+	bindables.push_back(std::make_unique<Sampler>(0));
 
 	bindables.push_back(std::make_unique<PixShader>(L"TexPix.cso"));
 	bindables.push_back(std::make_unique<VertShader>(L"TexVert.cso"));
 	ID3DBlob* blob = (static_cast<VertShader*>(bindables[bindables.size() - 1].get()))->GetBlob();
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
-		{ "pos", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	bindables.push_back(std::make_unique<InputLayout>(inputLayoutDesc, blob));
