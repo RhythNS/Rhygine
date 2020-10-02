@@ -8,10 +8,10 @@
 class TestScene : public Scene
 {
 public:
-	void Init();
-	void Update();
-	void Draw();
-private:
+	virtual void Init();
+	virtual void Update();
+	virtual void Draw();
+protected:
 	std::vector<std::unique_ptr<Gameobject>> gameobjects;
 };
 

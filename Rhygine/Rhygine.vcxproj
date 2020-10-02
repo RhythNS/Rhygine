@@ -171,12 +171,15 @@
     <ClCompile Include="Gfx.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
+    <ClCompile Include="LightTestScene.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="TestCamera.cpp" />
+    <ClCompile Include="TestLight.cpp" />
+    <ClCompile Include="TestLitPlate.cpp" />
     <ClCompile Include="TestModel.cpp" />
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -194,6 +197,7 @@
     <ClInclude Include="GeoShader.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="LightTestScene.h" />
     <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RhyException.h" />
@@ -206,6 +210,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="TestCamera.h" />
+    <ClInclude Include="TestLight.h" />
+    <ClInclude Include="TestLitPlate.h" />
     <ClInclude Include="TestModel.h" />
     <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
