@@ -2,13 +2,15 @@
 #include "Window.h"
 #include "Gfx.h"
 
+#include <memory>
+
 void Gameobject::Init()
 {
 }
 
 void Gameobject::Update()
 {
-	consBuffer->SetAndUpdate(GetCurrentTransform());
+	consBuffer->SetAndUpdate(*transform.GetCurrentTransform());
 }
 
 void Gameobject::Draw()
@@ -19,15 +21,9 @@ void Gameobject::Draw()
 	Window::GetInstance()->GetGfx()->DrawIndexed(indexBuffer->GetSize());
 }
 
-Gameobject::MatrixConstantBuffer Gameobject::GetCurrentTransform()
+void Gameobject::CreateTransform()
 {
-	return {
-		DirectX::XMMatrixTranspose(
-			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
-			DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z) *
-			DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
-			Window::GetInstance()->GetGfx()->camera.GetMatrix() *
-			DirectX::XMMatrixPerspectiveLH(1.0f, (float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(), 0.5f, 100.0f)
-			)
-	};
+	Transform::TransformBuffer matConsBuffer = *transform.GetCurrentTransform();
+	bindables.push_back(std::make_unique<ConstantVS<Transform::TransformBuffer>>(matConsBuffer, 0));
+	consBuffer = static_cast<ConstantVS<Transform::TransformBuffer>*>(bindables[bindables.size() - 1].get());
 }

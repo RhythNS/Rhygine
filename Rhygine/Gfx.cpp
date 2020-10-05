@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Keys.h"
+#include "Rhyimgui.h"
 
 #include "RhyWin.h"
 #include <d3dcompiler.h>
@@ -133,6 +134,9 @@ void Gfx::DrawIndexed(UINT indexCount)
 
 void Gfx::EndDraw()
 {
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 	THROW_IF_FAILED(swap->Present(1, 0));
 }
 

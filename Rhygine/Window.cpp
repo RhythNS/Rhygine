@@ -11,6 +11,7 @@
 #include "Gfx.h"
 #include "Scene.h"
 #include "Tickable.h"
+#include "Rhyimgui.h"
 
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),
@@ -77,6 +78,14 @@ Window::Window(WindowDefinition definition) :
 
 	gfx = new Gfx(this);
 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplWin32_Init(windowHandle);
+	ImGui_ImplDX11_Init(gfx->device.Get(), gfx->context.Get());
+
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
 
@@ -86,6 +95,10 @@ Window::Window(WindowDefinition definition) :
 
 Window::~Window()
 {
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+
 	delete gfx;
 }
 
@@ -149,6 +162,10 @@ int Window::MainLoop()
 			i->Tick();
 		}
 
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+
 		gfx->camera.HandleInput(this);
 		currentScene->Update();
 		gfx->BeginDraw();
@@ -179,9 +196,11 @@ LRESULT CALLBACK Window::ProcessPassthrough(HWND hWnd, UINT msg, WPARAM wParam, 
 
 LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+		return true;
+
 	switch (msg)
 	{
-
 		// Keyboard Events ----
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:

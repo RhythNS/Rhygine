@@ -10,11 +10,9 @@
 
 #include <vector>
 
-TestPyramid::TestPyramid(Vector pos)
+TestPyramid::TestPyramid(Vec3 pos)
 {
-	position.x = pos.x;
-	position.y = pos.y;
-	position.z = pos.z;
+	transform.position = pos;
 }
 
 void TestPyramid::Init()
@@ -52,11 +50,7 @@ void TestPyramid::Init()
 
 	bindables.push_back(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-
-	MatrixConstantBuffer matConsBuffer = GetCurrentTransform();
-	bindables.push_back(std::make_unique<ConstantVS<MatrixConstantBuffer>>(matConsBuffer, 0));
-	consBuffer = static_cast<ConstantVS<MatrixConstantBuffer>*>(bindables[bindables.size() - 1].get());
-
+	CreateTransform();
 
 	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.cso"));
 	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.cso"));
@@ -71,6 +65,6 @@ void TestPyramid::Init()
 
 void TestPyramid::Update()
 {
-	rotation.y += Window::GetInstance()->time.GetDelta();
+	transform.rotation = transform.rotation * Quat(0.0f, Window::GetInstance()->time.GetDelta(), 0.0f);
 	Gameobject::Update();
 }

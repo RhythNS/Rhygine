@@ -16,7 +16,7 @@
 
 void TestModel::Init()
 {
-	position = { -10.0f, 0.0f, 10.0f };
+	transform.position.Set(-10.0f, 0.0f, 10.0f);
 
 	struct Vertex {
 		struct {
@@ -63,10 +63,7 @@ void TestModel::Init()
 
 	bindables.push_back(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-
-	MatrixConstantBuffer matConsBuffer = GetCurrentTransform();
-	bindables.push_back(std::make_unique<ConstantVS<MatrixConstantBuffer>>(matConsBuffer, 0));
-	consBuffer = static_cast<ConstantVS<MatrixConstantBuffer>*>(bindables[bindables.size() - 1].get());
+	CreateTransform();
 
 	bindables.push_back(std::make_unique<Texture>("TestModels\\spot_texture.png", 0));
 
@@ -86,8 +83,6 @@ void TestModel::Init()
 void TestModel::Update()
 {
 	float delta = Window::GetInstance()->time.GetDelta();
-	rotation.y += delta * 0.5f;
-	rotation.x += delta * 0.8f;
-	rotation.z += delta;
+	transform.rotation = transform.rotation * Quat(delta * 0.5f, delta * 0.8f, delta);
 	Gameobject::Update();
 }

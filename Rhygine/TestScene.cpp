@@ -7,6 +7,8 @@
 #include "TestPyramid.h"
 #include "TestModel.h"
 #include "TestTexture.h"
+#include "Testimgui.h"
+#include "RhyMath.h"
 
 void TestScene::Init()
 {
@@ -17,11 +19,12 @@ void TestScene::Init()
 
 	for (int i = 0; i < 10; i++)
 	{
-		TestPyramid::Vector vec = { 0.0f, 0.0f, i * 2.0f };
+		Vec3 vec = { 0.0f, 0.0f, i * 2.0f };
 		gameobjects.push_back(std::make_unique<TestPyramid>(vec));
 	}
 	gameobjects.push_back(std::make_unique<TestModel>());
 	gameobjects.push_back(std::make_unique<TestTexture>());
+	gameobjects.push_back(std::make_unique<Testimgui>());
 
 	for (auto& gameobject : gameobjects)
 		gameobject->Init();

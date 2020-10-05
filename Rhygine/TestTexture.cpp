@@ -11,7 +11,7 @@
 
 void TestTexture::Init()
 {
-	position = { 10.0f, 0.0f, 10.0f };
+	transform.position = { 10.0f, 0.0f, 10.0f };
 
 	struct Vertex {
 		struct {
@@ -44,10 +44,7 @@ void TestTexture::Init()
 
 	bindables.push_back(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-
-	MatrixConstantBuffer matConsBuffer = GetCurrentTransform();
-	bindables.push_back(std::make_unique<ConstantVS<MatrixConstantBuffer>>(matConsBuffer, 0));
-	consBuffer = static_cast<ConstantVS<MatrixConstantBuffer>*>(bindables[bindables.size() - 1].get());
+	CreateTransform();
 
 	for (int i = 1; i < 21; i++)
 	{
