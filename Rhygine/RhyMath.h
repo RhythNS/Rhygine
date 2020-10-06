@@ -10,3 +10,7 @@ typedef aiVector3t<float> Vec3;
 typedef aiQuaterniont<float> Quat;
 typedef aiMatrix3x3t<float> Mat3;
 typedef aiMatrix4x4t<float> Mat4;
+
+namespace rhyM {
+	constexpr float PI = 3.14159265358979323846f;
+}
