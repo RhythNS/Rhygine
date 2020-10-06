@@ -351,3 +351,6 @@ MigrationBackup/
 
 # include everything in testmodels
 !Rhygine/TestModels/*.obj
+
+#ignore imgui ini file
+imgui.ini

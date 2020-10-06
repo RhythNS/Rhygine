@@ -17,7 +17,7 @@ protected:
 	void CreateTransform();
 
 	std::vector<std::unique_ptr<Bindable>> bindables;
-	IndexBufferUS* indexBuffer;
-	ConstantVS<Transform::TransformBuffer>* consBuffer;
+	IndexBufferUS* indexBuffer = nullptr;
+	ConstantVS<Transform::TransformBuffer>* consBuffer = nullptr;
 };
 

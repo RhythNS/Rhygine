@@ -2,7 +2,9 @@
 
 #include "Window.h"
 #include "RhyException.h"
+
 #include "TestScene.h"
+#include "LightTestScene.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -12,7 +14,7 @@ int CALLBACK WinMain(
 {
 	try {
 
-		TestScene scene;
+		LightTestScene scene;
 		
 		Window::WindowDefinition winDef = { 0 };
 		winDef.hInstance = hInstance;

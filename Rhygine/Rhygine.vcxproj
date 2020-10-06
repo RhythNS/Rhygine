@@ -175,7 +175,6 @@
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="imgui\misc\fonts\binary_to_compressed_c.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
@@ -308,9 +307,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Rhygine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="imgui\misc\fonts\Roboto-Medium.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

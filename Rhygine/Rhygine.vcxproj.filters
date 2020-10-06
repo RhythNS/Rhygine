@@ -108,9 +108,6 @@
     <ClCompile Include="LightTestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestLitPlate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestLight.cpp">
       <Filter>Source Files\Gameobjects</Filter>
     </ClCompile>
@@ -144,8 +141,8 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\misc\fonts\binary_to_compressed_c.cpp">
-      <Filter>imgui</Filter>
+    <ClCompile Include="TestLitPlate.cpp">
+      <Filter>Source Files\Gameobjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,9 +227,6 @@
     <ClInclude Include="LightTestScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="TestLitPlate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestLight.h">
       <Filter>Header Files\Gameobjects</Filter>
     </ClInclude>
@@ -278,6 +272,9 @@
     <ClInclude Include="Testimgui.h">
       <Filter>Header Files\Gameobjects</Filter>
     </ClInclude>
+    <ClInclude Include="TestLitPlate.h">
+      <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVert.hlsl">
@@ -303,10 +300,5 @@
     <ResourceCompile Include="Rhygine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="imgui\misc\fonts\Roboto-Medium.ttf">
-      <Filter>imgui</Filter>
-    </Font>
   </ItemGroup>
 </Project>
