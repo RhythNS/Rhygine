@@ -144,6 +144,9 @@
     <ClCompile Include="TestLitPlate.cpp">
       <Filter>Source Files\Gameobjects</Filter>
     </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\Gameobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Time.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="TestLitPlate.h">
       <Filter>Header Files\Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Header Files\Gameobject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

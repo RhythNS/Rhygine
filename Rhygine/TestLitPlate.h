@@ -11,11 +11,13 @@ class TestLitPlate : public Gameobject
 {
 public:
 	struct Buffer {
-		Vec3 lightPos[10];
-		Vec3 lightNormal[10];
-		UINT lightAmount;
-	
-		float padding[3];
+		Vec3 lightPos;
+		Vec3 lightNormal;
+		float lightColor[4];
+
+		float ambientStrength;
+
+		float padding;
 	};
 
 	TestLitPlate(std::array<TestLight*, 10> lights);

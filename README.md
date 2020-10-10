@@ -5,7 +5,7 @@ To build the project you need [vcpkg](https://docs.microsoft.com/en-us/cpp/build
 
     git clone https://github.com/Microsoft/vcpkg.git
     cd vcpkg
-    bootstrap-vcpkg.bin
+    bootstrap-vcpkg.bat
     vcpkg integrate install
     vcpkg install assimp:x64-windows
     vcpkg install stb:x64-windows

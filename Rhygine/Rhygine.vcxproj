@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
@@ -201,6 +202,7 @@
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="GeoShader.h" />
     <ClInclude Include="imgui\imconfig.h" />
