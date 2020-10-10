@@ -11,6 +11,7 @@ public:
 
 	int id;
 	Vec3 direction;
+	float color[4] = { 0.5f, 0.5f, 0.5f, 1.0f };
 private:
 	bool guiWindowOpen = true;
 };

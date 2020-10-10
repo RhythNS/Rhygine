@@ -6,10 +6,12 @@
 
 TestLitPlate::TestLitPlate(std::array<TestLight*, 10> lights) : lights(lights), guiWindowOpen(true), pixBuffer(nullptr)
 {
+	buffer = { Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 1.0f, 1.0f, 0.0f };
 }
 
 void TestLitPlate::Init()
 {
+
 	transform.position.Set(0.0f, 0.0f, 5.0f);
 
 	struct Vertex {
@@ -47,7 +49,7 @@ void TestLitPlate::Init()
 	bindables.push_back(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	UpdateBuffer();
-	bindables.push_back(std::make_unique<ConstantPS<Buffer>>(buffer, 0));
+	bindables.push_back(std::make_unique<ConstantPS<Buffer>>(buffer, 1));
 	pixBuffer = (static_cast<ConstantPS<Buffer>*>(bindables[bindables.size() - 1].get()));
 
 	CreateTransform();
@@ -89,6 +91,15 @@ void TestLitPlate::Draw()
 
 void TestLitPlate::UpdateBuffer()
 {
+	buffer.lightPos = lights[0]->transform.position;
+	buffer.lightNormal = lights[0]->direction;
+	for (int i = 0; i < 4; i++)
+	{
+		buffer.lightColor[i] = lights[0]->color[i];
+	}
+	buffer.ambientStrength = 1.0f;
+
+	/*
 	for (int i = 0; i < 10; i++)
 	{
 		if (lights[i] == nullptr) {
@@ -101,4 +112,5 @@ void TestLitPlate::UpdateBuffer()
 	}
 
 	buffer.lightAmount = 10;
+	*/
 }
