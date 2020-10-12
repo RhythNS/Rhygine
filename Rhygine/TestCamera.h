@@ -5,11 +5,11 @@ class Window;
 
 class TestCamera
 {
+public:
 	struct Vector {
 		float x, y, z;
 	};
 
-public:
 	TestCamera();
 	TestCamera(Vector position, Vector rotation);
 

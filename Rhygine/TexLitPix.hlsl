@@ -2,10 +2,12 @@ Texture2D tex;
 
 cbuffer CBuf
 {
-	float3 lightPosition;
-	float3 lightDirection;
-	float4 lightColor;
+	//float3 lightPosition;
 	float ambientStrength;
+	float4 lightColor;
+    float3 lightPosition;
+    float specStrength;
+    float3 cameraPos;
 };
 
 SamplerState textureSampler
@@ -20,6 +22,18 @@ float4 main(float2 texCoord : Texcoord, float3 worldPos : Position, float3 norma
 	//float4 col = lightColor * ambientStrength;
 	// return tex.Sample(textureSampler, texCoord) * col;
 	
-	return tex.Sample(textureSampler, texCoord) * ambientStrength;
+    float3 norm = normalize(normal);
+    float3 lightDir = normalize(lightPosition - worldPos);
+    float angleMultiplier = max(0, dot(norm, lightDir));
+	
+    float3 reflectionLight = reflect(-lightDir, norm);
+    float3 viewDir = normalize(cameraPos - worldPos);
+    float specMultiplier = max(0, dot(reflectionLight, viewDir));
+    
+    float4 lightColorAdd = lightColor * (angleMultiplier + ambientStrength + specMultiplier * specStrength);
+	
+    //return tex.Sample(textureSampler, texCoord) * lightColorAdd;
+	
+    return lightColorAdd;
 
 }

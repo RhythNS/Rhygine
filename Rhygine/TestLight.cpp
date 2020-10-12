@@ -56,8 +56,8 @@ void TestLight::Init()
 
 	CreateTransform();
 
-	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.cso"));
-	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.cso"));
+	bindables.push_back(std::make_unique<PixShader>(L"BasicPix.hlsl"));
+	bindables.push_back(std::make_unique<VertShader>(L"BasicVert.hlsl"));
 	ID3DBlob* blob = (static_cast<VertShader*>(bindables[bindables.size() - 1].get()))->GetBlob();
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {

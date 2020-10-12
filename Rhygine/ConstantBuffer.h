@@ -22,13 +22,20 @@ public:
 	virtual void Bind() = 0;
 	void Update()
 	{
-		GetContext()->UpdateSubresource(constantBuffer.Get(), 0, 0, &constant, 0, 0);
+		//GetContext()->UpdateSubresource(constantBuffer.Get(), 0, 0, &constant, 0, 0);
+
+		D3D11_MAPPED_SUBRESOURCE resource;
+		ZeroMemory(&resource, sizeof(D3D11_MAPPED_SUBRESOURCE));
+
+		THROW_IF_FAILED(GetContext()->Map(constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &resource));
+		memcpy(resource.pData, &constant, sizeof(Constant));
+		GetContext()->Unmap(constantBuffer.Get(), 0);
 	}
 	Constant& GetConstant()
 	{
 		return constant;
 	}
-	void SetAndUpdate(Constant newConstant) 
+	void SetAndUpdate(Constant newConstant)
 	{
 		constant = newConstant;
 		Update();
@@ -39,9 +46,9 @@ protected:
 	{
 		D3D11_BUFFER_DESC desc = { 0 };
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		desc.Usage = D3D11_USAGE_DEFAULT;
-	//	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	//	desc.MiscFlags = 0;
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		//	desc.MiscFlags = 0;
 		return desc;
 	}
 	Constant constant;

@@ -10,7 +10,7 @@ void Gameobject::Init()
 
 void Gameobject::Update()
 {
-	consBuffer->SetAndUpdate(*transform.GetCurrentTransform());
+	consBuffer->SetAndUpdate(*transform.GetPerspectiveMatrix());
 }
 
 void Gameobject::Draw()
@@ -23,7 +23,7 @@ void Gameobject::Draw()
 
 void Gameobject::CreateTransform()
 {
-	Transform::TransformBuffer matConsBuffer = *transform.GetCurrentTransform();
+	Transform::TransformBuffer matConsBuffer = *transform.GetPerspectiveMatrix();
 	bindables.push_back(std::make_unique<ConstantVS<Transform::TransformBuffer>>(matConsBuffer, 0));
 	consBuffer = static_cast<ConstantVS<Transform::TransformBuffer>*>(bindables[bindables.size() - 1].get());
 }

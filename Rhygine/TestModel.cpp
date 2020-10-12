@@ -69,8 +69,8 @@ void TestModel::Init()
 
 	bindables.push_back(std::make_unique<Sampler>(0));
 
-	bindables.push_back(std::make_unique<PixShader>(L"TexPix.cso"));
-	bindables.push_back(std::make_unique<VertShader>(L"TexVert.cso"));
+	bindables.push_back(std::make_unique<PixShader>(L"TexPix.hlsl"));
+	bindables.push_back(std::make_unique<VertShader>(L"TexVert.hlsl"));
 	ID3DBlob* blob = (static_cast<VertShader*>(bindables[bindables.size() - 1].get()))->GetBlob();
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
