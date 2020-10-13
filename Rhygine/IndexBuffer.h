@@ -5,12 +5,18 @@
 #include "Bindable.h"
 #include "RhyException.h"
 
+class IndexBufferAmount 
+{
+public: 
+	UINT GetSize() { return 0; }
+};
+
 template <class Index>
-class IndexBuffer : public Bindable
+class IndexBuffer : public Bindable, public IndexBufferAmount
 {
 public:
 	IndexBuffer(std::vector<Index> inds, int slot) : IndexBuffer<Index>(inds, GetDefaultDescription(), slot) {}
-	IndexBuffer(std::vector<Index> inds, D3D11_BUFFER_DESC desc, int slot) : size((int)inds.size()), slot(slot)
+	IndexBuffer(std::vector<Index> inds, D3D11_BUFFER_DESC desc, int slot) : size((UINT)inds.size()), slot(slot)
 	{
 		desc.ByteWidth = (UINT)(sizeof(Index) * inds.size());
 		desc.StructureByteStride = sizeof(Index);
@@ -40,7 +46,7 @@ protected:
 	virtual DXGI_FORMAT GetFormat() = 0;
 private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> indexPointer;
-	int size;
+	UINT size;
 };
 
 class IndexBufferUC : public IndexBuffer<unsigned char>

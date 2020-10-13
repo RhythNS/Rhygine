@@ -1,7 +1,7 @@
 #pragma once
-#include "Gameobject.h"
+#include "GameObject.h"
 
-class TestModel : public Gameobject
+class TestModel : public GameObject
 {
 public:
 	void Init();

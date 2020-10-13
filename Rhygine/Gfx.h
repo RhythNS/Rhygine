@@ -14,6 +14,8 @@ public:
 	Gfx() = delete;
 	Gfx(Window* window);
 
+	static Gfx* GetInstance();
+
 	void BeginDraw();
 	void DrawIndexed(UINT indexCount);
 	void EndDraw();

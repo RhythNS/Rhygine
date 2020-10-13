@@ -73,12 +73,12 @@ void TestTexture::Update()
 		if (++atTexture == textures.size())
 			atTexture = 0;
 	}
-	Gameobject::Update();
+	GameObject::Update();
 }
 
 void TestTexture::Draw()
 {
 	textures[atTexture]->Bind();
-	Gameobject::Draw();
+	GameObject::Draw();
 }
 

@@ -166,8 +166,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
-    <ClCompile Include="Drawable.cpp" />
-    <ClCompile Include="Gameobject.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Drawer.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -185,7 +186,6 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="TestCamera.cpp" />
-    <ClCompile Include="Testimgui.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLitPlate.cpp" />
     <ClCompile Include="TestModel.cpp" />
@@ -195,15 +195,18 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="VertIndexes.cpp" />
     <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Drawable.h" />
-    <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="Drawer.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeoShader.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -230,7 +233,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="TestCamera.h" />
-    <ClInclude Include="Testimgui.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLitPlate.h" />
     <ClInclude Include="TestModel.h" />
@@ -241,7 +243,10 @@
     <ClInclude Include="Tickable.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Updatable.h" />
     <ClInclude Include="VertBuffer.h" />
+    <ClInclude Include="Verticies.h" />
+    <ClInclude Include="VertIndexes.h" />
     <ClInclude Include="VertShader.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

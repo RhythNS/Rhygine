@@ -1,5 +1,5 @@
 #pragma once
-#include "Gameobject.h"
+#include "GameObject.h"
 #include "ConstantBuffer.h"
 #include "RhyMath.h"
 
@@ -7,7 +7,7 @@
 
 class TestLight;
 
-class TestLitPlate : public Gameobject
+class TestLitPlate : public GameObject
 {
 public:
 	struct Buffer {

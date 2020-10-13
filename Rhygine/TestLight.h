@@ -1,8 +1,8 @@
 #pragma once
-#include "Gameobject.h"
+#include "GameObject.h"
 #include "RhyMath.h"
 
-class TestLight : public Gameobject
+class TestLight : public GameObject
 {
 public:
 	TestLight(int id, float* direction);

@@ -84,5 +84,5 @@ void TestModel::Update()
 {
 	float delta = Window::GetInstance()->time.GetDelta();
 	transform.rotation = transform.rotation * Quat(delta * 0.5f, delta * 0.8f, delta);
-	Gameobject::Update();
+	GameObject::Update();
 }

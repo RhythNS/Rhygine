@@ -3,12 +3,12 @@
 #include <vector>
 #include <memory>
 
-#include "Gameobject.h"
+#include "GameObject.h"
 #include "RhyMath.h"
 
 class Bindable;
 
-class TestPyramid : public Gameobject
+class TestPyramid : public GameObject
 {
 public:
 	TestPyramid(Vec3 position);

@@ -2,8 +2,5 @@
 class Drawable
 {
 public:
-	
-private:
-
+	virtual void Draw() {};
 };
-

@@ -119,7 +119,7 @@ void TestLitPlate::Update()
 	}
 	ImGui::End();
 
-	Gameobject::Update();
+	GameObject::Update();
 }
 
 void TestLitPlate::Draw()
@@ -129,7 +129,7 @@ void TestLitPlate::Draw()
 	UpdateBuffer();
 	pixBuffer->SetAndUpdate(buffer);
 
-	Gameobject::Draw();
+	GameObject::Draw();
 }
 
 void TestLitPlate::UpdateBuffer()

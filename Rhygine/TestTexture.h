@@ -2,11 +2,11 @@
 #include <vector>
 #include <memory>
 
-#include "Gameobject.h"
+#include "GameObject.h"
 #include "Texture.h"
 #include "RhyWin.h"
 
-class TestTexture : public Gameobject
+class TestTexture : public GameObject
 {
 public:
 	virtual void Init();

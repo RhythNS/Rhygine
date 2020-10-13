@@ -66,5 +66,5 @@ void TestPyramid::Init()
 void TestPyramid::Update()
 {
 	transform.rotation = transform.rotation * Quat(0.0f, Window::GetInstance()->time.GetDelta(), 0.0f);
-	Gameobject::Update();
+	GameObject::Update();
 }

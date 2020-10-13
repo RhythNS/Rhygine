@@ -76,5 +76,5 @@ void TestLight::Update()
 	}
 	ImGui::End();
 
-	Gameobject::Update();
+	GameObject::Update();
 }

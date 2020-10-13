@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "Scene.h"
-#include "Gameobject.h"
+#include "GameObject.h"
 
 class TestScene : public Scene
 {
@@ -12,6 +12,6 @@ public:
 	virtual void Update();
 	virtual void Draw();
 protected:
-	std::vector<std::unique_ptr<Gameobject>> gameobjects;
+	std::vector<std::unique_ptr<GameObject>> gameobjects;
 };
 

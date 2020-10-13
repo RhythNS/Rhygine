@@ -1,29 +1,26 @@
-#include "Gameobject.h"
-#include "Window.h"
-#include "Gfx.h"
+#include "GameObject.h"
+#include "Updatable.h"
+#include "Drawable.h"
 
 #include <memory>
 
-void Gameobject::Init()
+void GameObject::Init()
 {
 }
 
-void Gameobject::Update()
+void GameObject::Update()
 {
-	consBuffer->SetAndUpdate(*transform.GetPerspectiveMatrix());
+	for (auto& updatable : updatables)
+	{
+		updatable->Update();
+	}
 }
 
-void Gameobject::Draw()
+void GameObject::Draw()
 {
-	for (auto& bindable : bindables)
-		bindable->Bind();
-
-	Window::GetInstance()->GetGfx()->DrawIndexed(indexBuffer->GetSize());
+	for (auto& drawable : drawables)
+	{
+		drawable->Draw();
+	}
 }
 
-void Gameobject::CreateTransform()
-{
-	Transform::TransformBuffer matConsBuffer = *transform.GetPerspectiveMatrix();
-	bindables.push_back(std::make_unique<ConstantVS<Transform::TransformBuffer>>(matConsBuffer, 0));
-	consBuffer = static_cast<ConstantVS<Transform::TransformBuffer>*>(bindables[bindables.size() - 1].get());
-}

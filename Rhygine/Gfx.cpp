@@ -110,6 +110,11 @@ Gfx::Gfx(Window* window) : window(window), camera({ 0.0f, 0.0f, 0.0f }, { 0.0f, 
 	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
 }
 
+Gfx* Gfx::GetInstance()
+{
+	return instance;
+}
+
 void Gfx::BeginDraw()
 {
 	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
