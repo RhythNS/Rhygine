@@ -17,11 +17,25 @@ public:
 	void Init();
 	void Draw();
 
-	void AddBindable(std::unique_ptr<Bindable> bindable);
+	Bindable* AddBindable(std::shared_ptr<Bindable> bindable);
+	bool RemoveBindable(Bindable* bindable);
+
+	template <class T>
+	T* GetBindable()
+	{
+		T* t;
+		for (auto& bindable : bindables)
+		{
+			if (t = dynamic_cast<T*>(bindable.get()))
+				return t;
+		}
+		return nullptr;
+	}
+
 	Transform* GetTransform();
 
 private:
-	std::vector<std::unique_ptr<Bindable>> bindables;
+	std::vector<std::shared_ptr<Bindable>> bindables;
 	std::vector<Updatable*> updatables;
 	Transform* transform;
 	IndexBufferAmount* indexAmount;

@@ -1,9 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "GameObjectFactory.h"
 
-class TestModel : public GameObject
+class TestModel : public GameObjectFactory
 {
 public:
-	void Init();
-	void Update();
+	void AddData(GameObject* toAddTo);
 };

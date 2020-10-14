@@ -7,7 +7,6 @@
 #include "TestPyramid.h"
 #include "TestModel.h"
 #include "TestTexture.h"
-#include "Testimgui.h"
 #include "RhyMath.h"
 
 void TestScene::Init()
@@ -17,14 +16,17 @@ void TestScene::Init()
 	clearColor[2] = 0.2f;
 	clearColor[3] = 1.0f;
 
+	TestPyramid tp;
+	TestModel tm;
+	TestTexture tt;
 	for (int i = 0; i < 10; i++)
 	{
 		Vec3 vec = { 0.0f, 0.0f, i * 2.0f };
-		gameobjects.push_back(std::make_unique<TestPyramid>(vec));
+		GameObjectFactory::Add(&gameobjects, &tp)->GetComponent<Transform>()->position = vec;
 	}
-	gameobjects.push_back(std::make_unique<TestModel>());
-	gameobjects.push_back(std::make_unique<TestTexture>());
-	gameobjects.push_back(std::make_unique<Testimgui>());
+
+	GameObjectFactory::Add(&gameobjects, &tm);
+	GameObjectFactory::Add(&gameobjects, &tt);
 
 	for (auto& gameobject : gameobjects)
 		gameobject->Init();

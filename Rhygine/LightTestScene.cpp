@@ -10,6 +10,7 @@
 
 void LightTestScene::Init()
 {
+	/*
 	float dir[3] = { 0.0f, 0.0f, 0.0f };
 	gameobjects.push_back(std::make_unique<TestLight>(0, dir));
 	std::array<TestLight*, 10> lights = { static_cast<TestLight*> (gameobjects[gameobjects.size() - 1].get()) };
@@ -19,4 +20,5 @@ void LightTestScene::Init()
 
 	for (auto& gameobject : gameobjects)
 		gameobject->Init();
+	*/
 }

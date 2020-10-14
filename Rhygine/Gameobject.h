@@ -17,9 +17,9 @@ public:
 	T* AddComponent()
 	{
 		components.push_back(std::make_unique<T>());
-		T* t = static_cast<T*>(bindables[bindables.size() - 1].get());
-		t.SetGameObject(this);
-		t.Init();
+		T* t = static_cast<T*>(components[components.size() - 1].get());
+		t->SetGameObject(this);
+		t->Init();
 
 		Updatable* updatable;
 		if (updatable = dynamic_cast<Updatable*>(t))
@@ -38,7 +38,7 @@ public:
 		T* t;
 		for (auto& component : components)
 		{
-			if (t = dynamic_cast<T*>(t))
+			if (t = dynamic_cast<T*>(component.get()))
 				return t;
 		}
 		return nullptr;

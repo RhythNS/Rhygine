@@ -22,7 +22,7 @@ void Drawer::Draw()
 	Gfx::GetInstance()->DrawIndexed(indexAmount->GetSize());
 }
 
-void Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
+Bindable* Drawer::AddBindable(std::shared_ptr<Bindable> bindable)
 {
 	Updatable* updatable;
 	if (updatable = dynamic_cast<Updatable*>(bindable.get()))
@@ -35,6 +35,27 @@ void Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 	bindable->drawer = this;
 
 	bindables.push_back(bindable);
+
+	return bindable.get();
+}
+
+bool Drawer::RemoveBindable(Bindable* bindable)
+{
+	for (auto bind = std::begin(bindables); bind != std::end(bindables); ++bind)
+	{
+		if ((*bind).get() == bindable)
+		{
+			bindables.erase(bind);
+
+			Updatable* updatable;
+			if (updatable = dynamic_cast<Updatable*>(bindable))
+				std::erase(updatables, updatable);
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 Transform* Drawer::GetTransform()

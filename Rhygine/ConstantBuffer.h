@@ -1,10 +1,13 @@
 #pragma once
 #include "Bindable.h"
 #include "RhyWin.h"
+#include "RhyException.h"
+#include "Updatable.h"
+
 #include <vector>
 
 template <class Constant>
-class ConstantBuffer : public Bindable
+class ConstantBuffer : public Bindable, public Updatable
 {
 public:
 	ConstantBuffer(Constant cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot)
@@ -22,6 +25,9 @@ public:
 	virtual void Bind() = 0;
 	void Update()
 	{
+		if (updater(this) == false)
+			return;
+
 		//GetContext()->UpdateSubresource(constantBuffer.Get(), 0, 0, &constant, 0, 0);
 
 		D3D11_MAPPED_SUBRESOURCE resource;
@@ -35,10 +41,9 @@ public:
 	{
 		return constant;
 	}
-	void SetAndUpdate(Constant newConstant)
+	void Set(Constant newConstant)
 	{
 		constant = newConstant;
-		Update();
 	}
 	int slot;
 protected:

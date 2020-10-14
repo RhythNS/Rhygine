@@ -3,15 +3,13 @@
 #include <vector>
 #include <memory>
 
-#include "GameObject.h"
+#include "GameObjectFactory.h"
 #include "RhyMath.h"
 
 class Bindable;
 
-class TestPyramid : public GameObject
+class TestPyramid : public GameObjectFactory
 {
 public:
-	TestPyramid(Vec3 position);
-	void Init();
-	void Update();
+	void AddData(GameObject* toAddTo);
 };

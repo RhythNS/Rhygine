@@ -14,7 +14,7 @@ int CALLBACK WinMain(
 {
 	try {
 
-		LightTestScene scene;
+		TestScene scene;
 		
 		Window::WindowDefinition winDef = { 0 };
 		winDef.hInstance = hInstance;

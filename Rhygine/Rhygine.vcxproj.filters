@@ -22,12 +22,6 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{dd1c91eb-352f-4530-aee6-feab03865fe4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gameobjects">
-      <UniqueIdentifier>{5aa35724-b90e-4385-a2cc-40a3886cb931}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Gameobjects">
-      <UniqueIdentifier>{63cf5f88-9091-43ac-8c5a-05fe4ec4e4a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Gameobject">
       <UniqueIdentifier>{f2d506e6-ce86-4b61-967b-ba1a70165e1e}</UniqueIdentifier>
     </Filter>
@@ -76,8 +70,17 @@
     <Filter Include="Header Files\Gameobject\Components\Drawer\VertIndex">
       <UniqueIdentifier>{b34fc48a-b8e9-412b-aa6e-1ca0592d09fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameobject\Components\Drawer\VertIndex">
-      <UniqueIdentifier>{432d969a-d213-44fe-9161-432d8e2d681f}</UniqueIdentifier>
+    <Filter Include="Header Files\TestGameobjects">
+      <UniqueIdentifier>{5aa35724-b90e-4385-a2cc-40a3886cb931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestGameobjects\Components">
+      <UniqueIdentifier>{27d2931a-d996-4775-86b3-751753d8501a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects">
+      <UniqueIdentifier>{63cf5f88-9091-43ac-8c5a-05fe4ec4e4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects\Components">
+      <UniqueIdentifier>{5392b03c-b979-4de5-9d0c-6e7bac16d6f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,13 +112,13 @@
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="TestPyramid.cpp">
-      <Filter>Source Files\Gameobjects</Filter>
+      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="TestModel.cpp">
-      <Filter>Source Files\Gameobjects</Filter>
+      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="TestTexture.cpp">
-      <Filter>Source Files\Gameobjects</Filter>
+      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
@@ -127,10 +130,7 @@
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="TestLight.cpp">
-      <Filter>Source Files\Gameobjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Gameobject</Filter>
+      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
@@ -151,7 +151,7 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="TestLitPlate.cpp">
-      <Filter>Source Files\Gameobjects</Filter>
+      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Gameobject</Filter>
@@ -180,8 +180,23 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Gameobject</Filter>
     </ClCompile>
-    <ClCompile Include="VertIndexes.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\VertIndex</Filter>
+    <ClCompile Include="ShapeFactory.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Gameobject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureChanger.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateAround.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLightComponent.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLitPlateComponent.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,13 +234,13 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="TestPyramid.h">
-      <Filter>Header Files\Gameobjects</Filter>
+      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="TestModel.h">
-      <Filter>Header Files\Gameobjects</Filter>
+      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="TestTexture.h">
-      <Filter>Header Files\Gameobjects</Filter>
+      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
@@ -243,13 +258,10 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="TestLight.h">
-      <Filter>Header Files\Gameobjects</Filter>
+      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="RhyMath.h">
       <Filter>Header Files\Includers</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files\Gameobject</Filter>
     </ClInclude>
     <ClInclude Include="RhyBindables.h">
       <Filter>Header Files\Includers</Filter>
@@ -282,7 +294,7 @@
       <Filter>Header Files\Includers</Filter>
     </ClInclude>
     <ClInclude Include="TestLitPlate.h">
-      <Filter>Header Files\Gameobjects</Filter>
+      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="Drawable.h">
       <Filter>Header Files\Interfaces</Filter>
@@ -328,6 +340,30 @@
     </ClInclude>
     <ClInclude Include="Verticies.h">
       <Filter>Header Files\Gameobject\Components\Drawer\VertIndex</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeFactory.h">
+      <Filter>Header Files\Gameobject\Components\Drawer</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Gameobject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header Files\TestGameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureChanger.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateAround.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLightComponent.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RhyAssimp.h">
+      <Filter>Header Files\Includers</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLitPlateComponent.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
