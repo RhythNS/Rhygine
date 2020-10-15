@@ -37,12 +37,9 @@ public:
 	void Init();
 	void Update();
 
+	void SetLight(int index, TestLightComponent* light);
+
 private:
-	bool UpdateBuffer(ConstantBuffer<Buffer>* cb);
-	bool UpdateVertBuffer(ConstantBuffer<VertData>* cb);
-
-	std::array<TestLightComponent*, 10>  lights;
-
 	Buffer buffer;
 	VertData vertData;
 

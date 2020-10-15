@@ -5,13 +5,13 @@
 #include <string>
 
 #include "RhyException.h"
+#include "Rhyimgui.h"
 #include "Keys.h"
 #include "Time.h"
 #include "Mouse.h"
 #include "Gfx.h"
 #include "Scene.h"
 #include "Tickable.h"
-#include "Rhyimgui.h"
 
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),

@@ -82,6 +82,18 @@
     <Filter Include="Source Files\TestGameobjects\Components">
       <UniqueIdentifier>{5392b03c-b979-4de5-9d0c-6e7bac16d6f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gameobject\Components\Drawer\Shaders">
+      <UniqueIdentifier>{c1bf6f5d-293f-4235-84d7-22693e4ab2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameobject\Components\Drawer\Shaders">
+      <UniqueIdentifier>{d337a365-cc97-44d4-a63a-78658e764f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects\Bindables">
+      <UniqueIdentifier>{7bc9b43c-b3af-4a00-9644-9f245d07261c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestGameobjects\Bindables">
+      <UniqueIdentifier>{3638b109-2112-4172-b5f3-c8355fe5b73f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -186,9 +198,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Gameobject\Components</Filter>
     </ClCompile>
-    <ClCompile Include="TextureChanger.cpp">
-      <Filter>Source Files\TestGameobjects\Components</Filter>
-    </ClCompile>
     <ClCompile Include="RotateAround.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
@@ -197,6 +206,18 @@
     </ClCompile>
     <ClCompile Include="TestLitPlateComponent.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CombinedShader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="TexLitShader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicShader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureChanger.cpp">
+      <Filter>Source Files\TestGameobjects\Bindables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,9 +371,6 @@
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="TextureChanger.h">
-      <Filter>Header Files\TestGameobjects\Components</Filter>
-    </ClInclude>
     <ClInclude Include="RotateAround.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
@@ -364,6 +382,18 @@
     </ClInclude>
     <ClInclude Include="TestLitPlateComponent.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CombinedShader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="TexLitShader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureChanger.h">
+      <Filter>Header Files\TestGameobjects\Bindables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

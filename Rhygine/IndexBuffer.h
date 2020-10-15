@@ -5,10 +5,10 @@
 #include "Bindable.h"
 #include "RhyException.h"
 
-class IndexBufferAmount 
+class IndexBufferAmount
 {
-public: 
-	UINT GetSize() { return 0; }
+public:
+	virtual UINT GetSize() = 0;
 };
 
 template <class Index>
@@ -28,7 +28,7 @@ public:
 	{
 		GetContext()->IASetIndexBuffer(indexPointer.Get(), GetFormat(), 0);
 	}
-	int GetSize()
+	UINT GetSize()
 	{
 		return size;
 	}

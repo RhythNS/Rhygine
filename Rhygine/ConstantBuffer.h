@@ -7,44 +7,35 @@
 #include <vector>
 
 template <class Constant>
-class ConstantBuffer : public Bindable, public Updatable
+class ConstantBuffer : public Bindable
 {
 public:
-	ConstantBuffer(Constant cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot)
+	ConstantBuffer(Constant* cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot)
 	{
 	}
-	ConstantBuffer(Constant cons, D3D11_BUFFER_DESC desc, int slot) : constant(cons), slot(slot)
+
+	ConstantBuffer(Constant* cons, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
 		desc.ByteWidth = sizeof(Constant);
 		desc.StructureByteStride = 0;
 
 		D3D11_SUBRESOURCE_DATA data = { 0 };
-		data.pSysMem = &cons;
+		data.pSysMem = cons;
 		THROW_IF_FAILED(GetDevice()->CreateBuffer(&desc, &data, &constantBuffer));
 	}
+
 	virtual void Bind() = 0;
-	void Update()
+
+	void SetAndUpdate(Constant* newConstant)
 	{
-		if (updater(this) == false)
-			return;
-
-		//GetContext()->UpdateSubresource(constantBuffer.Get(), 0, 0, &constant, 0, 0);
-
 		D3D11_MAPPED_SUBRESOURCE resource;
 		ZeroMemory(&resource, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
 		THROW_IF_FAILED(GetContext()->Map(constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &resource));
-		memcpy(resource.pData, &constant, sizeof(Constant));
+		memcpy(resource.pData, newConstant, sizeof(Constant));
 		GetContext()->Unmap(constantBuffer.Get(), 0);
 	}
-	Constant& GetConstant()
-	{
-		return constant;
-	}
-	void Set(Constant newConstant)
-	{
-		constant = newConstant;
-	}
+
 	int slot;
 protected:
 	D3D11_BUFFER_DESC GetDefaultDescription()
@@ -56,7 +47,6 @@ protected:
 		//	desc.MiscFlags = 0;
 		return desc;
 	}
-	Constant constant;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> constantBuffer;
 };
 

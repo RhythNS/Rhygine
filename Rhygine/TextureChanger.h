@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "Bindable.h"
 #include "Updatable.h"
 
 #include <memory>
@@ -7,10 +7,11 @@
 
 class Texture;
 
-class TextureChanger : public Component, public Updatable
+class TextureChanger : public Bindable, public Updatable
 {
 public:
 	void Init();
+	void Bind();
 	void Update();
 private:
 	int atTexture = 0;
@@ -18,4 +19,3 @@ private:
 	float timer = timeToChange;
 	std::vector<std::unique_ptr<Texture>> textures;
 };
-

@@ -4,6 +4,7 @@
 #include "TextureChanger.h"
 
 #include <string>
+#include "BasicShader.h"
 
 
 void TestTexture::AddData(GameObject* toAddTo)
@@ -45,16 +46,11 @@ void TestTexture::AddData(GameObject* toAddTo)
 
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 
-	drawer->AddBindable(std::make_unique<PixShader>(L"TexPix.cso"));
-	drawer->AddBindable(std::make_unique<VertShader>(L"TexVert.cso"));
-
-	ID3DBlob* blob = drawer->GetBindable<VertShader>()->GetBlob();
-
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	drawer->AddBindable(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+	drawer->AddBindable(std::make_unique<BasicShader>(L"TexPix.hlsl", L"TexVert.hlsl", &inputLayoutDesc));
 
-	toAddTo->AddComponent<TextureChanger>();
+	drawer->AddBindable(std::make_unique<TextureChanger>());
 }

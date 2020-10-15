@@ -4,12 +4,15 @@
 #include <DirectXMath.h>
 
 class Drawer;
+class CombinedShader;
 
 class Bindable
 {
 	friend class Drawer;
+	friend class CombinedShader;
 public:
 	virtual void Bind() = 0;
+	virtual void Init();
 protected:
 	Microsoft::WRL::ComPtr<ID3D11Device> GetDevice();
 	Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap();

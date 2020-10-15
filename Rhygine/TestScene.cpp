@@ -1,13 +1,13 @@
 #include "RhyWin.h"
-#include <d3dcompiler.h>
-
+#include "RhyMath.h"
 #include "TestScene.h"
 #include "RhyException.h"
 #include "Window.h"
 #include "TestPyramid.h"
 #include "TestModel.h"
 #include "TestTexture.h"
-#include "RhyMath.h"
+
+#include <d3dcompiler.h>
 
 void TestScene::Init()
 {
@@ -21,15 +21,11 @@ void TestScene::Init()
 	TestTexture tt;
 	for (int i = 0; i < 10; i++)
 	{
-		Vec3 vec = { 0.0f, 0.0f, i * 2.0f };
-		GameObjectFactory::Add(&gameobjects, &tp)->GetComponent<Transform>()->position = vec;
+		GameObjectFactory::Add(&gameobjects, &tp)->GetComponent<Transform>()->position = RhyM::Vec3(0.0f, 0.0f, i * 2.0f);
 	}
 
 	GameObjectFactory::Add(&gameobjects, &tm);
 	GameObjectFactory::Add(&gameobjects, &tt);
-
-	for (auto& gameobject : gameobjects)
-		gameobject->Init();
 }
 
 void TestScene::Update()

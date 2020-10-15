@@ -165,7 +165,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="CombinedShader.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -196,6 +198,7 @@
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestTexture.cpp" />
+    <ClCompile Include="TexLitShader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureChanger.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -205,7 +208,9 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="CombinedShader.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Drawable.h" />
@@ -249,6 +254,7 @@
     <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestTexture.h" />
+    <ClInclude Include="TexLitShader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureChanger.h" />
     <ClInclude Include="Tickable.h" />

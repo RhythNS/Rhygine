@@ -6,6 +6,7 @@
 #include "TestLightComponent.h"
 #include "Transform.h"
 #include "Drawer.h"
+#include "BasicShader.h"
 
 #include <cmath>
 
@@ -50,14 +51,11 @@ void TestLight::AddData(GameObject* toAddTo)
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	drawer->AddBindable(std::make_unique<PixShader>(L"BasicPix.hlsl"));
-	drawer->AddBindable(std::make_unique<VertShader>(L"BasicVert.hlsl"));
-
-	ID3DBlob* blob = drawer->GetBindable<VertShader>()->GetBlob();
-
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	drawer->AddBindable(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+	drawer->AddBindable(std::make_unique<BasicShader>(L"BasicPix.hlsl", L"BasicVert.hlsl", &inputLayoutDesc));
+
+	toAddTo->AddComponent<TestLightComponent>();
 }

@@ -16,4 +16,3 @@ public:
 	template <class Vertex, class Index>
 	static VertIndexes<Vertex, Index> GetNormalPyramid();
 };
-

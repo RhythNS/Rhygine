@@ -12,6 +12,11 @@ void TextureChanger::Init()
 	}
 }
 
+void TextureChanger::Bind()
+{
+	textures[atTexture]->Bind();
+}
+
 void TextureChanger::Update()
 {
 	timer -= Window::GetInstance()->time.GetDelta();

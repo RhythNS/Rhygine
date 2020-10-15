@@ -11,7 +11,7 @@ public:
 	void Init();
 	void Update();
 
-	Vec3 rotationSpeed = Vec3(1.0f, 1.0f, 1.0f);
+	RhyM::Vec3 rotationSpeed = RhyM::Vec3(1.0f, 1.0f, 1.0f);
 private:
 	Transform* transform;
 };

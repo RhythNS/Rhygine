@@ -4,6 +4,10 @@
 #include "Drawer.h"
 #include "Transform.h"
 
+void Bindable::Init()
+{
+}
+
 Microsoft::WRL::ComPtr<ID3D11Device> Bindable::GetDevice()
 {
     return Gfx::instance->device;

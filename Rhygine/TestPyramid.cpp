@@ -5,6 +5,7 @@
 #include "TestCamera.h"
 #include "GameObject.h"
 #include "RotateAround.h"
+#include "BasicShader.h"
 
 #include <vector>
 
@@ -43,16 +44,11 @@ void TestPyramid::AddData(GameObject* toAddTo)
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	drawer->AddBindable(std::make_unique<PixShader>(L"BasicPix.cso"));
-	drawer->AddBindable(std::make_unique<VertShader>(L"BasicVert.cso"));
-
-	ID3DBlob* blob = drawer->GetBindable<VertShader>()->GetBlob();
-
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	drawer->AddBindable(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+	drawer->AddBindable(std::make_unique<BasicShader>(L"BasicPix.hlsl", L"BasicVert.hlsl", &inputLayoutDesc));
 
-	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = Vec3(0.0, 1.0f, 0.0f);
+	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(1.0, 0.0f, 0.0f);
 }

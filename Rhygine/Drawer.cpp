@@ -2,6 +2,7 @@
 #include "Bindable.h"
 #include "Gfx.h"
 #include "GameObject.h"
+#include "Transform.h"
 
 void Drawer::Init()
 {
@@ -22,7 +23,7 @@ void Drawer::Draw()
 	Gfx::GetInstance()->DrawIndexed(indexAmount->GetSize());
 }
 
-Bindable* Drawer::AddBindable(std::shared_ptr<Bindable> bindable)
+Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 {
 	Updatable* updatable;
 	if (updatable = dynamic_cast<Updatable*>(bindable.get()))
@@ -33,10 +34,11 @@ Bindable* Drawer::AddBindable(std::shared_ptr<Bindable> bindable)
 		indexAmount = indAmount;
 
 	bindable->drawer = this;
+	bindable->Init();
 
-	bindables.push_back(bindable);
+	bindables.push_back(std::move(bindable));
 
-	return bindable.get();
+	return bindables[bindables.size() - 1].get();
 }
 
 bool Drawer::RemoveBindable(Bindable* bindable)

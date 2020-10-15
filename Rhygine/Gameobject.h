@@ -53,8 +53,6 @@ public:
 		{
 			if (t = dynamic_cast<T*>(t)) 
 			{
-				components.erase(component);
-
 				Updatable* updatable;
 				if (updatable = dynamic_cast<Updatable*>(t))
 					std::erase(updatables, updatable);
@@ -62,6 +60,8 @@ public:
 				Drawable* drawable;
 				if (drawable = dynamic_cast<Drawable*>(t))
 					std::erase(drawables, drawable);
+
+				components.erase(component);
 
 				return true;
 			}

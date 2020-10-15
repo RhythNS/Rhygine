@@ -2,6 +2,8 @@
 #include "RhyBindables.h"
 #include "RhyAssimp.h"
 #include "Window.h"
+#include "BasicShader.h"
+#include "RotateAround.h"
 
 void TestModel::AddData(GameObject* toAddTo)
 {
@@ -57,14 +59,11 @@ void TestModel::AddData(GameObject* toAddTo)
 	drawer->AddBindable(std::make_unique<Texture>("TestModels\\spot_texture.png", 0));
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 
-	drawer->AddBindable(std::make_unique<PixShader>(L"TexPix.hlsl"));
-	drawer->AddBindable(std::make_unique<VertShader>(L"TexVert.hlsl"));
-
-	ID3DBlob* blob = drawer->GetBindable<VertShader>()->GetBlob();
-
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
-	drawer->AddBindable(std::make_unique<InputLayout>(inputLayoutDesc, blob));
+	drawer->AddBindable(std::make_unique<BasicShader>(L"TexPix.hlsl", L"TexVert.hlsl", &inputLayoutDesc));
+
+	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(1.0, 0.3f, 0.6f);
 }

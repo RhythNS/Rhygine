@@ -6,7 +6,7 @@
 #include "Gfx.h"
 #include "Transform.h"
 #include "Drawer.h"
-
+#include "TexLitShader.h"
 
 void TestLitPlateComponent::Init()
 {
@@ -82,23 +82,10 @@ void TestLitPlateComponent::Init()
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	drawer->AddBindable(std::make_unique<ConstantPS<Buffer>>(buffer, 0, &TestLitPlateComponent::UpdateBuffer));
 	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestGradient.png", 0));
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 
-	drawer->AddBindable(std::make_unique<PixShader>(L"TexLitPix.hlsl"));
-	drawer->AddBindable(std::make_unique<VertShader>(L"TexLitVert.hlsl"));
-
-	ID3DBlob* blob = drawer->GetBindable<VertShader>()->GetBlob();
-
-	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
-		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TexCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	drawer->AddBindable(std::make_unique<InputLayout>(inputLayoutDesc, blob));
-
-	drawer->AddBindable(std::make_unique<ConstantVS<VertData>>(vertData, 1, &TestLitPlateComponent::UpdateVertBuffer));
+	drawer->AddBindable(std::make_unique<TexLitShader>());
 }
 
 void TestLitPlateComponent::Update()
@@ -106,42 +93,12 @@ void TestLitPlateComponent::Update()
 	ImGui::Begin("BestPlane", &guiWindowOpen);
 	ImGui::DragFloat3("Position", &transform->position.x, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
-		transform->rotation = Quat(direction[0] * rhyM::PI, direction[1] * rhyM::PI, direction[2] * rhyM::PI);
+		transform->rotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
 	}
 	ImGui::End();
 }
 
-bool TestLitPlateComponent::UpdateBuffer(ConstantBuffer<Buffer>* cb)
+void TestLitPlateComponent::SetLight(int index, TestLightComponent* light)
 {
-	buffer.ambientStrength = 0.2f;
-	buffer.specStrength = 1.0f;
-
-	buffer.lightColor[0] = 1.0f;
-	buffer.lightColor[1] = 1.0f;
-	buffer.lightColor[2] = 0.6f;
-	buffer.lightColor[3] = 1.0f;
-
-	Vec3* lightPos = &lights[0]->GetGameObject()->GetComponent<Transform>()->position;
-	buffer.lightPosition[0] = lightPos->x;
-	buffer.lightPosition[1] = lightPos->y;
-	buffer.lightPosition[2] = lightPos->z;
-
-	TestCamera::Vector* cameraPos = &Window::GetInstance()->GetGfx()->camera.position;
-	buffer.cameraPos[0] = cameraPos->x;
-	buffer.cameraPos[1] = cameraPos->y;
-	buffer.cameraPos[2] = cameraPos->z;
-
-	cb->Set(buffer);
-
-	return true;
-}
-
-bool TestLitPlateComponent::UpdateVertBuffer(ConstantBuffer<VertData>* cb)
-{
-	vertData.worldPos = *transform->GetWorldMatrix();
-	vertData.localScaleRotation = *transform->GetLocalMatrix();
-
-	cb->Set(vertData);
-
-	return true;
+	GetGameObject()->GetComponent<Drawer>()->GetBindable<TexLitShader>()->lights[index] = light;
 }
