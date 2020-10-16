@@ -31,6 +31,7 @@ public:
 	};
 
 	struct PositionInfo {
+		DirectX::XMMATRIX projection;
 		DirectX::XMMATRIX worldPos;
 		DirectX::XMMATRIX localScaleRotation;
 	};

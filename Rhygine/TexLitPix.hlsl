@@ -32,8 +32,8 @@ float4 main(float2 texCoord : Texcoord, float3 worldPos : Position, float3 norma
     
     float4 lightColorAdd = lightColor * (angleMultiplier + ambientStrength + specMultiplier * specStrength);
 	
-    //return tex.Sample(textureSampler, texCoord) * lightColorAdd;
+    return tex.Sample(textureSampler, texCoord) * lightColorAdd;
 	
-    return lightColorAdd;
+    //return lightColorAdd;
 
 }

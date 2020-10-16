@@ -18,7 +18,7 @@ void TexLitShader::Init()
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
 	InitBindable<ConstantPS<LightInfo>>(pixBuffer.get());
 
-	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 1);
+	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
 	InitBindable<ConstantVS<PositionInfo>>(worldPosBuffer.get());
 }
 
@@ -59,6 +59,7 @@ void TexLitShader::UpdateLightInfo()
 
 void TexLitShader::UpdatePositionInfo()
 {
+	posBuffer.projection = *GetPerspectiveMatrix();
 	posBuffer.worldPos = *GetWorldMatrix();
 	posBuffer.localScaleRotation = *GetLocalMatrix();
 

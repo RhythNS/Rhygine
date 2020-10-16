@@ -189,6 +189,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="ShapeFactory.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLightComponent.h" />

@@ -219,6 +219,9 @@
     <ClCompile Include="TextureChanger.cpp">
       <Filter>Source Files\TestGameobjects\Bindables</Filter>
     </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Source Files\Gameobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestCamera.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="TextureChanger.h">
       <Filter>Header Files\TestGameobjects\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Header Files\Gameobject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

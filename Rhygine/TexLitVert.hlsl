@@ -1,10 +1,6 @@
 cbuffer CBuf
 {
     matrix transform;
-};
-
-cbuffer AddBuff
-{
     matrix worldPos;
     matrix localScaleRotation;
 };

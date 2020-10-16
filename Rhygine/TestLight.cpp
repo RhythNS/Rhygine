@@ -58,4 +58,6 @@ void TestLight::AddData(GameObject* toAddTo)
 	drawer->AddBindable(std::make_unique<BasicShader>(L"BasicPix.hlsl", L"BasicVert.hlsl", &inputLayoutDesc));
 
 	toAddTo->AddComponent<TestLightComponent>();
+
+	transform->position.z = -2.0f;
 }

@@ -33,6 +33,11 @@ DirectX::XMMATRIX* Transform::GetLocalMatrix()
 	return &localMatrix;
 }
 
+RhyM::Vec3 Transform::GetForward()
+{
+	return rotation.Rotate(RhyM::Vec3(0.0f, 0.0f, 1.0f));
+}
+
 DirectX::XMMATRIX* Transform::GetWorldMatrix()
 {
 	worldMatrix =
