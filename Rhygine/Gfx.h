@@ -1,8 +1,6 @@
 #pragma once
 #include "RhyWin.h"
 
-#include "TestCamera.h"
-
 class Window;
 class Bindable;
 
@@ -19,8 +17,6 @@ public:
 	void BeginDraw();
 	void DrawIndexed(UINT indexCount);
 	void EndDraw();
-
-	TestCamera camera;
 private:
 	Window* window;
 

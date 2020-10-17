@@ -2,7 +2,6 @@
 #include "RhyBindables.h"
 #include "Window.h"
 #include "Gfx.h"
-#include "TestCamera.h"
 #include "GameObject.h"
 #include "RotateAround.h"
 #include "BasicShader.h"

@@ -92,7 +92,6 @@ Window::Window(WindowDefinition definition) :
 	currentScene->Init();
 }
 
-
 Window::~Window()
 {
 	ImGui_ImplDX11_Shutdown();
@@ -166,11 +165,9 @@ int Window::MainLoop()
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		gfx->camera.HandleInput(this);
 		currentScene->Update();
 		gfx->BeginDraw();
 		currentScene->Draw();
-		//gfx->DebugDraw();
 		gfx->EndDraw();
 
 		auto frameTime = timeNow - timeBefore;

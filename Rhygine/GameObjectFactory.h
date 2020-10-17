@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Stage.h"
 #include "Transform.h"
 #include "Drawer.h"
 
@@ -8,12 +9,10 @@ class GameObjectFactory
 public:
 	virtual void AddData(GameObject* toAddTo) = 0;
 
-	static GameObject* Add(std::vector<std::unique_ptr<GameObject>>* gameObjects, GameObjectFactory* factory)
+	static GameObject* Add(Stage* stage, GameObjectFactory* factory)
 	{
-		gameObjects->push_back(std::make_unique<GameObject>());
-		GameObject* obj = (*gameObjects)[gameObjects->size() - 1].get();
+		GameObject* obj = stage->CreateGameObject();
 		factory->AddData(obj);
-		obj->Init();
 		return obj;
 	}
 

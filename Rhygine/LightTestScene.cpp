@@ -10,13 +10,10 @@
 #include <memory>
 #include <array>
 
-void LightTestScene::Init()
+void LightTestScene::InnerInit()
 {
 	TestLight tl;
 	TestLitPlate tlp;
-	TestLightComponent* tlc = GameObjectFactory::Add(&gameobjects, &tl)->GetComponent<TestLightComponent>();
-	GameObjectFactory::Add(&gameobjects, &tlp)->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
-
-	for (auto& gameobject : gameobjects)
-		gameobject->Init();
+	TestLightComponent* tlc = GameObjectFactory::Add(stage.get(), &tl)->GetComponent<TestLightComponent>();
+	GameObjectFactory::Add(stage.get(), &tlp)->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
 }

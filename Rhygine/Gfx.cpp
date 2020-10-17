@@ -11,7 +11,7 @@
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
 
-Gfx::Gfx(Window* window) : window(window), camera({ 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f })
+Gfx::Gfx(Window* window) : window(window)
 {
 	instance = this;
 	HWND windowHandle = *window->GetWindowHandle();

@@ -1,8 +1,8 @@
 #pragma once
-#include "TestScene.h"
+#include "Scene.h"
 
-class LightTestScene : public TestScene
+class LightTestScene : public Scene
 {
-	void Init();
+	void InnerInit();
 };
 

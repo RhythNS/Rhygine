@@ -1,6 +1,8 @@
 #include "Transform.h"
+#include "GameObject.h"
+#include "Stage.h"
+#include "Camera.h"
 #include "Window.h"
-#include "Gfx.h"
 
 void Transform::Init()
 {
@@ -14,7 +16,7 @@ DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
 			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
 			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.x, rotation.y, rotation.z, rotation.w)) *
 			DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
-			Window::GetInstance()->GetGfx()->camera.GetMatrix() *
+			*GetGameObject()->GetStage()->GetCamera()->GetMatrix() *
 			DirectX::XMMatrixPerspectiveLH(1.0f, (float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(), 0.5f, 100.0f)
 		);
 

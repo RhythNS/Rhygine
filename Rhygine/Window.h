@@ -1,5 +1,4 @@
 #pragma once
-
 #include "RhyWin.h"
 #include <string>
 #include <vector>
@@ -62,4 +61,3 @@ private:
 	int width;
 	int height;
 };
-

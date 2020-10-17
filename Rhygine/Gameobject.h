@@ -6,8 +6,11 @@
 #include <vector>
 #include <memory>
 
+class Stage;
+
 class GameObject
 {
+	friend class Stage;
 public:
 	void Init();
 	void Update();
@@ -49,9 +52,9 @@ public:
 	{
 		T* t;
 
-		for (auto& component : components)
+		for (int i = 0; i < components.size(); ++i)
 		{
-			if (t = dynamic_cast<T*>(t)) 
+			if (t = dynamic_cast<T*>(components[i].get()))
 			{
 				Updatable* updatable;
 				if (updatable = dynamic_cast<Updatable*>(t))
@@ -61,7 +64,7 @@ public:
 				if (drawable = dynamic_cast<Drawable*>(t))
 					std::erase(drawables, drawable);
 
-				components.erase(component);
+				components.erase(components.begin() + i);
 
 				return true;
 			}
@@ -69,7 +72,18 @@ public:
 
 		return false;
 	}
+
+	bool RemoveComponent(Component* toRemove);
+
+	int GetComponentCount();
+	Component* GetComponentAt(int at);
+	Stage* GetStage();
+
 private:
+	Stage* stage;
+	GameObject* prev; 
+	GameObject* next;
+
 	std::vector<std::unique_ptr<Component>> components;
 	std::vector<Updatable*> updatables;
 	std::vector<Drawable*> drawables;

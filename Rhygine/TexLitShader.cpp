@@ -3,7 +3,8 @@
 #include "Window.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "Gfx.h"
+#include "Camera.h"
+#include "Drawer.h"
 
 void TexLitShader::Init()
 {
@@ -49,7 +50,7 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.lightPosition[1] = lightPos->y;
 	lightBuffer.lightPosition[2] = lightPos->z;
 
-	TestCamera::Vector* cameraPos = &Window::GetInstance()->GetGfx()->camera.position;
+	RhyM::Vec3* cameraPos = &GetDrawer()->GetCamera()->GetTransform()->position;
 	lightBuffer.cameraPos[0] = cameraPos->x;
 	lightBuffer.cameraPos[1] = cameraPos->y;
 	lightBuffer.cameraPos[2] = cameraPos->z;

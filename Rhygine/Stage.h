@@ -1,16 +1,39 @@
 #pragma once
+#include "Updatable.h"
+#include "Drawable.h"
 
 class GameObject;
+class Camera;
 
-class Stage
+class Stage : public Updatable, public Drawable
 {
 public:
-	// GameObject* CreateGameObject();
+	Stage();
+	~Stage();
+	GameObject* CreateGameObject();
+	GameObject* CreateGameObjectAfter(GameObject* gameObject);
+	void RemoveGameObject(GameObject* gameObject);
+	GameObject* GetFront();
+	GameObject* GetBack();
+
+	Camera* GetCamera();
+
+	void Update();
+	void Draw();
+
 private:
-	// should there be a layer system?
-	// linked list to easily remove and add gameobjects
-	// gameobjects have a prev and next. first element does not have a prev and
-	// last element does not have a next.
+	GameObject* front;
+	GameObject* back;
+	Camera* camera;
+
+#define FOR_EACH_GAMEOBJECT( method ) \
+	GameObject* current = front; \
+	while (current->next != nullptr) \
+	{ \
+		current->method; \
+		current = current->next; \
+	} \
+	current->method;
 
 	// pool of gameobjects
 };

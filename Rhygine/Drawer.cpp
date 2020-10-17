@@ -3,6 +3,7 @@
 #include "Gfx.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Stage.h"
 
 void Drawer::Init()
 {
@@ -63,4 +64,9 @@ bool Drawer::RemoveBindable(Bindable* bindable)
 Transform* Drawer::GetTransform()
 {
 	return transform;
+}
+
+Camera* Drawer::GetCamera()
+{
+	return GetGameObject()->GetStage()->GetCamera();
 }

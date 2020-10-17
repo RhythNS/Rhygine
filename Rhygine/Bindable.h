@@ -26,5 +26,5 @@ protected:
 	
 	Drawer* GetDrawer();
 private:
-	Drawer* drawer;
+	Drawer* drawer = nullptr;
 };

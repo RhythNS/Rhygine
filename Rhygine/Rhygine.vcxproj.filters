@@ -99,9 +99,6 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PixShader.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClCompile>
@@ -222,11 +219,14 @@
     <ClCompile Include="Stage.cpp">
       <Filter>Source Files\Gameobject</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Gameobject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMover.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VertBuffer.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClInclude>
@@ -400,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>Header Files\Gameobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Gameobject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMover.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

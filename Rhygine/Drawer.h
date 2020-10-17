@@ -10,6 +10,7 @@
 
 class Bindable;
 class Transform;
+class Camera;
 
 class Drawer : public Component, public Drawable
 {
@@ -33,6 +34,7 @@ public:
 	}
 
 	Transform* GetTransform();
+	Camera* GetCamera();
 
 private:
 	std::vector<std::unique_ptr<Bindable>> bindables;

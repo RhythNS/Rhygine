@@ -167,6 +167,8 @@
   <ItemGroup>
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraMover.cpp" />
     <ClCompile Include="CombinedShader.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Drawer.cpp" />
@@ -190,7 +192,6 @@
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="ShapeFactory.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />
     <ClCompile Include="TestLitPlate.cpp" />
@@ -211,6 +212,8 @@
   <ItemGroup>
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraMover.h" />
     <ClInclude Include="CombinedShader.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -247,7 +250,6 @@
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLightComponent.h" />
     <ClInclude Include="TestLitPlate.h" />
