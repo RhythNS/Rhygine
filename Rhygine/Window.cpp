@@ -136,6 +136,11 @@ int Window::GetHeight()
 	return height;
 }
 
+void Window::SetTitle(LPCSTR lpString)
+{
+	SetWindowTextA(windowHandle, lpString);
+}
+
 int Window::MainLoop()
 {
 	std::chrono::duration<double> wantedTime = std::chrono::microseconds(1000000 / 144);
@@ -174,8 +179,6 @@ int Window::MainLoop()
 
 		if (frameTime < wantedTime)
 			std::this_thread::sleep_for(wantedTime - frameTime);
-
-		//SetWindowTextA(windowHandle, std::to_string(time.GetTimeSinceStart()).c_str());
 
 		timeBefore = timeNow;
 	}

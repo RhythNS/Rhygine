@@ -37,6 +37,7 @@ public:
 	HINSTANCE* GetHInstance();
 	int GetWidth();
 	int GetHeight();
+	void SetTitle(LPCSTR lpString);
 
 	int MainLoop();
 
