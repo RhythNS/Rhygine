@@ -23,6 +23,6 @@ void Camera::UpdateMatrix()
 	matrix =
 		DirectX::XMMatrixTranslation(-transform->position.x, -transform->position.y, -transform->position.z) *
 		DirectX::XMMatrixRotationQuaternion(
-			DirectX::XMVectorSet(transform->rotation.x, transform->rotation.y, transform->rotation.z, transform->rotation.w)
+			DirectX::XMVectorSet(-transform->rotation.x, -transform->rotation.y, -transform->rotation.z, transform->rotation.w)
 		);
 }

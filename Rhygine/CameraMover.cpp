@@ -17,13 +17,13 @@ void CameraMover::Update()
 
 	RhyM::Vec3 rotate;
 	if (keys->IsKeyDown('Z'))
-		rotate.z += 5 * delta;
-	if (keys->IsKeyDown('H'))
 		rotate.z -= 5 * delta;
+	if (keys->IsKeyDown('H'))
+		rotate.z += 5 * delta;
 	if (keys->IsKeyDown('G'))
-		rotate.x += 5 * delta;
-	if (keys->IsKeyDown('J'))
 		rotate.x -= 5 * delta;
+	if (keys->IsKeyDown('J'))
+		rotate.x += 5 * delta;
 	if (keys->IsKeyDown('T'))
 		rotate.y += 5 * delta;
 	if (keys->IsKeyDown('U'))
@@ -57,7 +57,6 @@ void CameraMover::Update()
 	ImGui::Text(str.c_str());
 	ImGui::End();
 
-
-	if (keys->IsKeyDown('N'))
-		transform->position += transform->GetForward() * delta;
+	if (keys->IsKeyDown('R'))
+		transform->rotation = RhyM::Quat();
 }

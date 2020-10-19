@@ -1,9 +1,12 @@
 #include "Stage.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "Transform.h"
 
 Stage::Stage() : front(new GameObject()), back(new GameObject()), camera(front->AddComponent<Camera>())
 {
+	camera->GetTransform()->position = RhyM::Vec3(0.0f, 0.0f, -4.0f);
+
 	front->next = back;
 	back->prev = front;
 }
