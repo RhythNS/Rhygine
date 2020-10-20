@@ -11,9 +11,14 @@ int Mouse::GetY()
 	return y;
 }
 
-float Mouse::GetScrollDelta()
+float Mouse::GetVertScrollDelta()
 {
-	return prevScroll;
+	return prevVertScroll;
+}
+
+float Mouse::GetHoriScrollDelta()
+{
+	return prevHoriScroll;
 }
 
 bool Mouse::IsButtonDown(int button)
@@ -71,16 +76,23 @@ void Mouse::ButtonReleased(int button)
 	events.push(ButtonEvent(false, (Button)button));
 }
 
-void Mouse::Scroll(int distance)
+void Mouse::VertScroll(int distance)
 {
-	curScroll += ((float)distance) / WHEEL_DELTA;
+	curVertScroll += ((float)distance) / WHEEL_DELTA;
+}
+
+void Mouse::HoriScroll(int distance)
+{
+	curHoriScroll += ((float)distance) / WHEEL_DELTA;
 }
 
 void Mouse::Tick()
 {
 	prevButtons = currentButtons;
-	prevScroll = curScroll;
-	curScroll = 0;
+	prevVertScroll = curVertScroll;
+	prevHoriScroll = curHoriScroll;
+	curVertScroll = 0;
+	curHoriScroll = 0;
 }
 
 void Mouse::ResetCurrentKeys()

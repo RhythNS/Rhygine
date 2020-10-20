@@ -41,7 +41,7 @@ RhyM::Vec3 Transform::GetForward()
 }
 
 DirectX::XMMATRIX* Transform::GetWorldMatrix()
-{
+{	
 	worldMatrix =
 		DirectX::XMMatrixTranspose
 		(

@@ -38,7 +38,7 @@ void TexLitShader::InnerBind()
 void TexLitShader::UpdateLightInfo()
 {
 	lightBuffer.ambientStrength = 0.2f;
-	lightBuffer.specStrength = 64.0f;
+	lightBuffer.specStrength = 32.0f;
 
 	lightBuffer.lightColor[0] = 1.0f;
 	lightBuffer.lightColor[1] = 1.0f;

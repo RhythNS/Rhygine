@@ -80,11 +80,27 @@ Window::Window(WindowDefinition definition) :
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	
+
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplWin32_Init(windowHandle);
 	ImGui_ImplDX11_Init(gfx->device.Get(), gfx->context.Get());
+
+	RAWINPUTDEVICE Rid[2];
+	// Add mouse
+	Rid[0].usUsagePage = 0x01;
+	Rid[0].usUsage = 0x02;
+	Rid[0].dwFlags = 0; // RIDEV_NOLEGACY;
+	Rid[0].hwndTarget = 0;
+
+	// Add keyboard
+	Rid[1].usUsagePage = 0x01;
+	Rid[1].usUsage = 0x06;
+	Rid[1].dwFlags = 0;// RIDEV_NOLEGACY;
+	Rid[1].hwndTarget = 0;
+
+	if (RegisterRawInputDevices(Rid, 2, sizeof(Rid[0])) == FALSE)
+		throw RHY_EXCEP("Could not register for raw input!");
 
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
@@ -201,7 +217,105 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 
 	switch (msg)
 	{
-		// Keyboard Events ----
+		// ---------- TAKEN FROM microsoft docs -------------------------
+		// https://docs.microsoft.com/de-de/windows/win32/inputdev/using-raw-input#registering-for-raw-input
+	case WM_INPUT:
+	{
+		HRESULT hResult;
+		UINT dwSize;
+
+		GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
+		LPBYTE lpb = new BYTE[dwSize];
+		if (lpb == NULL)
+		{
+			break;
+		}
+
+		if (GetRawInputData((HRAWINPUT)lParam, RID_INPUT, lpb, &dwSize, sizeof(RAWINPUTHEADER)) != dwSize)
+			OutputDebugString(TEXT("GetRawInputData does not return correct size !\n"));
+
+		RAWINPUT* raw = (RAWINPUT*)lpb;
+		// ---------- TAKEN FROM microsoft docs -------------------------
+
+		if (raw->header.dwType == RIM_TYPEKEYBOARD)
+		{
+			// raw->data.keyboard
+			if (raw->data.keyboard.Flags & RI_KEY_BREAK)
+			{
+				keys.ReleaseKey(raw->data.keyboard.VKey);
+			}
+			else
+			{
+				// Close the program. Only for fast debuging purposes.
+				if (raw->data.keyboard.VKey == VK_ESCAPE) {
+					PostMessageA(hWnd, WM_CLOSE, 0, 0);
+					break;
+				}
+
+				keys.PressKey(raw->data.keyboard.VKey);
+			}
+		}
+		else if (raw->header.dwType == RIM_TYPEMOUSE)
+		{
+
+			if ((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) == MOUSE_MOVE_ABSOLUTE)
+			{
+				//
+			}
+			else if (raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0)
+			{
+				// raw->data.mouse.lLastX is the relative mouse pos
+			}
+
+			// raw->data.mouse
+			switch (raw->data.mouse.usButtonFlags)
+			{
+			case RI_MOUSE_LEFT_BUTTON_DOWN:
+				mouse.ButtonClicked(RH_MOUSE_LEFT);
+				break;
+			case RI_MOUSE_LEFT_BUTTON_UP:
+				mouse.ButtonReleased(RH_MOUSE_LEFT);
+				break;
+			case RI_MOUSE_MIDDLE_BUTTON_DOWN:
+				mouse.ButtonClicked(RH_MOUSE_MIDDLE);
+				break;
+			case RI_MOUSE_MIDDLE_BUTTON_UP:
+				mouse.ButtonReleased(RH_MOUSE_MIDDLE);
+				break;
+			case RI_MOUSE_RIGHT_BUTTON_DOWN:
+				mouse.ButtonClicked(RH_MOUSE_RIGHT);
+				break;
+			case RI_MOUSE_RIGHT_BUTTON_UP:
+				mouse.ButtonReleased(RH_MOUSE_RIGHT);
+				break;
+			case RI_MOUSE_BUTTON_4_DOWN:
+				mouse.ButtonClicked(RH_MOUSE_X1);
+				break;
+			case RI_MOUSE_BUTTON_4_UP:
+				mouse.ButtonReleased(RH_MOUSE_X1);
+				break;
+			case RI_MOUSE_BUTTON_5_DOWN:
+				mouse.ButtonClicked(RH_MOUSE_X2);
+				break;
+			case RI_MOUSE_BUTTON_5_UP:
+				mouse.ButtonReleased(RH_MOUSE_X2);
+				break;
+			case RI_MOUSE_WHEEL:
+				mouse.VertScroll((float)(short)raw->data.mouse.usButtonData);
+				break;
+			case RI_MOUSE_HWHEEL:
+				mouse.HoriScroll((float)(short)raw->data.mouse.usButtonData);
+				break;
+			default:
+				break;
+			}
+		}
+
+		delete[] lpb;
+		break;
+	}
+	// Keyboard Events ----
+	/*
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
 		// Close the program. Only for fast debuging purposes.
@@ -221,6 +335,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_CHAR:
 		keys.CharTyped((unsigned char)wParam);
 		break;
+	*/
 
 	case WM_KILLFOCUS:
 		keys.ResetCurrentKeys();
@@ -228,6 +343,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		break;
 
 		// Mouse Events ----
+		/*
 	case WM_MOUSEMOVE:
 		POINTS pos = MAKEPOINTS(lParam);
 		mouse.Move(pos.x, pos.y);
@@ -271,9 +387,10 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_MOUSEWHEEL:
 	{
 		int delta = GET_WHEEL_DELTA_WPARAM(wParam);
-		mouse.Scroll(delta);
+		mouse.VertScroll(delta);
 		break;
 	}
+		*/
 
 	// Quit Events ----
 	case WM_CLOSE:

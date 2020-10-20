@@ -15,19 +15,16 @@ public:
 	void Update();
 
 	struct LightInfo {
-		float ambientStrength;
-		float paddingA[3];
-
 		float lightColor[4];
 
 		float lightPosition[3];
-		float paddingB;
-
-		float specStrength;
-		float paddingC[3];
+		float paddingA;
 
 		float cameraPos[3];
-		float paddingD;
+		float specStrength;
+
+		float ambientStrength;
+		float paddingB[3];
 	};
 
 	struct PositionInfo {

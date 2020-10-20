@@ -1,6 +1,7 @@
 #include "CameraMover.h"
 #include "Transform.h"
 #include "Keys.h"
+#include "Mouse.h"
 #include "GameObject.h"
 #include "Rhyimgui.h"
 #include <string>
@@ -13,6 +14,7 @@ void CameraMover::Init()
 void CameraMover::Update()
 {
 	Keys* keys = GetKeys();
+	Mouse* mouse = GetMouse();
 	float delta = GetDelta();
 
 	RhyM::Vec3 rotate;

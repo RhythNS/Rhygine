@@ -34,7 +34,8 @@ public:
 
 	int GetX();
 	int GetY();
-	float GetScrollDelta();
+	float GetVertScrollDelta();
+	float GetHoriScrollDelta();
 	bool IsButtonDown(int button);
 	bool IsButtonDownThisFrame(int button);
 	bool IsButtonUp(int button);
@@ -48,7 +49,8 @@ private:
 	void Move(int x, int y);
 	void ButtonClicked(int button);
 	void ButtonReleased(int button);
-	void Scroll(int distance);
+	void VertScroll(int distance);
+	void HoriScroll(int distance);
 
 	void Tick();
 	void ResetCurrentKeys();
@@ -56,7 +58,8 @@ private:
 	void ResetAll();
 
 	int x = 0, y = 0;
-	float prevScroll = 0, curScroll = 0;
+	float prevVertScroll = 0, curVertScroll = 0;
+	float prevHoriScroll = 0, curHoriScroll = 0;
 	std::bitset<5> currentButtons, prevButtons;
 	std::queue<ButtonEvent> events;
 };
