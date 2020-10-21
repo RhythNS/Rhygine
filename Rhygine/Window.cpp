@@ -257,14 +257,10 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (raw->header.dwType == RIM_TYPEMOUSE)
 		{
-
-			if ((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) == MOUSE_MOVE_ABSOLUTE)
+			if ( ((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) != MOUSE_MOVE_ABSOLUTE) &&
+				(raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0) )
 			{
-				//
-			}
-			else if (raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0)
-			{
-				// raw->data.mouse.lLastX is the relative mouse pos
+				mouse.RelativeMove((int)raw->data.mouse.lLastX, (int)raw->data.mouse.lLastY);
 			}
 
 			// raw->data.mouse
@@ -314,83 +310,30 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		delete[] lpb;
 		break;
 	}
-	// Keyboard Events ----
-	/*
-	case WM_KEYDOWN:
-	case WM_SYSKEYDOWN:
-		// Close the program. Only for fast debuging purposes.
-		if (wParam == VK_ESCAPE) {
-			PostMessageA(hWnd, WM_CLOSE, 0, 0);
-			break;
-		}
-		keys.PressKey((unsigned char)wParam);
 
-		break;
-
-	case WM_KEYUP:
-	case WM_SYSKEYUP:
-		keys.ReleaseKey((unsigned char)wParam);
+	case WM_MOUSEMOVE:
+		POINTS pos = MAKEPOINTS(lParam);
+		mouse.AbsoluteMove(pos.x, pos.y);
 		break;
 
 	case WM_CHAR:
 		keys.CharTyped((unsigned char)wParam);
 		break;
-	*/
 
 	case WM_KILLFOCUS:
 		keys.ResetCurrentKeys();
 		mouse.ResetCurrentKeys();
+		ClipCursor(NULL);
 		break;
 
-		// Mouse Events ----
-		/*
-	case WM_MOUSEMOVE:
-		POINTS pos = MAKEPOINTS(lParam);
-		mouse.Move(pos.x, pos.y);
-		break;
+	case WM_SETFOCUS:
+		WINDOWINFO windowinfo;
 
-	case WM_LBUTTONDOWN:
-		mouse.ButtonClicked(RH_MOUSE_LEFT);
-		break;
+		windowinfo.cbSize = sizeof(WINDOWINFO);
+		GetWindowInfo(hWnd, &windowinfo);
 
-	case WM_LBUTTONUP:
-		mouse.ButtonReleased(RH_MOUSE_LEFT);
+		ClipCursor(&windowinfo.rcClient);
 		break;
-
-	case WM_RBUTTONDOWN:
-		mouse.ButtonClicked(RH_MOUSE_RIGHT);
-		break;
-
-	case WM_RBUTTONUP:
-		mouse.ButtonReleased(RH_MOUSE_RIGHT);
-		break;
-
-	case WM_MBUTTONDOWN:
-		mouse.ButtonClicked(RH_MOUSE_MIDDLE);
-		break;
-
-	case WM_MBUTTONUP:
-		mouse.ButtonReleased(RH_MOUSE_MIDDLE);
-		break;
-
-	case WM_XBUTTONDOWN: // mouse button 3, 4
-		// Hiword from w param is 1 for xbutton1 and 2 for xbutton2. So just add that to the middle
-		// mouse button value (2) to get either (3) for X1 or (4) for X2.
-		mouse.ButtonClicked(HIWORD(wParam) + RH_MOUSE_MIDDLE);
-		break;
-
-	case WM_XBUTTONUP:
-		// See comment above
-		mouse.ButtonReleased(HIWORD(wParam) + RH_MOUSE_MIDDLE);
-		break;
-
-	case WM_MOUSEWHEEL:
-	{
-		int delta = GET_WHEEL_DELTA_WPARAM(wParam);
-		mouse.VertScroll(delta);
-		break;
-	}
-		*/
 
 	// Quit Events ----
 	case WM_CLOSE:
@@ -401,6 +344,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		PostQuitMessage(0);
 		return 0;
 	}
+
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 

@@ -4,6 +4,7 @@
 #include "Mouse.h"
 #include "GameObject.h"
 #include "Rhyimgui.h"
+
 #include <string>
 
 void CameraMover::Init()
@@ -32,6 +33,21 @@ void CameraMover::Update()
 		rotate.y -= 5 * delta;
 
 	transform->rotation = transform->rotation * RhyM::Quat(rotate.x, rotate.y, rotate.z);
+
+	static float speed = 0.01f;
+	RhyM::Vec2I* rp = mouse->GetRelativePosition();
+	ImGui::Begin("Mouse relative pos");
+	ImGui::DragFloat("MouseSpeed", &speed, 0.01f, 0.01f, 1.0f);
+	std::string rps = "Vec: " + std::to_string(rp->x) + " " + std::to_string(rp->y);
+	ImGui::Text(rps.c_str());
+	ImGui::End();
+
+
+	if (mouse->IsButtonDown(RH_MOUSE_RIGHT))
+	{
+		transform->rotation = transform->rotation * RhyM::Quat(rp->x * speed, 0.0f, rp->y * speed);
+	}
+
 
 	RhyM::Vec3 move;
 	if (keys->IsKeyDown('S'))

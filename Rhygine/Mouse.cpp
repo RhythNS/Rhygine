@@ -1,14 +1,14 @@
 #include "Mouse.h"
 #include "RhyWin.h"
 
-int Mouse::GetX()
+RhyM::Vec2I* Mouse::GetRelativePosition()
 {
-	return x;
+	return &relativePosPrev;
 }
 
-int Mouse::GetY()
+RhyM::Vec2I* Mouse::GetAbsolutePosition()
 {
-	return y;
+	return &absolutePos;
 }
 
 float Mouse::GetVertScrollDelta()
@@ -58,10 +58,16 @@ Mouse::ButtonEvent Mouse::PopButton()
 	return buttonEvent;
 }
 
-void Mouse::Move(int _x, int _y)
+void Mouse::AbsoluteMove(int x, int y)
 {
-	x = _x;
-	y = _y;
+	absolutePos.x = x;
+	absolutePos.y = y;
+}
+
+void Mouse::RelativeMove(int x, int y)
+{
+	relativePosCur.x += x;
+	relativePosCur.y += y;
 }
 
 void Mouse::ButtonClicked(int button)
@@ -89,6 +95,11 @@ void Mouse::HoriScroll(int distance)
 void Mouse::Tick()
 {
 	prevButtons = currentButtons;
+
+	relativePosPrev = relativePosCur;
+	relativePosCur.x = 0;
+	relativePosCur.y = 0;
+
 	prevVertScroll = curVertScroll;
 	prevHoriScroll = curHoriScroll;
 	curVertScroll = 0;
