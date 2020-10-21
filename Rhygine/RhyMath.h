@@ -1,4 +1,5 @@
 #pragma once
+// Includer for including math classes.
 
 #include "assimp\vector2.h"
 #include "assimp\vector3.h"

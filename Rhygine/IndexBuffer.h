@@ -5,12 +5,19 @@
 #include "Bindable.h"
 #include "RhyException.h"
 
+/// <summary>
+/// Interface for getting the size of the index buffer.
+/// </summary>
 class IndexBufferAmount
 {
 public:
 	virtual UINT GetSize() = 0;
 };
 
+/// <summary>
+/// Represents an indexBuffer.
+/// </summary>
+/// <typeparam name="Index">The type of an index.</typeparam>
 template <class Index>
 class IndexBuffer : public Bindable, public IndexBufferAmount
 {
@@ -49,6 +56,9 @@ private:
 	UINT size;
 };
 
+/// <summary>
+/// Index buffer for unsigned chars.
+/// </summary>
 class IndexBufferUC : public IndexBuffer<unsigned char>
 {
 	using IndexBuffer<unsigned char>::IndexBuffer;
@@ -56,6 +66,9 @@ protected:
 	DXGI_FORMAT GetFormat() { return DXGI_FORMAT_R8_UINT; }
 };
 
+/// <summary>
+/// Index buffer for unsigned shorts.
+/// </summary>
 class IndexBufferUS : public IndexBuffer<unsigned short>
 {
 	using IndexBuffer<unsigned short>::IndexBuffer;
@@ -63,6 +76,9 @@ protected:
 	DXGI_FORMAT GetFormat() { return DXGI_FORMAT_R16_UINT; }
 };
 
+/// <summary>
+/// Index buffer for unsigned integers.
+/// </summary>
 class IndexBufferUI : public IndexBuffer<unsigned int>
 {
 	using IndexBuffer<unsigned int>::IndexBuffer;

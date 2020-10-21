@@ -1,9 +1,13 @@
 #pragma once
 #include "RhyWin.h"
-#include <vector>
-
 #include "Bindable.h"
 
+#include <vector>
+
+/// <summary>
+/// Represents a vertex buffer.
+/// </summary>
+/// <typeparam name="Vertex">The type of vertex.</typeparam>
 template <class Vertex>
 class VertBuffer : public Bindable
 {

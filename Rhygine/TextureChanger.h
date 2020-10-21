@@ -7,6 +7,9 @@
 
 class Texture;
 
+/// <summary>
+/// Simulates an animated image.
+/// </summary>
 class TextureChanger : public Bindable, public Updatable
 {
 public:

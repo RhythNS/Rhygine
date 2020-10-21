@@ -8,8 +8,11 @@
 #define RHY_EXCEP( message ) RhyException(message, __FILE__, __LINE__)
 #define THROW_IF_FAILED( method ) if (FAILED(method)) throw RhyException(__FILE__, __LINE__)
 
-class RhyException : public std::exception {
-
+/// <summary>
+/// Exceptions for engine related errors.
+/// </summary>
+class RhyException : public std::exception
+{
 public:
 	RhyException(std::string message, std::string file, int line) : message(message), file(file), line(line) {}
 	RhyException(std::string file, int line) : message(""), file(file), line(line) {}

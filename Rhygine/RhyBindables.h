@@ -1,4 +1,5 @@
 #pragma once
+// Includer for including all standard bindables.
 
 #include "ConstantBuffer.h"
 #include "GeoShader.h"

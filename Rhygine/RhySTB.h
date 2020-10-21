@@ -1,3 +1,5 @@
+// Includer for including stb image classes.
+
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #endif 

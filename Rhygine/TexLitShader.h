@@ -8,12 +8,18 @@
 #include <memory>
 #include <array>
 
+/// <summary>
+/// A textured phong shader.
+/// </summary>
 class TexLitShader : public CombinedShader, public Updatable
 {
 public:
 	void Init();
 	void Update();
 
+	/// <summary>
+	/// Info about the lights in the scene.
+	/// </summary>
 	struct LightInfo {
 		float lightColor[4];
 
@@ -27,6 +33,9 @@ public:
 		float paddingB[3];
 	};
 
+	/// <summary>
+	/// Info about the position of the gameobject.
+	/// </summary>
 	struct PositionInfo {
 		DirectX::XMMATRIX projection;
 		DirectX::XMMATRIX worldPos;
@@ -38,7 +47,13 @@ protected:
 	void InnerBind();
 
 private:
+	/// <summary>
+	/// Updates the lightinfo buffer.
+	/// </summary>
 	void UpdateLightInfo();
+	/// <summary>
+	/// Updates the position buffer.
+	/// </summary>
 	void UpdatePositionInfo();
 
 	LightInfo lightBuffer;

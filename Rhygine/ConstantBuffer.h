@@ -6,6 +6,10 @@
 
 #include <vector>
 
+/// <summary>
+/// Representation of a custom constant buffer.
+/// </summary>
+/// <typeparam name="Constant">The type of constant.</typeparam>
 template <class Constant>
 class ConstantBuffer : public Bindable
 {
@@ -51,6 +55,10 @@ protected:
 };
 
 
+/// <summary>
+/// A constant buffer for the vertex shader.
+/// </summary>
+/// <typeparam name="Constant">The type of constant.</typeparam>
 template <class Constant>
 class ConstantVS : public ConstantBuffer<Constant>
 {
@@ -69,6 +77,10 @@ public:
 	}
 };
 
+/// <summary>
+/// A constant buffer for the pixel shader.
+/// </summary>
+/// <typeparam name="Constant">The type of constant.</typeparam>
 template <class Constant>
 class ConstantPS : public ConstantBuffer<Constant>
 {
@@ -84,6 +96,10 @@ public:
 	}
 };
 
+/// <summary>
+/// A constant buffer for the geo shader.
+/// </summary>
+/// <typeparam name="Constant">The type of constant.</typeparam>
 template <class Constant>
 class ConstantGS : public ConstantBuffer<Constant>
 {

@@ -1,5 +1,7 @@
 #pragma once
 
+// Includer for including imgui classes.
+
 #include "RhyWin.h"
 
 #include "imgui\imgui.h"

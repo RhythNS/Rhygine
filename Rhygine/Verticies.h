@@ -1,4 +1,5 @@
 #pragma once
+// Helper class for different Vertex classes.
 
 struct VertexPosColor {
 	struct {
