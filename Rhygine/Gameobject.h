@@ -73,6 +73,17 @@ public:
 	}
 
 	/// <summary>
+	/// Enables an component to recieve update and draw calls.
+	/// </summary>
+	/// <param name="component">The component that should enabled.</param>
+	void EnableComponent(Component* component);
+	/// <summary>
+	/// Disables an component. It no longer recieves update and draw calls.
+	/// </summary>
+	/// <param name="component">The component to be disabled.</param>
+	void DisableComponent(Component* component);
+
+	/// <summary>
 	/// Removes the first component of the specified type.
 	/// </summary>
 	/// <typeparam name="T">The type of the component.</typeparam>
@@ -135,6 +146,40 @@ private:
 	/// The next gameobject of the linked list.
 	/// </summary>
 	GameObject* next;
+
+	/// <summary>
+	/// Looks through a vector of unique_ptr of specified type and returns true
+	/// if a given instance is found inside the vector.
+	/// </summary>
+	template <class T>
+	bool IsInUniqueVector(std::vector<std::unique_ptr<T>>* vec, T* t)
+	{
+		for (auto& search : *vec)
+		{
+			if (search.get() == t)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/// <summary>
+	/// Looks through a vector of pointers of specified type and returns true
+	/// if a given instance is found inside the vector.
+	/// </summary>
+	template <class T>
+	bool IsInVector(std::vector<T*>* vec, T* t)
+	{
+		for (auto& search : *vec)
+		{
+			if (search == t)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 	std::vector<std::unique_ptr<Component>> components;
 	std::vector<Updatable*> updatables;

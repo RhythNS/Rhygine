@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "Drawer.h"
+#include "Rhyimgui.h"
 
 void TexLitShader::Init()
 {
@@ -37,13 +38,24 @@ void TexLitShader::InnerBind()
 
 void TexLitShader::UpdateLightInfo()
 {
-	lightBuffer.ambientStrength = 0.2f;
-	lightBuffer.specStrength = 32.0f;
+	static float ambientStrength = 0.2f;
+	static float specStrength = 600.0f;
 
-	lightBuffer.lightColor[0] = 1.0f;
-	lightBuffer.lightColor[1] = 1.0f;
-	lightBuffer.lightColor[2] = 0.6f;
-	lightBuffer.lightColor[3] = 1.0f;
+	static float lightColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+	ImGui::Begin("TexLitShader");
+	ImGui::DragFloat("Ambient Strength", &ambientStrength, 0.01f, 0.0f, 1.0f);
+	ImGui::InputFloat("Spec Strength", &specStrength);
+	ImGui::DragFloat4("Light color", lightColor, 0.01f, 0.0f, 1.0f);
+	ImGui::End();
+
+	lightBuffer.ambientStrength = ambientStrength;
+	lightBuffer.specStrength = specStrength;
+
+	lightBuffer.lightColor[0] = lightColor[0];
+	lightBuffer.lightColor[1] = lightColor[1];
+	lightBuffer.lightColor[2] = lightColor[2];
+	lightBuffer.lightColor[3] = lightColor[3];
 
 	RhyM::Vec3* lightPos = &lights[0]->GetGameObject()->GetComponent<Transform>()->position;
 	lightBuffer.lightPosition[0] = lightPos->x;

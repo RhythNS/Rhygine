@@ -190,7 +190,6 @@
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
-    <ClCompile Include="ShapeFactory.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />

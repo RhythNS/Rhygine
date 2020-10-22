@@ -4,6 +4,40 @@
 
 #include <memory>
 
+void GameObject::EnableComponent(Component* component)
+{
+	if (!IsInUniqueVector<Component>(&components, component))
+		return;
+
+	Updatable* updatable;
+	if ((updatable = dynamic_cast<Updatable*>(component)) &&
+		!IsInVector<Updatable>(&updatables, updatable))
+		updatables.push_back(updatable);
+
+	Drawable* drawable;
+	if ((drawable = dynamic_cast<Drawable*>(component)) &&
+		!IsInVector<Drawable>(&drawables, drawable))
+		drawables.push_back(drawable);
+
+	component->enabled = true;
+}
+
+void GameObject::DisableComponent(Component* component)
+{
+	if (!IsInUniqueVector<Component>(&components, component))
+		return;
+
+	Updatable* updatable;
+	if (updatable = dynamic_cast<Updatable*>(component))
+		std::erase(updatables, updatable);
+
+	Drawable* drawable;
+	if (drawable = dynamic_cast<Drawable*>(component))
+		std::erase(drawables, drawable);
+
+	component->enabled = false;
+}
+
 bool GameObject::RemoveComponent(Component* toRemove)
 {
 	for (int i = 0; i < components.size(); ++i)
@@ -59,4 +93,3 @@ void GameObject::Draw()
 		drawable->Draw();
 	}
 }
-

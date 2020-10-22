@@ -22,6 +22,21 @@ public:
 	/// </summary>
 	GameObject* GetGameObject();
 
+	/// <summary>
+	/// Returns wheter it is enabled or not.
+	/// </summary>
+	bool IsEnabled();
+
+	/// <summary>
+	/// Enables this component.
+	/// </summary>
+	void Enable();
+
+	/// <summary>
+	/// Disables this component.
+	/// </summary>
+	void Disable();
+
 protected:
 	/// <summary>
 	/// Get the delta time since last frame.
@@ -32,12 +47,16 @@ protected:
 	/// </summary>
 	Mouse* GetMouse();
 	/// <summary>
-	/// Get a popinter to the keys instance.
+	/// Get a pointer to the keys instance.
 	/// </summary>
-	/// <returns></returns>
 	Keys* GetKeys();
 private:
 	void SetGameObject(GameObject* gameObject);
 
 	GameObject* gameObject;
+
+	/// <summary>
+	/// Recieves updates and draw calls when enabled.
+	/// </summary>
+	bool enabled = true;
 };

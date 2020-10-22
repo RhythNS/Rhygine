@@ -189,9 +189,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Gameobject</Filter>
     </ClCompile>
-    <ClCompile Include="ShapeFactory.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Gameobject\Components</Filter>
     </ClCompile>

@@ -9,6 +9,23 @@ GameObject* Component::GetGameObject()
 	return gameObject;
 }
 
+bool Component::IsEnabled()
+{
+	return enabled;
+}
+
+void Component::Enable()
+{
+	if (!enabled)
+		gameObject->EnableComponent(this);
+}
+
+void Component::Disable()
+{
+	if (enabled)
+		gameObject->DisableComponent(this);
+}
+
 float Component::GetDelta()
 {
 	return Window::GetInstance()->time.GetDelta();

@@ -6,6 +6,7 @@
 #include "TestLightComponent.h"
 
 class TestLight;
+class RotateAround;
 
 class TestLitPlateComponent : public Component, public Updatable
 {
@@ -20,5 +21,5 @@ private:
 
 	bool guiWindowOpen;
 	Transform* transform;
+	RotateAround* rotateAround;
 };
-

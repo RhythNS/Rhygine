@@ -7,12 +7,14 @@
 #include "Transform.h"
 #include "Drawer.h"
 #include "BasicShader.h"
+#include "ShapeFactory.h"
 
 #include <cmath>
 
 void TestLight::AddData(GameObject* toAddTo)
 {
 	Transform* transform = AddTransform(toAddTo);
+	transform->scale.Set(0.1f, 0.1f, 0.1f);
 	Drawer* drawer = AddDrawer(toAddTo);
 
 	struct Vertex {
@@ -27,28 +29,14 @@ void TestLight::AddData(GameObject* toAddTo)
 		} color;
 	};
 
-	std::vector<Vertex> verts = {
-		{-0.5f, -0.5f, -0.5f, 255,0,0,0},
-		{ 0.5f, -0.5f, -0.5f, 255,0,0,0},
-		{-0.5f,  0.5f, -0.5f, 255,0,0,0},
-		{ 0.5f,  0.5f, -0.5f, 255,0,0,0},
-		{-0.5f, -0.5f,  0.5f, 255,0,0,0},
-		{ 0.5f, -0.5f,  0.5f, 255,0,0,0},
-		{-0.5f,  0.5f,  0.5f, 255,0,0,0},
-		{ 0.5f,  0.5f,  0.5f, 255,0,0,0}
-	};
+	VertIndexes<VertexPosColor, unsigned short> vertIndexes = ShapeFactory::GetCubePosColor<unsigned short>();
+	for (int i = 0; i < vertIndexes.verticies.size(); i++)
+	{
+		vertIndexes.verticies[i].color.r = 255;
+	}
 
-	std::vector<unsigned short> indexes{
-		0,2,3, 0,3,1,
-		4,6,2, 4,2,0,
-		5,7,6, 5,6,4,
-		1,3,7, 1,7,5,
-		2,6,3, 6,7,3,
-		0,1,4, 1,5,4,
-	};
-
-	drawer->AddBindable(std::make_unique<VertBuffer<Vertex>>(verts, 0));
-	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
+	drawer->AddBindable(std::make_unique<VertBuffer<VertexPosColor>>(vertIndexes.verticies, 0));
+	drawer->AddBindable(std::make_unique<IndexBufferUS>(vertIndexes.indicies, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {

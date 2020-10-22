@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "Drawer.h"
 #include "TexLitShader.h"
+#include "RotateAround.h"
 
 void TestLitPlateComponent::Init()
 {
@@ -14,6 +15,7 @@ void TestLitPlateComponent::Init()
 	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
 
 	transform->position.Set(0.0f, 0.0f, 5.0f);
+	transform->scale.Set(3.0f, 3.0f, 3.0f);
 
 	struct Vertex {
 		struct {
@@ -82,10 +84,13 @@ void TestLitPlateComponent::Init()
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestGradient.png", 0));
+	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 
 	drawer->AddBindable(std::make_unique<TexLitShader>());
+
+	rotateAround = GetGameObject()->AddComponent<RotateAround>();
+	rotateAround->Disable();
 }
 
 void TestLitPlateComponent::Update()
@@ -95,6 +100,16 @@ void TestLitPlateComponent::Update()
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
 		transform->rotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
 	}
+	bool boxRotates = rotateAround->IsEnabled();
+	if (ImGui::Checkbox("Rotate around", &boxRotates))
+	{
+		if (boxRotates)
+			rotateAround->Enable();
+		else
+			rotateAround->Disable();
+	}
+	ImGui::DragFloat3("Rotate speed", &rotateAround->rotationSpeed.x, 0.05f, -2.0, 2.0f);
+
 	ImGui::End();
 }
 
