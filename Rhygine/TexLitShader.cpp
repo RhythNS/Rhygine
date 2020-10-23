@@ -39,7 +39,7 @@ void TexLitShader::InnerBind()
 void TexLitShader::UpdateLightInfo()
 {
 	static float ambientStrength = 0.2f;
-	static float specStrength = 600.0f;
+	static float specStrength = 50.0f;
 
 	static float lightColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 

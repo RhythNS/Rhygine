@@ -9,6 +9,9 @@
 #include "TestLitPlateComponent.h"
 #include "Transform.h"
 #include "RotateAround.h"
+#include "TextureChanger.h"
+#include "Drawer.h"
+#include "Texture.h"
 
 #include <memory>
 #include <array>
@@ -38,8 +41,18 @@ void LightTestScene::InnerInit()
 	lit->GetComponent<Transform>()->scale.Set(1.0f, 1.0f, 1.0f);
 	lit->GetComponent<RotateAround>()->Enable();
 
+	GameObject* lit2 = GameObjectFactory::Add(stage.get(), &tlp);
+	lit2->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
+	Drawer* drawer = lit2->GetComponent<Drawer>();
+	drawer->RemoveBindable(drawer->GetBindable<TextureChanger>());
+	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
+	lit2->GetComponent<Transform>()->position.Set(0.0f, 1.0f, 0.0f);
+	lit2->GetComponent<Transform>()->scale.Set(1.0f, 1.0f, 1.0f);
+	lit2->GetComponent<RotateAround>()->rotationSpeed.Set(0.0f, 0.0f, 1.0f);
+	lit2->GetComponent<RotateAround>()->Enable();
+
 	GameObject* pyramid = GameObjectFactory::Add(stage.get(), &tp);
-	pyramid->GetComponent<Transform>()->position.Set(0.0f, 0.0f, 0.0f);
+	pyramid->GetComponent<Transform>()->position.Set(0.0f, -1.0f, 0.0f);
 	pyramid->GetComponent<RotateAround>()->rotationSpeed.Set(1.0f, 0.0f, 0.0f);
 	
 	GameObject* model = GameObjectFactory::Add(stage.get(), &tm);

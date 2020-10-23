@@ -56,13 +56,13 @@ bool Drawer::RemoveBindable(Bindable* bindable)
 	{
 		if ((*bind).get() == bindable)
 		{
-			bindables.erase(bind);
-
 			// if it is an updatable, remove it from the updatable list.
 			Updatable* updatable;
 			if (updatable = dynamic_cast<Updatable*>(bindable))
 				std::erase(updatables, updatable);
 
+			bindables.erase(bind);
+		
 			return true;
 		}
 	}
