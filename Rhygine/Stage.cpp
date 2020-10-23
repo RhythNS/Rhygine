@@ -5,6 +5,7 @@
 
 Stage::Stage() : front(new GameObject()), back(new GameObject()), camera(front->AddComponent<Camera>())
 {
+	// Move the camera a bit back to not start at 0,0,0
 	camera->GetTransform()->position = RhyM::Vec3(0.0f, 0.0f, -4.0f);
 
 	front->next = back;
@@ -13,6 +14,7 @@ Stage::Stage() : front(new GameObject()), back(new GameObject()), camera(front->
 
 Stage::~Stage()
 {
+	// Go through all Gameobjects and manually delete them.
 	GameObject* current = front->next;
 	while (current->next != nullptr) 
 	{
@@ -27,23 +29,32 @@ GameObject* Stage::CreateGameObject()
 	return CreateGameObjectAfter(back->prev);
 }
 
-GameObject* Stage::CreateGameObjectAfter(GameObject* creteAfter)
+GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
 {
+	// Create the gameobject. And set the stage.
 	GameObject* gameObject = new GameObject();
-
 	gameObject->stage = this;
 
-	gameObject->prev = creteAfter;
-	gameObject->next = creteAfter->next;
-	creteAfter->next = gameObject;
+	// Put the gameobject in between the createAfter and the next of createAfter.
+	// ... -> CreateAfter -> next
+	// wil now be
+	// ... -> CreateAfter -> gameObject -> next
+	gameObject->prev = createAfter;
+	gameObject->next = createAfter->next;
+	createAfter->next = gameObject;
 	gameObject->next->prev = gameObject;
 
+	// Lastly init and return a pointer to it.
 	gameObject->Init();
 	return gameObject;
 }
 
 void Stage::RemoveGameObject(GameObject* gameObject)
 {
+	// Remove the gameobject from the next and prev.
+	// prev -> gameobject -> next
+	// will now be
+	// prev -> next
 	gameObject->prev->next = gameObject->next;
 	gameObject->next->prev = gameObject->prev;
 

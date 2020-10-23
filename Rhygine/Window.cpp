@@ -78,6 +78,7 @@ Window::Window(WindowDefinition definition) :
 
 	gfx = new Gfx(this);
 
+	// init imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
@@ -86,6 +87,7 @@ Window::Window(WindowDefinition definition) :
 	ImGui_ImplWin32_Init(windowHandle);
 	ImGui_ImplDX11_Init(gfx->device.Get(), gfx->context.Get());
 
+	// registe raw inputs
 	RAWINPUTDEVICE Rid[2];
 	// Add mouse
 	Rid[0].usUsagePage = 0x01;
@@ -110,10 +112,12 @@ Window::Window(WindowDefinition definition) :
 
 Window::~Window()
 {
+	// Destroy imgui
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
+	// gfx was manually created, so delete it
 	delete gfx;
 }
 
@@ -159,38 +163,50 @@ void Window::SetTitle(LPCSTR lpString)
 
 int Window::MainLoop()
 {
+	// Wanted time is the prefered frame time
 	std::chrono::duration<double> wantedTime = std::chrono::microseconds(1000000 / 144);
 
 	auto startTime = std::chrono::steady_clock::now();
 	auto timeBefore = std::chrono::steady_clock::now();
 
 	MSG msg;
+	// Main loop start
 	while (true)
 	{
-		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+		// First go through all recieved messages
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) 
+		{
+			// if the message was a quit message, return the wParam as an exit code.
 			if (msg.message == WM_QUIT)
 				return (int)msg.wParam;
 
 			TranslateMessage(&msg);
 			DispatchMessageA(&msg);
 		}
+		// Calculate the current time
 		auto timeNow = std::chrono::steady_clock::now();
 		std::chrono::duration<float> totalElapsed = timeNow - startTime;
 
+		// Go through all tickables that need to be updated.
 		for (Tickable* i : tickables)
 		{
 			i->Tick();
 		}
 
+		// Prepare imgui for a new frame
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
+		// Update the scene
 		currentScene->Update();
+
+		// Draw the scene
 		gfx->BeginDraw();
 		currentScene->Draw();
 		gfx->EndDraw();
 
+		// calculate time that the program should sleep before the next frame.
 		auto frameTime = timeNow - timeBefore;
 
 		if (frameTime < wantedTime)
@@ -311,24 +327,26 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		break;
 	}
 
-	case WM_MOUSEMOVE:
+	case WM_MOUSEMOVE: // Get the mouse position
 		POINTS pos = MAKEPOINTS(lParam);
 		mouse.AbsoluteMove(pos.x, pos.y);
 		break;
 
-	case WM_CHAR:
+	case WM_CHAR: // Get chars for the keyboard queue.
 		keys.CharTyped((unsigned char)wParam);
 		break;
 
-	case WM_KILLFOCUS:
+	case WM_KILLFOCUS: // When the window goes out of focus
+		// Reset all keys and the mouse so that no keys are stuck being pressed.
 		keys.ResetCurrentKeys();
 		mouse.ResetCurrentKeys();
+		// Unclip the cursor.
 		ClipCursor(NULL);
 		break;
 
-	case WM_SETFOCUS:
+	case WM_SETFOCUS: // When the window gains focus
+		// Get the current client size and clip the cursor to it.
 		WINDOWINFO windowinfo;
-
 		windowinfo.cbSize = sizeof(WINDOWINFO);
 		GetWindowInfo(hWnd, &windowinfo);
 

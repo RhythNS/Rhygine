@@ -8,9 +8,13 @@
 #include "Drawer.h"
 #include "TexLitShader.h"
 #include "RotateAround.h"
+#include "TextureChanger.h"
 
 void TestLitPlateComponent::Init()
 {
+	static int counter = 0;
+	id = counter++;
+
 	transform = GetGameObject()->AddComponent<Transform>();
 	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
 
@@ -84,18 +88,20 @@ void TestLitPlateComponent::Init()
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
+	drawer->AddBindable(std::make_unique<TextureChanger>());
+	//drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 
 	drawer->AddBindable(std::make_unique<TexLitShader>());
 
 	rotateAround = GetGameObject()->AddComponent<RotateAround>();
+	rotateAround->rotationSpeed.Set(-1.0f, 0.0f, 0.0f);
 	rotateAround->Disable();
 }
 
 void TestLitPlateComponent::Update()
 {
-	ImGui::Begin("BestPlane", &guiWindowOpen);
+	ImGui::Begin(("BestPlane" + std::to_string(id)).c_str(), &guiWindowOpen);
 	ImGui::DragFloat3("Position", &transform->position.x, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
 		transform->rotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);

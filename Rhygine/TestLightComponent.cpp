@@ -12,6 +12,7 @@ void TestLightComponent::Init()
 
 void TestLightComponent::Update()
 {
+	// imgui debug gui for changing the light properties.
 	ImGui::Begin(("Light " + id), &guiWindowOpen);
 	ImGui::DragFloat3("Position", &transform->position.x, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", &direction.x, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {

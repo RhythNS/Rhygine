@@ -20,6 +20,7 @@ DirectX::XMMATRIX* Camera::GetMatrix()
 
 void Camera::UpdateMatrix()
 {
+	// First move and then rotate
 	matrix =
 		DirectX::XMMatrixTranslation(-transform->position.x, -transform->position.y, -transform->position.z) *
 		DirectX::XMMatrixRotationQuaternion(

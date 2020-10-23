@@ -45,7 +45,7 @@ void TexLitShader::UpdateLightInfo()
 
 	ImGui::Begin("TexLitShader");
 	ImGui::DragFloat("Ambient Strength", &ambientStrength, 0.01f, 0.0f, 1.0f);
-	ImGui::InputFloat("Spec Strength", &specStrength);
+	ImGui::DragFloat("Spec Strength", &specStrength, 50.0f, 50.0f, 1000.0f);
 	ImGui::DragFloat4("Light color", lightColor, 0.01f, 0.0f, 1.0f);
 	ImGui::End();
 

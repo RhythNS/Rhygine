@@ -18,7 +18,7 @@ public:
 
 private:
 	float direction[3] = {0.0f, 0.0f, 0.0f};
-
+	int id;
 	bool guiWindowOpen;
 	Transform* transform;
 	RotateAround* rotateAround;

@@ -14,8 +14,8 @@ int CALLBACK WinMain(
 {
 	try {
 
+		// Get all information needed for the start and put it into WindowDefinition.
 		LightTestScene scene;
-		
 		Window::WindowDefinition winDef = { 0 };
 		winDef.hInstance = hInstance;
 		winDef.lpCmdLine = lpCmdLine;
@@ -26,10 +26,13 @@ int CALLBACK WinMain(
 		winDef.top = 100;
 		winDef.left = 100;
 
+		// Create the window.
 		Window window(winDef);
 
+		// Execute the main loop and return the exit code as an exit code.
 		return window.MainLoop();
 	}
+	// catch any exceptions and display a MessageBox with the exception info.
 	catch (RhyException& rhy) {
 		MessageBoxA(nullptr, rhy.what(), "Rhygine Failure", MB_OK | MB_ICONEXCLAMATION);
 	}
@@ -39,6 +42,7 @@ int CALLBACK WinMain(
 	catch (...) {
 		MessageBoxA(nullptr, "Unknown error...", "Uncaught Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
+	// If an exception occured simply return the exit code -1
 	return -1;
 }
 

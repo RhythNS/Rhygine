@@ -8,23 +8,25 @@
 
 Texture::Texture(const char* fileName, int slot) : slot(slot)
 {
-	int x, y, n;
+	int width, height, bits;
 
-	unsigned char* load = stbi_load(fileName, &x, &y, &n, 4);
+	// load the image
+	unsigned char* load = stbi_load(fileName, &width, &height, &bits, 4);
 
+	// throw error if the image could not be loaded.
 	if (load == nullptr)
 		throw RHY_EXCEP(stbi_failure_reason());
 
-	std::vector<unsigned char> image(x * y * 4);
-
-	for (int i = 0; i < x * y * 4; i++)
+	// transfer the image to a part of memory that we own.
+	std::vector<unsigned char> image(width * height * 4);
+	for (int i = 0; i < width * height * 4; i++)
 	{
 		image[i] = load[i];
 	}
 
 	D3D11_TEXTURE2D_DESC desc = { 0 };
-	desc.Width = x;
-	desc.Height = y;
+	desc.Width = width;
+	desc.Height = height;
 	desc.MipLevels = 1;
 	desc.ArraySize = 1;
 	desc.SampleDesc.Count = 1;
@@ -35,7 +37,7 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 
 	D3D11_SUBRESOURCE_DATA data = { 0 };
 	data.pSysMem = image.data();
-	data.SysMemPitch = x * sizeof(unsigned char) * 4;
+	data.SysMemPitch = width * sizeof(unsigned char) * 4;
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex;
 	THROW_IF_FAILED(GetDevice()->CreateTexture2D(&desc, &data, &tex));
@@ -47,6 +49,7 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 	resourceView.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	THROW_IF_FAILED(GetDevice()->CreateShaderResourceView(tex.Get(), &resourceView, &texturePointer));
 
+	// free the loaded image
 	stbi_image_free(load);
 }
 
