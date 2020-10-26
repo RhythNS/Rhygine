@@ -9,3 +9,4 @@ To build the project you need [vcpkg](https://docs.microsoft.com/en-us/cpp/build
     vcpkg integrate install
     vcpkg install assimp:x64-windows
     vcpkg install stb:x64-windows
+	vcpkg install bullet3:x64-windows

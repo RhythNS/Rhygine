@@ -19,7 +19,7 @@ void TestLitPlateComponent::Init()
 	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
 
 	transform->position.Set(0.0f, 0.0f, 5.0f);
-	transform->scale.Set(3.0f, 3.0f, 3.0f);
+	//transform->scale.Set(3.0f, 3.0f, 3.0f);
 
 	struct Vertex {
 		struct {

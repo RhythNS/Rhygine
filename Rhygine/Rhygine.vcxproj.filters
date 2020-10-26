@@ -222,6 +222,9 @@
     <ClCompile Include="CameraMover.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BulletTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="CameraMover.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

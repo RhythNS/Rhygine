@@ -5,6 +5,7 @@
 
 #include "TestScene.h"
 #include "LightTestScene.h"
+#include "BulletTestScene.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -15,7 +16,7 @@ int CALLBACK WinMain(
 	try {
 
 		// Get all information needed for the start and put it into WindowDefinition.
-		LightTestScene scene;
+		BulletTestScene scene;
 		Window::WindowDefinition winDef = { 0 };
 		winDef.hInstance = hInstance;
 		winDef.lpCmdLine = lpCmdLine;
