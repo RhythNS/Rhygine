@@ -23,3 +23,4 @@ void CombinedShader::CreateShaders(LPCWSTR pixName, LPCWSTR vertName, std::vecto
 	inputLayout = std::make_unique<InputLayout>(*inputLayoutDesc, blob);
 	InitBindable<InputLayout>(inputLayout.get());
 }
+ 

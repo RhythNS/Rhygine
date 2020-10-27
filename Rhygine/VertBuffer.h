@@ -5,11 +5,20 @@
 #include <vector>
 
 /// <summary>
+/// Interface for getting the size of the vertex buffer.
+/// </summary>
+class VertBufferAmount
+{
+public:
+	virtual UINT* GetSize() = 0;
+};
+
+/// <summary>
 /// Represents a vertex buffer.
 /// </summary>
 /// <typeparam name="Vertex">The type of vertex.</typeparam>
 template <class Vertex>
-class VertBuffer : public Bindable
+class VertBuffer : public Bindable, public VertBufferAmount
 {
 public:
 	VertBuffer(std::vector<Vertex> verts, int slot) : VertBuffer<Vertex>(verts, GetDefaultDescription(), slot)
@@ -17,6 +26,7 @@ public:
 	}
 	VertBuffer(std::vector<Vertex> verts, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
+		amount = verts.size();
 		desc.ByteWidth = (UINT)(sizeof(Vertex) * verts.size());
 		desc.StructureByteStride = sizeof(Vertex);
 
@@ -30,8 +40,13 @@ public:
 		unsigned int vertOffset = 0;
 		GetContext()->IASetVertexBuffers(slot, 1, bufferPointer.GetAddressOf(), &strides, &vertOffset);
 	}
+	UINT* GetSize()
+	{
+		return &amount;
+	}
 	
 	int slot;
+	UINT amount;
 protected:
 	D3D11_BUFFER_DESC GetDefaultDescription()
 	{

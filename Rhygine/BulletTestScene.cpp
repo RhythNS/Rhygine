@@ -18,6 +18,8 @@ BulletTestScene::BulletTestScene()
 	constraintSolver = new btSequentialImpulseConstraintSolver();
 
 	world = new btDiscreteDynamicsWorld(dispatcher, broadphase, constraintSolver, collisionConfiguration);
+	debugDraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+	world->setDebugDrawer(&debugDraw);
 
 	boxMotion = new btDefaultMotionState();
 	boxShape = new btBoxShape(btVector3(0.5f, 0.5f, 0.5f));
@@ -44,6 +46,7 @@ void BulletTestScene::InnerInit()
 	//body->applyImpulse(btVector3(25.0f, 0.0f, 0.0f), btVector3(0.0f, 10.0f, 0.0f));
 	//boxBody->setAngularVelocity(btVector3(2.0f, 2.0f, 2.0f));
 	//staticBoxBody->setFlags(btRigidBody::CF_NO_CONTACT_RESPONSE | btRigidBody::CF_STATIC_OBJECT);
+	debugDraw.Init(stage.get());
 
 	staticBoxBody->translate(btVector3(0.9f, -2.0f, 0.0f));
 
@@ -82,4 +85,9 @@ void BulletTestScene::InnerPreUpdate()
 	trans->rotation.y = quat.getY();
 	trans->rotation.z = quat.getZ();
 	trans->rotation.w = quat.getW();
+}
+
+void BulletTestScene::InnerAfterDraw()
+{
+	world->debugDrawWorld();
 }

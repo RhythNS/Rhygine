@@ -21,7 +21,7 @@ void Scene::Update()
 void Scene::Draw()
 {
 	InnerPreDraw();
-	stage->Draw();
+	//stage->Draw();
 	InnerAfterDraw();
 }
 

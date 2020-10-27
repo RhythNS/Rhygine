@@ -11,7 +11,7 @@
 class IndexBufferAmount
 {
 public:
-	virtual UINT GetSize() = 0;
+	virtual UINT* GetSize() = 0;
 };
 
 /// <summary>
@@ -35,9 +35,9 @@ public:
 	{
 		GetContext()->IASetIndexBuffer(indexPointer.Get(), GetFormat(), 0);
 	}
-	UINT GetSize()
+	UINT* GetSize()
 	{
-		return size;
+		return &size;
 	}
 	int slot;
 protected:

@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "BulletDebugDraw.h"
 
 #include "bullet\btBulletDynamicsCommon.h"
 
@@ -12,7 +13,7 @@ public:
 	void InnerPreUpdate();
 //	void InnerAfterUpdate() {}
 //	void InnerPreDraw();
-//	void InnerAfterDraw() {}
+	void InnerAfterDraw();
 private:
 	btDiscreteDynamicsWorld* world;
 	btCollisionDispatcher* dispatcher;
@@ -28,5 +29,6 @@ private:
 	btRigidBody* staticBoxBody;
 	btDefaultMotionState* staticBoxMotion;
 	GameObject* staticBox;
-
+	
+	BulletDebugDraw debugDraw;
 };

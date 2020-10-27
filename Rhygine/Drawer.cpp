@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Stage.h"
+#include "PrimitiveTopolpgy.h"
 
 void Drawer::Init()
 {
@@ -23,7 +24,17 @@ void Drawer::Draw()
 	}
 
 	// All bindables are bound, execute the draw call.
-	Gfx::GetInstance()->DrawIndexed(indexAmount->GetSize());
+	switch (drawMode)
+	{
+	case Drawer::List:
+		Gfx::GetInstance()->Draw(vertAmount->GetSize());
+		break;
+	case Drawer::Indexed:
+		Gfx::GetInstance()->DrawIndexed(indexAmount->GetSize());
+		break;
+	default:
+		throw RHY_EXCEP("Unsupported draw mode: " + drawMode);
+	}
 }
 
 Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
@@ -33,11 +44,7 @@ Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 	if (updatable = dynamic_cast<Updatable*>(bindable.get()))
 		updatables.push_back(updatable);
 
-	// If it is an index buffer, then set the indexAmount reference to it.
-	// This is because, the DrawIndexed() function needs the amount of indicies.
-	IndexBufferAmount* indAmount;
-	if (indAmount = dynamic_cast<IndexBufferAmount*>(bindable.get()))
-		indexAmount = indAmount;
+	AnalyseBindable(bindable.get());
 
 	// Init the bindable
 	bindable->drawer = this;
@@ -47,6 +54,43 @@ Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 	bindables.push_back(std::move(bindable));
 
 	return bindables[bindables.size() - 1].get();
+}
+
+inline void Drawer::AnalyseBindable(Bindable* bindable)
+{
+	// If it is an index buffer, then set the indexAmount reference to it.
+	// This is because, the DrawIndexed() function needs the amount of indicies.
+	// Otherwise check if it is a vertex buffer. This is if we need to draw something
+	// that is not indexed, since we then need the vertex amount.
+	IndexBufferAmount* indAmount;
+	if (indAmount = dynamic_cast<IndexBufferAmount*>(bindable))
+	{
+		indexAmount = indAmount;
+		return;
+	}
+	VertBufferAmount* vertexAmount;
+	if (vertexAmount = dynamic_cast<VertBufferAmount*>(bindable))
+	{
+		vertAmount = vertexAmount;
+		return;
+	}
+
+	PrimitiveTopology* primitiveTopology;
+	if (primitiveTopology = dynamic_cast<PrimitiveTopology*>(bindable))
+	{
+		switch (*primitiveTopology->GetTopology())
+		{
+		case D3D_PRIMITIVE_TOPOLOGY_LINELIST:
+			drawMode = DrawMode::List;
+			break;
+		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST:
+			drawMode = DrawMode::Indexed;
+		default:
+			OutputDebugString("Unkown primitive topology. Leaving draw mode in indexed: " + *primitiveTopology->GetTopology());
+			break;
+		}
+		return;
+	}
 }
 
 bool Drawer::RemoveBindable(Bindable* bindable)
@@ -62,7 +106,7 @@ bool Drawer::RemoveBindable(Bindable* bindable)
 				std::erase(updatables, updatable);
 
 			bindables.erase(bind);
-		
+
 			return true;
 		}
 	}

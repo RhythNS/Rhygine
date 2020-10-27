@@ -94,6 +94,12 @@
     <Filter Include="Header Files\TestGameobjects\Bindables">
       <UniqueIdentifier>{3638b109-2112-4172-b5f3-c8355fe5b73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Bullet">
+      <UniqueIdentifier>{dbb1624f-38ac-4389-9305-ef600af1246e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bullet">
+      <UniqueIdentifier>{4277d0fa-75e6-42a6-8da2-1e8a9a27c5e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -224,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="BulletTestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletDebugDraw.cpp">
+      <Filter>Source Files\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +419,9 @@
     <ClInclude Include="BulletTestScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="BulletDebugDraw.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVert.hlsl">
@@ -428,6 +440,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="TexLitVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BulletDebugVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BulletDebugPix.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -86,7 +86,7 @@ void TestLitPlateComponent::Init()
 
 	drawer->AddBindable(std::make_unique<VertBuffer<Vertex>>(verts, 0));
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
-	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	drawer->AddBindable(std::make_unique<TextureChanger>());
 	//drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));

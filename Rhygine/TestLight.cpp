@@ -37,7 +37,7 @@ void TestLight::AddData(GameObject* toAddTo)
 
 	drawer->AddBindable(std::make_unique<VertBuffer<VertexPosColor>>(vertIndexes.verticies, 0));
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(vertIndexes.indicies, 0));
-	drawer->AddBindable(std::make_unique<PrimitiveTopolpgy>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },

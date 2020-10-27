@@ -1,12 +1,13 @@
 #pragma once
 #include "Bindable.h"
 
-class PrimitiveTopolpgy : public Bindable
+class PrimitiveTopology : public Bindable
 {
 public:
-	PrimitiveTopolpgy(D3D11_PRIMITIVE_TOPOLOGY primitiveTopolpgy);
+	PrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY primitiveTopolpgy);
 	void Bind();
+	D3D11_PRIMITIVE_TOPOLOGY* GetTopology();
 private:
-	D3D11_PRIMITIVE_TOPOLOGY primitiveTopolpgy;
+	D3D11_PRIMITIVE_TOPOLOGY primitiveTopology;
 };
 

@@ -3,6 +3,7 @@
 #include "Drawable.h"
 #include "Updatable.h"
 #include "IndexBuffer.h"
+#include "VertBuffer.h"
 
 #include <vector>
 #include <memory>
@@ -18,6 +19,11 @@ class Camera;
 class Drawer : public Component, public Drawable
 {
 public:
+	enum DrawMode
+	{
+		List, Indexed
+	};
+
 	void Init();
 	void Draw();
 
@@ -59,10 +65,21 @@ public:
 	/// Gets a reference to the camera.
 	/// </summary>
 	Camera* GetCamera();
-
+	/// <summary>
+	/// What draw function should be called inside Gfx when drawn.
+	/// </summary>
+	DrawMode drawMode = DrawMode::Indexed;
 private:
+	/// <summary>
+	/// Checks the bindable and sets needed references or changes modes
+	/// of the drawer.
+	/// </summary>
+	/// <param name="bindable">The bindable that was just added.</param>
+	inline void AnalyseBindable(Bindable* bindable);
+
 	std::vector<std::unique_ptr<Bindable>> bindables;
 	std::vector<Updatable*> updatables;
 	Transform* transform;
 	IndexBufferAmount* indexAmount;
+	VertBufferAmount* vertAmount;
 };

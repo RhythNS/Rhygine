@@ -1,10 +1,15 @@
 #include "PrimitiveTopolpgy.h"
 
-PrimitiveTopolpgy::PrimitiveTopolpgy(D3D11_PRIMITIVE_TOPOLOGY primitiveTopolpgy) : primitiveTopolpgy(primitiveTopolpgy)
+PrimitiveTopology::PrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY primitiveTopology) : primitiveTopology(primitiveTopology)
 {
 }
 
-void PrimitiveTopolpgy::Bind()
+void PrimitiveTopology::Bind()
 {
-	GetContext()->IASetPrimitiveTopology(primitiveTopolpgy);
+	GetContext()->IASetPrimitiveTopology(primitiveTopology);
+}
+
+D3D11_PRIMITIVE_TOPOLOGY* PrimitiveTopology::GetTopology()
+{
+	return &primitiveTopology;
 }
