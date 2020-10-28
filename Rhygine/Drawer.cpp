@@ -26,14 +26,14 @@ void Drawer::Draw()
 	// All bindables are bound, execute the draw call.
 	switch (drawMode)
 	{
-	case Drawer::List:
+	case DrawMode::List:
 		Gfx::GetInstance()->Draw(vertAmount->GetSize());
 		break;
-	case Drawer::Indexed:
+	case DrawMode::Indexed:
 		Gfx::GetInstance()->DrawIndexed(indexAmount->GetSize());
 		break;
 	default:
-		throw RHY_EXCEP("Unsupported draw mode: " + drawMode);
+		throw RHY_EXCEP("Unsupported draw mode");
 	}
 }
 

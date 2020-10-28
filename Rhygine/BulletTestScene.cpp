@@ -7,7 +7,7 @@
 #include "TestLitPlateComponent.h"
 #include "TestLitPlate.h"
 #include "GameObjectFactory.h"
-
+#include "Camera.h"
 
 BulletTestScene::BulletTestScene()
 {
@@ -26,7 +26,7 @@ BulletTestScene::BulletTestScene()
 	boxBody = new btRigidBody(1.0f, boxMotion, boxShape);
 
 	staticBoxMotion = new btDefaultMotionState();
-	staticBoxBody = new btRigidBody(0.0f, staticBoxMotion, boxShape);
+	staticBoxBody = new btRigidBody(1.0f, staticBoxMotion, boxShape);
 }
 
 BulletTestScene::~BulletTestScene()
@@ -43,12 +43,14 @@ BulletTestScene::~BulletTestScene()
 
 void BulletTestScene::InnerInit()
 {
+	stage->GetCamera()->GetTransform()->position.z -= 10.0f;
 	//body->applyImpulse(btVector3(25.0f, 0.0f, 0.0f), btVector3(0.0f, 10.0f, 0.0f));
 	//boxBody->setAngularVelocity(btVector3(2.0f, 2.0f, 2.0f));
 	//staticBoxBody->setFlags(btRigidBody::CF_NO_CONTACT_RESPONSE | btRigidBody::CF_STATIC_OBJECT);
 	debugDraw.Init(stage.get());
 
-	staticBoxBody->translate(btVector3(0.9f, -2.0f, 0.0f));
+	staticBoxBody->translate(btVector3(0.9f, -5.0f, 0.0f));
+	staticBoxBody->applyImpulse(btVector3(0.0f, 20.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f));
 
 	world->setGravity({ 0.0f, -9.81f, 0.0f });
 	world->addRigidBody(boxBody);

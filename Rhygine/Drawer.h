@@ -19,7 +19,7 @@ class Camera;
 class Drawer : public Component, public Drawable
 {
 public:
-	enum DrawMode
+	enum class DrawMode
 	{
 		List, Indexed
 	};
