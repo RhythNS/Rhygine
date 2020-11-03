@@ -115,6 +115,11 @@ Gfx* Gfx::GetInstance()
 	return instance;
 }
 
+void Gfx::ClearDepth()
+{
+	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
 void Gfx::BeginDraw()
 {
 	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());

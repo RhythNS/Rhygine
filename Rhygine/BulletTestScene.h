@@ -29,6 +29,11 @@ private:
 	btRigidBody* staticBoxBody;
 	btDefaultMotionState* staticBoxMotion;
 	GameObject* staticBox;
+
+	btRigidBody* groundBody;
+	btDefaultMotionState* groundMotion;
+	btBoxShape* groundShape;
+	GameObject* ground;
 	
 	BulletDebugDraw debugDraw;
 };

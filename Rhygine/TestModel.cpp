@@ -10,7 +10,7 @@ void TestModel::AddData(GameObject* toAddTo)
 	Transform* transform = AddTransform(toAddTo);
 	Drawer* drawer = AddDrawer(toAddTo);
 
-	transform->position.Set(-10.0f, 0.0f, 10.0f);
+	transform->position.setValue(-10.0f, 0.0f, 10.0f);
 
 	struct Vertex {
 		struct {

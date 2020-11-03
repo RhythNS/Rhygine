@@ -1,6 +1,7 @@
 #pragma once
 // Includer for including math classes.
 
+	/*
 #include "assimp\vector2.h"
 #include "assimp\vector3.h"
 #include "assimp\matrix3x3.h"
@@ -24,6 +25,23 @@ namespace RhyM {
 	typedef aiQuaterniont<float> Quat;
 	typedef aiMatrix3x3t<float> Mat3;
 	typedef aiMatrix4x4t<float> Mat4;
+	typedef
+
+	constexpr float PI = 3.14159265358979323846f;
+}
+*/
+
+#include "bullet\btBulletDynamicsCommon.h"
+#include "assimp\vector2.h"
+#include "assimp\vector2.inl"
+
+namespace RhyM {
+	typedef aiVector2t<float> Vec2;
+	typedef aiVector2t<int> Vec2I;
+	typedef btVector3 Vec3;
+	typedef btVector4 Vec4;
+	typedef btQuaternion Quat;
+	typedef btMatrix3x3 Mat3;
 
 	constexpr float PI = 3.14159265358979323846f;
 }

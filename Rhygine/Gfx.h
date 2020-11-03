@@ -21,6 +21,10 @@ public:
 	static Gfx* GetInstance();
 
 	/// <summary>
+	/// Clears the depth buffer.
+	/// </summary>
+	void ClearDepth();
+	/// <summary>
 	/// Called before gameobjects are started to be drawn.
 	/// </summary>
 	void BeginDraw();

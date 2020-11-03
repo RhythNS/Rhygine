@@ -58,14 +58,14 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.lightColor[3] = lightColor[3];
 
 	RhyM::Vec3* lightPos = &lights[0]->GetGameObject()->GetComponent<Transform>()->position;
-	lightBuffer.lightPosition[0] = lightPos->x;
-	lightBuffer.lightPosition[1] = lightPos->y;
-	lightBuffer.lightPosition[2] = lightPos->z;
+	lightBuffer.lightPosition[0] = lightPos->m_floats[0];
+	lightBuffer.lightPosition[1] = lightPos->m_floats[1];
+	lightBuffer.lightPosition[2] = lightPos->m_floats[2];
 
 	RhyM::Vec3* cameraPos = &GetDrawer()->GetCamera()->GetTransform()->position;
-	lightBuffer.cameraPos[0] = cameraPos->x;
-	lightBuffer.cameraPos[1] = cameraPos->y;
-	lightBuffer.cameraPos[2] = cameraPos->z;
+	lightBuffer.cameraPos[0] = cameraPos->m_floats[0];
+	lightBuffer.cameraPos[1] = cameraPos->m_floats[1];
+	lightBuffer.cameraPos[2] = cameraPos->m_floats[2];
 
 	pixBuffer->SetAndUpdate(&lightBuffer);
 }

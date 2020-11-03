@@ -13,9 +13,9 @@ DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
 	perspectiveMatrix =
 		DirectX::XMMatrixTranspose
 		(
-			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
-			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.x, rotation.y, rotation.z, rotation.w)) *
-			DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
+			DirectX::XMMatrixScaling(scale.m_floats[0], scale.m_floats[1], scale.m_floats[2]) *
+			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW())) *
+			DirectX::XMMatrixTranslation(position.m_floats[0], position.m_floats[1], position.m_floats[2]) *
 			*GetGameObject()->GetStage()->GetCamera()->GetMatrix() *
 			DirectX::XMMatrixPerspectiveLH(1.0f, (float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(), 0.5f, 100.0f)
 		);
@@ -28,8 +28,8 @@ DirectX::XMMATRIX* Transform::GetLocalMatrix()
 	localMatrix =
 		DirectX::XMMatrixTranspose
 		(
-			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
-			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.x, rotation.y, rotation.z, rotation.w))
+			DirectX::XMMatrixScaling(scale.m_floats[0], scale.m_floats[1], scale.m_floats[2]) *
+			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()))
 		);
 
 	return &localMatrix;
@@ -37,7 +37,7 @@ DirectX::XMMATRIX* Transform::GetLocalMatrix()
 
 RhyM::Vec3 Transform::GetForward()
 {
-	return rotation.Rotate(RhyM::Vec3(0.0f, 0.0f, 1.0f));
+	return quatRotate(rotation, RhyM::Vec3(0.0f, 0.0f, 1.0f));
 }
 
 DirectX::XMMATRIX* Transform::GetWorldMatrix()
@@ -45,9 +45,9 @@ DirectX::XMMATRIX* Transform::GetWorldMatrix()
 	worldMatrix =
 		DirectX::XMMatrixTranspose
 		(
-			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
-			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.x, rotation.y, rotation.z, rotation.w)) *
-			DirectX::XMMatrixTranslation(position.x, position.y, position.z)
+			DirectX::XMMatrixScaling(scale.m_floats[0], scale.m_floats[1], scale.m_floats[2]) *
+			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW())) *
+			DirectX::XMMatrixTranslation(position.m_floats[0], position.m_floats[1], position.m_floats[2])
 		);
 
 	return &worldMatrix;

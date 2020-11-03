@@ -13,7 +13,7 @@ class Transform : public Component
 public:
 	void Init();
 	RhyM::Vec3 position = RhyM::Vec3(0.0f,0.0f,0.0f);
-	RhyM::Quat rotation;
+	RhyM::Quat rotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
 	RhyM::Vec3 scale = RhyM::Vec3(1.0f,1.0f,1.0f);
 
 	/// <summary>

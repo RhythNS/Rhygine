@@ -18,7 +18,7 @@ void TestLitPlateComponent::Init()
 	transform = GetGameObject()->AddComponent<Transform>();
 	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
 
-	transform->position.Set(0.0f, 0.0f, 5.0f);
+	transform->position.setValue(0.0f, 0.0f, 5.0f);
 	//transform->scale.Set(3.0f, 3.0f, 3.0f);
 
 	struct Vertex {
@@ -95,14 +95,14 @@ void TestLitPlateComponent::Init()
 	drawer->AddBindable(std::make_unique<TexLitShader>());
 
 	rotateAround = GetGameObject()->AddComponent<RotateAround>();
-	rotateAround->rotationSpeed.Set(-1.0f, 0.0f, 0.0f);
+	rotateAround->rotationSpeed.setValue(-1.0f, 0.0f, 0.0f);
 	rotateAround->Disable();
 }
 
 void TestLitPlateComponent::Update()
 {
 	ImGui::Begin(("BestPlane" + std::to_string(id)).c_str(), &guiWindowOpen);
-	ImGui::DragFloat3("Position", &transform->position.x, 0.1f, -10.0f, 10.0f, "%.3f", 0);
+	ImGui::DragFloat3("Position", transform->position.m_floats, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
 		transform->rotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
 	}
@@ -114,7 +114,7 @@ void TestLitPlateComponent::Update()
 		else
 			rotateAround->Disable();
 	}
-	ImGui::DragFloat3("Rotate speed", &rotateAround->rotationSpeed.x, 0.05f, -2.0, 2.0f);
+	ImGui::DragFloat3("Rotate speed", rotateAround->rotationSpeed, 0.05f, -2.0, 2.0f);
 
 	ImGui::End();
 }
