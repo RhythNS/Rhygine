@@ -26,6 +26,8 @@ int CALLBACK WinMain(
 		winDef.height = 800;
 		winDef.top = 100;
 		winDef.left = 100;
+		winDef.enablePhysics = true;
+		winDef.physicsStartDebugMode = true;
 
 		// Create the window.
 		Window window(winDef);
@@ -46,6 +48,3 @@ int CALLBACK WinMain(
 	// If an exception occured simply return the exit code -1
 	return -1;
 }
-
-
-

@@ -8,6 +8,7 @@
 #include "Mouse.h"
 
 class Gfx;
+class Physics;
 class Scene;
 class Tickable;
 
@@ -31,6 +32,8 @@ public:
 		int height;
 		int left;
 		int top;
+		bool enablePhysics = true;
+		bool physicsStartDebugMode = false;
 	};
 
 	Window() = delete;
@@ -101,7 +104,8 @@ private:
 	std::vector<Tickable*> tickables;
 	HWND windowHandle;
 	HINSTANCE hInstance;
-	Gfx* gfx;
+	Physics* physics = nullptr;
+	Gfx* gfx = nullptr;
 	Scene* currentScene;
 
 	int width;

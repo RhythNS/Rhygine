@@ -10,6 +10,7 @@
 #include "Time.h"
 #include "Mouse.h"
 #include "Gfx.h"
+#include "Physics.h"
 #include "Scene.h"
 #include "Tickable.h"
 
@@ -21,7 +22,6 @@ Window::Window(WindowDefinition definition) :
 {
 	instance = this;
 	currentScene->window = this;
-	tickables.push_back(&time);
 	tickables.push_back(&mouse);
 	tickables.push_back(&keys);
 
@@ -103,6 +103,13 @@ Window::Window(WindowDefinition definition) :
 
 	if (RegisterRawInputDevices(Rid, 2, sizeof(Rid[0])) == FALSE)
 		throw RHY_EXCEP("Could not register for raw input!");
+
+	if (definition.enablePhysics)
+	{
+		physics = new Physics();
+		if (definition.physicsStartDebugMode)
+			physics->EnableDebug();
+	}
 
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
@@ -193,6 +200,19 @@ int Window::MainLoop()
 			i->Tick();
 		}
 
+		// If physics are enabled, then simulate the physics world
+		if (physics)
+		{
+			bool moved = false;
+			while (time.ShouldUpdatePhysics())
+			{
+				physics->Tick();
+				moved = true;
+			}
+			if (moved)
+				physics->UpdatePositions();
+		}
+
 		// Prepare imgui for a new frame
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
@@ -204,6 +224,15 @@ int Window::MainLoop()
 		// Draw the scene
 		gfx->BeginDraw();
 		currentScene->Draw();
+
+		// If physics is enabled and the debug mode is enabled then draw the wireframes of
+		// the physics objects.
+		if (physics && physics->IsDebugEnabled())
+		{
+			gfx->ClearDepth();
+			physics->DebugDraw();
+		}
+
 		gfx->EndDraw();
 
 		// calculate time that the program should sleep before the next frame.

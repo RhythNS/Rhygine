@@ -16,7 +16,7 @@ public:
 	/// Called after the the reference to the gameobject was set.
 	/// Used for initializing the component.
 	/// </summary>
-	virtual void Init() = 0;
+	virtual void Init() {}
 	/// <summary>
 	/// Gets a reference to the gameobject.
 	/// </summary>
@@ -50,6 +50,15 @@ protected:
 	/// Get a pointer to the keys instance.
 	/// </summary>
 	Keys* GetKeys();
+
+	/// <summary>
+	/// Calles when a component that was disabled was enabled.
+	/// </summary>
+	virtual void OnEnabled() {}
+	/// <summary>
+	/// Calles when a component that was enabled was disabled.
+	/// </summary>
+	virtual void OnDisabled() {}
 private:
 	void SetGameObject(GameObject* gameObject);
 

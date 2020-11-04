@@ -234,6 +234,15 @@
     <ClCompile Include="BulletDebugDraw.cpp">
       <Filter>Source Files\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPhysicsMover.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -421,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="BulletDebugDraw.h">
       <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Header Files\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPhysicsMover.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

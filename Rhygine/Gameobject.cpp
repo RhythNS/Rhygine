@@ -24,6 +24,7 @@ void GameObject::EnableComponent(Component* component)
 
 	// change the enabled bool to true.
 	component->enabled = true;
+	component->OnEnabled();
 }
 
 void GameObject::DisableComponent(Component* component)
@@ -44,6 +45,7 @@ void GameObject::DisableComponent(Component* component)
 
 	// Set the enabled bool to false.
 	component->enabled = false;
+	component->OnDisabled();
 }
 
 bool GameObject::RemoveComponent(Component* toRemove)

@@ -33,25 +33,29 @@ void CameraMover::Update()
 	if (keys->IsKeyDown('U'))
 		rotate.m_floats[1] -= 5 * delta;
 
-	// Rotate the transform.
-	transform->rotation = transform->rotation * RhyM::Quat(rotate.x(), rotate.y(), rotate.z());
+	// Rotate the transform
+	//transform->rotation = transform->rotation * RhyM::Quat(rotate.x(), rotate.y(), rotate.z());
 
 	static float speed = 0.01f;
 	// Get the relative position of the mouse.
-	RhyM::Vec2I* rp = mouse->GetRelativePosition(); 
+	RhyM::Vec2I* rp = mouse->GetRelativePosition();
 
 	// Display a imgui window for changing some values of the camera.
 	ImGui::Begin("Mouse relative pos");
 	ImGui::DragFloat("MouseSpeed", &speed, 0.01f, 0.01f, 1.0f);
 	std::string rps = "Vec: " + std::to_string(rp->x) + " " + std::to_string(rp->y);
 	ImGui::Text(rps.c_str());
-	ImGui::End();
 
 	// Rotate the camera if the right mouse button was pressed with mouse control.
 	if (mouse->IsButtonDown(RH_MOUSE_RIGHT))
 	{
-		transform->rotation = transform->rotation * RhyM::Quat(rp->x * speed, rp->y * speed, 0.0f);
+		transform->rotation =
+			RhyM::Quat(RhyM::Vec3(0.0f, 1.0f, 0.0f), rp->x * speed) *
+			transform->rotation *
+			RhyM::Quat(RhyM::Vec3(1.0f, 0.0f, 0.0f), rp->y * speed)
+			;
 	}
+	ImGui::End();
 
 	// Move the camera around with WASDQE
 	RhyM::Vec3 move = RhyM::Vec3(0.0f, 0.0f, 0.0f);
@@ -85,5 +89,5 @@ void CameraMover::Update()
 
 	// If the r keys is pressed, then reset the rotation.
 	if (keys->IsKeyDown('R'))
-		transform->rotation = RhyM::Quat();
+		transform->rotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
 }
