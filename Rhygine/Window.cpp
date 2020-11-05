@@ -104,17 +104,23 @@ Window::Window(WindowDefinition definition) :
 	if (RegisterRawInputDevices(Rid, 2, sizeof(Rid[0])) == FALSE)
 		throw RHY_EXCEP("Could not register for raw input!");
 
+	if (definition.targetFramesPerSecond > 0)
+		time.wantedFrameTime = std::chrono::microseconds(1000000 / definition.targetFramesPerSecond);
+
+	currentScene->Init();
+
 	if (definition.enablePhysics)
 	{
-		physics = new Physics();
+		physics = new Physics(definition.physicsUpdateTime);
 		if (definition.physicsStartDebugMode)
-			physics->EnableDebug();
+			physics->EnableDebug(currentScene->stage.get());
 	}
+
+	currentScene->InnerInit();
 
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
 
-	currentScene->Init();
 }
 
 Window::~Window()
@@ -170,18 +176,12 @@ void Window::SetTitle(LPCSTR lpString)
 
 int Window::MainLoop()
 {
-	// Wanted time is the prefered frame time
-	std::chrono::duration<double> wantedTime = std::chrono::microseconds(1000000 / 144);
-
-	auto startTime = std::chrono::steady_clock::now();
-	auto timeBefore = std::chrono::steady_clock::now();
-
 	MSG msg;
 	// Main loop start
 	while (true)
 	{
 		// First go through all recieved messages
-		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) 
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			// if the message was a quit message, return the wParam as an exit code.
 			if (msg.message == WM_QUIT)
@@ -190,9 +190,8 @@ int Window::MainLoop()
 			TranslateMessage(&msg);
 			DispatchMessageA(&msg);
 		}
-		// Calculate the current time
-		auto timeNow = std::chrono::steady_clock::now();
-		std::chrono::duration<float> totalElapsed = timeNow - startTime;
+
+		time.StartOfFrame();
 
 		// Go through all tickables that need to be updated.
 		for (Tickable* i : tickables)
@@ -235,13 +234,12 @@ int Window::MainLoop()
 
 		gfx->EndDraw();
 
-		// calculate time that the program should sleep before the next frame.
-		auto frameTime = timeNow - timeBefore;
+		time.EndOfFrame();
 
-		if (frameTime < wantedTime)
-			std::this_thread::sleep_for(wantedTime - frameTime);
+		std::chrono::duration<float> sleepTime = time.GetSleepTime();
 
-		timeBefore = timeNow;
+		if (sleepTime.count() > 0.0f)
+			std::this_thread::sleep_for(sleepTime);
 	}
 }
 
@@ -302,8 +300,8 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (raw->header.dwType == RIM_TYPEMOUSE)
 		{
-			if ( ((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) != MOUSE_MOVE_ABSOLUTE) &&
-				(raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0) )
+			if (((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) != MOUSE_MOVE_ABSOLUTE) &&
+				(raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0))
 			{
 				mouse.RelativeMove((int)raw->data.mouse.lLastX, (int)raw->data.mouse.lLastY);
 			}
@@ -382,7 +380,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		ClipCursor(&windowinfo.rcClient);
 		break;
 
-	// Quit Events ----
+		// Quit Events ----
 	case WM_CLOSE:
 		// insert auto save stuff and a display like: "do you really want to close the program?"
 		DestroyWindow(hWnd);

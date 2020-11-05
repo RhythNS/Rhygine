@@ -1,10 +1,9 @@
 #include "Time.h"
 
 Time::Time() : 
-	lastTime(std::chrono::steady_clock::now()), 
-	programStartTime(lastTime),
+	frameStartTime(std::chrono::steady_clock::now()), 
+	programStartTime(std::chrono::steady_clock::now()),
 	delta(0),
-	physicsUpdate(0.0f),
 	physicsUpdateRate(0.02f)
 {
 }
@@ -16,7 +15,9 @@ float Time::GetDelta()
 
 float Time::GetTimeSinceStart()
 {
-	return std::chrono::duration<float>(std::chrono::steady_clock::now() - programStartTime).count();
+	using namespace std::chrono;
+
+	return duration<float>(steady_clock::now() - programStartTime).count();
 }
 
 void Time::StartOfFrame()
@@ -24,11 +25,23 @@ void Time::StartOfFrame()
 	using namespace std::chrono;
 
 	steady_clock::time_point nowTime = steady_clock::now();
-	duration<float> deltaTime = duration<float>(nowTime - lastTime);
+	duration<float> deltaTime = duration<float>(nowTime - frameStartTime);
 	physicsUpdate += deltaTime;
 
 	delta = deltaTime.count();
-	lastTime = nowTime;
+	frameStartTime = nowTime;
+}
+
+void Time::EndOfFrame()
+{
+	using namespace std::chrono;
+
+	frameDuration = steady_clock::now() - frameStartTime;
+}
+
+std::chrono::duration<float> Time::GetSleepTime()
+{
+	return wantedFrameTime - frameDuration;
 }
 
 bool Time::ShouldUpdatePhysics()

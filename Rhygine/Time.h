@@ -23,9 +23,20 @@ public:
 
 private:
 	/// <summary>
-	/// Updates the delta time.
+	/// Should be called at the start of the frame.
 	/// </summary>
 	void StartOfFrame();
+
+	/// <summary>
+	/// Should be called at the end of the frame.
+	/// </summary>
+	void EndOfFrame();
+
+	/// <summary>
+	/// Gets the time in seconds the program should wait before the next frame should start
+	/// to be proccessed.
+	/// </summary>
+	std::chrono::duration<float> GetSleepTime();
 
 	/// <summary>
 	/// Returns true when the physics should do a simulation step.
@@ -33,8 +44,12 @@ private:
 	bool ShouldUpdatePhysics();
 
 	std::chrono::steady_clock::time_point programStartTime;
-	std::chrono::steady_clock::time_point lastTime;
-	std::chrono::duration<float> physicsUpdate;
+	std::chrono::steady_clock::time_point frameStartTime;
+
+	std::chrono::duration<float> frameDuration = std::chrono::microseconds(0);
+	std::chrono::duration<float> wantedFrameTime = std::chrono::microseconds(0);
+
+	std::chrono::duration<float> physicsUpdate = std::chrono::microseconds(0);
 	std::chrono::duration<float> physicsUpdateRate;
 
 	float delta;

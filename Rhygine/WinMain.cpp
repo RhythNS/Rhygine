@@ -26,6 +26,7 @@ int CALLBACK WinMain(
 		winDef.height = 800;
 		winDef.top = 100;
 		winDef.left = 100;
+		winDef.targetFramesPerSecond = 144;
 		winDef.enablePhysics = true;
 		winDef.physicsStartDebugMode = true;
 

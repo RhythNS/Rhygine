@@ -1,6 +1,12 @@
 #include "RigidBody.h"
 #include "Physics.h"
 #include "Transform.h"
+#include "Gameobject.h"
+
+void RigidBody::Init()
+{
+	transform = GetGameObject()->GetComponent<Transform>();
+}
 
 void RigidBody::Create(std::shared_ptr<btCollisionShape> _shape, btRigidBody::btRigidBodyConstructionInfo info)
 {
@@ -14,15 +20,15 @@ void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, Rhy
 {
 	shape = _shape;
 	body = std::make_unique<btRigidBody>(mass, motion, shape.get(), localInertia);
-	body->translate(transform->position);
+	body->setWorldTransform(btTransform(transform->rotation, transform->position));
 	Physics::Register(this);
 }
 
 void RigidBody::Create(RigidBody* copy)
 {
 	shape = copy->shape;
-	body = std::make_unique<btRigidBody>(*copy->body);
-	body->translate(transform->position);
+	body = std::make_unique<btRigidBody>(copy->body->getMass(), motion, shape.get(), copy->body->getLocalInertia());
+	body->setWorldTransform(btTransform(transform->rotation, transform->position));
 	Physics::Register(this);
 }
 

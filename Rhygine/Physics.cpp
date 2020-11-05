@@ -3,8 +3,8 @@
 #include "Window.h"
 #include "BulletDebugDraw.h"
 
-Physics::Physics() :
-	first(nullptr)
+Physics::Physics(float secondsPerTick) :
+	secondsPerTick(secondsPerTick)
 {
 	instance = this;
 
@@ -92,10 +92,13 @@ RhyM::Vec3 Physics::GetGravity()
 	return world.getGravity();
 }
 
-void Physics::EnableDebug()
+void Physics::EnableDebug(Stage* stage)
 {
 	if (!instance->debugDraw)
+	{
 		instance->debugDraw = std::make_unique<BulletDebugDraw>();
+		instance->debugDraw->Init(stage);
+	}
 	instance->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	instance->world.setDebugDrawer(instance->debugDraw.get());
 	instance->debugMode = true;
@@ -105,6 +108,10 @@ void Physics::DisableDebug()
 {
 	instance->world.setDebugDrawer(nullptr);
 	instance->debugMode = false;
+	if (instance->debugDraw)
+	{
+		instance->debugDraw.release();
+	}
 }
 
 bool Physics::IsDebugEnabled()

@@ -32,8 +32,10 @@ public:
 		int height;
 		int left;
 		int top;
+		int targetFramesPerSecond = 144;
 		bool enablePhysics = true;
 		bool physicsStartDebugMode = false;
+		float physicsUpdateTime = 0.02f;
 	};
 
 	Window() = delete;

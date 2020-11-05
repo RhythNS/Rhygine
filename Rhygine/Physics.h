@@ -6,11 +6,12 @@
 
 class RigidBody;
 class BulletDebugDraw;
+class Stage;
 class Physics
 {
 	friend class Window;
 public:
-	Physics();
+	Physics(float secondsPerTick);
 
 	static void Register(RigidBody* body);
 	static void DeRegister(RigidBody* body);
@@ -22,7 +23,7 @@ public:
 	void SetGravity(RhyM::Vec3& gravity);
 	RhyM::Vec3 GetGravity();
 
-	static void EnableDebug();
+	static void EnableDebug(Stage* stage);
 	static void DisableDebug();
 	static bool IsDebugEnabled();
 private:
@@ -34,7 +35,7 @@ private:
 	btCollisionDispatcher dispatcher{ &collisionConfiguration };
 	btSequentialImpulseConstraintSolver constraintSolver;
 	btDiscreteDynamicsWorld world{ &dispatcher, &broadphase, &constraintSolver, &collisionConfiguration };
-	RigidBody* first;
+	RigidBody* first = nullptr;
 	float secondsPerTick = 0.02f;
 
 	bool debugMode = false;

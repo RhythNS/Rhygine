@@ -11,6 +11,7 @@ class RigidBody : public Component
 {
 	friend class Physics;
 public:
+	void Init();
 	void Create(std::shared_ptr<btCollisionShape> shape, btRigidBody::btRigidBodyConstructionInfo info);
 	void Create(float mass, std::shared_ptr<btCollisionShape> shape, RhyM::Vec3 localInertia = RhyM::Vec3(0.0f, 0.0f, 0.0f));
 	void Create(RigidBody* copy);
