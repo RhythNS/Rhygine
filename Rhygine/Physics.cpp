@@ -15,6 +15,7 @@ Physics::Physics(float secondsPerTick) :
 
 void Physics::Register(RigidBody* body)
 {
+	assert(body);
 	instance->world.addRigidBody(body->body.get());
 	body->inSimulation = true;
 
@@ -29,6 +30,7 @@ void Physics::Register(RigidBody* body)
 
 void Physics::DeRegister(RigidBody* body)
 {
+	assert(body);
 	instance->world.removeRigidBody(body->body.get());
 	body->inSimulation = false;
 
@@ -68,6 +70,7 @@ void Physics::Tick()
 
 void Physics::UpdatePositions()
 {
+	// iterate over each body and call UpdatePosition.
 	RigidBody* current = first;
 	while (current != nullptr)
 	{
@@ -94,6 +97,7 @@ RhyM::Vec3 Physics::GetGravity()
 
 void Physics::EnableDebug(Stage* stage)
 {
+	// Is the debug drawer already enabled?
 	if (!instance->debugDraw)
 	{
 		instance->debugDraw = std::make_unique<BulletDebugDraw>();
@@ -108,6 +112,7 @@ void Physics::DisableDebug()
 {
 	instance->world.setDebugDrawer(nullptr);
 	instance->debugMode = false;
+	// Is there a debug drawer currently active?
 	if (instance->debugDraw)
 	{
 		instance->debugDraw.release();

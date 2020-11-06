@@ -8,6 +8,9 @@
 class TestLight;
 class RotateAround;
 
+/// <summary>
+/// A test component that represents a lit object in a scene.
+/// </summary>
 class TestLitPlateComponent : public Component, public Updatable
 {
 public:

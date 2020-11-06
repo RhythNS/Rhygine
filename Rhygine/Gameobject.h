@@ -95,12 +95,15 @@ public:
 
 		for (int i = 0; i < components.size(); ++i)
 		{
+			// is this the type of component?
 			if (t = dynamic_cast<T*>(components[i].get()))
 			{
+				// If it is updatable, remove it from the updatables.
 				Updatable* updatable;
 				if (updatable = dynamic_cast<Updatable*>(t))
 					std::erase(updatables, updatable);
 
+				// If it is drawable, remove it from the drawables.
 				Drawable* drawable;
 				if (drawable = dynamic_cast<Drawable*>(t))
 					std::erase(drawables, drawable);

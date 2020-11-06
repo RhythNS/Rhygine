@@ -25,6 +25,7 @@ Window::Window(WindowDefinition definition) :
 	tickables.push_back(&mouse);
 	tickables.push_back(&keys);
 
+	// Create all variables needed for the window creation
 	DWORD dwExStyle = 0;
 	LPCSTR lpWindowName = "Window 1";
 	DWORD dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
@@ -41,7 +42,6 @@ Window::Window(WindowDefinition definition) :
 	if (!AdjustWindowRect(&wr, dwStyle, FALSE))
 		throw RHY_EXCEP("Could not adjust window rect!");
 
-	// Register class
 	WNDCLASSEX windowClass = { 0 };
 	windowClass.cbSize = sizeof(windowClass);
 	windowClass.style = CS_OWNDC;
@@ -57,6 +57,7 @@ Window::Window(WindowDefinition definition) :
 	windowClass.hIconSm = nullptr;
 	RegisterClassEx(&windowClass);
 
+	// Register class
 	windowHandle =
 		CreateWindowExA(
 			dwExStyle,
@@ -104,11 +105,14 @@ Window::Window(WindowDefinition definition) :
 	if (RegisterRawInputDevices(Rid, 2, sizeof(Rid[0])) == FALSE)
 		throw RHY_EXCEP("Could not register for raw input!");
 
+	// Set the target frame time
 	if (definition.targetFramesPerSecond > 0)
 		time.wantedFrameTime = std::chrono::microseconds(1000000 / definition.targetFramesPerSecond);
 
+	// Init the current scene
 	currentScene->Init();
 
+	// If physics should be enabled, then init it now
 	if (definition.enablePhysics)
 	{
 		physics = new Physics(definition.physicsUpdateTime);
@@ -116,8 +120,10 @@ Window::Window(WindowDefinition definition) :
 			physics->EnableDebug(currentScene->stage.get());
 	}
 
+	// Let the user init their scene
 	currentScene->InnerInit();
 
+	// Lastly show the created window
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
 
@@ -232,12 +238,12 @@ int Window::MainLoop()
 			physics->DebugDraw();
 		}
 
+		// Draw everything and present the frame.
 		gfx->EndDraw();
 
+		// Set the frame time and sleep if needed.
 		time.EndOfFrame();
-
 		std::chrono::duration<float> sleepTime = time.GetSleepTime();
-
 		if (sleepTime.count() > 0.0f)
 			std::this_thread::sleep_for(sleepTime);
 	}
@@ -245,6 +251,7 @@ int Window::MainLoop()
 
 void Window::AddTickable(Tickable* tickable)
 {
+	assert(tickable);
 	tickables.push_back(tickable);
 }
 
@@ -255,9 +262,11 @@ LRESULT CALLBACK Window::ProcessPassthrough(HWND hWnd, UINT msg, WPARAM wParam, 
 
 LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	// Let ImGUI handle the message first
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 		return true;
 
+	// switch case with all implemented message types
 	switch (msg)
 	{
 		// ---------- TAKEN FROM microsoft docs -------------------------
@@ -280,6 +289,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		RAWINPUT* raw = (RAWINPUT*)lpb;
 		// ---------- TAKEN FROM microsoft docs -------------------------
 
+		// Is it for the keyboard?
 		if (raw->header.dwType == RIM_TYPEKEYBOARD)
 		{
 			// raw->data.keyboard
@@ -298,15 +308,17 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				keys.PressKey(raw->data.keyboard.VKey);
 			}
 		}
+		// Is it for the mouse?
 		else if (raw->header.dwType == RIM_TYPEMOUSE)
 		{
+			// Is it a relative movement?
 			if (((raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE) != MOUSE_MOVE_ABSOLUTE) &&
 				(raw->data.mouse.lLastX != 0 || raw->data.mouse.lLastY != 0))
 			{
 				mouse.RelativeMove((int)raw->data.mouse.lLastX, (int)raw->data.mouse.lLastY);
 			}
 
-			// raw->data.mouse
+			// Check if any buttons where clicked/ released
 			switch (raw->data.mouse.usButtonFlags)
 			{
 			case RI_MOUSE_LEFT_BUTTON_DOWN:
@@ -350,11 +362,12 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 		}
 
+		// delete the allocated input data
 		delete[] lpb;
 		break;
 	}
 
-	case WM_MOUSEMOVE: // Get the mouse position
+	case WM_MOUSEMOVE: // Get the absolute mouse position
 		POINTS pos = MAKEPOINTS(lParam);
 		mouse.AbsoluteMove(pos.x, pos.y);
 		break;
@@ -390,9 +403,11 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		return 0;
 	}
 
+	// return the default window proc, to make the window responsive.
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
+// init of static fields
 Window* Window::instance;
 
 std::string Window::className = "Rhygine";

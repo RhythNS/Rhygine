@@ -10,6 +10,7 @@ void RigidBody::Init()
 
 void RigidBody::Create(std::shared_ptr<btCollisionShape> _shape, btRigidBody::btRigidBodyConstructionInfo info)
 {
+	assert(_shape);
 	shape = _shape;
 	info.m_collisionShape = _shape.get();
 	body = std::make_unique<btRigidBody>(info);
@@ -18,6 +19,7 @@ void RigidBody::Create(std::shared_ptr<btCollisionShape> _shape, btRigidBody::bt
 
 void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, RhyM::Vec3 localInertia)
 {
+	assert(_shape);
 	shape = _shape;
 	body = std::make_unique<btRigidBody>(mass, motion, shape.get(), localInertia);
 	body->setWorldTransform(btTransform(transform->rotation, transform->position));
@@ -26,6 +28,7 @@ void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, Rhy
 
 void RigidBody::Create(RigidBody* copy)
 {
+	assert(copy);
 	shape = copy->shape;
 	body = std::make_unique<btRigidBody>(copy->body->getMass(), motion, shape.get(), copy->body->getLocalInertia());
 	body->setWorldTransform(btTransform(transform->rotation, transform->position));

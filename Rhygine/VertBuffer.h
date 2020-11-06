@@ -21,9 +21,19 @@ template <class Vertex>
 class VertBuffer : public Bindable, public VertBufferAmount
 {
 public:
-	VertBuffer(std::vector<Vertex> verts, int slot) : VertBuffer<Vertex>(verts, GetDefaultDescription(), slot)
-	{
-	}
+	/// <summary>
+	/// Creates a vertex buffer with the default descriptions.
+	/// </summary>
+	/// <param name="verts">The verticies.</param>
+	/// <param name="slot">The slot to where the vertex buffer will be bound to.</param>
+	VertBuffer(std::vector<Vertex> verts, int slot) : VertBuffer<Vertex>(verts, GetDefaultDescription(), slot) {}
+
+	/// <summary>
+	/// Creates a vertex buffer with a custom descriptions.
+	/// </summary>
+	/// <param name="verts">The verticies.</param>
+	/// <param name="desc">The custom description.</param>
+	/// <param name="slot">The slot to where the vertex buffer will be bound to.</param>
 	VertBuffer(std::vector<Vertex> verts, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
 		amount = verts.size();
@@ -34,12 +44,14 @@ public:
 		vertData.pSysMem = verts.data();
 		THROW_IF_FAILED(GetDevice()->CreateBuffer(&desc, &vertData, &bufferPointer));
 	}
+
 	void Bind()
 	{
 		unsigned int strides = sizeof(Vertex);
 		unsigned int vertOffset = 0;
 		GetContext()->IASetVertexBuffers(slot, 1, bufferPointer.GetAddressOf(), &strides, &vertOffset);
 	}
+
 	UINT* GetSize()
 	{
 		return &amount;
@@ -47,7 +59,11 @@ public:
 	
 	int slot;
 	UINT amount;
+
 protected:
+	/// <summary>
+	/// Gets the default description
+	/// </summary>
 	D3D11_BUFFER_DESC GetDefaultDescription()
 	{
 		D3D11_BUFFER_DESC vertBufferDesc = { };

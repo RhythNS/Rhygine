@@ -3,9 +3,11 @@
 #include "Drawable.h"
 
 #include <memory>
+#include <assert.h>
 
 void GameObject::EnableComponent(Component* component)
 {
+	assert(component);
 	// Check to see if the component is in the component list.
 	if (!IsInUniqueVector<Component>(&components, component))
 		return;
@@ -29,6 +31,7 @@ void GameObject::EnableComponent(Component* component)
 
 void GameObject::DisableComponent(Component* component)
 {
+	assert(component);
 	// Check if the component is in the component list.
 	if (!IsInUniqueVector<Component>(&components, component))
 		return;
@@ -82,6 +85,7 @@ int GameObject::GetComponentCount()
 
 Component* GameObject::GetComponentAt(int at)
 {
+	assert(at > -1 && at < components.size());
 	return components[at].get();
 }
 

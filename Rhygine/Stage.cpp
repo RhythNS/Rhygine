@@ -31,6 +31,7 @@ GameObject* Stage::CreateGameObject()
 
 GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
 {
+	assert(createAfter != back);
 	// Create the gameobject. And set the stage.
 	GameObject* gameObject = new GameObject();
 	gameObject->stage = this;
@@ -51,6 +52,7 @@ GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
 
 void Stage::RemoveGameObject(GameObject* gameObject)
 {
+	assert(gameObject != front && gameObject != back);
 	// Remove the gameobject from the next and prev.
 	// prev -> gameobject -> next
 	// will now be

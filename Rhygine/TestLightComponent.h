@@ -5,6 +5,9 @@
 
 class Transform;
 
+/// <summary>
+/// A test component that represents a light in a scene.
+/// </summary>
 class TestLightComponent : public Component, public Updatable
 {
 public:

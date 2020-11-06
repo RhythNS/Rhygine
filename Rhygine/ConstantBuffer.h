@@ -14,10 +14,19 @@ template <class Constant>
 class ConstantBuffer : public Bindable
 {
 public:
-	ConstantBuffer(Constant* cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot)
-	{
-	}
+	/// <summary>
+	/// Constructs a constant buffer with the default description.
+	/// </summary>
+	/// <param name="cons">The starting constant.</param>
+	/// <param name="slot">The slot to where the constant buffer will be bound to.</param>
+	ConstantBuffer(Constant* cons, int slot) : ConstantBuffer(cons, GetDefaultDescription(), slot) {}
 
+	/// <summary>
+	/// Creates a constant buffer with a custom description.
+	/// </summary>
+	/// <param name="cons">The starting constant.</param>
+	/// <param name="desc">The description of the constant buffer.</param>
+	/// <param name="slot">The slot to where the constant buffer will be bound to.</param>
 	ConstantBuffer(Constant* cons, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
 		desc.ByteWidth = sizeof(Constant);
@@ -30,6 +39,10 @@ public:
 
 	virtual void Bind() = 0;
 
+	/// <summary>
+	/// Sets new data to the ConstantBuffer.
+	/// </summary>
+	/// <param name="newConstant">The new data.</param>
 	void SetAndUpdate(Constant* newConstant)
 	{
 		D3D11_MAPPED_SUBRESOURCE resource;
@@ -42,6 +55,9 @@ public:
 
 	int slot;
 protected:
+	/// <summary>
+	/// Gets the default description
+	/// </summary>
 	D3D11_BUFFER_DESC GetDefaultDescription()
 	{
 		D3D11_BUFFER_DESC desc = { 0 };

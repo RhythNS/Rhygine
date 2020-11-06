@@ -10,6 +10,12 @@ void Transform::Init()
 
 DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
 {
+	// Scale the object ->
+	// Rotate the object ->
+	// Move the object ->
+	// Apply camera movement and rotation ->
+	// Perspective matrix ->
+	// Transpose to directX
 	perspectiveMatrix =
 		DirectX::XMMatrixTranspose
 		(
@@ -25,6 +31,9 @@ DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
 
 DirectX::XMMATRIX* Transform::GetLocalMatrix()
 {
+	// Scale the object ->
+	// Rotate the object ->
+	// Transpose to directX
 	localMatrix =
 		DirectX::XMMatrixTranspose
 		(
@@ -42,6 +51,10 @@ RhyM::Vec3 Transform::GetForward()
 
 DirectX::XMMATRIX* Transform::GetWorldMatrix()
 {	
+	// Scale the object ->
+	// Rotate the object ->
+	// Move the object ->
+	// tTranspose to directX
 	worldMatrix =
 		DirectX::XMMatrixTranspose
 		(

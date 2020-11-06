@@ -10,6 +10,10 @@
 class Stage;
 class Bindable;
 
+/// <summary>
+/// Debug drawer for a bullet world. For more info check out the bullet
+/// documentation.
+/// </summary>
 class BulletDebugDraw : public btIDebugDraw
 {
 public:

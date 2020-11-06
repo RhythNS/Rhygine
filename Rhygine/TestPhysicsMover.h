@@ -3,6 +3,10 @@
 #include "Updatable.h"
 
 class RigidBody;
+
+/// <summary>
+/// For moving gameobjects inside a physics simulation.
+/// </summary>
 class TestPhysicsMover : public Component, public Updatable
 {
 public:

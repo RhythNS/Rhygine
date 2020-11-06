@@ -14,8 +14,8 @@
 Gfx::Gfx(Window* window) : window(window)
 {
 	instance = this;
-	HWND windowHandle = *window->GetWindowHandle();
 
+	// Create the swap chain description
 	DXGI_SWAP_CHAIN_DESC desc = {};
 	desc.BufferDesc.Width = 0;
 	desc.BufferDesc.Height = 0;
@@ -28,11 +28,12 @@ Gfx::Gfx(Window* window) : window(window)
 	desc.SampleDesc.Quality = 0;
 	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	desc.BufferCount = 1;
-	desc.OutputWindow = windowHandle;
+	desc.OutputWindow = *window->GetWindowHandle();
 	desc.Windowed = TRUE;
 	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	desc.Flags = 0;
 
+	// All required variables for the device and swap chain creation
 	IDXGIAdapter* pAdapter = nullptr;
 	D3D_DRIVER_TYPE	DriverType = D3D_DRIVER_TYPE_HARDWARE;
 	HMODULE	Software = nullptr;
@@ -45,6 +46,7 @@ Gfx::Gfx(Window* window) : window(window)
 	UINT SDKVersion = D3D11_SDK_VERSION;
 	D3D_FEATURE_LEVEL* pFeatureLevel = nullptr;
 
+	// Create the device, swapchain and context
 	THROW_IF_FAILED(D3D11CreateDeviceAndSwapChain(
 		pAdapter,
 		DriverType,
@@ -60,10 +62,12 @@ Gfx::Gfx(Window* window) : window(window)
 		&context
 	));
 
+	// Create the render target to which we are drawing every frame.
 	Microsoft::WRL::ComPtr<ID3D11Resource> backBuffer;
 	THROW_IF_FAILED(swap->GetBuffer(0, __uuidof(ID3D11Resource), &backBuffer));
 	THROW_IF_FAILED(device->CreateRenderTargetView(backBuffer.Get(), nullptr, &target));
 
+	// Create the stencil description.
 	D3D11_DEPTH_STENCIL_DESC stencilDesc = { 0 };
 	stencilDesc.DepthEnable = true;
 	stencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -83,11 +87,13 @@ Gfx::Gfx(Window* window) : window(window)
 	stencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	stencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
+	// Create the stencil with the description.
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> stencilState;
 	THROW_IF_FAILED(device->CreateDepthStencilState(&stencilDesc, &stencilState));
 
 	context->OMSetDepthStencilState(stencilState.Get(), 1);
 
+	// Create the depth texture for the depth buffer.
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilTex;
 	D3D11_TEXTURE2D_DESC depthTexDesc = { 0 };
 	depthTexDesc.Width = window->GetWidth();
@@ -101,6 +107,7 @@ Gfx::Gfx(Window* window) : window(window)
 	depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	THROW_IF_FAILED(device->CreateTexture2D(&depthTexDesc, nullptr, &depthStencilTex));
 
+	// Create the depth stencil.
 	D3D11_DEPTH_STENCIL_VIEW_DESC stencilViewDesc = { };
 	stencilViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
 	stencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
@@ -122,11 +129,15 @@ void Gfx::ClearDepth()
 
 void Gfx::BeginDraw()
 {
+	// Clear the target view with the clear color of the scene
 	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
+	// Clear the depth buffer
 	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+	// Set the render target
 	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
 
+	// Set the viewport
 	D3D11_VIEWPORT viewport = { 0 };
 	viewport.Width = (float)window->GetWidth();
 	viewport.Height = (float)window->GetHeight();
@@ -149,10 +160,13 @@ void Gfx::Draw(UINT* vertexCount)
 
 void Gfx::EndDraw()
 {
+	// Finished draw call, render the image
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
+	// Present it to the screen.
 	THROW_IF_FAILED(swap->Present(1, 0));
 }
 
+// init for static field.
 Gfx* Gfx::instance;

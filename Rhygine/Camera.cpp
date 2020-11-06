@@ -6,6 +6,7 @@
 void Camera::Init()
 {
 	transform = GetGameObject()->AddComponent<Transform>();
+	assert(transform);
 }
 
 Transform* Camera::GetTransform()

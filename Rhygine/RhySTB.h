@@ -12,5 +12,4 @@
 #define STBI_NO_FAILURE_STRINGS
 #endif // !DEBUG
 
-
 #include "stb_image.h"

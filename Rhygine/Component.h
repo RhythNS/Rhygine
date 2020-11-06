@@ -60,6 +60,9 @@ protected:
 	/// </summary>
 	virtual void OnDisabled() {}
 private:
+	/// <summary>
+	/// Sets the gameobject on which the component is.
+	/// </summary>
 	void SetGameObject(GameObject* gameObject);
 
 	GameObject* gameObject;

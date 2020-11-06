@@ -16,6 +16,10 @@ public:
 	void Init();
 	Transform* GetTransform();
 
+	/// <summary>
+	/// Gets the current matrix which gets updated at the start of a
+	/// draw call from the stage.
+	/// </summary>
 	DirectX::XMMATRIX* GetMatrix();
 private:
 	/// <summary>

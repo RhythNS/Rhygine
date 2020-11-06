@@ -9,8 +9,11 @@
 
 void BulletDebugDraw::Init(Stage* stage)
 {
+	assert(stage);
 	this->stage = stage;
 
+	// Create a basic linerenderer which takes multiple points and renderes them in order
+	// i.e. 0.1 => line, 2.3 => line, 3.4 => line, ...
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -36,6 +39,7 @@ void BulletDebugDraw::setDefaultColors(const DefaultColors& colors)
 
 void BulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
 {
+	// just push back both points with the given color attached.
 	verts.push_back({ 
 		from.m_floats[0], 
 		from.m_floats[1], 
@@ -45,6 +49,7 @@ void BulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const
 		(unsigned char)(color.m_floats[2] * 255.0f),
 		255 
 		});
+
 	verts.push_back({ 
 		to.m_floats[0], 
 		to.m_floats[1], 
@@ -62,6 +67,7 @@ void BulletDebugDraw::drawContactPoint(const btVector3& PointOnB, const btVector
 
 void BulletDebugDraw::reportErrorWarning(const char* warningString)
 {
+	// Maybe replace this with acctual text on the screen in the future.
 	OutputDebugString(warningString);
 }
 
@@ -87,19 +93,27 @@ void BulletDebugDraw::clearLines()
 
 void BulletDebugDraw::flushLines()
 {
+	// Get the camera matrix and give it to the shader
 	worldBuffer.transform =
 		DirectX::XMMatrixTranspose
 		(
 			*stage->GetCamera()->GetMatrix() *
-			DirectX::XMMatrixPerspectiveLH(1.0f, (float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(), 0.5f, 100.0f)
+			DirectX::XMMatrixPerspectiveLH(
+				1.0f,
+				(float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(),
+				0.5f,
+				100.0f)
 		);
 	worldConstant->SetAndUpdate(&worldBuffer);
 
+	// bind all bindables
 	for (auto& bind : bindables)
 		bind->Bind();
 
+	// make a new vertexbuffer with the verticies that were given during the draw process
 	VertBuffer<VertexPosColor> vertexBuffer(verts, 0);
 	vertexBuffer.Bind();
 
+	// Make the draw call to Gfx.
 	Gfx::GetInstance()->Draw(vertexBuffer.GetSize());
 }

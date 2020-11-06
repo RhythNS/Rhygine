@@ -7,26 +7,71 @@
 class RigidBody;
 class BulletDebugDraw;
 class Stage;
+
+/// <summary>
+/// Wrapper class around the Bullet physics engine.
+/// </summary>
 class Physics
 {
 	friend class Window;
 public:
+	/// <summary>
+	/// Standard constructor.
+	/// </summary>
+	/// <param name="secondsPerTick">The simulation step time in seconds.</param>
 	Physics(float secondsPerTick);
 
+	/// <summary>
+	/// Registers a Rigidbody to the physics system.
+	/// </summary>
+	/// <param name="body">The Rigidbody to be registered.</param>
 	static void Register(RigidBody* body);
+	/// <summary>
+	/// Deregisters a Rigidbody from the physics system.
+	/// </summary>
+	/// <param name="body">The Rigidbody to be deregistered.</param>
 	static void DeRegister(RigidBody* body);
 
+	/// <summary>
+	/// Steps the simulation forward by the specified seconds per tick.
+	/// </summary>
 	void Tick();
+	/// <summary>
+	/// Converts the rigidbodies position from bullet to rhyghine.
+	/// </summary>
 	void UpdatePositions();
 
+	/// <summary>
+	/// Updates how many seconds a simulation step is.
+	/// </summary>
+	/// <param name="secondsPerTick">The simulation step time in seconds.</param>
 	void SetUpdateRate(float secondsPerTick);
+	/// <summary>
+	/// Sets a new gravity for the physics simulation.
+	/// </summary>
 	void SetGravity(RhyM::Vec3& gravity);
+	/// <summary>
+	/// Gets the current gravity for the physics simulation.
+	/// </summary>
 	RhyM::Vec3 GetGravity();
 
+	/// <summary>
+	/// Enables the debug viewer.
+	/// </summary>
+	/// <param name="stage">The current stage of the program.</param>
 	static void EnableDebug(Stage* stage);
+	/// <summary>
+	/// Disables the debug viewer.
+	/// </summary>
 	static void DisableDebug();
+	/// <summary>
+	/// Checks if the debug viewer is enabled or disabled.
+	/// </summary>
 	static bool IsDebugEnabled();
 private:
+	/// <summary>
+	/// Draws the debug viewer.
+	/// </summary>
 	void DebugDraw();
 
 	static Physics* instance;

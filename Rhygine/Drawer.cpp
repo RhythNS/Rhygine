@@ -9,6 +9,7 @@
 void Drawer::Init()
 {
 	transform = GetGameObject()->GetComponent<Transform>();
+	assert(transform);
 }
 
 void Drawer::Draw()
@@ -39,6 +40,7 @@ void Drawer::Draw()
 
 Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 {
+	assert(bindable);
 	// If it is an updatable, add it to the update list.
 	Updatable* updatable;
 	if (updatable = dynamic_cast<Updatable*>(bindable.get()))
@@ -85,6 +87,7 @@ inline void Drawer::AnalyseBindable(Bindable* bindable)
 			break;
 		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST:
 			drawMode = DrawMode::Indexed;
+			break;
 		default:
 			OutputDebugString("Unkown primitive topology. Leaving draw mode in indexed: " + *primitiveTopology->GetTopology());
 			break;
