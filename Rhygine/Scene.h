@@ -54,6 +54,6 @@ public:
 
 protected:
 	std::unique_ptr<Stage> stage;
-	Window* window;
+	Window* window = nullptr;
 	float clearColor[4] = { 0,0,0,0 };
 };

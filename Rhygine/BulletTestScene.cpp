@@ -8,6 +8,9 @@
 #include "Camera.h"
 #include "RigidBody.h"
 #include "TestPhysicsMover.h"
+#include "AwakeRigidbodies.h"
+
+#include <vector>
 
 void BulletTestScene::InnerInit()
 {
@@ -26,7 +29,7 @@ void BulletTestScene::InnerInit()
 
 	GameObject* staticBox = GameObjectFactory::Add(stage.get(), &tlp);
 	staticBox->GetComponent<TestLitPlateComponent>()->SetLight(0, testLight);
-	staticBox->GetComponent<Transform>()->position = btVector3(0.9f, -5.0f, 0.0f);
+	staticBox->GetComponent<Transform>()->position = btVector3(0.3f, -5.0f, 0.0f);
 	RigidBody* staticBoxBody = staticBox->AddComponent<RigidBody>();
 	staticBoxBody->Create(boxBody);
 	staticBoxBody->GetBody()->applyImpulse(btVector3(0.0f, 20.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f));
@@ -38,4 +41,10 @@ void BulletTestScene::InnerInit()
 	ground->GetComponent<Transform>()->position = { 0.0f, -7.0f, 0.0f };
 	RigidBody* groundBody = ground->AddComponent<RigidBody>();
 	groundBody->Create(0.0f, std::make_unique<btBoxShape>(btVector3(10.0f, 0.5f, 10.0f)));
+
+	staticBoxBody->GetBody()->setActivationState(WANTS_DEACTIVATION);
+	boxBody->GetBody()->setActivationState(WANTS_DEACTIVATION);
+	std::vector<RigidBody*> bodies = { boxBody, staticBoxBody };
+
+	ground->AddComponent<AwakeRigidbodies>()->Set(bodies);
 }

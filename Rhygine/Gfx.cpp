@@ -8,10 +8,8 @@
 #include "RhyWin.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"D3DCompiler.lib")
 
-Gfx::Gfx(Window* window) : window(window)
+Gfx::Gfx(Window* window, int refreshRate) : window(window), refreshRate(refreshRate)
 {
 	instance = this;
 
@@ -20,8 +18,8 @@ Gfx::Gfx(Window* window) : window(window)
 	desc.BufferDesc.Width = 0;
 	desc.BufferDesc.Height = 0;
 	desc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	desc.BufferDesc.RefreshRate.Numerator = 0;
-	desc.BufferDesc.RefreshRate.Denominator = 0;
+	desc.BufferDesc.RefreshRate.Numerator = 1;
+	desc.BufferDesc.RefreshRate.Denominator = refreshRate;
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	desc.SampleDesc.Count = 1;
@@ -62,6 +60,97 @@ Gfx::Gfx(Window* window) : window(window)
 		&context
 	));
 
+	CreateTargetAndDepth();
+}
+
+Gfx* Gfx::GetInstance()
+{
+	return instance;
+}
+
+void Gfx::ClearDepth()
+{
+	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
+void Gfx::BeginDraw()
+{
+	// Clear the target view with the clear color of the scene
+	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
+	// Clear the depth buffer
+	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	// Set the render target
+	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
+
+	// Set the viewport
+	D3D11_VIEWPORT viewport = { 0 };
+	viewport.Width = (float)window->GetWidth();
+	viewport.Height = (float)window->GetHeight();
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	context->RSSetViewports(1, &viewport);
+}
+
+void Gfx::DrawIndexed(UINT* indexCount)
+{
+	context->DrawIndexed(*indexCount, 0, 0);
+}
+
+void Gfx::Draw(UINT* vertexCount)
+{
+	context->Draw(*vertexCount, 0);
+}
+
+void Gfx::EndDraw()
+{
+	// Finished draw call, render the image
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	// Present it to the screen.
+	THROW_IF_FAILED(swap->Present(1, 0));
+}
+
+DirectX::XMMATRIX Gfx::GetPerspectiveMatrix()
+{
+	return DirectX::XMMatrixPerspectiveLH(
+		1.0f,
+		(float)width / (float)height,
+		nearZ,
+		farZ
+	);
+}
+
+void Gfx::OnResize(int newWidth, int newHeight)
+{
+	width = newWidth;
+	height = newHeight;
+
+	DXGI_MODE_DESC desc{0};
+	desc.Width = newWidth;
+	desc.Height = newHeight;
+	DXGI_RATIONAL refreshRateRational;
+	refreshRateRational.Numerator = 1;
+	refreshRateRational.Denominator = refreshRate;
+	desc.RefreshRate = refreshRateRational;
+	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+
+	THROW_IF_FAILED(swap->ResizeTarget(&desc));
+
+	target.ReleaseAndGetAddressOf();
+	depthStencilView.ReleaseAndGetAddressOf();
+	THROW_IF_FAILED(swap->ResizeBuffers(1, newWidth, newHeight, DXGI_FORMAT_UNKNOWN, 0));
+
+	CreateTargetAndDepth();
+}
+
+inline void Gfx::CreateTargetAndDepth()
+{
 	// Create the render target to which we are drawing every frame.
 	Microsoft::WRL::ComPtr<ID3D11Resource> backBuffer;
 	THROW_IF_FAILED(swap->GetBuffer(0, __uuidof(ID3D11Resource), &backBuffer));
@@ -115,57 +204,6 @@ Gfx::Gfx(Window* window) : window(window)
 	THROW_IF_FAILED(device->CreateDepthStencilView(depthStencilTex.Get(), &stencilViewDesc, &depthStencilView));
 
 	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
-}
-
-Gfx* Gfx::GetInstance()
-{
-	return instance;
-}
-
-void Gfx::ClearDepth()
-{
-	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-}
-
-void Gfx::BeginDraw()
-{
-	// Clear the target view with the clear color of the scene
-	context->ClearRenderTargetView(target.Get(), window->GetCurrentScene()->GetClearColor());
-	// Clear the depth buffer
-	context->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-	// Set the render target
-	context->OMSetRenderTargets(1, target.GetAddressOf(), depthStencilView.Get());
-
-	// Set the viewport
-	D3D11_VIEWPORT viewport = { 0 };
-	viewport.Width = (float)window->GetWidth();
-	viewport.Height = (float)window->GetHeight();
-	viewport.MinDepth = 0;
-	viewport.MaxDepth = 1;
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	context->RSSetViewports(1, &viewport);
-}
-
-void Gfx::DrawIndexed(UINT* indexCount)
-{
-	context->DrawIndexed(*indexCount, 0, 0);
-}
-
-void Gfx::Draw(UINT* vertexCount)
-{
-	context->Draw(*vertexCount, 0);
-}
-
-void Gfx::EndDraw()
-{
-	// Finished draw call, render the image
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-	// Present it to the screen.
-	THROW_IF_FAILED(swap->Present(1, 0));
 }
 
 // init for static field.

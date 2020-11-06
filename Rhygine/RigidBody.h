@@ -1,6 +1,6 @@
 #pragma once
-#include "bullet\btBulletDynamicsCommon.h"
 #include "Component.h"
+#include "RhyBullet.h"
 #include "RhyMath.h"
 
 #include <memory>
@@ -53,10 +53,10 @@ private:
 	void UpdatePosition();
 
 	// References to prev and next since the physics requires a linked list.
-	RigidBody* prev;
-	RigidBody* next;
+	RigidBody* prev = nullptr;
+	RigidBody* next = nullptr;
 
-	Transform* transform;
+	Transform* transform = nullptr;
 	std::unique_ptr<btRigidBody> body = nullptr;
 	std::shared_ptr<btCollisionShape> shape = nullptr;
 	btDefaultMotionState* motion = nullptr;

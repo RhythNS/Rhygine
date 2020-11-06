@@ -79,7 +79,7 @@ private:
 
 	std::vector<std::unique_ptr<Bindable>> bindables;
 	std::vector<Updatable*> updatables;
-	Transform* transform;
-	IndexBufferAmount* indexAmount;
-	VertBufferAmount* vertAmount;
+	Transform* transform = nullptr;
+	IndexBufferAmount* indexAmount = nullptr;
+	VertBufferAmount* vertAmount = nullptr;
 };

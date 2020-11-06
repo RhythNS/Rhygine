@@ -36,7 +36,7 @@ public:
 	/// <param name="slot">The slot to where the vertex buffer will be bound to.</param>
 	VertBuffer(std::vector<Vertex> verts, D3D11_BUFFER_DESC desc, int slot) : slot(slot)
 	{
-		amount = verts.size();
+		amount = (UINT)verts.size();
 		desc.ByteWidth = (UINT)(sizeof(Vertex) * verts.size());
 		desc.StructureByteStride = sizeof(Vertex);
 

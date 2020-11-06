@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 
-#include "bullet\btBulletDynamicsCommon.h"
+#include "RhyBullet.h"
 
 /// <summary>
 /// For testing Bullet and physics related stuff.

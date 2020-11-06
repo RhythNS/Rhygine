@@ -5,6 +5,8 @@
 #include <memory>
 #include <assert.h>
 
+GameObject::GameObject(Stage* stage) : stage(stage) {}
+
 void GameObject::EnableComponent(Component* component)
 {
 	assert(component);

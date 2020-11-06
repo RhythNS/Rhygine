@@ -32,10 +32,12 @@ public:
 		int height;
 		int left;
 		int top;
+		LPCSTR windowName = "Rhygine";
 		int targetFramesPerSecond = 144;
 		bool enablePhysics = true;
 		bool physicsStartDebugMode = false;
 		float physicsUpdateTime = 0.02f;
+		bool mouseCaptured = false;
 	};
 
 	Window() = delete;
@@ -75,6 +77,14 @@ public:
 	/// Sets the title of the window.
 	/// </summary>
 	void SetTitle(LPCSTR lpString);
+	/// <summary>
+	/// When enabled the mouse pointer is unable to move beyond the borders of the window.
+	/// </summary>
+	void SetCaptureMouse(bool enable);
+	/// <summary>
+	/// Checks if the mouse is currently bound to the window.
+	/// </summary>
+	bool IsCapturingMouse();
 
 	/// <summary>
 	/// Executes the main game loop.
@@ -99,9 +109,14 @@ private:
 	/// Process all messages from win32.
 	/// </summary>
 	LRESULT ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	/// <summary>
+	/// Captures the mouse to the window.
+	/// </summary>
+	void CaptureMouse();
 
 	static Window* instance;
 	static std::string className;
+	bool capturingMouse;
 	
 	std::vector<Tickable*> tickables;
 	HWND windowHandle;

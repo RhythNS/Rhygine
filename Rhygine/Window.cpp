@@ -27,8 +27,8 @@ Window::Window(WindowDefinition definition) :
 
 	// Create all variables needed for the window creation
 	DWORD dwExStyle = 0;
-	LPCSTR lpWindowName = "Window 1";
-	DWORD dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+	//DWORD dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+	DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX;
 	HWND hWndParent = nullptr;
 	HMENU hMenu = nullptr;
 	LPVOID lpParam = nullptr;
@@ -62,7 +62,7 @@ Window::Window(WindowDefinition definition) :
 		CreateWindowExA(
 			dwExStyle,
 			className.c_str(),
-			lpWindowName,
+			definition.windowName,
 			dwStyle,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
@@ -77,7 +77,7 @@ Window::Window(WindowDefinition definition) :
 	if (windowHandle == nullptr)
 		throw RHY_EXCEP("Could not create window!");
 
-	gfx = new Gfx(this);
+	gfx = new Gfx(this, definition.targetFramesPerSecond);
 
 	// init imgui
 	IMGUI_CHECKVERSION();
@@ -127,6 +127,7 @@ Window::Window(WindowDefinition definition) :
 	if (ShowWindow(windowHandle, SW_SHOW))
 		throw RHY_EXCEP("Could not show window!");
 
+	SetCaptureMouse(definition.mouseCaptured);
 }
 
 Window::~Window()
@@ -178,6 +179,25 @@ int Window::GetHeight()
 void Window::SetTitle(LPCSTR lpString)
 {
 	SetWindowTextA(windowHandle, lpString);
+}
+
+void Window::SetCaptureMouse(bool enable)
+{
+	if (enable)
+	{
+		capturingMouse = true;
+		CaptureMouse();
+	}
+	else
+	{
+		capturingMouse = false;
+		ClipCursor(NULL);
+	}
+}
+
+bool Window::IsCapturingMouse()
+{
+	return capturingMouse;
 }
 
 int Window::MainLoop()
@@ -385,12 +405,8 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		break;
 
 	case WM_SETFOCUS: // When the window gains focus
-		// Get the current client size and clip the cursor to it.
-		WINDOWINFO windowinfo;
-		windowinfo.cbSize = sizeof(WINDOWINFO);
-		GetWindowInfo(hWnd, &windowinfo);
-
-		ClipCursor(&windowinfo.rcClient);
+		if (capturingMouse)
+			CaptureMouse();
 		break;
 
 		// Quit Events ----
@@ -401,10 +417,31 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
+		
+	case WM_SIZE:
+		width = LOWORD(lParam);
+		height = HIWORD(lParam);
+		
+		gfx->OnResize(width, height);
+		break;
+
+	case WM_SIZING:
+		
+		break;
 	}
 
 	// return the default window proc, to make the window responsive.
 	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+void Window::CaptureMouse()
+{
+	// Get the current client size and clip the cursor to it.
+	WINDOWINFO windowinfo;
+	windowinfo.cbSize = sizeof(WINDOWINFO);
+	GetWindowInfo(windowHandle, &windowinfo);
+
+	ClipCursor(&windowinfo.rcClient);
 }
 
 // init of static fields

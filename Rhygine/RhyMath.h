@@ -31,7 +31,7 @@ namespace RhyM {
 }
 */
 
-#include "bullet\btBulletDynamicsCommon.h"
+#include "RhyBullet.h"
 #include "assimp\vector2.h"
 #include "assimp\vector2.inl"
 

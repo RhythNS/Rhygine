@@ -25,5 +25,5 @@ public:
 	DirectX::XMMATRIX* GetPerspectiveMatrix();
 	DirectX::XMMATRIX* GetLocalMatrix();
 private:
-	DirectX::XMMATRIX perspectiveMatrix, worldMatrix, localMatrix;
+	DirectX::XMMATRIX perspectiveMatrix{}, worldMatrix{}, localMatrix{};
 };

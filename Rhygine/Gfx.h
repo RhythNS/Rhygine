@@ -1,6 +1,8 @@
 #pragma once
 #include "RhyWin.h"
 
+#include <DirectXMath.h>
+
 class Window;
 class Bindable;
 
@@ -13,7 +15,7 @@ class Gfx
 	friend class Bindable;
 public:
 	Gfx() = delete;
-	Gfx(Window* window);
+	Gfx(Window* window, int refreshRate);
 
 	/// <summary>
 	/// Singleton to get the Gfx instance.
@@ -42,10 +44,32 @@ public:
 	/// Called after all gameobjects have been drawn.
 	/// </summary>
 	void EndDraw();
-private:
-	Window* window;
 
+	/// <summary>
+	/// Gets the lh perspective matrix. Near and far values can be changed via
+	/// the Gfx fields nearZ and farZ.
+	/// </summary>
+	DirectX::XMMATRIX GetPerspectiveMatrix();
+
+	float nearZ = 0.5f;
+	float farZ = 500.0f;
+private:
+	/// <summary>
+	/// Should be called after the win32 window was resized.
+	/// </summary>
+	/// <param name="newWidth">The new width in pixel.</param>
+	/// <param name="newHeight">The new height in pixel.</param>
+	void OnResize(int newWidth, int newHeight);
+
+	/// <summary>
+	/// Creates the render target and depth buffer.
+	/// </summary>
+	inline void CreateTargetAndDepth();
+
+	Window* window;
 	static Gfx* instance;
+	int refreshRate;
+	int width, height;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> swap;

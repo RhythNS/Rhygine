@@ -27,6 +27,6 @@ private:
 	/// </summary>
 	void UpdateMatrix();
 
-	Transform* transform;
-	DirectX::XMMATRIX matrix;
+	Transform* transform = nullptr;
+	DirectX::XMMATRIX matrix{};
 };

@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Transform.h"
 
-Stage::Stage() : front(new GameObject()), back(new GameObject()), camera(front->AddComponent<Camera>())
+Stage::Stage() : front(new GameObject(this)), back(new GameObject(this)), camera(front->AddComponent<Camera>())
 {
 	// Move the camera a bit back to not start at 0,0,0
 	camera->GetTransform()->position = RhyM::Vec3(0.0f, 0.0f, -4.0f);
@@ -33,7 +33,7 @@ GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
 {
 	assert(createAfter != back);
 	// Create the gameobject. And set the stage.
-	GameObject* gameObject = new GameObject();
+	GameObject* gameObject = new GameObject(this);
 	gameObject->stage = this;
 
 	// Put the gameobject in between the createAfter and the next of createAfter.

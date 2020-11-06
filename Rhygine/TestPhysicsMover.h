@@ -13,5 +13,5 @@ public:
 	void Init();
 	void Update();
 private:
-	RigidBody* body;
+	RigidBody* body = nullptr;
 };

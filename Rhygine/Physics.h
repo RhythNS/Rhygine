@@ -1,5 +1,5 @@
 #pragma once
-#include "bullet\btBulletDynamicsCommon.h"
+#include "RhyBullet.h"
 #include "RhyMath.h"
 
 #include <memory>

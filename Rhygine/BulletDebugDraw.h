@@ -1,7 +1,7 @@
 #pragma once
 #include "Gameobject.h"
 #include "Verticies.h"
-#include "bullet\btBulletDynamicsCommon.h"
+#include "RhyBullet.h"
 #include "RhyBindables.h"
 
 #include <vector>

@@ -16,6 +16,8 @@ class GameObject
 {
 	friend class Stage;
 public:
+	GameObject() = delete;
+
 	/// <summary>
 	/// Called when after the stage was assigned and initializes the gameobject.
 	/// </summary>
@@ -140,15 +142,17 @@ public:
 	Stage* GetStage();
 
 private:
+	GameObject(Stage* stage);
+
 	Stage* stage;
 	/// <summary>
 	/// The previous gameobject of the linked list.
 	/// </summary>
-	GameObject* prev;
+	GameObject* prev = nullptr;
 	/// <summary>
 	/// The next gameobject of the linked list.
 	/// </summary>
-	GameObject* next;
+	GameObject* next = nullptr;
 
 	/// <summary>
 	/// Looks through a vector of unique_ptr of specified type and returns true

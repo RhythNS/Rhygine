@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AwakeRigidbodies.cpp" />
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
@@ -214,6 +215,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AwakeRigidbodies.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BulletDebugDraw.h" />
@@ -243,6 +245,7 @@
     <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="RhyAssimp.h" />
     <ClInclude Include="RhyBindables.h" />
+    <ClInclude Include="RhyBullet.h" />
     <ClInclude Include="RhyException.h" />
     <ClInclude Include="Gfx.h" />
     <ClInclude Include="Keys.h" />
