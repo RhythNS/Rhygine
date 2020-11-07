@@ -27,7 +27,6 @@ Window::Window(WindowDefinition definition) :
 
 	// Create all variables needed for the window creation
 	DWORD dwExStyle = 0;
-	//DWORD dwStyle = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 	DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX;
 	HWND hWndParent = nullptr;
 	HMENU hMenu = nullptr;
@@ -200,6 +199,69 @@ bool Window::IsCapturingMouse()
 	return capturingMouse;
 }
 
+void Window::SetFullscreen(bool enable)
+{
+	// Want to fullscreen
+	if (enable)
+	{
+		// Already in fullscren?
+		if (inFullscreen)
+			return;
+
+		inFullscreen = true;
+
+		// Get the monitor and monitor info
+		HMONITOR Monitor = MonitorFromWindow(windowHandle, MONITOR_DEFAULTTONEAREST);
+		MONITORINFO MonitorInfo = { sizeof(MonitorInfo) };
+		if (!(GetMonitorInfo(Monitor, &MonitorInfo)))
+			throw RHY_EXCEP("Could not get monitor info!");
+
+		// Save the previous window position
+		GetWindowRect(windowHandle, &beforeFullscreenWindowPos);
+
+		// Set the window as a borderless window
+		SetWindowLongPtr(windowHandle, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+
+		// Resize to fill monitor
+		Resize(
+			MonitorInfo.rcMonitor.left,
+			MonitorInfo.rcMonitor.top,
+			MonitorInfo.rcMonitor.right - MonitorInfo.rcMonitor.left,
+			MonitorInfo.rcMonitor.bottom - MonitorInfo.rcMonitor.top
+		);
+
+		return;
+	}
+	// Not fullscreen
+
+	// Already in fullscreen
+	if (!inFullscreen)
+		return;
+
+	inFullscreen = false;
+
+	// Set normal window
+	SetWindowLongPtr(windowHandle, GWL_STYLE, WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX);
+
+	// Resize back to before it went into fullscreen
+	Resize(
+		beforeFullscreenWindowPos.left,
+		beforeFullscreenWindowPos.top,
+		beforeFullscreenWindowPos.right - beforeFullscreenWindowPos.left,
+		beforeFullscreenWindowPos.bottom - beforeFullscreenWindowPos.top
+	);
+}
+
+bool Window::IsInFullscreen()
+{
+	return inFullscreen;
+}
+
+void Window::Resize(int posX, int posY, int width, int height)
+{
+	SetWindowPos( windowHandle, 0, posX, posY, width, height, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+}
+
 int Window::MainLoop()
 {
 	MSG msg;
@@ -320,9 +382,15 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			else
 			{
 				// Close the program. Only for fast debuging purposes.
-				if (raw->data.keyboard.VKey == VK_ESCAPE) {
+				if (raw->data.keyboard.VKey == VK_ESCAPE)
+				{
 					PostMessageA(hWnd, WM_CLOSE, 0, 0);
 					break;
+				}
+
+				else if (raw->data.keyboard.VKey == VK_F11)
+				{
+					SetFullscreen(!inFullscreen);
 				}
 
 				keys.PressKey(raw->data.keyboard.VKey);
@@ -417,16 +485,16 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
-		
-	case WM_SIZE:
+
+	case WM_SIZE: // When the window was resized
 		width = LOWORD(lParam);
 		height = HIWORD(lParam);
-		
+
 		gfx->OnResize(width, height);
 		break;
 
 	case WM_SIZING:
-		
+		// Maybe pause the game?
 		break;
 	}
 

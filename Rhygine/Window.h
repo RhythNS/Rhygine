@@ -27,11 +27,11 @@ public:
 		HINSTANCE hInstance;
 		LPSTR lpCmdLine;
 		int nCmdShow;
-		Scene* startScene;
-		int width;
-		int height;
-		int left;
-		int top;
+		Scene* startScene = nullptr;
+		int width = 1600;
+		int height = 900;
+		int left = 0;
+		int top = 0;
 		LPCSTR windowName = "Rhygine";
 		int targetFramesPerSecond = 144;
 		bool enablePhysics = true;
@@ -87,6 +87,16 @@ public:
 	bool IsCapturingMouse();
 
 	/// <summary>
+	/// Enables or disables fullscreen mode.
+	/// </summary>
+	void SetFullscreen(bool enable);
+	/// <summary>
+	/// Returns wheter the window is currently in fullscreen mode.
+	/// </summary>
+	bool IsInFullscreen();
+	void Resize(int posX, int posY, int width, int height);
+
+	/// <summary>
 	/// Executes the main game loop.
 	/// </summary>
 	/// <returns>The exit code of the program.</returns>
@@ -116,7 +126,13 @@ private:
 
 	static Window* instance;
 	static std::string className;
+
 	bool capturingMouse;
+
+	int width;
+	int height;
+	RECT beforeFullscreenWindowPos;
+	bool inFullscreen;
 	
 	std::vector<Tickable*> tickables;
 	HWND windowHandle;
@@ -125,6 +141,4 @@ private:
 	Gfx* gfx = nullptr;
 	Scene* currentScene;
 
-	int width;
-	int height;
 };
