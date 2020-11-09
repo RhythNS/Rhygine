@@ -246,6 +246,9 @@
     <ClCompile Include="AwakeRigidbodies.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BlendStateBindable.cpp">
+      <Filter>Source Files\TestGameobjects\Bindables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -448,6 +451,12 @@
     </ClInclude>
     <ClInclude Include="RhyBullet.h">
       <Filter>Header Files\Includers</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendStateBindable.h">
+      <Filter>Header Files\TestGameobjects\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="UnBindable.h">
+      <Filter>Header Files\Gameobject\Components\Drawer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

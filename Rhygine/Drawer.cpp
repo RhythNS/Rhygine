@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Stage.h"
 #include "PrimitiveTopolpgy.h"
+#include "UnBindable.h"
 
 void Drawer::Init()
 {
@@ -36,6 +37,12 @@ void Drawer::Draw()
 	default:
 		throw RHY_EXCEP("Unsupported draw mode");
 	}
+
+	// Unbind all bindables that inherit from unbindable.
+	for (auto& unBindable : unBindables)
+	{
+		unBindable->UnBind();
+	}
 }
 
 Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
@@ -45,6 +52,11 @@ Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 	Updatable* updatable;
 	if (updatable = dynamic_cast<Updatable*>(bindable.get()))
 		updatables.push_back(updatable);
+
+	// If it is an unbindable, add it to the unbindable list.
+	UnBindable* unbindable;
+	if (unbindable = dynamic_cast<UnBindable*>(bindable.get()))
+		unBindables.push_back(unbindable);
 
 	AnalyseBindable(bindable.get());
 
@@ -107,6 +119,11 @@ bool Drawer::RemoveBindable(Bindable* bindable)
 			Updatable* updatable;
 			if (updatable = dynamic_cast<Updatable*>(bindable))
 				std::erase(updatables, updatable);
+			
+			// if it is an unbindable, remove it from the unbindable list.
+			UnBindable* unbindable;
+			if (unbindable = dynamic_cast<UnBindable*>(bindable))
+				std::erase(unBindables, unbindable);
 
 			bindables.erase(bind);
 

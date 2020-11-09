@@ -168,6 +168,7 @@
     <ClCompile Include="AwakeRigidbodies.cpp" />
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BlendStateBindable.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
     <ClCompile Include="BulletTestScene.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="AwakeRigidbodies.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="BlendStateBindable.h" />
     <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="BulletTestScene.h" />
     <ClInclude Include="Camera.h" />
@@ -276,6 +278,7 @@
     <ClInclude Include="Tickable.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UnBindable.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="VertBuffer.h" />
     <ClInclude Include="Verticies.h" />

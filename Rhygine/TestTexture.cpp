@@ -12,7 +12,7 @@ void TestTexture::AddData(GameObject* toAddTo)
 	Transform* transform = AddTransform(toAddTo);
 	Drawer* drawer = AddDrawer(toAddTo);
 
-	transform->position = { 10.0f, 0.0f, 10.0f };
+	transform->localPosition = { 10.0f, 0.0f, 10.0f };
 
 	struct Vertex {
 		struct {

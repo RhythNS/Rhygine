@@ -22,7 +22,7 @@ void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, Rhy
 	assert(_shape);
 	shape = _shape;
 	body = std::make_unique<btRigidBody>(mass, motion, shape.get(), localInertia);
-	body->setWorldTransform(btTransform(transform->rotation, transform->position));
+	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
 	Physics::Register(this);
 }
 
@@ -31,7 +31,7 @@ void RigidBody::Create(RigidBody* copy)
 	assert(copy);
 	shape = copy->shape;
 	body = std::make_unique<btRigidBody>(copy->body->getMass(), motion, shape.get(), copy->body->getLocalInertia());
-	body->setWorldTransform(btTransform(transform->rotation, transform->position));
+	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
 	Physics::Register(this);
 }
 
@@ -65,6 +65,6 @@ void RigidBody::OnDisabled()
 
 void RigidBody::UpdatePosition()
 {
-	transform->position = body->getWorldTransform().getOrigin();
-	transform->rotation = body->getOrientation();
+	transform->localPosition = body->getWorldTransform().getOrigin();
+	transform->localRotation = body->getOrientation();
 }

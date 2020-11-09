@@ -65,7 +65,7 @@ private:
 	/// </summary>
 	void SetGameObject(GameObject* gameObject);
 
-	GameObject* gameObject;
+	GameObject* gameObject = nullptr;
 
 	/// <summary>
 	/// Recieves updates and draw calls when enabled.

@@ -37,8 +37,8 @@ void LightTestScene::InnerInit()
 
 	GameObject* lit = GameObjectFactory::Add(stage.get(), &tlp);
 	lit->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
-	lit->GetComponent<Transform>()->position.setValue(-2.0f, 0.0f, 0.0f);
-	lit->GetComponent<Transform>()->scale.setValue(1.0f, 1.0f, 1.0f);
+	lit->GetComponent<Transform>()->localPosition.setValue(-2.0f, 0.0f, 0.0f);
+	lit->GetComponent<Transform>()->localScale.setValue(1.0f, 1.0f, 1.0f);
 	lit->GetComponent<RotateAround>()->Enable();
 
 	GameObject* lit2 = GameObjectFactory::Add(stage.get(), &tlp);
@@ -46,17 +46,17 @@ void LightTestScene::InnerInit()
 	Drawer* drawer = lit2->GetComponent<Drawer>();
 	drawer->RemoveBindable(drawer->GetBindable<TextureChanger>());
 	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
-	lit2->GetComponent<Transform>()->position.setValue(0.0f, 1.0f, 0.0f);
-	lit2->GetComponent<Transform>()->scale.setValue(1.0f, 1.0f, 1.0f);
+	lit2->GetComponent<Transform>()->localPosition.setValue(0.0f, 1.0f, 0.0f);
+	lit2->GetComponent<Transform>()->localScale.setValue(1.0f, 1.0f, 1.0f);
 	lit2->GetComponent<RotateAround>()->rotationSpeed.setValue(0.0f, 0.0f, 1.0f);
 	lit2->GetComponent<RotateAround>()->Enable();
 
 	GameObject* pyramid = GameObjectFactory::Add(stage.get(), &tp);
-	pyramid->GetComponent<Transform>()->position.setValue(0.0f, -1.0f, 0.0f);
+	pyramid->GetComponent<Transform>()->localPosition.setValue(0.0f, -1.0f, 0.0f);
 	pyramid->GetComponent<RotateAround>()->rotationSpeed.setValue(1.0f, 0.0f, 0.0f);
 	
 	GameObject* model = GameObjectFactory::Add(stage.get(), &tm);
-	model->GetComponent<Transform>()->position.setValue(2.0f, 0.0f, 0.0f);
+	model->GetComponent<Transform>()->localPosition.setValue(2.0f, 0.0f, 0.0f);
 	model->AddComponent<RotateAround>()->rotationSpeed.setValue(1.0f, 1.0f, 1.0f);
 
 }

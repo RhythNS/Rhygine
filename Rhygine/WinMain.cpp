@@ -16,7 +16,7 @@ int CALLBACK WinMain(
 	try {
 
 		// Get all information needed for the start and put it into WindowDefinition.
-		BulletTestScene scene;
+		TestScene scene;
 		Window::WindowDefinition winDef;
 		winDef.hInstance = hInstance;
 		winDef.lpCmdLine = lpCmdLine;

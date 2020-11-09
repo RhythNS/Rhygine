@@ -49,9 +49,9 @@ void CameraMover::Update()
 	// Rotate the camera if the right mouse button was pressed with mouse control.
 	if (mouse->IsButtonDown(RH_MOUSE_RIGHT))
 	{
-		transform->rotation =
+		transform->localRotation =
 			RhyM::Quat(RhyM::Vec3(0.0f, 1.0f, 0.0f), rp->x * speed) *
-			transform->rotation *
+			transform->localRotation *
 			RhyM::Quat(RhyM::Vec3(1.0f, 0.0f, 0.0f), rp->y * speed)
 			;
 	}
@@ -74,20 +74,20 @@ void CameraMover::Update()
 
 	// To make the camera feel more natrual, the move is rotated based on the current rotation of the camera.
 	// So the movement is now in local space and not in global space.
-	move = quatRotate(transform->rotation, move);
+	move = quatRotate(transform->localRotation, move);
 
 	// Display imigui debug window.
 	ImGui::Begin("CameraMover");
 	std::string str = "Vec: " + std::to_string(move.x()) + " " + std::to_string(move.y()) + " " + std::to_string(move.z());
 	ImGui::Text(str.c_str());
-	transform->position += move;
+	transform->localPosition += move;
 
-	move = transform->position;
+	move = transform->localPosition;
 	str = "At: " + std::to_string(move.x()) + " " + std::to_string(move.y()) + " " + std::to_string(move.z());
 	ImGui::Text(str.c_str());
 	ImGui::End();
 
 	// If the r keys is pressed, then reset the rotation.
 	if (keys->IsKeyDown('R'))
-		transform->rotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
+		transform->localRotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
 }

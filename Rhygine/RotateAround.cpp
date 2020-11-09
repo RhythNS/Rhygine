@@ -12,5 +12,5 @@ void RotateAround::Init()
 void RotateAround::Update()
 {
 	float delta = Window::GetInstance()->time.GetDelta();
-	transform->rotation = transform->rotation * RhyM::Quat(delta * rotationSpeed.m_floats[0], delta * rotationSpeed.m_floats[1], delta * rotationSpeed.m_floats[2]);
+	transform->localRotation = transform->localRotation * RhyM::Quat(delta * rotationSpeed.m_floats[0], delta * rotationSpeed.m_floats[1], delta * rotationSpeed.m_floats[2]);
 }

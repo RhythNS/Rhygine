@@ -6,7 +6,7 @@
 Stage::Stage() : front(new GameObject(this)), back(new GameObject(this)), camera(front->AddComponent<Camera>())
 {
 	// Move the camera a bit back to not start at 0,0,0
-	camera->GetTransform()->position = RhyM::Vec3(0.0f, 0.0f, -4.0f);
+	camera->GetTransform()->localPosition = RhyM::Vec3(0.0f, 0.0f, -4.0f);
 
 	front->next = back;
 	back->prev = front;

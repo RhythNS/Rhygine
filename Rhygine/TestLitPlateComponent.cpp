@@ -18,7 +18,7 @@ void TestLitPlateComponent::Init()
 	transform = GetGameObject()->AddComponent<Transform>();
 	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
 
-	transform->position.setValue(0.0f, 0.0f, 5.0f);
+	transform->localPosition.setValue(0.0f, 0.0f, 5.0f);
 	//transform->scale.Set(3.0f, 3.0f, 3.0f);
 
 	struct Vertex {
@@ -102,9 +102,9 @@ void TestLitPlateComponent::Init()
 void TestLitPlateComponent::Update()
 {
 	ImGui::Begin(("BestPlane" + std::to_string(id)).c_str(), &guiWindowOpen);
-	ImGui::DragFloat3("Position", transform->position.m_floats, 0.1f, -10.0f, 10.0f, "%.3f", 0);
+	ImGui::DragFloat3("Position", transform->localPosition.m_floats, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
-		transform->rotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
+		transform->localRotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
 	}
 	bool boxRotates = rotateAround->IsEnabled();
 	if (ImGui::Checkbox("Rotate around", &boxRotates))

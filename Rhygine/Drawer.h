@@ -10,6 +10,7 @@
 #include <DirectXMath.h>
 
 class Bindable;
+class UnBindable;
 class Transform;
 class Camera;
 
@@ -79,6 +80,7 @@ private:
 
 	std::vector<std::unique_ptr<Bindable>> bindables;
 	std::vector<Updatable*> updatables;
+	std::vector<UnBindable*> unBindables;
 	Transform* transform = nullptr;
 	IndexBufferAmount* indexAmount = nullptr;
 	VertBufferAmount* vertAmount = nullptr;

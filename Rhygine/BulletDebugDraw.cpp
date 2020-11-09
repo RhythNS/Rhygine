@@ -93,6 +93,10 @@ void BulletDebugDraw::clearLines()
 
 void BulletDebugDraw::flushLines()
 {
+	// Are any verticies in the vertex array?
+	if (verts.size() == 0)
+		return;
+
 	// Get the camera matrix and give it to the shader
 	worldBuffer.transform =
 		DirectX::XMMatrixTranspose
