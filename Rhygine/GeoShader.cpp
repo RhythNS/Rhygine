@@ -38,3 +38,8 @@ ID3DBlob* GeoShader::GetBlob()
 {
 	return blob.Get();
 }
+
+ID3D11GeometryShader* GeoShader::Get()
+{
+	return shaderPointer.Get();
+}

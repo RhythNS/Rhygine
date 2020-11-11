@@ -38,3 +38,8 @@ ID3DBlob* PixShader::GetBlob()
 {
 	return blob.Get();
 }
+
+ID3D11PixelShader* PixShader::Get()
+{
+	return shaderPointer.Get();
+}

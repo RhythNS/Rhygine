@@ -21,6 +21,11 @@ public:
 	Sampler(int slot, D3D11_SAMPLER_DESC desc);
 
 	void Bind();
+
+	/// <summary>
+	/// Gets a pointer to the sampler state.
+	/// </summary>
+	ID3D11SamplerState* Get();
 	
 	int slot;
 

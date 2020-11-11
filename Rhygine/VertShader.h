@@ -23,8 +23,12 @@ public:
 	/// <returns>Dumb pointer to the blob.</returns>
 	ID3DBlob* GetBlob();
 
+	/// <summary>
+	/// Gets a pointer to the vertex shader.
+	/// </summary>
+	ID3D11VertexShader* Get();
+
 private:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> shaderPointer;
 	Microsoft::WRL::ComPtr<ID3DBlob> blob;
 };
-

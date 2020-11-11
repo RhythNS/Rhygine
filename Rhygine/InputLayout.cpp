@@ -14,3 +14,8 @@ void InputLayout::Bind()
 {
 	GetContext()->IASetInputLayout(layoutPointer.Get());
 }
+
+ID3D11InputLayout* InputLayout::Get()
+{
+	return layoutPointer.Get();
+}

@@ -19,6 +19,11 @@ public:
 	/// </summary>
 	/// <returns>Dumb pointer to the blob.</returns>
 	ID3DBlob* GetBlob();
+
+	/// <summary>
+	/// Gets a pointer to the geo shader.
+	/// </summary>
+	ID3D11GeometryShader* Get();
 private:
 	Microsoft::WRL::ComPtr<ID3D11GeometryShader> shaderPointer;
 	Microsoft::WRL::ComPtr<ID3DBlob> blob;

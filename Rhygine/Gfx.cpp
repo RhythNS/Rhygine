@@ -94,14 +94,14 @@ void Gfx::BeginDraw()
 	context->RSSetViewports(1, &viewport);
 }
 
-void Gfx::DrawIndexed(UINT* indexCount)
+void Gfx::DrawIndexed(UINT indexCount, UINT startLocation, INT baseVertexLocation)
 {
-	context->DrawIndexed(*indexCount, 0, 0);
+	context->DrawIndexed(indexCount, startLocation, baseVertexLocation);
 }
 
-void Gfx::Draw(UINT* vertexCount)
+void Gfx::Draw(UINT vertexCount, UINT startVertexLocation)
 {
-	context->Draw(*vertexCount, 0);
+	context->Draw(vertexCount, startVertexLocation);
 }
 
 void Gfx::EndDraw()

@@ -18,6 +18,11 @@ public:
 	/// </summary>
 	/// <returns>Dumb pointer to the blob.</returns>
 	ID3DBlob* GetBlob();
+
+	/// <summary>
+	/// Gets a pointer to the pixel shader.
+	/// </summary>
+	ID3D11PixelShader* Get();
 private:
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> shaderPointer;
 	Microsoft::WRL::ComPtr<ID3DBlob> blob;

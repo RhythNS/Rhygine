@@ -18,6 +18,11 @@ public:
 
 	void Bind();
 
+	/// <summary>
+	/// Gets a pointer to the input layout.
+	/// </summary>
+	ID3D11InputLayout* Get();
+
 private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> layoutPointer;
 };

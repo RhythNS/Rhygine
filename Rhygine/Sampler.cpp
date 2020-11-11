@@ -15,6 +15,11 @@ void Sampler::Bind()
 	GetContext()->PSSetSamplers(slot, 1, samplerPointer.GetAddressOf());
 }
 
+ID3D11SamplerState* Sampler::Get()
+{
+	return samplerPointer.Get();
+}
+
 D3D11_SAMPLER_DESC Sampler::GetDefaultDescription()
 {
 	D3D11_SAMPLER_DESC desc = { };

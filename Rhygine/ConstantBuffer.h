@@ -53,6 +53,14 @@ public:
 		GetContext()->Unmap(constantBuffer.Get(), 0);
 	}
 
+	/// <summary>
+	/// Gets a pointer to the constant buffer.
+	/// </summary>
+	ID3D11Buffer* Get()
+	{
+		return constantBuffer.Get();
+	}
+
 	int slot;
 protected:
 	/// <summary>

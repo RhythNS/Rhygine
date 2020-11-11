@@ -15,10 +15,25 @@ public:
 	Texture(const char* fileName, int slot);
 
 	void Bind();
-	
-	int slot;
 
+	/// <summary>
+	/// Gets the width of the texture.
+	/// </summary>
+	int GetWidth();
+	/// <summary>
+	/// Gets the height of the texture.
+	/// </summary>
+	int GetHeight();
+
+	/// <summary>
+	/// Gets a pointer to the texture resource.
+	/// </summary>
+	ID3D11ShaderResourceView* Get();
+
+	int slot;
 private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texturePointer;
+	int width;
+	int height;
 };
 

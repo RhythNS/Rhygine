@@ -8,7 +8,7 @@
 
 Texture::Texture(const char* fileName, int slot) : slot(slot)
 {
-	int width, height, bits;
+	int bits;
 
 	// load the image
 	unsigned char* load = stbi_load(fileName, &width, &height, &bits, 4);
@@ -56,4 +56,19 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 void Texture::Bind()
 {
 	GetContext()->PSSetShaderResources(slot, 1, texturePointer.GetAddressOf());
+}
+
+int Texture::GetWidth()
+{
+	return width;
+}
+
+int Texture::GetHeight()
+{
+	return height;
+}
+
+ID3D11ShaderResourceView* Texture::Get()
+{
+	return texturePointer.Get();
 }

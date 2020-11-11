@@ -11,7 +11,7 @@
 class IndexBufferAmount
 {
 public:
-	virtual UINT* GetSize() = 0;
+	virtual UINT GetSize() = 0;
 };
 
 /// <summary>
@@ -30,7 +30,7 @@ public:
 	IndexBuffer(std::vector<Index> inds, int slot) : IndexBuffer<Index>(inds, GetDefaultDescription(), slot) {}
 	
 	/// <summary>
-	/// Creates a constant buffer with a custom description.
+	/// Creates a index buffer with a custom description.
 	/// </summary>
 	/// <param name="inds">The indicies of the buffer.</param>
 	/// <param name="desc">The description of the index buffer.</param>
@@ -44,14 +44,69 @@ public:
 		THROW_IF_FAILED(GetDevice()->CreateBuffer(&desc, &indexData, &indexPointer));
 	}
 
+	/// <summary>
+	/// Creates a index buffer as an dynamic buffer, meaning that the inds can be updated via
+	/// UpdateIndexes()
+	/// </summary>
+	/// <param name="placeHolderFill">The initial element which is used to fill the buffer.</param>
+	/// <param name="maxSize">The max size the buffer can be.</param>
+	/// <param name="slot">The slot to where the buffer is bound to.</param>
+	IndexBuffer(Index placeHolderFill, int maxSize, int slot) : size(0), slot(slot)
+	{
+		std::vector<Index> inds( maxSize, placeHolderFill );
+		D3D11_BUFFER_DESC desc = GetUpdatableDescription();
+		desc.ByteWidth = (UINT)(sizeof(Index) * maxSize);
+		desc.StructureByteStride = sizeof(Index);
+		D3D11_SUBRESOURCE_DATA indexData = { };
+		indexData.pSysMem = inds.data();
+		THROW_IF_FAILED(GetDevice()->CreateBuffer(&desc, &indexData, &indexPointer));
+	}
+
+	/// <summary>
+	/// Updates the indicies of the index buffer. This only works if the buffer was
+	/// created with a correct description which allows updating.
+	/// </summary>
+	/// <param name="newInds">The new indicies.</param>
+	void UpdateIndexes(std::vector<Index>& newInds) 
+	{
+		D3D11_MAPPED_SUBRESOURCE resource;
+		ZeroMemory(&resource, sizeof(D3D11_MAPPED_SUBRESOURCE));
+
+		THROW_IF_FAILED(GetContext()->Map(indexPointer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &resource));
+		memcpy(resource.pData, newInds.data(), sizeof(Index) * newInds.size());
+		GetContext()->Unmap(indexPointer.Get(), 0);
+
+		size = newInds.size();
+	}
+
 	void Bind()
 	{
 		GetContext()->IASetIndexBuffer(indexPointer.Get(), GetFormat(), 0);
 	}
 	
-	UINT* GetSize()
+	UINT GetSize()
 	{
-		return &size;
+		return size;
+	}
+
+	/// <summary>
+	/// Gets a pointer to the index buffer.
+	/// </summary>
+	ID3D11Buffer* Get()
+	{
+		return indexPointer.Get();
+	}
+
+	/// <summary>
+	/// Gets a description which allows the updating of indicies.
+	/// </summary>
+	static D3D11_BUFFER_DESC GetUpdatableDescription()
+	{
+		D3D11_BUFFER_DESC desc = { };
+		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		return desc;
 	}
 
 	int slot;

@@ -1,4 +1,5 @@
 #pragma once
+#include "RhyColor.h"
 // Helper class for different Vertex classes.
 
 struct VertexPosColor {
@@ -49,4 +50,15 @@ struct VertexPosNormalColor {
 		unsigned char b;
 		unsigned char a;
 	} color;
+};
+
+struct VertexPosColorUV {
+	struct {
+		float x, y, z;
+	} pos;
+	RhyC::color color;
+	struct {
+		float u;
+		float v;
+	};
 };

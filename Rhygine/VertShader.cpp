@@ -39,3 +39,8 @@ ID3DBlob* VertShader::GetBlob()
 {
 	return blob.Get();
 }
+
+ID3D11VertexShader* VertShader::Get()
+{
+	return shaderPointer.Get();
+}

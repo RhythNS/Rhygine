@@ -34,12 +34,12 @@ public:
 	/// Draws an indexed object onto the screen.
 	/// </summary>
 	/// <param name="indexCount">The amount of indicies.</param>
-	void DrawIndexed(UINT* indexCount);
+	void DrawIndexed(UINT indexCount, UINT startLocation = 0, INT baseVertexLocation = 0);
 	/// <summary>
 	/// Draws an object onto the screen.
 	/// </summary>
 	/// <param name="vertexCount">The amount if verticies.</param>
-	void Draw(UINT* vertexCount);
+	void Draw(UINT vertexCount, UINT startVertexLocation = 0);
 	/// <summary>
 	/// Called after all gameobjects have been drawn.
 	/// </summary>

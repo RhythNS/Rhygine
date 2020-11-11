@@ -100,6 +100,12 @@
     <Filter Include="Source Files\Bullet">
       <UniqueIdentifier>{4277d0fa-75e6-42a6-8da2-1e8a9a27c5e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameobject\Components\Drawer\SpriteBatch">
+      <UniqueIdentifier>{b74d57a0-2903-4748-b521-bf9d08f92916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameobject\Components\Drawer\SpriteBatch">
+      <UniqueIdentifier>{b44d7c9f-4b0e-4706-a161-840cfc2b7c2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -248,6 +254,12 @@
     </ClCompile>
     <ClCompile Include="BlendStateBindable.cpp">
       <Filter>Source Files\TestGameobjects\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRegion.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +470,15 @@
     <ClInclude Include="UnBindable.h">
       <Filter>Header Files\Gameobject\Components\Drawer</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRegion.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+    </ClInclude>
+    <ClInclude Include="RhyColor.h">
+      <Filter>Header Files\Includers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVert.hlsl">
@@ -482,6 +503,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="BulletDebugPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SpriteBatchPixel.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="SpriteBatchVert.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
