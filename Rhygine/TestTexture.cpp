@@ -2,10 +2,9 @@
 #include "Window.h"
 #include "RhyBindables.h"
 #include "TextureChanger.h"
-
-#include <string>
 #include "BasicShader.h"
 
+#include <string>
 
 void TestTexture::AddData(GameObject* toAddTo)
 {

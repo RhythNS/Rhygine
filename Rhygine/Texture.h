@@ -36,4 +36,3 @@ private:
 	int width;
 	int height;
 };
-

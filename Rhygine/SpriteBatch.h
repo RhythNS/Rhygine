@@ -3,10 +3,11 @@
 #include "RhyColor.h"
 #include "RhyBindables.h"
 #include "Verticies.h"
+#include "CombinedShader.h"
 
 #include <vector>
 
-class Camera;
+class OrthographicCamera;
 class TextureRegion;
 class SpriteBatch
 {
@@ -16,21 +17,16 @@ public:
 		TextureBased,
 		None
 	};
-	enum class DrawMode {
-		Perspective,
-		Orthographic
-	};
 
-	SpriteBatch(SortMode sortMode = SortMode::ZBased, DrawMode drawMode = DrawMode::Orthographic, int initialCapacity = startingSize);
+	SpriteBatch(SortMode sortMode = SortMode::ZBased);
 
-	void Begin(Camera* camera);
+	void Begin(OrthographicCamera* camera);
 	void Draw(Texture* texture, float texX, float texY, float texWidth, float texHeight, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);
 	void Draw(TextureRegion* texture, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);
 	void End();
 
 	bool alphaBlending;
 	SortMode sortMode = SortMode::TextureBased;
-	DrawMode drawMode = DrawMode::Orthographic;
 private:
 	struct Sprite
 	{
@@ -72,6 +68,10 @@ private:
 
 	};
 
+	struct WorldPos {
+		DirectX::XMMATRIX transform;
+	};
+
 	inline void GrowArray();
 
 	inline void Sort();
@@ -79,13 +79,17 @@ private:
 
 	inline void DrawBatch(int from, int to);
 
-	Camera* camera;
+	OrthographicCamera* camera;
+	WorldPos constantBuffer;
 
 	std::unique_ptr<IndexBufferUS> indexBuffer;
 	std::unique_ptr<VertBuffer<VertexPosColorUV>> vertBuffer;
 	std::unique_ptr<PrimitiveTopology> primitiveTopology;
 	std::unique_ptr<Sampler> sampler;
-	std::unique_ptr<CombinedShader> combinedShader;
+	std::unique_ptr<VertShader> vertShader;
+	std::unique_ptr<PixShader> pixShader;
+	std::unique_ptr<InputLayout> inputLayout;
+	std::unique_ptr<ConstantVS<WorldPos>> constantVert;
 
 	std::vector<Sprite> sprites{ startingSize, Sprite() };
 	std::vector<Sprite*> sortedSprites{ startingSize, nullptr };

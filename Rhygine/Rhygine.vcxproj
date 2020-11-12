@@ -189,6 +189,7 @@
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
+    <ClCompile Include="SpriteBatchTester.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />
@@ -245,6 +247,7 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="LightTestScene.h" />
+    <ClInclude Include="OrthographicCamera.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="RhyAssimp.h" />
@@ -266,6 +269,7 @@
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="SpriteBatchTester.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLightComponent.h" />

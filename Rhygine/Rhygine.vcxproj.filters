@@ -261,6 +261,12 @@
     <ClCompile Include="TextureRegion.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteBatchTester.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthographicCamera.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -478,6 +484,12 @@
     </ClInclude>
     <ClInclude Include="RhyColor.h">
       <Filter>Header Files\Includers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatchTester.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthographicCamera.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

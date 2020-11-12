@@ -1,26 +1,33 @@
 #include "SpriteBatch.h"
 #include "TextureRegion.h"
 #include "BasicShader.h"
+#include "CombinedShader.h"
 #include "Gfx.h"
+#include "OrthographicCamera.h"
 
 #include <algorithm>
 
-SpriteBatch::SpriteBatch(SortMode sortMode, DrawMode drawMode, int initialCapacity) :
-	indexBuffer(std::make_unique<IndexBufferUS>(0, initialCapacity * 4, 0)),
-	vertBuffer(std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), initialCapacity * 6, 0)),
+SpriteBatch::SpriteBatch(SortMode sortMode) :
+	sortMode(sortMode),
+	indexBuffer(std::make_unique<IndexBufferUS>(0, startingSize * 4, 0)),
+	vertBuffer(std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), startingSize * 6, 0)),
 	primitiveTopology(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
-	sampler(std::make_unique<Sampler>(0))
+	sampler(std::make_unique<Sampler>(0)),
+	vertShader(std::make_unique<VertShader>(L"SpriteBatchVert.hlsl")),
+	pixShader(std::make_unique<PixShader>(L"SpriteBatchPixel.hlsl")),
+	constantVert(std::make_unique<ConstantVS<SpriteBatch::WorldPos>>(&constantBuffer, 0))
 {
+
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16u, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
-	combinedShader = std::make_unique<BasicShader>(L"SpriteBatchPixel.hlsl", L"SpriteBatchVert.hlsl", &inputLayoutDesc);
+	inputLayout = std::make_unique<InputLayout>(inputLayoutDesc, vertShader->GetBlob());
 }
 
-void SpriteBatch::Begin(Camera* _camera)
+void SpriteBatch::Begin(OrthographicCamera* _camera)
 {
 	assert(drawing == false);
 	drawing = true;
@@ -63,72 +70,83 @@ void SpriteBatch::End()
 
 	Sort();
 
-	std::vector<VertexPosColorUV> verts;
-	verts.reserve(currentBufferCount * 4);
-	std::vector<unsigned short> indexes;
-	indexes.reserve(currentBufferCount * 6);
+	std::vector<VertexPosColorUV> verts(currentBufferCount * 4);
+	std::vector<unsigned short> indexes(currentBufferCount * 6);
 
 	for (size_t i = 0; i < currentBufferCount; i++)
 	{
 		auto* sprite = sortedSprites[i];
-		verts[i].color = sprite->color;
-		verts[i + 1].color = sprite->color;
-		verts[i + 2].color = sprite->color;
-		verts[i + 3].color = sprite->color;
+		size_t atVert = i * 4;
 
-		verts[i].pos.x = sprite->worldPosition.x;
-		verts[i].pos.y = sprite->worldPosition.y;
+		verts[atVert].color = sprite->color;
+		verts[atVert + 1].color = sprite->color;
+		verts[atVert + 2].color = sprite->color;
+		verts[atVert + 3].color = sprite->color;
 
-		verts[i + 1].pos.x = sprite->worldPosition.x + sprite->worldSize.width;
-		verts[i + 1].pos.y = sprite->worldPosition.y;
+		verts[atVert].pos.x = sprite->worldPosition.x;
+		verts[atVert].pos.y = sprite->worldPosition.y;
+		verts[atVert].pos.z = sprite->worldPosition.z;
 
-		verts[i + 2].pos.x = sprite->worldPosition.x;
-		verts[i + 2].pos.y = sprite->worldPosition.y + sprite->worldSize.height;
+		verts[atVert + 1].pos.x = sprite->worldPosition.x + sprite->worldSize.width;
+		verts[atVert + 1].pos.y = sprite->worldPosition.y;
+		verts[atVert + 1].pos.z = sprite->worldPosition.z;
 
-		verts[i + 3].pos.x = sprite->worldPosition.x + sprite->worldSize.width;
-		verts[i + 3].pos.y = sprite->worldPosition.y + sprite->worldSize.height;
+		verts[atVert + 2].pos.x = sprite->worldPosition.x;
+		verts[atVert + 2].pos.y = sprite->worldPosition.y + sprite->worldSize.height;
+		verts[atVert + 2].pos.z = sprite->worldPosition.z;
+
+		verts[atVert + 3].pos.x = sprite->worldPosition.x + sprite->worldSize.width;
+		verts[atVert + 3].pos.y = sprite->worldPosition.y + sprite->worldSize.height;
+		verts[atVert + 3].pos.z = sprite->worldPosition.z;
+
 
 		int texWidth = sprite->texture->GetWidth();
-		int texHeight = sprite->texture->GetWidth();
+		int texHeight = sprite->texture->GetHeight();
 		float uvWidth = sprite->textureSize.width / texWidth;
 		float uvHeight = sprite->textureSize.height / texHeight;
 		float u = sprite->texturePosition.x / texWidth;
 		float v = sprite->texturePosition.y / texHeight;
 
-		verts[i].u = u;
-		verts[i].v = v;
+		verts[atVert].u = u;
+		verts[atVert].v = v + uvHeight;
 
-		verts[i + 1].u = u + uvWidth;
-		verts[i + 1].v = v;
+		verts[atVert + 1].u = u + uvWidth;
+		verts[atVert + 1].v = v + uvHeight;
 
-		verts[i + 2].u = u;
-		verts[i + 2].v = v + uvHeight;
+		verts[atVert + 2].u = u;
+		verts[atVert + 2].v = v;
 
-		verts[i + 3].u = u + uvWidth;
-		verts[i + 3].v = v + uvHeight;
+		verts[atVert + 3].u = u + uvWidth;
+		verts[atVert + 3].v = v;
 
-		indexes[i * 6] = i;
-		indexes[i * 6 + 1] = i + 2;
-		indexes[i * 6 + 2] = i + 1;
-		indexes[i * 6 + 3] = i + 2;
-		indexes[i * 6 + 4] = i + 3;
-		indexes[i * 6 + 5] = i + 1;
+		size_t atIndex = i * 6;
+		indexes[atIndex] = atVert;
+		indexes[atIndex + 1] = atVert + 2;
+		indexes[atIndex + 2] = atVert + 1;
+		indexes[atIndex + 3] = atVert + 2;
+		indexes[atIndex + 4] = atVert + 3;
+		indexes[atIndex + 5] = atVert + 1;
 	}
 
 	vertBuffer->UpdateVerts(verts);
 	indexBuffer->UpdateIndexes(indexes);
+	constantBuffer.transform = camera->GetOrthoMatrix();
+	constantVert->SetAndUpdate(&constantBuffer);
 
 	indexBuffer->Bind();
 	vertBuffer->Bind();
 	primitiveTopology->Bind();
 	sampler->Bind();
-	combinedShader->Bind();
-	
+	vertShader->Bind();
+	pixShader->Bind();
+	inputLayout->Bind();
+	constantVert->Bind();
+
 	int lastSameTexture = 0;
 	int currentDraw = 1;
 	while (currentDraw < currentBufferCount)
 	{
-		if (sortedSprites[lastSameTexture] != sortedSprites[currentDraw])
+		if (sortedSprites[lastSameTexture]->texture != sortedSprites[currentDraw]->texture)
 		{
 			DrawBatch(lastSameTexture, currentDraw);
 			lastSameTexture = currentDraw;
@@ -199,5 +217,6 @@ inline void SpriteBatch::CopySpritesToSorted()
 
 inline void SpriteBatch::DrawBatch(int from, int to)
 {
+	sortedSprites[from]->texture->Bind();
 	Gfx::GetInstance()->DrawIndexed((to - from) * 6, from * 6);
 }
