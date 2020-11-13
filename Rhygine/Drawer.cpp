@@ -139,7 +139,7 @@ Transform* Drawer::GetTransform()
 	return transform;
 }
 
-Camera* Drawer::GetCamera()
+Camera* Drawer::Get3DCamera()
 {
-	return GetGameObject()->GetStage()->GetCamera();
+	return GetGameObject()->GetStage()->Get3DCamera();
 }

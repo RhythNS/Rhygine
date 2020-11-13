@@ -100,11 +100,32 @@
     <Filter Include="Source Files\Bullet">
       <UniqueIdentifier>{4277d0fa-75e6-42a6-8da2-1e8a9a27c5e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gameobject\Components\Drawer\SpriteBatch">
+    <Filter Include="Header Files\2D">
       <UniqueIdentifier>{b74d57a0-2903-4748-b521-bf9d08f92916}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameobject\Components\Drawer\SpriteBatch">
+    <Filter Include="Source Files\2D">
       <UniqueIdentifier>{b44d7c9f-4b0e-4706-a161-840cfc2b7c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Includers">
+      <UniqueIdentifier>{d96c7892-34fe-4294-93a4-72f95ecdf1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\2D\UI">
+      <UniqueIdentifier>{89334066-cb90-4b67-9f54-de0e6b10d3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2D\UI">
+      <UniqueIdentifier>{1d6693e6-c677-4cc7-a106-639a9a81c756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\2D\UI\Elements">
+      <UniqueIdentifier>{7020ba68-8f4d-4aa1-9ea6-e7156b2dba79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\2D\UI\Sizers">
+      <UniqueIdentifier>{acbfdf48-3536-42e9-b620-9064e1d08a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2D\UI\Elements">
+      <UniqueIdentifier>{93d6cd1e-d482-47d0-9df3-52f2805822fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\2D\UI\Sizers">
+      <UniqueIdentifier>{e3857f81-03b3-4054-9dfc-8d5e4f536adc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -252,20 +273,35 @@
     <ClCompile Include="AwakeRigidbodies.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
-    <ClCompile Include="BlendStateBindable.cpp">
-      <Filter>Source Files\TestGameobjects\Bindables</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteBatch.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Source Files\2D</Filter>
     </ClCompile>
     <ClCompile Include="TextureRegion.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Source Files\2D</Filter>
     </ClCompile>
     <ClCompile Include="SpriteBatchTester.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
     <ClCompile Include="OrthographicCamera.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Source Files\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendStateBindable.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="StencilStates.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="RhyMath.cpp">
+      <Filter>Source Files\Includers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\2D\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UISizer.cpp">
+      <Filter>Source Files\2D\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIContainer.cpp">
+      <Filter>Source Files\2D\UI\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,17 +506,14 @@
     <ClInclude Include="RhyBullet.h">
       <Filter>Header Files\Includers</Filter>
     </ClInclude>
-    <ClInclude Include="BlendStateBindable.h">
-      <Filter>Header Files\TestGameobjects\Bindables</Filter>
-    </ClInclude>
     <ClInclude Include="UnBindable.h">
       <Filter>Header Files\Gameobject\Components\Drawer</Filter>
     </ClInclude>
     <ClInclude Include="SpriteBatch.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Header Files\2D</Filter>
     </ClInclude>
     <ClInclude Include="TextureRegion.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Header Files\2D</Filter>
     </ClInclude>
     <ClInclude Include="RhyColor.h">
       <Filter>Header Files\Includers</Filter>
@@ -489,7 +522,28 @@
       <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
     <ClInclude Include="OrthographicCamera.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\SpriteBatch</Filter>
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendStateBindable.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="StencilStates.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatchDrawable.h">
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Header Files\2D\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UISizer.h">
+      <Filter>Header Files\2D\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIContainer.h">
+      <Filter>Header Files\2D\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

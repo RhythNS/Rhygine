@@ -7,15 +7,18 @@
 
 #include <algorithm>
 
-SpriteBatch::SpriteBatch(SortMode sortMode) :
+SpriteBatch::SpriteBatch(SortMode sortMode, bool alphaBlending) :
 	sortMode(sortMode),
+	alphaBlending(alphaBlending),
 	indexBuffer(std::make_unique<IndexBufferUS>(0, startingSize * 4, 0)),
 	vertBuffer(std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), startingSize * 6, 0)),
 	primitiveTopology(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
 	sampler(std::make_unique<Sampler>(0)),
 	vertShader(std::make_unique<VertShader>(L"SpriteBatchVert.hlsl")),
 	pixShader(std::make_unique<PixShader>(L"SpriteBatchPixel.hlsl")),
-	constantVert(std::make_unique<ConstantVS<SpriteBatch::WorldPos>>(&constantBuffer, 0))
+	constantVert(std::make_unique<ConstantVS<SpriteBatch::WorldPos>>(&constantBuffer, 0)),
+	blendState(std::make_unique<BlendStateBindable>()),
+	noDepthBuffer(std::make_unique<StencilStates>(StencilStates::GetNoDepthTest()))
 {
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
@@ -128,6 +131,13 @@ void SpriteBatch::End()
 		indexes[atIndex + 5] = atVert + 1;
 	}
 
+	if (alphaBlending)
+		blendState->Bind();
+	if (noDepthBlending)
+		noDepthBuffer->Bind();
+	else
+		Gfx::GetInstance()->ClearDepth();
+
 	vertBuffer->UpdateVerts(verts);
 	indexBuffer->UpdateIndexes(indexes);
 	constantBuffer.transform = camera->GetOrthoMatrix();
@@ -154,6 +164,11 @@ void SpriteBatch::End()
 		++currentDraw;
 	}
 	DrawBatch(lastSameTexture, currentBufferCount);
+
+	if (alphaBlending)
+		blendState->UnBind();
+	if (noDepthBlending)
+		noDepthBuffer->UnBind();
 }
 
 inline void SpriteBatch::GrowArray()

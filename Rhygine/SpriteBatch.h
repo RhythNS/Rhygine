@@ -3,7 +3,8 @@
 #include "RhyColor.h"
 #include "RhyBindables.h"
 #include "Verticies.h"
-#include "CombinedShader.h"
+#include "BlendStateBindable.h"
+#include "StencilStates.h"
 
 #include <vector>
 
@@ -18,7 +19,7 @@ public:
 		None
 	};
 
-	SpriteBatch(SortMode sortMode = SortMode::ZBased);
+	SpriteBatch(SortMode sortMode = SortMode::ZBased, bool alphaBlending = false);
 
 	void Begin(OrthographicCamera* camera);
 	void Draw(Texture* texture, float texX, float texY, float texWidth, float texHeight, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);
@@ -26,6 +27,7 @@ public:
 	void End();
 
 	bool alphaBlending;
+	bool noDepthBlending = true;
 	SortMode sortMode = SortMode::TextureBased;
 private:
 	struct Sprite
@@ -90,6 +92,8 @@ private:
 	std::unique_ptr<PixShader> pixShader;
 	std::unique_ptr<InputLayout> inputLayout;
 	std::unique_ptr<ConstantVS<WorldPos>> constantVert;
+	std::unique_ptr<BlendStateBindable> blendState;
+	std::unique_ptr<StencilStates> noDepthBuffer;
 
 	std::vector<Sprite> sprites{ startingSize, Sprite() };
 	std::vector<Sprite*> sortedSprites{ startingSize, nullptr };

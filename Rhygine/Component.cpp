@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "Keys.h"
 #include "Mouse.h"
+#include "Stage.h"
+#include "SpriteBatch.h"
 
 GameObject* Component::GetGameObject()
 {
@@ -39,6 +41,11 @@ Mouse* Component::GetMouse()
 Keys* Component::GetKeys()
 {
 	return &Window::GetInstance()->keys;
+}
+
+SpriteBatch* Component::GetSpriteBatch()
+{
+	return gameObject->GetStage()->GetSpriteBatch();
 }
 
 void Component::SetGameObject(GameObject* game)

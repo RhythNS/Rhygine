@@ -16,7 +16,7 @@ Stage::~Stage()
 {
 	// Go through all Gameobjects and manually delete them.
 	GameObject* current = front->next;
-	while (current->next != nullptr) 
+	while (current->next != nullptr)
 	{
 		delete current->prev;
 		current = current->next;
@@ -27,6 +27,13 @@ Stage::~Stage()
 GameObject* Stage::CreateGameObject()
 {
 	return CreateGameObjectAfter(back->prev);
+}
+
+GameObject* Stage::CreateGameObject(std::string name)
+{
+	GameObject* gameObject = CreateGameObjectAfter(back->prev);
+	gameObject->name = name;
+	return gameObject;
 }
 
 GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
@@ -48,6 +55,13 @@ GameObject* Stage::CreateGameObjectAfter(GameObject* createAfter)
 	// Lastly init and return a pointer to it.
 	gameObject->Init();
 	return gameObject;
+}
+
+GameObject* Stage::CreateGameObjectAfter(GameObject* gameObject, std::string name)
+{
+	GameObject* newObject = CreateGameObjectAfter(gameObject->prev);
+	newObject->name = name;
+	return newObject;
 }
 
 void Stage::RemoveGameObject(GameObject* gameObject)
@@ -73,18 +87,30 @@ GameObject* Stage::GetBack()
 	return back;
 }
 
-Camera* Stage::GetCamera()
+Camera* Stage::Get3DCamera()
 {
 	return camera;
 }
 
+OrthographicCamera* Stage::Get2DCamera()
+{
+	return &orthoCamera;
+}
+
+SpriteBatch* Stage::GetSpriteBatch()
+{
+	return &batch;
+}
+
 void Stage::Update()
 {
-	FOR_EACH_GAMEOBJECT(Update())
+	FOR_EACH_GAMEOBJECT(Update());
 }
 
 void Stage::Draw()
 {
 	camera->UpdateMatrix();
-	FOR_EACH_GAMEOBJECT(Draw())
+	batch.Begin(&orthoCamera);
+	FOR_EACH_GAMEOBJECT(Draw());
+	batch.End();
 }

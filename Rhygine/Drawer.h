@@ -65,7 +65,7 @@ public:
 	/// <summary>
 	/// Gets a reference to the camera.
 	/// </summary>
-	Camera* GetCamera();
+	Camera* Get3DCamera();
 	/// <summary>
 	/// What draw function should be called inside Gfx when drawn.
 	/// </summary>

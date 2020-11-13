@@ -14,7 +14,7 @@
 
 void BulletTestScene::InnerInit()
 {
-	stage->GetCamera()->GetTransform()->localPosition.m_floats[2] -= 10.0f;
+	stage->Get3DCamera()->GetTransform()->localPosition.m_floats[2] -= 10.0f;
 
 	TestLight tl;
 	TestLitPlate tlp;

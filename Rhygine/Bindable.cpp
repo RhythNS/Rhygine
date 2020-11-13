@@ -4,10 +4,6 @@
 #include "Drawer.h"
 #include "Transform.h"
 
-void Bindable::Init()
-{
-}
-
 Microsoft::WRL::ComPtr<ID3D11Device> Bindable::GetDevice()
 {
     return Gfx::instance->device;
@@ -33,17 +29,17 @@ Microsoft::WRL::ComPtr<ID3D11DepthStencilView> Bindable::GetDepthStencilView()
     return Gfx::instance->depthStencilView;
 }
 
-DirectX::XMMATRIX* Bindable::GetWorldMatrix()
+DirectX::XMMATRIX Bindable::GetWorldMatrix()
 {
     return drawer->GetTransform()->GetWorldMatrix();
 }
 
-DirectX::XMMATRIX* Bindable::GetPerspectiveMatrix()
+DirectX::XMMATRIX Bindable::GetPerspectiveMatrix()
 {
     return drawer->GetTransform()->GetPerspectiveMatrix();
 }
 
-DirectX::XMMATRIX* Bindable::GetLocalMatrix()
+DirectX::XMMATRIX Bindable::GetLocalMatrix()
 {
     return drawer->GetTransform()->GetLocalMatrix();
 }

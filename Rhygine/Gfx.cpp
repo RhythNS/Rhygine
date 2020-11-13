@@ -114,6 +114,11 @@ void Gfx::EndDraw()
 	THROW_IF_FAILED(swap->Present(1, 0));
 }
 
+void Gfx::SetDefaultStencilState()
+{
+	context->OMSetDepthStencilState(defaultStencilState.Get(), 1);
+}
+
 DirectX::XMMATRIX Gfx::GetPerspectiveMatrix()
 {
 	return DirectX::XMMatrixPerspectiveLH(
@@ -177,10 +182,9 @@ inline void Gfx::CreateTargetAndDepth()
 	stencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 	// Create the stencil with the description.
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> stencilState;
-	THROW_IF_FAILED(device->CreateDepthStencilState(&stencilDesc, &stencilState));
+	THROW_IF_FAILED(device->CreateDepthStencilState(&stencilDesc, &defaultStencilState));
 
-	context->OMSetDepthStencilState(stencilState.Get(), 1);
+	context->OMSetDepthStencilState(defaultStencilState.Get(), 1);
 
 	// Create the depth texture for the depth buffer.
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilTex;

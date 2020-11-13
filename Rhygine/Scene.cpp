@@ -7,7 +7,7 @@
 void Scene::Init()
 {
 	stage = std::make_unique<Stage>();
-	stage->GetCamera()->GetGameObject()->AddComponent<CameraMover>();
+	stage->Get3DCamera()->GetGameObject()->AddComponent<CameraMover>();
 }
 
 void Scene::Update()

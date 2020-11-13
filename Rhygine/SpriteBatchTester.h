@@ -13,7 +13,5 @@ public:
 	void Init();
 	void Draw();
 private:
-	std::unique_ptr<SpriteBatch> batch;
 	std::unique_ptr<Texture> texs[4];
-	OrthographicCamera orthoCam{RhyM::Vec3(0.0f,0.0f,0.0f)};
 };

@@ -44,6 +44,10 @@ public:
 	/// Called after all gameobjects have been drawn.
 	/// </summary>
 	void EndDraw();
+	/// <summary>
+	/// Resets the pipeline to use the default stencil state.
+	/// </summary>
+	void SetDefaultStencilState();
 
 	/// <summary>
 	/// Gets the lh perspective matrix. Near and far values can be changed via
@@ -76,5 +80,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depthStencilView;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> defaultStencilState;
 };
 

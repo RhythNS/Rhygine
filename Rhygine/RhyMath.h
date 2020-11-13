@@ -44,4 +44,12 @@ namespace RhyM {
 	typedef btMatrix3x3 Mat3;
 
 	constexpr float PI = 3.14159265358979323846f;
+
+	class Rect 
+	{
+	public:
+		float x, y, width, height;
+		bool Overlaps(Rect& other);
+		bool Overlaps(Vec2 point);
+	};
 }

@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 
 class Stage;
 
@@ -140,6 +141,8 @@ public:
 	/// Gets a reference to the stage that this gameobject is on.
 	/// </summary>
 	Stage* GetStage();
+
+	std::string name;
 
 private:
 	GameObject(Stage* stage);

@@ -1,6 +1,10 @@
 #pragma once
 #include "Updatable.h"
 #include "Drawable.h"
+#include "SpriteBatch.h"
+#include "OrthographicCamera.h"
+
+#include <string>
 
 class GameObject;
 class Camera;
@@ -19,10 +23,22 @@ public:
 	/// <returns>A refernce to the newly gameobject.</returns>
 	GameObject* CreateGameObject();
 	/// <summary>
+	/// Creates a new gameobjects and places it to the end of the gameobject list.
+	/// </summary>
+	/// <param name="name">The name of the gameobject.</param>
+	/// <returns>A refernce to the newly gameobject.</returns>
+	GameObject* CreateGameObject(std::string name);
+	/// <summary>
 	/// Creates a new gameobjects and places it after a specified gameobject inside the list.
 	/// </summary>
 	/// <returns>A refernce to the newly gameobject.</returns>
 	GameObject* CreateGameObjectAfter(GameObject* gameObject);
+	/// <summary>
+	/// Creates a new gameobjects and places it after a specified gameobject inside the list.
+	/// </summary>
+	/// <param name="name">The name of the gameobject.</param>
+	/// <returns>A refernce to the newly gameobject.</returns>
+	GameObject* CreateGameObjectAfter(GameObject* gameObject, std::string name);
 	/// <summary>
 	/// Deletes a gameobject.
 	/// </summary>
@@ -39,9 +55,19 @@ public:
 	GameObject* GetBack();
 
 	/// <summary>
-	/// Get a reference to the camera.
+	/// Get a reference to the 3D camera.
 	/// </summary>
-	Camera* GetCamera();
+	Camera* Get3DCamera();
+
+	/// <summary>
+	/// Gets a reference to the 2D camera.
+	/// </summary>
+	OrthographicCamera* Get2DCamera();
+
+	/// <summary>
+	/// Gets a reference to the spritebatch.
+	/// </summary>
+	SpriteBatch* GetSpriteBatch();
 
 	/// <summary>
 	/// Updates all gameobjects.
@@ -56,6 +82,8 @@ private:
 	GameObject* front;
 	GameObject* back;
 	Camera* camera;
+	OrthographicCamera orthoCamera;
+	SpriteBatch batch;
 
 	// Iterates over each gameobject that is inside the stage, and executes
 	// a given method.
@@ -66,7 +94,7 @@ private:
 		current->method; \
 		current = current->next; \
 	} \
-	current->method;
+	current->method
 
 	// pool of gameobjects
 };

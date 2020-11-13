@@ -62,7 +62,7 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.lightPosition[1] = lightPos->m_floats[1];
 	lightBuffer.lightPosition[2] = lightPos->m_floats[2];
 
-	RhyM::Vec3* cameraPos = &GetDrawer()->GetCamera()->GetTransform()->localPosition;
+	RhyM::Vec3* cameraPos = &GetDrawer()->Get3DCamera()->GetTransform()->localPosition;
 	lightBuffer.cameraPos[0] = cameraPos->m_floats[0];
 	lightBuffer.cameraPos[1] = cameraPos->m_floats[1];
 	lightBuffer.cameraPos[2] = cameraPos->m_floats[2];
@@ -72,9 +72,9 @@ void TexLitShader::UpdateLightInfo()
 
 void TexLitShader::UpdatePositionInfo()
 {
-	posBuffer.projection = *GetPerspectiveMatrix();
-	posBuffer.worldPos = *GetWorldMatrix();
-	posBuffer.localScaleRotation = *GetLocalMatrix();
+	posBuffer.projection = GetPerspectiveMatrix();
+	posBuffer.worldPos = GetWorldMatrix();
+	posBuffer.localScaleRotation = GetLocalMatrix();
 
 	worldPosBuffer->SetAndUpdate(&posBuffer);
 }

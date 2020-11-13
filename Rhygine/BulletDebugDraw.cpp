@@ -101,7 +101,7 @@ void BulletDebugDraw::flushLines()
 	worldBuffer.transform =
 		DirectX::XMMatrixTranspose
 		(
-			*stage->GetCamera()->GetMatrix() *
+			*stage->Get3DCamera()->GetMatrix() *
 			DirectX::XMMatrixPerspectiveLH(
 				1.0f,
 				(float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(),

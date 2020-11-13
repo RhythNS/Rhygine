@@ -1,7 +1,25 @@
 #include "BlendStateBindable.h"
 #include "RhyException.h"
 
-void BlendStateBindable::Init()
+BlendStateBindable::BlendStateBindable() : BlendStateBindable(GetDefaultDescription())
+{ }
+
+BlendStateBindable::BlendStateBindable(D3D11_BLEND_DESC desc)
+{
+	THROW_IF_FAILED(GetDevice()->CreateBlendState(&desc, &blendState));
+}
+
+void BlendStateBindable::Bind()
+{
+	GetContext()->OMSetBlendState(blendState.Get(), nullptr, 0xffffffff);
+}
+
+void BlendStateBindable::UnBind()
+{
+	GetContext()->OMSetBlendState(NULL, nullptr, 0xffffffff);
+}
+
+D3D11_BLEND_DESC BlendStateBindable::GetDefaultDescription()
 {
 	D3D11_BLEND_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
@@ -15,16 +33,5 @@ void BlendStateBindable::Init()
 	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 	desc.AlphaToCoverageEnable = false;
 	desc.IndependentBlendEnable = false;
-
-	THROW_IF_FAILED(GetDevice()->CreateBlendState(&desc, &blendState));
-}
-
-void BlendStateBindable::Bind()
-{
-	GetContext()->OMSetBlendState(blendState.Get(), nullptr, 0xffffffff);
-}
-
-void BlendStateBindable::UnBind()
-{
-	GetContext()->OMSetBlendState(NULL, nullptr, 0xffffffff);
+	return desc;
 }

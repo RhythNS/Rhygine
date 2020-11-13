@@ -78,13 +78,13 @@ RhyM::Vec3 Transform::GetDown()
 	return quatRotate(GetWorldRotation(), RhyM::Vec3(0.0f, -1.0f, 0.0f));
 }
 
-DirectX::XMMATRIX* Transform::GetWorldMatrix()
+DirectX::XMMATRIX Transform::GetWorldMatrix()
 {
 	// Scale the object ->
 	// Rotate the object ->
 	// Move the object
 	if (parent == nullptr)
-		worldMatrix =
+		return
 		DirectX::XMMatrixScaling(localScale.m_floats[0], localScale.m_floats[1], localScale.m_floats[2]) *
 		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.getX(), localRotation.getY(), localRotation.getZ(), localRotation.getW())) *
 		DirectX::XMMatrixTranslation(localPosition.m_floats[0], localPosition.m_floats[1], localPosition.m_floats[2])
@@ -94,17 +94,15 @@ DirectX::XMMATRIX* Transform::GetWorldMatrix()
 	// Move the object ->
 	// Scale, Rotate and move to parent
 	else
-		worldMatrix =
+		return
 		DirectX::XMMatrixScaling(localScale.m_floats[0], localScale.m_floats[1], localScale.m_floats[2]) *
 		DirectX::XMMatrixTranslation(localPosition.m_floats[0], localPosition.m_floats[1], localPosition.m_floats[2]) *
 		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.getX(), localRotation.getY(), localRotation.getZ(), localRotation.getW())) *
-		*parent->GetWorldMatrix()
+		parent->GetWorldMatrix()
 		;
-
-	return &worldMatrix;
 }
 
-DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
+DirectX::XMMATRIX Transform::GetPerspectiveMatrix()
 {
 	// Scale the object ->
 	// Rotate the object ->
@@ -112,18 +110,16 @@ DirectX::XMMATRIX* Transform::GetPerspectiveMatrix()
 	// Apply camera movement and rotation ->
 	// Perspective matrix ->
 	// Transpose to directX
-	perspectiveMatrix =
+	return
 		DirectX::XMMatrixTranspose
 		(
-			*GetWorldMatrix() *
-			*GetGameObject()->GetStage()->GetCamera()->GetMatrix() *
+			GetWorldMatrix() *
+			*GetGameObject()->GetStage()->Get3DCamera()->GetMatrix() *
 			DirectX::XMMatrixPerspectiveLH(1.0f, (float)Window::GetInstance()->GetHeight() / (float)Window::GetInstance()->GetWidth(), 0.5f, 100.0f)
 		);
-
-	return &perspectiveMatrix;
 }
 
-DirectX::XMMATRIX* Transform::GetLocalMatrix()
+DirectX::XMMATRIX Transform::GetLocalMatrix()
 {
 	RhyM::Vec3 scale = GetWorldScale();
 	RhyM::Quat rotation = GetWorldRotation();
@@ -131,14 +127,12 @@ DirectX::XMMATRIX* Transform::GetLocalMatrix()
 	// Scale the object ->
 	// Rotate the object ->
 	// Transpose to directX
-	localMatrix =
+	return
 		DirectX::XMMatrixTranspose
 		(
 			DirectX::XMMatrixScaling(scale.m_floats[0], scale.m_floats[1], scale.m_floats[2]) *
 			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()))
 		);
-
-	return &localMatrix;
 }
 
 void Transform::SetWorldPosition(RhyM::Vec3 pos)

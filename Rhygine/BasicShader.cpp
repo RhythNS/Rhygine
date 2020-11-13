@@ -26,5 +26,5 @@ void BasicShader::InnerBind()
 
 void BasicShader::UpdateBuffer()
 {
-	worldBuffer.transform = *GetPerspectiveMatrix();
+	worldBuffer.transform = GetPerspectiveMatrix();
 }

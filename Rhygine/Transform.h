@@ -56,9 +56,9 @@ public:
 	/// </summary>
 	RhyM::Vec3 GetDown();
 
-	DirectX::XMMATRIX* GetWorldMatrix();
-	DirectX::XMMATRIX* GetPerspectiveMatrix();
-	DirectX::XMMATRIX* GetLocalMatrix();
+	DirectX::XMMATRIX GetWorldMatrix();
+	DirectX::XMMATRIX GetPerspectiveMatrix();
+	DirectX::XMMATRIX GetLocalMatrix();
 
 	void SetWorldPosition(RhyM::Vec3 pos);
 	RhyM::Vec3 GetWorldPosition();
@@ -72,7 +72,6 @@ public:
 	RhyM::Vec3 GetWorldScale();
 	RhyM::Vec3 localScale = RhyM::Vec3(1.0f, 1.0f, 1.0f);
 private:
-	DirectX::XMMATRIX perspectiveMatrix{}, worldMatrix{}, localMatrix{};
 	Transform* parent = nullptr;
 	std::vector<Transform*>children{};
 };

@@ -192,6 +192,7 @@
     <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
+    <ClCompile Include="RhyMath.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateAround.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="SpriteBatchTester.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StencilStates.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />
     <ClCompile Include="TestLitPlate.cpp" />
@@ -215,11 +217,15 @@
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIContainer.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UISizer.cpp" />
     <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="AwakeRigidbodies.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Bindable.h" />
@@ -269,8 +275,10 @@
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="SpriteBatchDrawable.h" />
     <ClInclude Include="SpriteBatchTester.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="StencilStates.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLightComponent.h" />
     <ClInclude Include="TestLitPlate.h" />
@@ -287,6 +295,9 @@
     <ClInclude Include="Tickable.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UISizer.h" />
     <ClInclude Include="UnBindable.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="VertBuffer.h" />

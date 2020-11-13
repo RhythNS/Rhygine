@@ -24,7 +24,7 @@ public:
 	/// <summary>
 	/// Called after the drawer reference was set.
 	/// </summary>
-	virtual void Init();
+	virtual void Init() {}
 protected:
 	Microsoft::WRL::ComPtr<ID3D11Device> GetDevice();
 	Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwap();
@@ -32,9 +32,9 @@ protected:
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetTarget();
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView();
 
-	DirectX::XMMATRIX* GetWorldMatrix();
-	DirectX::XMMATRIX* GetPerspectiveMatrix();
-	DirectX::XMMATRIX* GetLocalMatrix();
+	DirectX::XMMATRIX GetWorldMatrix();
+	DirectX::XMMATRIX GetPerspectiveMatrix();
+	DirectX::XMMATRIX GetLocalMatrix();
 	
 	/// <summary>
 	/// Gets the reference to the drawer the bindable is on.
