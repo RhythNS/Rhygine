@@ -13,6 +13,7 @@ namespace RhyC
 	constexpr color white =   0xFFFFFFFF;
 	constexpr color yellow =  0xFFFF00FF;
 	constexpr color maroon =  0x800000FF;
+	constexpr color orange =  0xFFA500FF;
 	constexpr color olive =   0x808000FF;
 	constexpr color aqua =    0x00FFFFFF;
 	constexpr color teal =    0x008080FF;

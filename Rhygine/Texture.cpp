@@ -2,6 +2,7 @@
 #include "RhyException.h"
 #include "RhyWin.h"
 #include "RhySTB.h"
+#include "TextureGenerator.h"
 
 #include <iostream>
 #include <vector>
@@ -51,6 +52,34 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 
 	// free the loaded image
 	stbi_image_free(load);
+}
+
+Texture::Texture(TextureGenerator* gen, int slot) : slot(slot), width(gen->GetWidth()), height(gen->GetHeight())
+{
+	D3D11_TEXTURE2D_DESC desc = { 0 };
+	desc.Width = width;
+	desc.Height = height;
+	desc.MipLevels = 1;
+	desc.ArraySize = 1;
+	desc.SampleDesc.Count = 1;
+	desc.SampleDesc.Quality = 0;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	D3D11_SUBRESOURCE_DATA data = { 0 };
+	data.pSysMem = gen->GetTexture()->data();
+	data.SysMemPitch = width * sizeof(unsigned char) * 4;
+
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex;
+	THROW_IF_FAILED(GetDevice()->CreateTexture2D(&desc, &data, &tex));
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC resourceView = { };
+	resourceView.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	resourceView.Texture2D.MipLevels = 1;
+	resourceView.Texture2D.MostDetailedMip = 0;
+	resourceView.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	THROW_IF_FAILED(GetDevice()->CreateShaderResourceView(tex.Get(), &resourceView, &texturePointer));
 }
 
 void Texture::Bind()

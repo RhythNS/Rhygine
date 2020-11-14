@@ -6,6 +6,7 @@
 #include "BlendStateBindable.h"
 #include "RotateAround.h"
 #include "SpriteBatchTester.h"
+#include "UITester.h"
 
 void TestScene::InnerInit()
 {
@@ -39,5 +40,6 @@ void TestScene::InnerInit()
 	childPyramid->GetComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.0, 1.0f, 0.0f);
 	childPyramid->GetComponent<Drawer>()->AddBindable(std::make_unique<BlendStateBindable>());
 
-	stage->GetBack()->AddComponent<SpriteBatchTester>();
+	// stage->GetBack()->AddComponent<SpriteBatchTester>();
+	stage->GetBack()->AddComponent<UITester>();
 }

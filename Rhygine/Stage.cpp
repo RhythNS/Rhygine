@@ -2,8 +2,13 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "UIRootElement.h"
+#include "Window.h"
 
-Stage::Stage() : front(new GameObject(this)), back(new GameObject(this)), camera(front->AddComponent<Camera>())
+Stage::Stage() : width(Window::GetInstance()->GetWidth()), height(Window::GetInstance()->GetHeight()),
+front(new GameObject(this)), back(new GameObject(this)),
+camera(front->AddComponent<Camera>()), rootUI(back->AddComponent<UIRootElement>()),
+uiCamera(RhyM::Vec3(-width / 2, -height / 2, -5.0f))
 {
 	// Move the camera a bit back to not start at 0,0,0
 	camera->GetTransform()->localPosition = RhyM::Vec3(0.0f, 0.0f, -4.0f);
@@ -97,6 +102,16 @@ OrthographicCamera* Stage::Get2DCamera()
 	return &orthoCamera;
 }
 
+OrthographicCamera* Stage::GetUICamera()
+{
+	return &uiCamera;
+}
+
+UIRootElement* Stage::GetUIRoot()
+{
+	return rootUI;
+}
+
 SpriteBatch* Stage::GetSpriteBatch()
 {
 	return &batch;
@@ -113,4 +128,39 @@ void Stage::Draw()
 	batch.Begin(&orthoCamera);
 	FOR_EACH_GAMEOBJECT(Draw());
 	batch.End();
+
+	batch.Begin(&uiCamera);
+	rootUI->Draw(&batch);
+	batch.End();
+}
+
+void Stage::OnResize(int newWidth, int newHeight)
+{
+	uiCamera.position.m_floats[0] = -newWidth / 2;
+	uiCamera.position.m_floats[1] = -newHeight / 2;
+
+	rootUI->SetSize(newWidth, newHeight);
+
+	width = newWidth;
+	height = newHeight;
+}
+
+void Stage::OnMouseMove(int x, int y)
+{
+	RhyM::Vec2 trans = RhyM::Vec2(
+		x + uiCamera.position.m_floats[0] + width / 2,
+		height - y + uiCamera.position.m_floats[1] + height / 2
+	);
+
+	rootUI->OnMouseMove(trans);
+}
+
+void Stage::OnMouseDown()
+{
+	rootUI->ClickDown();
+}
+
+void Stage::OnMouseUp()
+{
+	rootUI->ClickUp();
 }

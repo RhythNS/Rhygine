@@ -16,13 +16,18 @@ RhyM::Rect& UISizer::GetRectChild(int at)
 	return element->children[at]->bounds;
 }
 
-void UISizer::OnResize()
+RhyM::Rect UISizer::GetParentRect()
 {
-	if (!element->parent->sizer->isControllingChildren())
-		ResizeSelf(element->bounds);
+	return element->parent->bounds;
+}
+
+void UISizer::OnResize(RhyM::Vec2 currentWorldScale)
+{
+	if (element->parent == nullptr || !element->parent->sizer->isControllingChildren())
+		ResizeSelf(element->bounds, currentWorldScale);
 
 	if (isControllingChildren())
-		ResizeChildren();
+		ResizeChildren(currentWorldScale);
 }
 
 void UISizer::OnUpdatePosition()
@@ -34,15 +39,14 @@ void UISizer::OnUpdatePosition()
 		UpdatePositionChildren();
 }
 
-void UISizer::ResizeSelf(RhyM::Rect& rect)
+void UISizer::ResizeSelf(RhyM::Rect& rect, RhyM::Vec2 currentWorldScale)
 {
-	rect.width = element->width * element->scaleX;
-	rect.height = element->height * element->scaleY;
+	rect.width = element->size.x * currentWorldScale.x;
+	rect.height = element->size.y * currentWorldScale.y;
 }
 
 void UISizer::UpdatePositionSelf(RhyM::Rect& rect)
 {
 	rect.x = element->parent->bounds.x + element->pos.m_floats[0];
 	rect.y = element->parent->bounds.y + element->pos.m_floats[1];
-
 }

@@ -53,7 +53,27 @@ public:
 	float* GetClearColor();
 
 protected:
+	/// <summary>
+	/// Called when the window resizes.
+	/// </summary>
+	/// <param name="newWidth">The new width of the window.</param>
+	/// <param name="newHeight">The new height of the window.</param>
+	virtual void InnerOnResize(int newWidth, int newHeight) {}
+
 	std::unique_ptr<Stage> stage;
 	Window* window = nullptr;
 	float clearColor[4] = { 0,0,0,0 };
+private:
+	/// <summary>
+	/// Called when the window resizes.
+	/// </summary>
+	/// <param name="newWidth">The new width of the window.</param>
+	/// <param name="newHeight">The new height of the window.</param>
+	void OnResize(int newWidth, int newHeight);
+
+	void OnMouseMove(int x, int y);
+
+	void OnMouseDown();
+
+	void OnMouseUp();
 };

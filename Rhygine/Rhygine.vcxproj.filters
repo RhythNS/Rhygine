@@ -106,9 +106,6 @@
     <Filter Include="Source Files\2D">
       <UniqueIdentifier>{b44d7c9f-4b0e-4706-a161-840cfc2b7c2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Includers">
-      <UniqueIdentifier>{d96c7892-34fe-4294-93a4-72f95ecdf1fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\2D\UI">
       <UniqueIdentifier>{89334066-cb90-4b67-9f54-de0e6b10d3e5}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,12 @@
     </Filter>
     <Filter Include="Source Files\2D\UI\Sizers">
       <UniqueIdentifier>{e3857f81-03b3-4054-9dfc-8d5e4f536adc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{aa0205da-f8f0-4f82-af87-f29062ba3f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{2b6587dc-5055-4bd3-b9c7-3a73d6cae436}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +294,6 @@
     <ClCompile Include="StencilStates.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClCompile>
-    <ClCompile Include="RhyMath.cpp">
-      <Filter>Source Files\Includers</Filter>
-    </ClCompile>
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files\2D\UI</Filter>
     </ClCompile>
@@ -302,6 +302,39 @@
     </ClCompile>
     <ClCompile Include="UIContainer.cpp">
       <Filter>Source Files\2D\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UILocalSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIFitToParentSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIVertGroupSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIHoriGroupSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>Source Files\2D\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureGenerator.cpp">
+      <Filter>Source Files\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRootElement.cpp">
+      <Filter>Source Files\2D\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UITester.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRootSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Source Files\2D\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -543,6 +576,39 @@
       <Filter>Header Files\2D\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIContainer.h">
+      <Filter>Header Files\2D\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UILocalSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIFitToParentSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIVertGroupSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHoriGroupSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>Header Files\2D\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureGenerator.h">
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRootElement.h">
+      <Filter>Header Files\2D\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UITester.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRootSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
       <Filter>Header Files\2D\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>

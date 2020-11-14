@@ -1,6 +1,7 @@
 #pragma once
 #include "Bindable.h"
 
+class TextureGenerator;
 /// <summary>
 /// Representation of a texture.
 /// </summary>
@@ -13,6 +14,8 @@ public:
 	/// <param name="fileName">The path to the texture.</param>
 	/// <param name="slot">The slot to where the texture will be bound to.</param>
 	Texture(const char* fileName, int slot);
+
+	Texture(TextureGenerator* gen, int slot);
 
 	void Bind();
 

@@ -8,12 +8,14 @@
 
 class GameObject;
 class Camera;
-
+class Scene;
+class UIRootElement;
 /// <summary>
 /// Manages all gameobjects.
 /// </summary>
 class Stage : public Updatable, public Drawable
 {
+	friend class Scene;
 public:
 	Stage();
 	~Stage();
@@ -58,11 +60,20 @@ public:
 	/// Get a reference to the 3D camera.
 	/// </summary>
 	Camera* Get3DCamera();
-
 	/// <summary>
 	/// Gets a reference to the 2D camera.
 	/// </summary>
 	OrthographicCamera* Get2DCamera();
+	
+	/// <summary>
+	/// Gets a reference to the 2D camera.
+	/// </summary>
+	OrthographicCamera* GetUICamera();
+
+	/// <summary>
+	/// Gets a reference to the root element of the ui.
+	/// </summary>
+	UIRootElement* GetUIRoot();
 
 	/// <summary>
 	/// Gets a reference to the spritebatch.
@@ -79,11 +90,26 @@ public:
 	void Draw();
 
 private:
+	/// <summary>
+	/// Called when the window resizes.
+	/// </summary>
+	/// <param name="newWidth">The new width of the window.</param>
+	/// <param name="newHeight">The new height of the window.</param>
+	void OnResize(int newWidth, int newHeight);
+
+	void OnMouseMove(int x, int y);
+
+	void OnMouseDown();
+
+	void OnMouseUp();
+
+	int width, height;
 	GameObject* front;
 	GameObject* back;
 	Camera* camera;
-	OrthographicCamera orthoCamera;
+	OrthographicCamera orthoCamera, uiCamera;
 	SpriteBatch batch;
+	UIRootElement* rootUI;
 
 	// Iterates over each gameobject that is inside the stage, and executes
 	// a given method.

@@ -411,9 +411,11 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			{
 			case RI_MOUSE_LEFT_BUTTON_DOWN:
 				mouse.ButtonClicked(RH_MOUSE_LEFT);
+				currentScene->OnMouseDown();
 				break;
 			case RI_MOUSE_LEFT_BUTTON_UP:
 				mouse.ButtonReleased(RH_MOUSE_LEFT);
+				currentScene->OnMouseUp();
 				break;
 			case RI_MOUSE_MIDDLE_BUTTON_DOWN:
 				mouse.ButtonClicked(RH_MOUSE_MIDDLE);
@@ -458,6 +460,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_MOUSEMOVE: // Get the absolute mouse position
 		POINTS pos = MAKEPOINTS(lParam);
 		mouse.AbsoluteMove(pos.x, pos.y);
+		currentScene->OnMouseMove(pos.x, pos.y);
 		break;
 
 	case WM_CHAR: // Get chars for the keyboard queue.

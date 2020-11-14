@@ -19,16 +19,17 @@ public:
 		None
 	};
 
-	SpriteBatch(SortMode sortMode = SortMode::ZBased, bool alphaBlending = false);
+	SpriteBatch(SortMode sortMode = SortMode::None, bool alphaBlending = false);
 
 	void Begin(OrthographicCamera* camera);
 	void Draw(Texture* texture, float texX, float texY, float texWidth, float texHeight, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);
 	void Draw(TextureRegion* texture, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);
+	void Draw(TextureRegion* texture, float x, float y, float z, float width, float height, float rotation, RhyC::color color);
 	void End();
 
 	bool alphaBlending;
 	bool noDepthBlending = true;
-	SortMode sortMode = SortMode::TextureBased;
+	SortMode sortMode = SortMode::None;
 private:
 	struct Sprite
 	{

@@ -24,6 +24,26 @@ void Scene::Draw()
 	InnerAfterDraw();
 }
 
+void Scene::OnResize(int newWidth, int newHeight)
+{
+	stage->OnResize(newWidth, newHeight);
+}
+
+void Scene::OnMouseMove(int x, int y)
+{
+	stage->OnMouseMove(x, y);
+}
+
+void Scene::OnMouseDown()
+{
+	stage->OnMouseDown();
+}
+
+void Scene::OnMouseUp()
+{
+	stage->OnMouseUp();
+}
+
 float* Scene::GetClearColor()
 {
 	return clearColor;

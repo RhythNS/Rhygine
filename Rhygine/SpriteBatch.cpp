@@ -63,6 +63,18 @@ void SpriteBatch::Draw(TextureRegion* texture, RhyM::Vec3 position, float width,
 	};
 }
 
+void SpriteBatch::Draw(TextureRegion* texture, float x, float y, float z, float width, float height, float rotation, RhyC::color color)
+{
+	assert(drawing == true);
+
+	GrowArray();
+
+	sprites[currentBufferCount++] = {
+		x, y, z, width, height, rotation,
+		texture->x, texture->y, texture->width, texture->height, texture->texture, color
+	};
+}
+
 void SpriteBatch::End()
 {
 	assert(drawing == true);
@@ -190,10 +202,10 @@ inline void SpriteBatch::GrowArray()
 
 inline void SpriteBatch::Sort()
 {
+	CopySpritesToSorted();
 	switch (sortMode)
 	{
 	case SpriteBatch::SortMode::ZBased:
-		CopySpritesToSorted();
 		std::sort(sortedSprites.begin(), sortedSprites.begin() + currentBufferCount,
 			[](Sprite* first, Sprite* second) -> bool
 			{
@@ -204,7 +216,6 @@ inline void SpriteBatch::Sort()
 		break;
 
 	case SpriteBatch::SortMode::TextureBased:
-		CopySpritesToSorted();
 		std::sort(sortedSprites.begin(), sortedSprites.begin() + currentBufferCount,
 			[](Sprite* first, Sprite* second) -> bool
 			{
