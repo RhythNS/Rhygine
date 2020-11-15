@@ -188,11 +188,16 @@
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
+    <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PresentResources.cpp" />
+    <ClCompile Include="PresentScene.cpp" />
+    <ClCompile Include="PresentVNManager.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="RelativeSizer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateAround.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -219,11 +224,12 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UIContainer.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIFitToParentSizer.cpp" />
+    <ClCompile Include="UIFont.cpp" />
     <ClCompile Include="UIHoriGroupSizer.cpp" />
     <ClCompile Include="UIImage.cpp" />
+    <ClCompile Include="UIKeepWidthSizer.cpp" />
     <ClCompile Include="UILocalSizer.cpp" />
     <ClCompile Include="UIRootElement.cpp" />
     <ClCompile Include="UIRootSizer.cpp" />
@@ -231,6 +237,7 @@
     <ClCompile Include="UITester.cpp" />
     <ClCompile Include="UIVertGroupSizer.cpp" />
     <ClCompile Include="VertShader.cpp" />
+    <ClCompile Include="VNCharacter.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -263,10 +270,15 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="LightTestScene.h" />
+    <ClInclude Include="MonoFont.h" />
     <ClInclude Include="OrthographicCamera.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="PresentResources.h" />
+    <ClInclude Include="PresentScene.h" />
+    <ClInclude Include="PresentVNManager.h" />
     <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="RelativeSizer.h" />
     <ClInclude Include="RhyAssimp.h" />
     <ClInclude Include="RhyBindables.h" />
     <ClInclude Include="RhyBullet.h" />
@@ -311,8 +323,10 @@
     <ClInclude Include="UIContainer.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIFitToParentSizer.h" />
+    <ClInclude Include="UIFont.h" />
     <ClInclude Include="UIHoriGroupSizer.h" />
     <ClInclude Include="UIImage.h" />
+    <ClInclude Include="UIKeepWidthSizer.h" />
     <ClInclude Include="UILocalSizer.h" />
     <ClInclude Include="UIRootElement.h" />
     <ClInclude Include="UIRootSizer.h" />
@@ -325,6 +339,7 @@
     <ClInclude Include="Verticies.h" />
     <ClInclude Include="VertIndexes.h" />
     <ClInclude Include="VertShader.h" />
+    <ClInclude Include="VNCharacter.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

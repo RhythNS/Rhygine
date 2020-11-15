@@ -494,6 +494,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		height = HIWORD(lParam);
 
 		gfx->OnResize(width, height);
+		currentScene->OnResize(width, height);
 		break;
 
 	case WM_SIZING:

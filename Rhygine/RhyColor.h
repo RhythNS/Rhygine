@@ -4,33 +4,33 @@ namespace RhyC
 {
 	typedef int color;
 
-	constexpr color red =     0xFF0000FF;
-	constexpr color green =   0x00FF00FF;
-	constexpr color blue =    0x0000FFFF;
-	constexpr color silver =  0xC0C0C0FF;
-	constexpr color gray =    0x808080FF;
-	constexpr color black =   0x000000FF;
+	constexpr color red =     0xFFFF0000;
+	constexpr color green =   0xFF00FF00;
+	constexpr color blue =    0xFF0000FF;
+	constexpr color silver =  0xFFC0C0C0;
+	constexpr color gray =    0xFF808080;
+	constexpr color black =   0xFF000000;
 	constexpr color white =   0xFFFFFFFF;
-	constexpr color yellow =  0xFFFF00FF;
-	constexpr color maroon =  0x800000FF;
-	constexpr color orange =  0xFFA500FF;
-	constexpr color olive =   0x808000FF;
-	constexpr color aqua =    0x00FFFFFF;
-	constexpr color teal =    0x008080FF;
-	constexpr color navy =    0x000080FF;
-	constexpr color fuchsia = 0xFF00FFFF;
-	constexpr color purple =  0x800080FF;
+	constexpr color yellow =  0xFFFFFF00;
+	constexpr color maroon =  0xFF800000;
+	constexpr color orange =  0xFFFFA500;
+	constexpr color olive =   0xFF808000;
+	constexpr color aqua =    0xFF00FFFF;
+	constexpr color teal =    0xFF008080;
+	constexpr color navy =    0xFF000080;
+	constexpr color fuchsia = 0xFFFF00FF;
+	constexpr color purple =  0xFF800080;
 
-	static color FromRGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+	static color FromRGBA(unsigned char a, unsigned char r, unsigned char g, unsigned char b)
 	{
-		return (r << 24) | (g << 16) | (b << 8) || a;
+		return (a << 24) | (r << 16) | (g << 8) || b;
 	}
 
-	static void GetRGBA(color& color, unsigned char& r, unsigned char& g, unsigned char& b, unsigned char& a)
+	static void GetRGBA(color& color, unsigned char& a, unsigned char& r, unsigned char& g, unsigned char& b)
 	{
-		r = (unsigned char)(color >> 24);
-		g = (unsigned char)(color >> 16);
+		a = (unsigned char)(color >> 24);
+		r = (unsigned char)(color >> 16);
 		g = (unsigned char)(color >> 8);
-		a = (unsigned char)(color);
+		b = (unsigned char)(color);
 	}
 }

@@ -130,6 +130,18 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{2b6587dc-5055-4bd3-b9c7-3a73d6cae436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TestGameobjects\Factories">
+      <UniqueIdentifier>{145133b8-c5e3-4338-a480-769165007577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestGameobjects\Factories">
+      <UniqueIdentifier>{6daecd7d-5119-40bd-bc99-de53b8ff8991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestGameobjects\PresentScene">
+      <UniqueIdentifier>{6b8a4e82-82f4-4314-99d5-d58d96a974e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects\PresentScene">
+      <UniqueIdentifier>{af2d08b2-2e79-477a-97d7-66965f56b5c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -156,15 +168,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestPyramid.cpp">
-      <Filter>Source Files\TestGameobjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TestModel.cpp">
-      <Filter>Source Files\TestGameobjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TestTexture.cpp">
-      <Filter>Source Files\TestGameobjects</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClCompile>
@@ -173,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="LightTestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="TestLight.cpp">
-      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
@@ -194,9 +194,6 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_win32.cpp">
       <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="TestLitPlate.cpp">
-      <Filter>Source Files\TestGameobjects</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Gameobject</Filter>
@@ -300,9 +297,6 @@
     <ClCompile Include="UISizer.cpp">
       <Filter>Source Files\2D\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UIContainer.cpp">
-      <Filter>Source Files\2D\UI\Elements</Filter>
-    </ClCompile>
     <ClCompile Include="UILocalSizer.cpp">
       <Filter>Source Files\2D\UI\Sizers</Filter>
     </ClCompile>
@@ -336,6 +330,45 @@
     <ClCompile Include="Rect.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="MonoFont.cpp">
+      <Filter>Source Files\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="UIFont.cpp">
+      <Filter>Source Files\2D\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTexture.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLight.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLitPlate.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModel.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPyramid.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="VNCharacter.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentVNManager.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentResources.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="RelativeSizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIKeepWidthSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -368,15 +401,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="TestPyramid.h">
-      <Filter>Header Files\TestGameobjects</Filter>
-    </ClInclude>
-    <ClInclude Include="TestModel.h">
-      <Filter>Header Files\TestGameobjects</Filter>
-    </ClInclude>
-    <ClInclude Include="TestTexture.h">
-      <Filter>Header Files\TestGameobjects</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClInclude>
@@ -391,9 +415,6 @@
     </ClInclude>
     <ClInclude Include="LightTestScene.h">
       <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="TestLight.h">
-      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="RhyMath.h">
       <Filter>Header Files\Includers</Filter>
@@ -427,9 +448,6 @@
     </ClInclude>
     <ClInclude Include="Rhyimgui.h">
       <Filter>Header Files\Includers</Filter>
-    </ClInclude>
-    <ClInclude Include="TestLitPlate.h">
-      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="Drawable.h">
       <Filter>Header Files\Interfaces</Filter>
@@ -481,9 +499,6 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Gameobject\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectFactory.h">
-      <Filter>Header Files\TestGameobjects</Filter>
     </ClInclude>
     <ClInclude Include="RotateAround.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
@@ -610,6 +625,48 @@
     </ClInclude>
     <ClInclude Include="UIButton.h">
       <Filter>Header Files\2D\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoFont.h">
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="UIFont.h">
+      <Filter>Header Files\2D\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTexture.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLight.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLitPlate.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModel.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPyramid.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="VNCharacter.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentVNManager.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentResources.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
+    <ClInclude Include="RelativeSizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIKeepWidthSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

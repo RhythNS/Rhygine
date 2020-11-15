@@ -4,6 +4,7 @@
 #include "UILocalSizer.h"
 #include "SpriteBatch.h"
 #include "TextureRegion.h"
+#include "Texture.h"
 
 #include <cassert>
 
@@ -152,6 +153,11 @@ void UIElement::SetZ(float z)
 	pos.m_floats[2] = z;
 }
 
+float UIElement::GetGlobalZ()
+{
+	return parent == nullptr ? pos.m_floats[2] : parent->GetGlobalZ() + pos.m_floats[2];
+}
+
 RhyM::Vec2 UIElement::GetSize()
 {
 	return size;
@@ -188,12 +194,17 @@ void UIElement::SetScale(float scaleX, float scaleY)
 
 inline void UIElement::DrawTextureRegion(SpriteBatch* batch, TextureRegion* tex)
 {
-	batch->Draw(tex, bounds.x, bounds.y, pos.m_floats[2], bounds.width, bounds.height, 0, color);
+	batch->Draw(tex, bounds.x, bounds.y, GetGlobalZ(), bounds.width, bounds.height, 0, color);
+}
+
+inline void UIElement::DrawTexture(SpriteBatch* batch, Texture* tex)
+{
+	batch->Draw(tex, 0.0f, 0.0f, tex->GetWidth(), tex->GetHeight(), RhyM::Vec3(bounds.x, bounds.y, GetGlobalZ()), bounds.width, bounds.height, 0, color);
 }
 
 RhyM::Vec3 UIElement::GetDrawPosition()
 {
-	return RhyM::Vec3(bounds.x, bounds.y, pos.m_floats[2]);
+	return RhyM::Vec3(bounds.x, bounds.y, GetGlobalZ());
 }
 
 void UIElement::OnResize(RhyM::Vec2 parentScale)

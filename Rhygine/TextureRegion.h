@@ -1,6 +1,6 @@
 #pragma once
+#include "Texture.h"
 
-class Texture;
 class TextureRegion
 {
 public:
@@ -15,5 +15,7 @@ public:
 		x(x), y(y), width(width), height(height), texture(texture)
 	{ }
 
-private:
+	TextureRegion(Texture* texture) :
+		x(0.0f), y(0.0f), width(texture->GetWidth()), height(texture->GetHeight()), texture(texture)
+	{ }
 };

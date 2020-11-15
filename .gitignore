@@ -16,6 +16,9 @@
 # Mono auto generated files
 mono_crash.*
 
+# Copyright materials
+Rhygine/PresentScene
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

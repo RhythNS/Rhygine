@@ -19,7 +19,7 @@ public:
 		None
 	};
 
-	SpriteBatch(SortMode sortMode = SortMode::None, bool alphaBlending = false);
+	SpriteBatch(SortMode sortMode = SortMode::None, bool alphaBlending = true);
 
 	void Begin(OrthographicCamera* camera);
 	void Draw(Texture* texture, float texX, float texY, float texWidth, float texHeight, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color);

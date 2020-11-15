@@ -42,6 +42,7 @@ void SpriteBatch::Begin(OrthographicCamera* _camera)
 void SpriteBatch::Draw(Texture* texture, float texX, float texY, float texWidth, float texHeight, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color)
 {
 	assert(drawing == true);
+	assert(texture);
 
 	GrowArray();
 
@@ -54,6 +55,7 @@ void SpriteBatch::Draw(Texture* texture, float texX, float texY, float texWidth,
 void SpriteBatch::Draw(TextureRegion* texture, RhyM::Vec3 position, float width, float height, float rotation, RhyC::color color)
 {
 	assert(drawing == true);
+	assert(texture->texture);
 
 	GrowArray();
 
@@ -66,6 +68,7 @@ void SpriteBatch::Draw(TextureRegion* texture, RhyM::Vec3 position, float width,
 void SpriteBatch::Draw(TextureRegion* texture, float x, float y, float z, float width, float height, float rotation, RhyC::color color)
 {
 	assert(drawing == true);
+	assert(texture->texture);
 
 	GrowArray();
 
@@ -113,7 +116,6 @@ void SpriteBatch::End()
 		verts[atVert + 3].pos.x = sprite->worldPosition.x + sprite->worldSize.width;
 		verts[atVert + 3].pos.y = sprite->worldPosition.y + sprite->worldSize.height;
 		verts[atVert + 3].pos.z = sprite->worldPosition.z;
-
 
 		int texWidth = sprite->texture->GetWidth();
 		int texHeight = sprite->texture->GetHeight();
@@ -193,8 +195,8 @@ inline void SpriteBatch::GrowArray()
 	indexBuffer.reset();
 	vertBuffer.reset();
 
-	indexBuffer = std::make_unique<IndexBufferUS>(0, maxBufferSize * 4, 0);
-	vertBuffer = std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), maxBufferSize * 6, 0);
+	indexBuffer = std::make_unique<IndexBufferUS>(0, maxBufferSize * 6, 0);
+	vertBuffer = std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), maxBufferSize * 4, 0);
 
 	sprites.resize(maxBufferSize);
 	sortedSprites.resize(maxBufferSize);

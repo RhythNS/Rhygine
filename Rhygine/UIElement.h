@@ -11,6 +11,7 @@
 
 class SpriteBatch;
 class TextureRegion;
+class Texture;
 class UIElement : public Component
 {
 	friend class UISizer;
@@ -41,6 +42,7 @@ public:
 	void SetPos(float x, float y, float z);
 	void SetPos(float x, float y);
 	void SetZ(float z);
+	float GetGlobalZ();
 
 	RhyM::Vec2 GetSize();
 	void SetSize(RhyM::Vec2 size);
@@ -64,6 +66,7 @@ public:
 
 protected:
 	inline virtual void DrawTextureRegion(SpriteBatch* batch, TextureRegion* tex);
+	inline virtual void DrawTexture(SpriteBatch* batch, Texture* tex);
 	RhyM::Vec3 GetDrawPosition();
 	RhyM::Rect bounds;
 
