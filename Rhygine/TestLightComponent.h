@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Updatable.h"
+//#include "Updatable.h"
 #include "RhyMath.h"
 
 class Transform;
@@ -8,11 +8,11 @@ class Transform;
 /// <summary>
 /// A test component that represents a light in a scene.
 /// </summary>
-class TestLightComponent : public Component, public Updatable
+class TestLightComponent : public Component//, public Updatable
 {
 public:
 	void Init();
-	void Update();
+	//void Update();
 
 	int id;
 	RhyM::Vec3 direction;

@@ -18,7 +18,8 @@ int CALLBACK WinMain(
 
 		// BulletTestScene scene;
 		// TestScene scene;
-		PresentScene scene;
+		// LightTestScene scene;
+		 PresentScene scene;
 
 		// Get all information needed for the start and put it into WindowDefinition.
 		Window::WindowDefinition winDef;

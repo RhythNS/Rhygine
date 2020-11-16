@@ -10,6 +10,7 @@ void TestLightComponent::Init()
 	transform = GetGameObject()->GetComponent<Transform>();
 }
 
+/*
 void TestLightComponent::Update()
 {
 	// imgui debug gui for changing the light properties.
@@ -20,3 +21,4 @@ void TestLightComponent::Update()
 	}
 	ImGui::End();
 }
+*/

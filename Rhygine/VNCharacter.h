@@ -16,5 +16,5 @@ public:
 
 	Emotion currentEmotion = Emotion::Happy;
 private:
-	std::unique_ptr<Texture> happy, mad, sad, suprised, embarrassed;
+	std::unique_ptr<Texture> happy, mad, sad, surprised, embarrassed;
 };

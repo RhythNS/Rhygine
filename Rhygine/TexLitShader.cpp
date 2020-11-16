@@ -43,11 +43,13 @@ void TexLitShader::UpdateLightInfo()
 
 	static float lightColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 
+	/*
 	ImGui::Begin("TexLitShader");
 	ImGui::DragFloat("Ambient Strength", &ambientStrength, 0.01f, 0.0f, 1.0f);
 	ImGui::DragFloat("Spec Strength", &specStrength, 50.0f, 50.0f, 1000.0f);
 	ImGui::DragFloat4("Light color", lightColor, 0.01f, 0.0f, 1.0f);
 	ImGui::End();
+	*/
 
 	lightBuffer.ambientStrength = ambientStrength;
 	lightBuffer.specStrength = specStrength;
@@ -57,7 +59,7 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.lightColor[2] = lightColor[2];
 	lightBuffer.lightColor[3] = lightColor[3];
 
-	RhyM::Vec3* lightPos = &lights[0]->GetGameObject()->GetComponent<Transform>()->localPosition;
+	RhyM::Vec3* lightPos = &light->GetGameObject()->GetComponent<Transform>()->localPosition;
 	lightBuffer.lightPosition[0] = lightPos->m_floats[0];
 	lightBuffer.lightPosition[1] = lightPos->m_floats[1];
 	lightBuffer.lightPosition[2] = lightPos->m_floats[2];
@@ -73,7 +75,7 @@ void TexLitShader::UpdateLightInfo()
 void TexLitShader::UpdatePositionInfo()
 {
 	posBuffer.projection = GetPerspectiveMatrix();
-	posBuffer.worldPos = GetWorldMatrix();
+	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix());
 	posBuffer.localScaleRotation = GetLocalMatrix();
 
 	worldPosBuffer->SetAndUpdate(&posBuffer);

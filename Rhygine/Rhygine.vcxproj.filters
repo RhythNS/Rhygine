@@ -363,11 +363,14 @@
     <ClCompile Include="PresentResources.cpp">
       <Filter>Source Files\TestGameobjects\PresentScene</Filter>
     </ClCompile>
-    <ClCompile Include="RelativeSizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UIKeepWidthSizer.cpp">
       <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="UIFitToParentRelativeSizer.cpp">
+      <Filter>Source Files\2D\UI\Sizers</Filter>
+    </ClCompile>
+    <ClCompile Include="VNTextbox.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -662,11 +665,14 @@
     <ClInclude Include="PresentResources.h">
       <Filter>Header Files\TestGameobjects\PresentScene</Filter>
     </ClInclude>
-    <ClInclude Include="RelativeSizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIKeepWidthSizer.h">
       <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIFitToParentRelativeSizer.h">
+      <Filter>Header Files\2D\UI\Sizers</Filter>
+    </ClInclude>
+    <ClInclude Include="VNTextbox.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

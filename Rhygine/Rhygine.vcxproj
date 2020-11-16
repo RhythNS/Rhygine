@@ -197,7 +197,6 @@
     <ClCompile Include="PresentVNManager.cpp" />
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="Rect.cpp" />
-    <ClCompile Include="RelativeSizer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RotateAround.cpp" />
     <ClCompile Include="Sampler.cpp" />
@@ -225,6 +224,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIFitToParentRelativeSizer.cpp" />
     <ClCompile Include="UIFitToParentSizer.cpp" />
     <ClCompile Include="UIFont.cpp" />
     <ClCompile Include="UIHoriGroupSizer.cpp" />
@@ -238,6 +238,7 @@
     <ClCompile Include="UIVertGroupSizer.cpp" />
     <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="VNCharacter.cpp" />
+    <ClCompile Include="VNTextbox.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -278,7 +279,6 @@
     <ClInclude Include="PresentVNManager.h" />
     <ClInclude Include="PrimitiveTopolpgy.h" />
     <ClInclude Include="Rect.h" />
-    <ClInclude Include="RelativeSizer.h" />
     <ClInclude Include="RhyAssimp.h" />
     <ClInclude Include="RhyBindables.h" />
     <ClInclude Include="RhyBullet.h" />
@@ -322,6 +322,7 @@
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UIContainer.h" />
     <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UIFitToParentRelativeSizer.h" />
     <ClInclude Include="UIFitToParentSizer.h" />
     <ClInclude Include="UIFont.h" />
     <ClInclude Include="UIHoriGroupSizer.h" />
@@ -340,6 +341,7 @@
     <ClInclude Include="VertIndexes.h" />
     <ClInclude Include="VertShader.h" />
     <ClInclude Include="VNCharacter.h" />
+    <ClInclude Include="VNTextbox.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

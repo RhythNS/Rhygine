@@ -128,6 +128,11 @@ public:
 	bool RemoveComponent(Component* toRemove);
 
 	/// <summary>
+	/// Called when the gameobject is about to be removed.
+	/// </summary>
+	void OnRemove();
+
+	/// <summary>
 	/// Gets the amount of components that are currently on the gameobject.
 	/// </summary>
 	int GetComponentCount();

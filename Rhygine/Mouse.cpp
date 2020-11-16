@@ -94,8 +94,6 @@ void Mouse::HoriScroll(int distance)
 
 void Mouse::Tick()
 {
-	prevButtons = currentButtons;
-
 	relativePosPrev = relativePosCur;
 	relativePosCur.x = 0;
 	relativePosCur.y = 0;
@@ -104,6 +102,11 @@ void Mouse::Tick()
 	prevHoriScroll = curHoriScroll;
 	curVertScroll = 0;
 	curHoriScroll = 0;
+}
+
+void Mouse::EndTick()
+{
+	prevButtons = currentButtons;
 }
 
 void Mouse::ResetCurrentKeys()

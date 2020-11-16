@@ -12,12 +12,15 @@
 class SpriteBatch;
 class TextureRegion;
 class Texture;
+class UIRootElement;
 class UIElement : public Component
 {
 	friend class UISizer;
+	friend class UIRootElement;
 public:
 	UIElement();
 	~UIElement();
+	void OnRemove();
 	
 	void OnMouseMove(RhyM::Vec2& mousePos);
 	void ClickDown();

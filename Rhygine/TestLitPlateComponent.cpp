@@ -37,33 +37,32 @@ void TestLitPlateComponent::Init()
 
 	std::vector<Vertex> verts =
 	{
-		/*
-		{-1.0f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f, -1.0f},
-		{-1.0f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,  0.0f, -1.0f},
-		{ 1.0f,  1.0f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f, -1.0f},
-		{ 1.0f, -1.0f,  0.0f,  1.0f,  1.0f,  0.0f,  0.0f, -1.0f}
-		*/
 		//   x     y     z        nx     ny     nz      u      v
 		{ -0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 1.0f }, // 0 VUL
 		{  0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 1.0f }, // 1 VUR
 		{ -0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 0.0f }, // 2 VOL
 		{  0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 0.0f }, // 3 VOR
+
 		{  0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 1.0f }, // 1 VUR
 		{  0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 1.0f }, // 5 HUR
 		{  0.5f,  0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 0.0f }, // 3 VOR
 		{  0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 0.0f }, // 7 HOR
+
 		{  0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 1.0f }, // 5 HUR
 		{ -0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 1.0f }, // 4 HUL
 		{  0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 0.0f }, // 7 HOR
 		{ -0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 0.0f }, // 6 HOL
+
 		{ -0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 1.0f }, // 4 HUL
 		{ -0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 1.0f }, // 0 VUL
 		{ -0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 0.0f }, // 6 HOL
 		{ -0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 0.0f }, // 2 VOL
+
 		{ -0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f }, // 4 HUL
 		{  0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 1.0f }, // 5 HUR
 		{ -0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 0.0f }, // 0 VUL
 		{  0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f }, // 1 VUR
+
 		{ -0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 1.0f }, // 2 VOL
 		{  0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f }, // 3 VOR
 		{ -0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f }, // 6 HOL
@@ -72,10 +71,6 @@ void TestLitPlateComponent::Init()
 
 	std::vector<unsigned short> indexes =
 	{
-		/*
-		0, 1, 2,
-		3, 0, 2
-		*/
 		0,   2,   1,   2,   3,   1,
 		4,   6,   5,   6,   7,   5,
 		8,   10,  9,   10,  11,  9,
@@ -99,6 +94,7 @@ void TestLitPlateComponent::Init()
 	rotateAround->Disable();
 }
 
+
 void TestLitPlateComponent::Update()
 {
 	ImGui::Begin(("BestPlane" + std::to_string(id)).c_str(), &guiWindowOpen);
@@ -119,7 +115,8 @@ void TestLitPlateComponent::Update()
 	ImGui::End();
 }
 
+
 void TestLitPlateComponent::SetLight(int index, TestLightComponent* light)
 {
-	GetGameObject()->GetComponent<Drawer>()->GetBindable<TexLitShader>()->lights[index] = light;
+	GetGameObject()->GetComponent<Drawer>()->GetBindable<TexLitShader>()->light = light;
 }

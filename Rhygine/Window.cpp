@@ -281,7 +281,7 @@ int Window::MainLoop()
 
 		time.StartOfFrame();
 
-		// Go through all tickables that need to be updated.
+		// Beginning of frame for tickables.
 		for (Tickable* i : tickables)
 		{
 			i->Tick();
@@ -322,6 +322,13 @@ int Window::MainLoop()
 
 		// Draw everything and present the frame.
 		gfx->EndDraw();
+
+
+		// End of frame for tickables.
+		for (Tickable* i : tickables)
+		{
+			i->EndTick();
+		}
 
 		// Set the frame time and sleep if needed.
 		time.EndOfFrame();

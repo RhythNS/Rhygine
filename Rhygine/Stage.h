@@ -5,6 +5,7 @@
 #include "OrthographicCamera.h"
 
 #include <string>
+#include <queue>
 
 class GameObject;
 class Camera;
@@ -110,6 +111,7 @@ private:
 	OrthographicCamera orthoCamera, uiCamera;
 	SpriteBatch batch;
 	UIRootElement* rootUI;
+	std::queue<GameObject*> toRemoveGameobjects;
 
 	// Iterates over each gameobject that is inside the stage, and executes
 	// a given method.
@@ -121,6 +123,4 @@ private:
 		current = current->next; \
 	} \
 	current->method
-
-	// pool of gameobjects
 };

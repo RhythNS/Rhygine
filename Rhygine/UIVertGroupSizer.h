@@ -17,4 +17,3 @@ public:
 private:
 	static const bool controllingChildren = true;
 };
-

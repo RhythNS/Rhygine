@@ -5,6 +5,7 @@
 #include "SpriteBatch.h"
 #include "TextureRegion.h"
 #include "Texture.h"
+#include "Stage.h"
 
 #include <cassert>
 
@@ -15,8 +16,14 @@ UIElement::UIElement() : sizer(std::make_unique<UILocalSizer>()), bounds(), pare
 
 UIElement::~UIElement()
 {
-	if (parent != nullptr)
-		SetParent(nullptr);
+}
+
+void UIElement::OnRemove()
+{
+	SetParent(nullptr);
+
+	// Before removing this component, every child should have been deleted first.
+	assert(children.size() == 0);
 }
 
 void UIElement::OnMouseMove(RhyM::Vec2& mousePos)
@@ -114,6 +121,7 @@ UISizer* UIElement::SetSizer(std::unique_ptr<UISizer> newSizer)
 	sizer.reset();
 	sizer.swap(newSizer);
 	OnResize(GetParentWorldScale());
+	OnUpdatePosition();
 	return sizer.get();
 }
 

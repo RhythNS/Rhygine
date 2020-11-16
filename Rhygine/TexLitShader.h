@@ -42,7 +42,7 @@ public:
 		DirectX::XMMATRIX localScaleRotation;
 	};
 
-	std::array<TestLightComponent*, 10> lights;
+	TestLightComponent* light;
 protected:
 	void InnerBind();
 

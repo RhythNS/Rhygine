@@ -12,8 +12,8 @@ public:
 		Left, Middle, Right
 	};
 
-	void InnerDraw(SpriteBatch* batch);
-	void Set(MonoFont* font, bool wordWrap = false, VertAlignment vert = VertAlignment::Up, HoriAlignment hori = HoriAlignment::Left, float textScale = 1.0f);
+	virtual void InnerDraw(SpriteBatch* batch);
+	virtual void Set(MonoFont* font, bool wordWrap = false, VertAlignment vert = VertAlignment::Up, HoriAlignment hori = HoriAlignment::Left, float textScale = 1.0f);
 
 	std::string text;
 	VertAlignment vert = VertAlignment::Up;

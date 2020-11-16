@@ -73,6 +73,10 @@ void Keys::CharTyped(unsigned char key)
 
 void Keys::Tick()
 {
+}
+
+void Keys::EndTick()
+{
 	prevKeys = currentKeys;
 }
 

@@ -12,6 +12,9 @@ class Component
 {
 	friend class GameObject;
 public:
+	// Destructor so inherited somponents can have a destructor.
+	virtual ~Component() {}
+
 	/// <summary>
 	/// Called after the the reference to the gameobject was set.
 	/// Used for initializing the component.
@@ -63,6 +66,11 @@ protected:
 	/// Calles when a component that was enabled was disabled.
 	/// </summary>
 	virtual void OnDisabled() {}
+
+	/// <summary>
+	/// Called when a component is about to be destroyed.
+	/// </summary>
+	virtual void OnRemove() {}
 private:
 	/// <summary>
 	/// Sets the gameobject on which the component is.

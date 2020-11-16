@@ -36,15 +36,18 @@ void CameraMover::Update()
 	// Rotate the transform
 	//transform->rotation = transform->rotation * RhyM::Quat(rotate.x(), rotate.y(), rotate.z());
 
-	static float speed = 0.01f;
+	static float speed = 0.005f;
 	// Get the relative position of the mouse.
 	RhyM::Vec2I* rp = mouse->GetRelativePosition();
 
+	/*
 	// Display a imgui window for changing some values of the camera.
 	ImGui::Begin("Mouse relative pos");
 	ImGui::DragFloat("MouseSpeed", &speed, 0.01f, 0.01f, 1.0f);
 	std::string rps = "Vec: " + std::to_string(rp->x) + " " + std::to_string(rp->y);
 	ImGui::Text(rps.c_str());
+	ImGui::End();
+	*/
 
 	// Rotate the camera if the right mouse button was pressed with mouse control.
 	if (mouse->IsButtonDown(RH_MOUSE_RIGHT))
@@ -55,7 +58,6 @@ void CameraMover::Update()
 			RhyM::Quat(RhyM::Vec3(1.0f, 0.0f, 0.0f), rp->y * speed)
 			;
 	}
-	ImGui::End();
 
 	// Move the camera around with WASDQE
 	RhyM::Vec3 move = RhyM::Vec3(0.0f, 0.0f, 0.0f);
@@ -75,17 +77,7 @@ void CameraMover::Update()
 	// To make the camera feel more natrual, the move is rotated based on the current rotation of the camera.
 	// So the movement is now in local space and not in global space.
 	move = quatRotate(transform->localRotation, move);
-
-	// Display imigui debug window.
-	ImGui::Begin("CameraMover");
-	std::string str = "Vec: " + std::to_string(move.x()) + " " + std::to_string(move.y()) + " " + std::to_string(move.z());
-	ImGui::Text(str.c_str());
 	transform->localPosition += move;
-
-	move = transform->localPosition;
-	str = "At: " + std::to_string(move.x()) + " " + std::to_string(move.y()) + " " + std::to_string(move.z());
-	ImGui::Text(str.c_str());
-	ImGui::End();
 
 	// If the r keys is pressed, then reset the rotation.
 	if (keys->IsKeyDown('R'))

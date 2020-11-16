@@ -19,6 +19,9 @@ uiCamera(RhyM::Vec3(-width / 2, -height / 2, -5.0f))
 
 Stage::~Stage()
 {
+	// delete the ui
+	rootUI->Delete();
+
 	// Go through all Gameobjects and manually delete them.
 	GameObject* current = front->next;
 	while (current->next != nullptr)
@@ -72,14 +75,7 @@ GameObject* Stage::CreateGameObjectAfter(GameObject* gameObject, std::string nam
 void Stage::RemoveGameObject(GameObject* gameObject)
 {
 	assert(gameObject != front && gameObject != back);
-	// Remove the gameobject from the next and prev.
-	// prev -> gameobject -> next
-	// will now be
-	// prev -> next
-	gameObject->prev->next = gameObject->next;
-	gameObject->next->prev = gameObject->prev;
-
-	delete gameObject;
+	toRemoveGameobjects.push(gameObject);
 }
 
 GameObject* Stage::GetFront()
@@ -120,6 +116,24 @@ SpriteBatch* Stage::GetSpriteBatch()
 void Stage::Update()
 {
 	FOR_EACH_GAMEOBJECT(Update());
+
+
+	while (toRemoveGameobjects.size() != 0)
+	{
+		GameObject* gameObject = toRemoveGameobjects.front();
+		toRemoveGameobjects.pop();
+
+		gameObject->OnRemove();
+
+		// Remove the gameobject from the next and prev.
+		// prev -> gameobject -> next
+		// will now be
+		// prev -> next
+		gameObject->prev->next = gameObject->next;
+		gameObject->next->prev = gameObject->prev;
+
+		delete gameObject;
+	}
 }
 
 void Stage::Draw()
@@ -140,6 +154,7 @@ void Stage::OnResize(int newWidth, int newHeight)
 	uiCamera.position.m_floats[1] = -newHeight / 2;
 
 	rootUI->SetSize(newWidth, newHeight);
+	rootUI->SetPos(0.0f, 0.0f);
 
 	width = newWidth;
 	height = newHeight;

@@ -140,6 +140,10 @@ private:
 	/// </summary>
 	void Tick();
 	/// <summary>
+	/// Update values for the end of the frame.
+	/// </summary>
+	void EndTick();
+	/// <summary>
 	/// Releases all current pressed keys.
 	/// </summary>
 	void ResetCurrentKeys();
