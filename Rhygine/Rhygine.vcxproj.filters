@@ -276,9 +276,6 @@
     <ClCompile Include="SpriteBatch.cpp">
       <Filter>Source Files\2D</Filter>
     </ClCompile>
-    <ClCompile Include="TextureRegion.cpp">
-      <Filter>Source Files\2D</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteBatchTester.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
@@ -370,6 +367,21 @@
       <Filter>Source Files\2D\UI\Sizers</Filter>
     </ClCompile>
     <ClCompile Include="VNTextbox.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TexLitNormalMapShader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFloor.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTextureLit.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBasicLit.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="VNOpener.cpp">
       <Filter>Source Files\TestGameobjects\PresentScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -581,9 +593,6 @@
     <ClInclude Include="StencilStates.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteBatchDrawable.h">
-      <Filter>Header Files\2D</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\2D</Filter>
     </ClInclude>
@@ -674,6 +683,21 @@
     <ClInclude Include="VNTextbox.h">
       <Filter>Header Files\TestGameobjects\PresentScene</Filter>
     </ClInclude>
+    <ClInclude Include="TexLitNormalMapShader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TestFloor.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTextureLit.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBasicLit.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="VNOpener.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVert.hlsl">
@@ -688,12 +712,6 @@
     <FxCompile Include="TexPix.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="TexLitPix.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="TexLitVert.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="BulletDebugVert.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
@@ -704,6 +722,24 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="SpriteBatchVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongTexNormalMappingPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongTexNormalMappingVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongTexPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongTexVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BasicLitPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="BasicLitVert.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

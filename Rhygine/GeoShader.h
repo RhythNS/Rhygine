@@ -13,6 +13,7 @@ public:
 	/// <param name="fileName">The path to the GeoShader source code. Should end with ".hlsl"</param>
 	GeoShader(LPCWSTR fileName);
 	GeoShader() = delete;
+
 	void Bind();
 	/// <summary>
 	/// Gets the blob to the shader source code.

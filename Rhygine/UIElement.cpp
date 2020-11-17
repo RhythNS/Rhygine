@@ -14,10 +14,6 @@ UIElement::UIElement() : sizer(std::make_unique<UILocalSizer>()), bounds(), pare
 	sizer->element = this;
 }
 
-UIElement::~UIElement()
-{
-}
-
 void UIElement::OnRemove()
 {
 	SetParent(nullptr);
@@ -28,18 +24,23 @@ void UIElement::OnRemove()
 
 void UIElement::OnMouseMove(RhyM::Vec2& mousePos)
 {
-	if (!InBounds(mousePos))
+	if (!InBounds(mousePos)) // is mouse not in bounds?
 	{
-		if (mouseInBounds)
+		// was the mouse in bounds in the prev frame?
+		// Otherwise ignore it and dont notify the children.
+		if (mouseInBounds) 
 		{
 			OnMouseLeave();
 			mouseInBounds = false;
 
+			// notify every child of the mouse move.
 			for (auto& child : children)
 			{
 				child->OnMouseMove(mousePos);
 			}
 
+			// if the left mouse button was clicked then call OnClickUp without
+			// calling OnClick.
 			if (clicking)
 			{
 				OnClickUp();
@@ -52,7 +53,7 @@ void UIElement::OnMouseMove(RhyM::Vec2& mousePos)
 	}
 	else // mouse in bounds 
 	{
-		if (mouseInBounds)
+		if (mouseInBounds) // was the mouse in bounds the prev frame?
 		{
 			OnHover();
 		}
@@ -102,7 +103,7 @@ bool UIElement::InBounds(RhyM::Vec2 pos)
 
 void UIElement::Draw(SpriteBatch* batch)
 {
-	if (visible)
+	if (visible) // TODO: Consider changing this, so that children are also not displayed
 		InnerDraw(batch);
 	for (auto& child : children)
 	{
@@ -255,6 +256,7 @@ void UIElement::SetPosSizeScale(float posX, float posY, float posZ, float width,
 
 void UIElement::SetParent(UIElement* element)
 {
+	// new parent is the same
 	if (element == parent)
 		return;
 
@@ -268,12 +270,13 @@ void UIElement::SetParent(UIElement* element)
 
 	parent = element;
 
+	// parent is controlling us?
 	if (parent != nullptr && parent->GetSizer()->isControllingChildren())
 	{
 		parent->OnResize(parent->GetParentWorldScale());
 		parent->OnUpdatePosition();
 	}
-	else
+	else // parent is not controlling us
 	{
 		OnResize(GetParentWorldScale());
 		OnUpdatePosition();

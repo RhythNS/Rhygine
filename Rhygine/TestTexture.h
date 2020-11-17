@@ -6,6 +6,9 @@
 #include <vector>
 #include <memory>
 
+/// <summary>
+/// Factory for building a plane with a test texture on it.
+/// </summary>
 class TestTexture : public GameObjectFactory
 {
 public:

@@ -19,11 +19,11 @@
 void LightTestScene::InnerInit()
 {
 	TestLight tl;
-	TestLitPlate tlp;
+	TestLightComponent* tlc = GameObjectFactory::Add(stage.get(), &tl)->GetComponent<TestLightComponent>();
+
+	TestLitPlate tlp = TestLitPlate(tlc);
 	TestPyramid tp;
 	TestModel tm;
-
-	TestLightComponent* tlc = GameObjectFactory::Add(stage.get(), &tl)->GetComponent<TestLightComponent>();
 
 	/*
 	for (int i = -1; i < 2; i++)
@@ -36,13 +36,13 @@ void LightTestScene::InnerInit()
 	*/
 
 	GameObject* lit = GameObjectFactory::Add(stage.get(), &tlp);
-	lit->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
+	lit->GetComponent<TestLitPlateComponent>()->SetLight(tlc);
 	lit->GetComponent<Transform>()->localPosition.setValue(-2.0f, 0.0f, 0.0f);
 	lit->GetComponent<Transform>()->localScale.setValue(1.0f, 1.0f, 1.0f);
 	lit->GetComponent<RotateAround>()->Enable();
 
 	GameObject* lit2 = GameObjectFactory::Add(stage.get(), &tlp);
-	lit2->GetComponent<TestLitPlateComponent>()->SetLight(0, tlc);
+	lit2->GetComponent<TestLitPlateComponent>()->SetLight(tlc);
 	Drawer* drawer = lit2->GetComponent<Drawer>();
 	drawer->RemoveBindable(drawer->GetBindable<TextureChanger>());
 	drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));

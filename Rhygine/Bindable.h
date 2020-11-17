@@ -17,6 +17,8 @@ class Bindable
 	friend class Drawer;
 	friend class CombinedShader;
 public:
+	virtual ~Bindable() { }
+
 	/// <summary>
 	/// Readys the bindable to be drawn to the screen.
 	/// </summary>

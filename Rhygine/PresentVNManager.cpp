@@ -12,7 +12,6 @@
 
 void PresentVNManager::Init()
 {
-	textBoxBackgroundTexture = std::make_unique<Texture>("PresentScene\\textBox.png", 0);
 
 	//TextureGenerator texGen = TextureGenerator(2, 2, RhyC::orange);
 	//rootTex = std::make_unique<Texture>(&texGen, 0);
@@ -29,9 +28,10 @@ void PresentVNManager::Init()
 	character->SetSizer(std::make_unique<UIKeepWidth>());
 
 
+	Texture* textBoxBackgroundTexture = PresentResources::instance->textBoxBackgroundTexture.get();
 	textBoxBackground = GetGameObject()->AddComponent<UIImage>();
 	textBoxBackground->SetParent(rootContainer);
-	textBoxBackground->image = TextureRegion(textBoxBackgroundTexture.get());
+	textBoxBackground->image = TextureRegion(textBoxBackgroundTexture);
 	textBoxBackground->SetSize(RhyM::Vec2(textBoxBackgroundTexture->GetWidth(), textBoxBackgroundTexture->GetHeight()));
 	textBoxBackground->SetSizer(std::make_unique<UIKeepWidth>(UISizer::VertAlignment::Down, UISizer::HoriAlignment::Middle, 120.0f, 50.0f));
 

@@ -7,6 +7,9 @@
 
 #include <memory>
 
+/// <summary>
+/// Simple test to draw a texture to the stages spritebatch.
+/// </summary>
 class SpriteBatchTester : public Component, public Drawable
 {
 public:

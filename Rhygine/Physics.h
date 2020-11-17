@@ -1,11 +1,11 @@
 #pragma once
 #include "RhyBullet.h"
 #include "RhyMath.h"
+#include "BulletDebugDraw.h"
 
 #include <memory>
 
 class RigidBody;
-class BulletDebugDraw;
 class Stage;
 
 /// <summary>
@@ -20,6 +20,8 @@ public:
 	/// </summary>
 	/// <param name="secondsPerTick">The simulation step time in seconds.</param>
 	Physics(float secondsPerTick);
+
+	virtual ~Physics() { }
 
 	/// <summary>
 	/// Registers a Rigidbody to the physics system.
@@ -81,6 +83,9 @@ private:
 	btSequentialImpulseConstraintSolver constraintSolver;
 	btDiscreteDynamicsWorld world{ &dispatcher, &broadphase, &constraintSolver, &collisionConfiguration };
 	RigidBody* first = nullptr;
+	/// <summary>
+	/// How many seconds a tick in bullet is.
+	/// </summary>
 	float secondsPerTick = 0.02f;
 
 	bool debugMode = false;

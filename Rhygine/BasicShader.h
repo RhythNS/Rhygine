@@ -20,6 +20,7 @@ public:
 	/// <param name="inputLayoutDesc">Input layout description.</param>
 	BasicShader(LPCWSTR pixName, LPCWSTR vertName, std::vector<D3D11_INPUT_ELEMENT_DESC>* inputLayoutDesc);
 	BasicShader() = delete;
+	virtual ~BasicShader() { }
 
 	struct WorldPos {
 		DirectX::XMMATRIX transform;

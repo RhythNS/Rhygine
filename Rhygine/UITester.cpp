@@ -20,14 +20,6 @@
 
 void UITester::Init()
 {
-	std::string str;
-	for (char i = 32; i < 127; i++)
-	{
-		str += i;
-	}
-	OutputDebugString(str.c_str());
-
-
 	TextureGenerator gen = TextureGenerator(3, 3);
 
 	white = std::make_unique<Texture>(&gen, 0);

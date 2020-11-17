@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="AwakeRigidbodies.cpp" />
     <ClCompile Include="BasicShader.cpp" />
+    <ClCompile Include="BasicTextureLit.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendStateBindable.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
@@ -206,6 +207,8 @@
     <ClCompile Include="SpriteBatchTester.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StencilStates.cpp" />
+    <ClCompile Include="TestBasicLit.cpp" />
+    <ClCompile Include="TestFloor.cpp" />
     <ClCompile Include="TestLight.cpp" />
     <ClCompile Include="TestLightComponent.cpp" />
     <ClCompile Include="TestLitPlate.cpp" />
@@ -215,11 +218,11 @@
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TestTexture.cpp" />
+    <ClCompile Include="TexLitNormalMapShader.cpp" />
     <ClCompile Include="TexLitShader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureChanger.cpp" />
     <ClCompile Include="TextureGenerator.cpp" />
-    <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
@@ -238,6 +241,7 @@
     <ClCompile Include="UIVertGroupSizer.cpp" />
     <ClCompile Include="VertShader.cpp" />
     <ClCompile Include="VNCharacter.cpp" />
+    <ClCompile Include="VNOpener.cpp" />
     <ClCompile Include="VNTextbox.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -246,6 +250,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AwakeRigidbodies.h" />
     <ClInclude Include="BasicShader.h" />
+    <ClInclude Include="BasicTextureLit.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendStateBindable.h" />
     <ClInclude Include="BulletDebugDraw.h" />
@@ -298,10 +303,11 @@
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="SpriteBatch.h" />
-    <ClInclude Include="SpriteBatchDrawable.h" />
     <ClInclude Include="SpriteBatchTester.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StencilStates.h" />
+    <ClInclude Include="TestBasicLit.h" />
+    <ClInclude Include="TestFloor.h" />
     <ClInclude Include="TestLight.h" />
     <ClInclude Include="TestLightComponent.h" />
     <ClInclude Include="TestLitPlate.h" />
@@ -311,6 +317,7 @@
     <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TestTexture.h" />
+    <ClInclude Include="TexLitNormalMapShader.h" />
     <ClInclude Include="TexLitShader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureChanger.h" />
@@ -341,10 +348,31 @@
     <ClInclude Include="VertIndexes.h" />
     <ClInclude Include="VertShader.h" />
     <ClInclude Include="VNCharacter.h" />
+    <ClInclude Include="VNOpener.h" />
     <ClInclude Include="VNTextbox.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="BasicLitPix.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="BasicLitVert.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="BasicPix.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -405,7 +433,27 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="TexLitVert.hlsl">
+    <FxCompile Include="PhongTexNormalMappingPix.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="PhongTexNormalMappingVert.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="PhongTexVert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -425,7 +473,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="TexLitPix.hlsl">
+    <FxCompile Include="PhongTexPix.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

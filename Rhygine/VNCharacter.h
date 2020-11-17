@@ -2,6 +2,9 @@
 #include "UIElement.h"
 #include "Texture.h"
 
+/// <summary>
+/// Character which chooses an image to display dependent to the set emotion.
+/// </summary>
 class VNCharacter : public UIElement
 {
 public:
@@ -11,10 +14,14 @@ public:
 
 	void Init();
 	void InnerDraw(SpriteBatch* batch);
+	/// <summary>
+	/// Gets the preferred size of the character.
+	/// </summary>
+	/// <returns></returns>
 	RhyM::Vec2 GetPrefSize();
 
-
 	Emotion currentEmotion = Emotion::Happy;
+
 private:
-	std::unique_ptr<Texture> happy, mad, sad, surprised, embarrassed;
+	Texture *happy, *mad, *sad, *surprised, *embarrassed;
 };

@@ -10,6 +10,10 @@
 class VertBufferAmount
 {
 public:
+	/// <summary>
+	/// Gets the size of the vertex buffer.
+	/// </summary>
+	/// <returns></returns>
 	virtual UINT GetSize() = 0;
 };
 

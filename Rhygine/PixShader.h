@@ -12,6 +12,7 @@ public:
 	/// </summary>
 	/// <param name="fileName">The path to the pixel shader source code. Should end with ".hlsl"</param>
 	PixShader(LPCWSTR fileName);
+
 	void Bind();
 	/// <summary>
 	/// Gets the blob to the shader source code.

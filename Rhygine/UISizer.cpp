@@ -23,7 +23,7 @@ RhyM::Rect UISizer::GetParentRect()
 {
 	if (element->parent == nullptr)
 	{
-		RhyM::Rect tempParent = { 0.0f, 0.0f, 1.0f, 1.0f };
+		RhyM::Rect tempParent = RhyM::Rect(0.0f, 0.0f, 1.0f, 1.0f);
 		return tempParent;
 	}
 	return  element->parent->bounds;

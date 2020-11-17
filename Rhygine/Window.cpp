@@ -138,6 +138,7 @@ Window::~Window()
 
 	// gfx was manually created, so delete it
 	delete gfx;
+	delete physics;
 }
 
 Window* Window::GetInstance()

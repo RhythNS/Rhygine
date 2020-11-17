@@ -15,7 +15,7 @@ void TexLitShader::Init()
 		{ "TexCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
-	CreateShaders(L"TexLitPix.hlsl", L"TexLitVert.hlsl", &inputLayoutDesc);
+	CreateShaders(L"PhongTexPix.hlsl", L"PhongTexVert.hlsl", &inputLayoutDesc);
 
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
 	InitBindable<ConstantPS<LightInfo>>(pixBuffer.get());
@@ -38,11 +38,6 @@ void TexLitShader::InnerBind()
 
 void TexLitShader::UpdateLightInfo()
 {
-	static float ambientStrength = 0.2f;
-	static float specStrength = 50.0f;
-
-	static float lightColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-
 	/*
 	ImGui::Begin("TexLitShader");
 	ImGui::DragFloat("Ambient Strength", &ambientStrength, 0.01f, 0.0f, 1.0f);

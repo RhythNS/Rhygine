@@ -23,6 +23,7 @@ void UIHoriGroupSizer::ResizeChildren(RhyM::Vec2 currentWorldScale)
 	RhyM::Vec2 childSize = RhyM::Vec2(
 		(own.width - paddingX * (childCount + 1)) / childCount,
 		own.height - paddingY * 2);
+
 	for (int i = 0; i < childCount; i++)
 	{
 		RhyM::Rect& childRect = GetRectChild(i);

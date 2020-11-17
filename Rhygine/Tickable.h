@@ -7,6 +7,7 @@
 /// </summary>
 class Tickable {
 public:
+	virtual ~Tickable() { }
 	virtual void Tick() = 0;
 	virtual void EndTick() {}
 };

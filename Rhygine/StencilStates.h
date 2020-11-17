@@ -2,6 +2,9 @@
 #include "Bindable.h"
 #include "UnBindable.h"
 
+/// <summary>
+/// A Un- Bindable for changing the stancil state of the pipeline.
+/// </summary>
 class StencilStates : public Bindable, public UnBindable
 {
 public:

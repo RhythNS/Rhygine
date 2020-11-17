@@ -1,5 +1,4 @@
 #pragma once
-#include "ConstantBuffer.h"
 #include "RhyMath.h"
 #include "Component.h"
 #include "Updatable.h"
@@ -17,12 +16,10 @@ public:
 	void Init();
 	void Update();
 
-	void SetLight(int index, TestLightComponent* light);
+	void SetLight(TestLightComponent* light);
 
 private:
 	float direction[3] = {0.0f, 0.0f, 0.0f};
-	int id;
 	bool guiWindowOpen;
 	Transform* transform;
-	RotateAround* rotateAround;
 };

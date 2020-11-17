@@ -15,6 +15,7 @@ class CombinedShader : public Bindable
 {
 public:
 	void Bind();
+
 protected:
 	/// <summary>
 	/// Creates a new bindable.

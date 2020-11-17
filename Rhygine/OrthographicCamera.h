@@ -4,6 +4,9 @@
 
 #include <DirectXMath.h>
 
+/// <summary>
+/// Representation of a 2D camera.
+/// </summary>
 class OrthographicCamera
 {
 public:
@@ -15,5 +18,8 @@ public:
 	RhyM::Vec3 position;
 	RhyM::Vec2 rotation;
 	RhyM::Vec2 zoom;
+	/// <summary>
+	/// Gets the transposed orthographic matrix.
+	/// </summary>
 	DirectX::XMMATRIX GetOrthoMatrix();
 };

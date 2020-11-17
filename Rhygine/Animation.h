@@ -1,6 +1,10 @@
 #pragma once
 #include <vector>
 
+/// <summary>
+/// Helper class for managing keyframe based animations.
+/// </summary>
+/// <typeparam name="T">The keyframe type.</typeparam>
 template <class T>
 class Animation
 {

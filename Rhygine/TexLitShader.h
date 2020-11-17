@@ -14,8 +14,10 @@
 class TexLitShader : public CombinedShader, public Updatable
 {
 public:
-	void Init();
-	void Update();
+	virtual ~TexLitShader() {}
+
+	virtual void Init();
+	virtual void Update();
 
 	/// <summary>
 	/// Info about the lights in the scene.
@@ -43,18 +45,21 @@ public:
 	};
 
 	TestLightComponent* light;
-protected:
-	void InnerBind();
+	float ambientStrength = 0.2f;
+	float specStrength = 50.0f;
 
-private:
+	float lightColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+protected:
+	virtual void InnerBind();
+
 	/// <summary>
 	/// Updates the lightinfo buffer.
 	/// </summary>
-	void UpdateLightInfo();
+	virtual void UpdateLightInfo();
 	/// <summary>
 	/// Updates the position buffer.
 	/// </summary>
-	void UpdatePositionInfo();
+	virtual void UpdatePositionInfo();
 
 	LightInfo lightBuffer;
 	PositionInfo posBuffer;
@@ -62,4 +67,3 @@ private:
 	std::unique_ptr<ConstantPS<LightInfo>> pixBuffer;
 	std::unique_ptr<ConstantVS<PositionInfo>> worldPosBuffer;
 };
-

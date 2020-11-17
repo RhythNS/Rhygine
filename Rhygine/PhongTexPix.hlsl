@@ -9,12 +9,7 @@ cbuffer CBuf
 	float ambientStrength;
 };
 
-SamplerState textureSampler
-{
-	Filter = MIN_MAG_MIP_LINEAR;
-	AddressU = Wrap;
-	AddressV = Wrap;
-};
+SamplerState textureSampler;
 
 float4 main(float2 texCoord : Texcoord, float3 worldPos : Position, float3 normal : Normal) : SV_TARGET
 {
@@ -25,10 +20,6 @@ float4 main(float2 texCoord : Texcoord, float3 worldPos : Position, float3 norma
     float3 reflectionLight = reflect(-lightDir, norm);
     float3 viewDir = normalize(cameraPos - worldPos);
     float specMultiplier = pow(max(0, dot(reflectionLight, viewDir)), specStrength);
-    
-    /*
-    return float4(specMultiplier, specMultiplier, specMultiplier, specMultiplier);
-    */
     
     float4 lightColorAdd = lightColor * (angleMultiplier + ambientStrength + specMultiplier);
     return tex.Sample(textureSampler, texCoord) * lightColorAdd;

@@ -9,6 +9,9 @@
 
 #include <memory>
 
+/// <summary>
+/// Creates the visual novel style text display.
+/// </summary>
 class PresentVNManager : public Component, public Updatable
 {
 public:
@@ -17,13 +20,8 @@ public:
 	void OnFinish();
 private:
 	UIContainer* rootContainer;
-	//UIImage* rootContainer; // <- remove
-	//std::unique_ptr<Texture> rootTex;
-	
 	UIImage* textBoxBackground;
 	VNTextbox* textBox;
 	VNCharacter* character;
-	std::unique_ptr<Texture> textBoxBackgroundTexture;
-	std::unique_ptr<Texture> testTex;
 };
 

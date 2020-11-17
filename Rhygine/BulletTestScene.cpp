@@ -17,18 +17,18 @@ void BulletTestScene::InnerInit()
 	stage->Get3DCamera()->GetTransform()->localPosition.m_floats[2] -= 10.0f;
 
 	TestLight tl;
-	TestLitPlate tlp;
 
 	TestLightComponent* testLight = GameObjectFactory::Add(stage.get(), &tl)->GetComponent<TestLightComponent>();
 
+	TestLitPlate tlp = TestLitPlate(testLight);
 	GameObject* box = GameObjectFactory::Add(stage.get(), &tlp);
-	box->GetComponent<TestLitPlateComponent>()->SetLight(0, testLight);
+	box->GetComponent<TestLitPlateComponent>()->SetLight(testLight);
 	box->GetComponent<Transform>()->localPosition = btVector3(0.0f, 0.0f, 0.0f);
 	RigidBody* boxBody = box->AddComponent<RigidBody>();
 	boxBody->Create(1.0f, std::make_unique<btBoxShape>(btVector3(0.5f, 0.5f, 0.5f)), btVector3(0.5f, 0.5f, 0.5f));
 
 	GameObject* staticBox = GameObjectFactory::Add(stage.get(), &tlp);
-	staticBox->GetComponent<TestLitPlateComponent>()->SetLight(0, testLight);
+	staticBox->GetComponent<TestLitPlateComponent>()->SetLight(testLight);
 	staticBox->GetComponent<Transform>()->localPosition = btVector3(0.3f, -5.0f, 0.0f);
 	RigidBody* staticBoxBody = staticBox->AddComponent<RigidBody>();
 	staticBoxBody->Create(boxBody);
@@ -36,7 +36,7 @@ void BulletTestScene::InnerInit()
 	staticBox->AddComponent<TestPhysicsMover>();
 
 	GameObject* ground = GameObjectFactory::Add(stage.get(), &tlp);
-	ground->GetComponent<TestLitPlateComponent>()->SetLight(0, testLight);
+	ground->GetComponent<TestLitPlateComponent>()->SetLight(testLight);
 	ground->GetComponent<Transform>()->localScale = { 20.0f, 1.0f, 20.0f };
 	ground->GetComponent<Transform>()->localPosition = { 0.0f, -7.0f, 0.0f };
 	RigidBody* groundBody = ground->AddComponent<RigidBody>();

@@ -21,12 +21,16 @@ namespace RhyC
 	constexpr color fuchsia = 0xFFFF00FF;
 	constexpr color purple =  0xFF800080;
 
-	static color FromRGBA(unsigned char a, unsigned char r, unsigned char g, unsigned char b)
+	static color FromARGB(unsigned char a, unsigned char r, unsigned char g, unsigned char b)
 	{
-		return (a << 24) | (r << 16) | (g << 8) || b;
+		color col = b;
+		col |= (g << 8);
+		col |= (r << 16);
+		col |= (a << 24);
+		return col;
 	}
 
-	static void GetRGBA(color& color, unsigned char& a, unsigned char& r, unsigned char& g, unsigned char& b)
+	static void GetARGB(color& color, unsigned char& a, unsigned char& r, unsigned char& g, unsigned char& b)
 	{
 		a = (unsigned char)(color >> 24);
 		r = (unsigned char)(color >> 16);

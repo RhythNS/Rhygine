@@ -11,6 +11,9 @@
 class IndexBufferAmount
 {
 public:
+	/// <summary>
+	/// Gets the size of the index buffer.
+	/// </summary>
 	virtual UINT GetSize() = 0;
 };
 

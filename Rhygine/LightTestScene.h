@@ -6,6 +6,7 @@
 /// </summary>
 class LightTestScene : public Scene
 {
+public:
 	void InnerInit();
 };
 

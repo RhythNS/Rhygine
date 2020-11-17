@@ -1,12 +1,13 @@
 #include "VNCharacter.h"
+#include "PresentResources.h"
 
 void VNCharacter::Init()
 {
-	happy = std::make_unique<Texture>("PresentScene\\happy.png", 0);
-	mad = std::make_unique<Texture>("PresentScene\\mad.png", 0);
-	sad = std::make_unique<Texture>("PresentScene\\sad.png", 0);
-	surprised = std::make_unique<Texture>("PresentScene\\surprised.png", 0);
-	embarrassed = std::make_unique<Texture>("PresentScene\\embarrassed.png", 0);
+	happy = PresentResources::instance->happy.get();
+	mad = PresentResources::instance->mad.get();
+	sad = PresentResources::instance->sad.get();
+	surprised = PresentResources::instance->surprised.get();
+	embarrassed = PresentResources::instance->embarrassed.get();
 }
 
 void VNCharacter::InnerDraw(SpriteBatch* batch)
@@ -15,19 +16,19 @@ void VNCharacter::InnerDraw(SpriteBatch* batch)
 	switch (currentEmotion)
 	{
 	case VNCharacter::Emotion::Happy:
-		tex = happy.get();
+		tex = happy;
 		break;
 	case VNCharacter::Emotion::Mad:
-		tex = mad.get();
+		tex = mad;
 		break;
 	case VNCharacter::Emotion::Sad:
-		tex = sad.get();
+		tex = sad;
 		break;
 	case VNCharacter::Emotion::Suprised:
-		tex = surprised.get();
+		tex = surprised;
 		break;
 	case VNCharacter::Emotion::Embarrassed:
-		tex = embarrassed.get();
+		tex = embarrassed;
 		break;
 	default:
 		assert(false);

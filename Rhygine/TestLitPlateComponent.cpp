@@ -12,96 +12,18 @@
 
 void TestLitPlateComponent::Init()
 {
-	static int counter = 0;
-	id = counter++;
-
-	transform = GetGameObject()->AddComponent<Transform>();
-	Drawer* drawer = GetGameObject()->AddComponent<Drawer>();
-
-	transform->localPosition.setValue(0.0f, 0.0f, 5.0f);
-	//transform->scale.Set(3.0f, 3.0f, 3.0f);
-
-	struct Vertex {
-		struct {
-			float x, y, z;
-		} pos;
-		struct {
-			float nx, ny, nz;
-		} normal;
-		struct {
-			float u;
-			float v;
-		} texCoords;
-	};
-
-
-	std::vector<Vertex> verts =
-	{
-		//   x     y     z        nx     ny     nz      u      v
-		{ -0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 1.0f }, // 0 VUL
-		{  0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 1.0f }, // 1 VUR
-		{ -0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 0.0f }, // 2 VOL
-		{  0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 0.0f }, // 3 VOR
-
-		{  0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 1.0f }, // 1 VUR
-		{  0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 1.0f }, // 5 HUR
-		{  0.5f,  0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 0.0f }, // 3 VOR
-		{  0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 0.0f }, // 7 HOR
-
-		{  0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 1.0f }, // 5 HUR
-		{ -0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 1.0f }, // 4 HUL
-		{  0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 0.0f }, // 7 HOR
-		{ -0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 0.0f }, // 6 HOL
-
-		{ -0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 1.0f }, // 4 HUL
-		{ -0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 1.0f }, // 0 VUL
-		{ -0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 0.0f }, // 6 HOL
-		{ -0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 0.0f }, // 2 VOL
-
-		{ -0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f }, // 4 HUL
-		{  0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 1.0f }, // 5 HUR
-		{ -0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 0.0f }, // 0 VUL
-		{  0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f }, // 1 VUR
-
-		{ -0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 1.0f }, // 2 VOL
-		{  0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f }, // 3 VOR
-		{ -0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f }, // 6 HOL
-		{  0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 0.0f }, // 7 HOR
-	};
-
-	std::vector<unsigned short> indexes =
-	{
-		0,   2,   1,   2,   3,   1,
-		4,   6,   5,   6,   7,   5,
-		8,   10,  9,   10,  11,  9,
-		12,  14,  13,  14,  15,  13,
-		16,  18,  17,  18,  19,  17,
-		20,  22,  21,  22,  23,  21,
-	};
-
-	drawer->AddBindable(std::make_unique<VertBuffer<Vertex>>(verts, 0));
-	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
-	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
-
-	drawer->AddBindable(std::make_unique<TextureChanger>());
-	//drawer->AddBindable(std::make_unique<Texture>("TestModels\\Sprite\\TestImage.png", 0));
-	drawer->AddBindable(std::make_unique<Sampler>(0));
-
-	drawer->AddBindable(std::make_unique<TexLitShader>());
-
-	rotateAround = GetGameObject()->AddComponent<RotateAround>();
-	rotateAround->rotationSpeed.setValue(-1.0f, 0.0f, 0.0f);
-	rotateAround->Disable();
+	transform = GetGameObject()->GetComponent<Transform>();
 }
 
 
 void TestLitPlateComponent::Update()
 {
-	ImGui::Begin(("BestPlane" + std::to_string(id)).c_str(), &guiWindowOpen);
+	ImGui::Begin(("BestPlane" + GetGameObject()->name).c_str(), &guiWindowOpen);
 	ImGui::DragFloat3("Position", transform->localPosition.m_floats, 0.1f, -10.0f, 10.0f, "%.3f", 0);
 	if (ImGui::DragFloat3("Rotation", direction, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
 		transform->localRotation = RhyM::Quat(direction[0] * RhyM::PI, direction[1] * RhyM::PI, direction[2] * RhyM::PI);
 	}
+	/*
 	bool boxRotates = rotateAround->IsEnabled();
 	if (ImGui::Checkbox("Rotate around", &boxRotates))
 	{
@@ -111,12 +33,13 @@ void TestLitPlateComponent::Update()
 			rotateAround->Disable();
 	}
 	ImGui::DragFloat3("Rotate speed", rotateAround->rotationSpeed, 0.05f, -2.0, 2.0f);
+	*/
 
 	ImGui::End();
 }
 
 
-void TestLitPlateComponent::SetLight(int index, TestLightComponent* light)
+void TestLitPlateComponent::SetLight(TestLightComponent* light)
 {
 	GetGameObject()->GetComponent<Drawer>()->GetBindable<TexLitShader>()->light = light;
 }

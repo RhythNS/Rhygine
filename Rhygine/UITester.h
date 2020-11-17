@@ -6,6 +6,9 @@
 
 #include <memory>
 
+/// <summary>
+/// Test for adding various ui components to the stage.
+/// </summary>
 class UITester : public Component, public Updatable
 {
 public:

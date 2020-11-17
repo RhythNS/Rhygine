@@ -13,8 +13,6 @@ public:
 	/// <param name="fileName">The path to the vertex shader. Should end with ".hlsl"</param>
 	VertShader(LPCWSTR fileName);
 
-	VertShader() = delete;
-	
 	void Bind();
 	
 	/// <summary>

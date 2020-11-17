@@ -13,6 +13,8 @@ class Camera : public Component
 {
 	friend class Stage;
 public:
+	virtual ~Camera() { }
+
 	void Init();
 	Transform* GetTransform();
 

@@ -98,10 +98,21 @@ private:
 	/// <param name="newHeight">The new height of the window.</param>
 	void OnResize(int newWidth, int newHeight);
 
+	/// <summary>
+	/// Called when the mouse moves.
+	/// </summary>
+	/// <param name="x">The new x coordinate of the mouse.</param>
+	/// <param name="y">The new y coordinate of the mouse.</param>
 	void OnMouseMove(int x, int y);
 
+	/// <summary>
+	/// Called when the left mouse button was pressed.
+	/// </summary>
 	void OnMouseDown();
 
+	/// <summary>
+	/// Called when the left mouse button was released.
+	/// </summary>
 	void OnMouseUp();
 
 	int width, height;

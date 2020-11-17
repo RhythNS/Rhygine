@@ -5,6 +5,9 @@
 #include <vector>
 
 class RigidBody;
+/// <summary>
+/// Wakes all Rigidbodies up when the "v" button was pressed
+/// </summary>
 class AwakeRigidbodies : public Component, public Updatable
 {
 public:

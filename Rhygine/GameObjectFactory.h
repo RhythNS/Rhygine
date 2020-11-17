@@ -10,6 +10,7 @@
 class GameObjectFactory
 {
 public:
+	virtual ~GameObjectFactory() { }
 	/// <summary>
 	/// Adds components to the gameobjects and configures them.
 	/// </summary>

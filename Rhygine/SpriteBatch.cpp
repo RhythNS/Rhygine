@@ -88,13 +88,20 @@ void SpriteBatch::End()
 
 	Sort();
 
+	// Disable warning about arithmetic overflow
+#pragma warning(push)
+#pragma warning(disable : 26451)
+
 	std::vector<VertexPosColorUV> verts(currentBufferCount * 4);
 	std::vector<unsigned short> indexes(currentBufferCount * 6);
 
-	for (size_t i = 0; i < currentBufferCount; i++)
+	// Go over each sprite in the buffer and put them to the verts and indexes list.
+	for (int i = 0; i < currentBufferCount; i++)
 	{
 		auto* sprite = sortedSprites[i];
-		size_t atVert = i * 4;
+		int atVert = i * 4;
+
+		// TODO: Rotation not yet implemented.
 
 		verts[atVert].color = sprite->color;
 		verts[atVert + 1].color = sprite->color;
@@ -136,7 +143,7 @@ void SpriteBatch::End()
 		verts[atVert + 3].u = u + uvWidth;
 		verts[atVert + 3].v = v;
 
-		size_t atIndex = i * 6;
+		int atIndex = i * 6;
 		indexes[atIndex] = atVert;
 		indexes[atIndex + 1] = atVert + 2;
 		indexes[atIndex + 2] = atVert + 1;
@@ -144,7 +151,9 @@ void SpriteBatch::End()
 		indexes[atIndex + 4] = atVert + 3;
 		indexes[atIndex + 5] = atVert + 1;
 	}
+#pragma warning(pop) // end disable warning
 
+	// Both lists are now populated, lets bind all needed bindables.
 	if (alphaBlending)
 		blendState->Bind();
 	if (noDepthBlending)
@@ -152,6 +161,7 @@ void SpriteBatch::End()
 	else
 		Gfx::GetInstance()->ClearDepth();
 
+	// Update the vertex, index and constant buffer
 	vertBuffer->UpdateVerts(verts);
 	indexBuffer->UpdateIndexes(indexes);
 	constantBuffer.transform = camera->GetOrthoMatrix();
@@ -166,6 +176,8 @@ void SpriteBatch::End()
 	inputLayout->Bind();
 	constantVert->Bind();
 
+	// iterate over the sprite list again and make a draw call every time the next sprite uses a
+	// different texture.
 	int lastSameTexture = 0;
 	int currentDraw = 1;
 	while (currentDraw < currentBufferCount)
@@ -177,8 +189,10 @@ void SpriteBatch::End()
 		}
 		++currentDraw;
 	}
+	// Draw the last batch.
 	DrawBatch(lastSameTexture, currentBufferCount);
 
+	// Unbind if needed.
 	if (alphaBlending)
 		blendState->UnBind();
 	if (noDepthBlending)
@@ -187,17 +201,21 @@ void SpriteBatch::End()
 
 inline void SpriteBatch::GrowArray()
 {
+	// Do we need to grow the array?
 	if (currentBufferCount + 1 < maxBufferSize)
 		return;
 
 	maxBufferSize *= 2;
-
+	
+	// reset the old buffers
 	indexBuffer.reset();
 	vertBuffer.reset();
 
+	// create the new buffers
 	indexBuffer = std::make_unique<IndexBufferUS>(0, maxBufferSize * 6, 0);
 	vertBuffer = std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), maxBufferSize * 4, 0);
 
+	// resize the vectors
 	sprites.resize(maxBufferSize);
 	sortedSprites.resize(maxBufferSize);
 }
@@ -205,6 +223,7 @@ inline void SpriteBatch::GrowArray()
 inline void SpriteBatch::Sort()
 {
 	CopySpritesToSorted();
+
 	switch (sortMode)
 	{
 	case SpriteBatch::SortMode::ZBased:

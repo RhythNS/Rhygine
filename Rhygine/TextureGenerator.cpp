@@ -20,19 +20,25 @@ void TextureGenerator::Fill(size_t x, size_t y)
 	assert(x >= 0 && x < width && y >= 0 && y < height);
 
 	RhyC::color toReplace;
+	// if the replace color is the same as the brush, simply return
 	if ((toReplace = tex[x * height + y]) == brush)
 		return;
 
 	std::vector<RhyM::Vec2I> openSet, closedSet;
 
+	// put the first pixel to the openset
 	openSet.push_back(RhyM::Vec2I(x,y));
+
+	// while the openset is not empty
 	while (openSet.size() != 0)
 	{
+		// take a pixel out of the openset and add it to the closedset.
 		auto currentIt = openSet.begin();
 		RhyM::Vec2 current = *currentIt;
 		closedSet.push_back(current);
 		openSet.erase(currentIt);
 
+		// Check out neighbour pixels
 		RhyM::Vec2I toExamine[4];
 		toExamine[0] = RhyM::Vec2I(current.x - 1, current.y);
 		toExamine[1] = RhyM::Vec2I(current.x + 1, current.y);
@@ -54,10 +60,12 @@ void TextureGenerator::Fill(size_t x, size_t y)
 				(openSet.size() != 0 && std::find(openSet.begin(), openSet.end(), toExamine[i]) != openSet.end()))
 				continue;
 
+			// Pixel should be replaced, so add it to the openset.
 			openSet.push_back(toExamine[i]);
 		}
 	}
 
+	// Replace every pixel in the closed set with the brush pixel.
 	for (auto point : closedSet)
 	{
 		tex[point.x * height + point.y] = brush;

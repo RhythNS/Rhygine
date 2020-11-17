@@ -2,6 +2,9 @@
 #include "VertIndexes.h"
 #include "Verticies.h"
 
+/// <summary>
+/// Helper class for getting basic shapes.
+/// </summary>
 class ShapeFactory
 {
 public:
@@ -31,6 +34,7 @@ public:
 			);
 	}
 
+	/*
 	template <class Index>
 	static VertIndexes<VertexPosUV, Index> GetCubePosUV();
 
@@ -39,4 +43,5 @@ public:
 
 	template <class Index>
 	static VertIndexes<VertexPosNormalColor, Index> GetCubePosNormalColor();
+	*/
 };

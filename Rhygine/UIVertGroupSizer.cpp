@@ -22,6 +22,7 @@ void UIVertGroupSizer::ResizeChildren(RhyM::Vec2 currentWorldScale)
 	RhyM::Vec2 childSize = RhyM::Vec2(
 		own.width - paddingX * 2,
 		(own.height - paddingY * (childCount + 1)) / childCount);
+
 	for (int i = 0; i < childCount; i++)
 	{
 		RhyM::Rect& childRect = GetRectChild(i);

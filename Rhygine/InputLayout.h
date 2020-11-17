@@ -15,7 +15,7 @@ public:
 	/// <param name="desc">The description of the input layout.</param>
 	/// <param name="blob">A blob of the shadercode. This can be gotten with shader.GetBlob()</param>
 	InputLayout(std::vector<D3D11_INPUT_ELEMENT_DESC> desc, ID3DBlob* blob);
-
+	
 	void Bind();
 
 	/// <summary>
