@@ -20,6 +20,11 @@ float Time::GetTimeSinceStart()
 	return duration<float>(steady_clock::now() - programStartTime).count();
 }
 
+float Time::LastFrameDuration()
+{
+	return frameDuration.count();
+}
+
 void Time::StartOfFrame()
 {
 	using namespace std::chrono;

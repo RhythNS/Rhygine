@@ -40,6 +40,10 @@ public:
 	/// Gets a reference to the btRigidbody.
 	/// </summary>
 	btRigidBody* GetBody();
+	/// <summary>
+	/// Gets a reference to the motion state.
+	/// </summary>
+	btDefaultMotionState* GetMotionState();
 
 	~RigidBody();
 protected:
@@ -59,6 +63,6 @@ private:
 	Transform* transform = nullptr;
 	std::unique_ptr<btRigidBody> body = nullptr;
 	std::shared_ptr<btCollisionShape> shape = nullptr;
-	btDefaultMotionState* motion = nullptr;
+	btDefaultMotionState motion;
 	bool inSimulation = false;
 };

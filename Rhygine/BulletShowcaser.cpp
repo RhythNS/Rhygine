@@ -1,0 +1,149 @@
+#include "BulletShowcaser.h"
+#include "Gameobject.h"
+#include "Stage.h"
+#include "Transform.h"
+#include "Drawer.h"
+#include "BasicShader.h"
+#include "Random.h"
+#include "DeleteWhenBelow.h"
+#include "Keys.h"
+#include "bullet\btBulletCollisionCommon.h"
+
+#include <functional>
+#include <algorithm>
+
+void BulletShowcaser::Init()
+{
+	boxTexture = std::make_unique<Texture>("PresentScene\\box.png", 0);
+
+	RigidBody* ground = CreateBox(baseSpawnPoint - RhyM::Vec3(0.0f, 3.0f, 0.0f), RhyM::Vec3(5.0f, 1.0f, 5.0f), 0.0f);
+}
+
+void BulletShowcaser::Update()
+{
+	timer -= GetDelta();
+
+	if (GetKeys()->IsKeyDownThisFrame('T'))
+	{
+		RhyM::Vec3 explosionStartPoint = baseSpawnPoint - RhyM::Vec3(0.0f, 4.0f, 0.0f);
+		for (RigidBody* body : bodies)
+		{
+			body->GetBody()->activate();
+
+			Transform* trans = body->GetGameObject()->GetComponent<Transform>();
+			RhyM::Vec3 position = trans->GetWorldPosition();
+			float distance = explosionStartPoint.distance(position);
+
+			RhyM::Vec3 direction = position - explosionStartPoint;
+			direction.normalize();
+			RhyM::Vec3 force = direction * (explosionFactor / distance);
+
+			OutputDebugString(
+				(std::to_string(direction.m_floats[0]) + " "
+					+ std::to_string(direction.m_floats[1]) + " "
+					+ std::to_string(direction.m_floats[2]) + "\n").c_str());
+
+
+			btTransform btTrans, relativeTrans;
+			body->GetMotionState()->getWorldTransform(btTrans);
+			relativeTrans.setOrigin(force);
+			auto relativeForce = (btTrans * relativeTrans).getOrigin();
+
+			body->GetBody()->applyImpulse(force, quatRotate(trans->GetWorldRotation(), explosionStartPoint - position));
+		}
+	}
+
+	if (GetKeys()->IsKeyDownThisFrame('G'))
+		timer = 0;
+
+	if (timer > 0)
+		return;
+
+	timer = secondsPerBox;
+
+	RhyM::Vec3 position =
+		RhyM::Vec3(
+			RhyM::GetRandomFloat() * 5.0f - 2.5f,
+			20.0f,
+			RhyM::GetRandomFloat() * 5.0f - 2.5f
+		);
+
+	RigidBody* box = CreateBox(baseSpawnPoint + position, RhyM::Vec3(1.0f, 1.0f, 1.0f), 1.0f);
+	box->GetGameObject()->AddComponent<DeleteWhenBelow>()->bulletShowcaser = this;
+	bodies.push_back(box);
+}
+
+void BulletShowcaser::DeleteCallback(RigidBody* body)
+{
+	bodies.erase(std::remove(bodies.begin(), bodies.end(), body), bodies.end());
+}
+
+RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass)
+{
+	GameObject* go = GetGameObject()->GetStage()->CreateGameObject();
+
+	Transform* trans = go->AddComponent<Transform>();
+	trans->localPosition = position;
+	trans->localScale = size;
+	Drawer* drawer = go->AddComponent<Drawer>();
+
+	std::vector<VertexPosUV> verts =
+	{
+		//   x     y     z        u      v
+		{ -0.5f, -0.5f, -0.5f,   0.0f, 1.0f }, // 0 VUL
+		{  0.5f, -0.5f, -0.5f,   1.0f, 1.0f }, // 1 VUR
+		{ -0.5f,  0.5f, -0.5f,   0.0f, 0.0f }, // 2 VOL
+		{  0.5f,  0.5f, -0.5f,   1.0f, 0.0f }, // 3 VOR
+
+		{  0.5f, -0.5f, -0.5f,   0.0f, 1.0f }, // 1 VUR
+		{  0.5f, -0.5f,  0.5f,   1.0f, 1.0f }, // 5 HUR
+		{  0.5f,  0.5f, -0.5f,   0.0f, 0.0f }, // 3 VOR
+		{  0.5f,  0.5f,  0.5f,   1.0f, 0.0f }, // 7 HOR
+
+		{  0.5f, -0.5f,  0.5f,   0.0f, 1.0f }, // 5 HUR
+		{ -0.5f, -0.5f,  0.5f,   1.0f, 1.0f }, // 4 HUL
+		{  0.5f,  0.5f,  0.5f,   0.0f, 0.0f }, // 7 HOR
+		{ -0.5f,  0.5f,  0.5f,   1.0f, 0.0f }, // 6 HOL
+
+		{ -0.5f, -0.5f,  0.5f,  -0.0f, 1.0f }, // 4 HUL
+		{ -0.5f, -0.5f, -0.5f,  -1.0f, 1.0f }, // 0 VUL
+		{ -0.5f,  0.5f,  0.5f,  -0.0f, 0.0f }, // 6 HOL
+		{ -0.5f,  0.5f, -0.5f,  -1.0f, 0.0f }, // 2 VOL
+
+		{ -0.5f, -0.5f,  0.5f,   0.0f, 1.0f }, // 4 HUL
+		{  0.5f, -0.5f,  0.5f,   1.0f, 1.0f }, // 5 HUR
+		{ -0.5f, -0.5f, -0.5f,   0.0f, 0.0f }, // 0 VUL
+		{  0.5f, -0.5f, -0.5f,   1.0f, 0.0f }, // 1 VUR
+
+		{ -0.5f,  0.5f, -0.5f,   0.0f, 1.0f }, // 2 VOL
+		{  0.5f,  0.5f, -0.5f,   1.0f, 1.0f }, // 3 VOR
+		{ -0.5f,  0.5f,  0.5f,   0.0f, 0.0f }, // 6 HOL
+		{  0.5f,  0.5f,  0.5f,   1.0f, 0.0f }, // 7 HOR
+	};
+
+	std::vector<unsigned short> indexes =
+	{
+		0,   2,   1,   2,   3,   1,
+		4,   6,   5,   6,   7,   5,
+		8,   10,  9,   10,  11,  9,
+		12,  14,  13,  14,  15,  13,
+		16,  18,  17,  18,  19,  17,
+		20,  22,  21,  22,  23,  21,
+	};
+
+	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
+		{ "position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "texCoord", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	drawer->AddBindable(std::make_unique<BasicShader>(L"TexPix.hlsl", L"TexVert.hlsl", &inputLayoutDesc));
+	drawer->AddBindable(std::make_unique<VertBuffer<VertexPosUV>>(verts, 0));
+	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
+	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	drawer->AddBindable(std::make_unique<Sampler>(0));
+	drawer->AddBindable(std::make_unique<Texture>(boxTexture.get(), 0));
+
+	RigidBody* body = go->AddComponent<RigidBody>();
+	body->Create(mass, std::make_unique<btBoxShape>(size / 2), size / 2);
+
+	return body;
+}

@@ -5,18 +5,21 @@
 #include "PresentVNManager.h"
 #include "VNOpener.h"
 #include "UIRootElement.h"
-
-#include "TestLitPlate.h"
-#include "TestLight.h"
-#include "TestLightComponent.h"
-#include "TestLitPlateComponent.h"
-#include "TestFloor.h"
+#include "InfoDisplayer.h"
 
 #include "RotateAround.h"
 #include "Drawer.h"
 #include "Texture.h"
 #include "TexLitShader.h"
 #include "TestBasicLit.h"
+#include "TestNeptuneLoader.h"
+#include "TestCrystal.h"
+#include "TestLitPlate.h"
+#include "TestLight.h"
+#include "TestLightComponent.h"
+#include "TestLitPlateComponent.h"
+#include "TestFloor.h"
+#include "BulletShowcaser.h"
 
 void PresentScene::InnerInit()
 {
@@ -26,6 +29,7 @@ void PresentScene::InnerInit()
 	clearColor[3] = 1.0f;
 
 	stage->GetFront()->AddComponent<PresentResources>();
+	stage->CreateGameObject()->AddComponent<InfoDisplayer>();
 
 	VNOpener* opener = stage->CreateGameObject()->AddComponent<VNOpener>();
 	opener->SetParent(stage->GetUIRoot());
@@ -43,9 +47,10 @@ void PresentScene::InnerInit()
 	litMovingSprite->GetComponent<RotateAround>()->Enable();
 
 
-	TestFloor tf = TestFloor(100.0f, 100.0f, tlc);
+	TestFloor tf = TestFloor(15.0f, 15.0f, tlc);
 	GameObject* floor = GameObjectFactory::Add(stage.get(), &tf);
 	floor->GetComponent<Transform>()->localPosition.setValue(0.0f, -2.0f, 0.0f);
+
 
 	TestBasicLit tbl = TestBasicLit("PresentScene\\carpet.jpg", tlc);
 	GameObject* litCarpet = GameObjectFactory::Add(stage.get(), &tbl);
@@ -54,4 +59,11 @@ void PresentScene::InnerInit()
 	litCarpet->GetComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.2f, 0.5f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->Enable();
 
+	TestNeptuneLoader nepLoader = TestNeptuneLoader(tlc);
+	GameObjectFactory::Add(stage.get(), &nepLoader);
+
+	TestCrystal crystal(tlc);
+	GameObjectFactory::Add(stage.get(), &crystal);
+
+	stage->CreateGameObject()->AddComponent<BulletShowcaser>();
 }

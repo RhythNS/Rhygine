@@ -47,8 +47,6 @@ public:
 	TestLightComponent* light;
 	float ambientStrength = 0.2f;
 	float specStrength = 50.0f;
-
-	float lightColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 protected:
 	virtual void InnerBind();
 

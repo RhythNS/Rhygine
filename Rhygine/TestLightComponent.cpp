@@ -10,7 +10,7 @@ void TestLightComponent::Init()
 	transform = GetGameObject()->GetComponent<Transform>();
 }
 
-/*
+
 void TestLightComponent::Update()
 {
 	// imgui debug gui for changing the light properties.
@@ -19,6 +19,6 @@ void TestLightComponent::Update()
 	if (ImGui::DragFloat3("Rotation", direction.m_floats, 0.01f, -1.0f, 1.0f, "%.3f", 0)) {
 		transform->localRotation = RhyM::Quat(direction.m_floats[0] * RhyM::PI, direction.m_floats[1] * RhyM::PI, direction.m_floats[2] * RhyM::PI);
 	}
+	ImGui::ColorEdit4("color", color);
 	ImGui::End();
 }
-*/

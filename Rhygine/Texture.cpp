@@ -82,6 +82,11 @@ Texture::Texture(TextureGenerator* gen, int slot) : slot(slot), width(gen->GetWi
 	THROW_IF_FAILED(GetDevice()->CreateShaderResourceView(tex.Get(), &resourceView, &texturePointer));
 }
 
+Texture::Texture(Texture* texture, int slot)
+	: texturePointer(texture->texturePointer), slot(slot), width(texture->width), height(texture->height)
+{
+}
+
 void Texture::Bind()
 {
 	GetContext()->PSSetShaderResources(slot, 1, texturePointer.GetAddressOf());

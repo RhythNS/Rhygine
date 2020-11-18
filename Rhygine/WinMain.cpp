@@ -19,21 +19,22 @@ int CALLBACK WinMain(
 		// BulletTestScene scene;
 		// TestScene scene;
 		// LightTestScene scene;
-		 PresentScene scene;
+		PresentScene* scene = new PresentScene();
 
 		// Get all information needed for the start and put it into WindowDefinition.
 		Window::WindowDefinition winDef;
 		winDef.hInstance = hInstance;
 		winDef.lpCmdLine = lpCmdLine;
 		winDef.nCmdShow = nCmdShow;
-		winDef.startScene = &scene;
+		winDef.startScene = scene;
 		winDef.width = 1600;
 		winDef.height = 800;
 		winDef.top = 100;
 		winDef.left = 100;
-		winDef.targetFramesPerSecond = 144;
+		winDef.targetFramesPerSecond = -1;
 		winDef.enablePhysics = true;
-		winDef.physicsStartDebugMode = true;
+		winDef.physicsStartDebugMode = false;
+		winDef.physicsUpdateTime = 0.01f;
 
 		// Create the window.
 		Window window(winDef);

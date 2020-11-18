@@ -55,6 +55,7 @@ void VNTextbox::Update()
 		return;
 
 	timer -= GetDelta();
+	// is it time to display the next character?
 	if (timer < 0)
 	{
 		++atCharacter;

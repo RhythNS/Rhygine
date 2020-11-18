@@ -39,6 +39,10 @@ public:
 	/// </summary>
 	void Tick();
 	/// <summary>
+	/// Steps the simulation forward by specified delta time.
+	/// </summary>
+	void Tick(float delta);
+	/// <summary>
 	/// Converts the rigidbodies position from bullet to rhyghine.
 	/// </summary>
 	void UpdatePositions();

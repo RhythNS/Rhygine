@@ -92,13 +92,13 @@ Window::Window(WindowDefinition definition) :
 	// Add mouse
 	Rid[0].usUsagePage = 0x01;
 	Rid[0].usUsage = 0x02;
-	Rid[0].dwFlags = 0; // RIDEV_NOLEGACY;
+	Rid[0].dwFlags = 0;
 	Rid[0].hwndTarget = 0;
 
 	// Add keyboard
 	Rid[1].usUsagePage = 0x01;
 	Rid[1].usUsage = 0x06;
-	Rid[1].dwFlags = 0;// RIDEV_NOLEGACY;
+	Rid[1].dwFlags = 0;
 	Rid[1].hwndTarget = 0;
 
 	if (RegisterRawInputDevices(Rid, 2, sizeof(Rid[0])) == FALSE)
@@ -136,7 +136,7 @@ Window::~Window()
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
-	// gfx was manually created, so delete it
+	delete currentScene;
 	delete gfx;
 	delete physics;
 }

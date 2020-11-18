@@ -49,6 +49,7 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.ambientStrength = ambientStrength;
 	lightBuffer.specStrength = specStrength;
 
+	float* lightColor = light->color;
 	lightBuffer.lightColor[0] = lightColor[0];
 	lightBuffer.lightColor[1] = lightColor[1];
 	lightBuffer.lightColor[2] = lightColor[2];

@@ -68,6 +68,11 @@ void Physics::Tick()
 	world.stepSimulation(secondsPerTick, 1, secondsPerTick);
 }
 
+void Physics::Tick(float delta)
+{
+	world.stepSimulation(delta, 1, delta);
+}
+
 void Physics::UpdatePositions()
 {
 	// iterate over each body and call UpdatePosition.

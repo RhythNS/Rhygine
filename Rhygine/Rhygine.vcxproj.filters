@@ -82,12 +82,6 @@
     <Filter Include="Source Files\TestGameobjects\Components">
       <UniqueIdentifier>{5392b03c-b979-4de5-9d0c-6e7bac16d6f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameobject\Components\Drawer\Shaders">
-      <UniqueIdentifier>{c1bf6f5d-293f-4235-84d7-22693e4ab2be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Gameobject\Components\Drawer\Shaders">
-      <UniqueIdentifier>{d337a365-cc97-44d4-a63a-78658e764f89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\TestGameobjects\Bindables">
       <UniqueIdentifier>{7bc9b43c-b3af-4a00-9644-9f245d07261c}</UniqueIdentifier>
     </Filter>
@@ -141,6 +135,12 @@
     </Filter>
     <Filter Include="Source Files\TestGameobjects\PresentScene">
       <UniqueIdentifier>{af2d08b2-2e79-477a-97d7-66965f56b5c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TestGameobjects\Shaders">
+      <UniqueIdentifier>{d337a365-cc97-44d4-a63a-78658e764f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects\Shaders">
+      <UniqueIdentifier>{c1bf6f5d-293f-4235-84d7-22693e4ab2be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,10 +238,7 @@
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClCompile>
     <ClCompile Include="TexLitShader.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicShader.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Source Files\TestGameobjects\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="TextureChanger.cpp">
       <Filter>Source Files\TestGameobjects\Bindables</Filter>
@@ -370,19 +367,43 @@
       <Filter>Source Files\TestGameobjects\PresentScene</Filter>
     </ClCompile>
     <ClCompile Include="TexLitNormalMapShader.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Source Files\TestGameobjects\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="TestFloor.cpp">
       <Filter>Source Files\TestGameobjects\Factories</Filter>
     </ClCompile>
     <ClCompile Include="BasicTextureLit.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Source Files\TestGameobjects\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="TestBasicLit.cpp">
       <Filter>Source Files\TestGameobjects\Factories</Filter>
     </ClCompile>
     <ClCompile Include="VNOpener.cpp">
       <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestNeptuneLoader.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCrystal.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceConverter.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicShader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="ToonShader.cpp">
+      <Filter>Source Files\TestGameobjects\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoDisplayer.cpp">
+      <Filter>Source Files\TestGameobjects\PresentScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletShowcaser.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteWhenBelow.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -531,10 +552,7 @@
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClInclude>
     <ClInclude Include="TexLitShader.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicShader.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Header Files\TestGameobjects\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="TextureChanger.h">
       <Filter>Header Files\TestGameobjects\Bindables</Filter>
@@ -684,19 +702,46 @@
       <Filter>Header Files\TestGameobjects\PresentScene</Filter>
     </ClInclude>
     <ClInclude Include="TexLitNormalMapShader.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Header Files\TestGameobjects\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="TestFloor.h">
       <Filter>Header Files\TestGameobjects\Factories</Filter>
     </ClInclude>
     <ClInclude Include="BasicTextureLit.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\Shaders</Filter>
+      <Filter>Header Files\TestGameobjects\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="TestBasicLit.h">
       <Filter>Header Files\TestGameobjects\Factories</Filter>
     </ClInclude>
     <ClInclude Include="VNOpener.h">
       <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestNeptuneLoader.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCrystal.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceConverter.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="ToonShader.h">
+      <Filter>Header Files\TestGameobjects\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoDisplayer.h">
+      <Filter>Header Files\TestGameobjects\PresentScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletShowcaser.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteWhenBelow.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -740,6 +785,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="BasicLitVert.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ToonPix.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ToonVert.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

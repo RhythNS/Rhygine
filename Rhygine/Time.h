@@ -20,6 +20,10 @@ public:
 	/// Gets the total amount of time since program start in seconds.
 	/// </summary>
 	float GetTimeSinceStart();
+	/// <summary>
+	/// Get the time how long the last frame took to process.
+	/// </summary>
+	float LastFrameDuration();
 
 private:
 	/// <summary>

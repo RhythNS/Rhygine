@@ -13,6 +13,7 @@ void RigidBody::Create(std::shared_ptr<btCollisionShape> _shape, btRigidBody::bt
 	assert(_shape);
 	shape = _shape;
 	info.m_collisionShape = _shape.get();
+	info.m_motionState = &motion;
 	body = std::make_unique<btRigidBody>(info);
 	Physics::Register(this);
 }
@@ -21,7 +22,7 @@ void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, Rhy
 {
 	assert(_shape);
 	shape = _shape;
-	body = std::make_unique<btRigidBody>(mass, motion, shape.get(), localInertia);
+	body = std::make_unique<btRigidBody>(mass, &motion, shape.get(), localInertia);
 	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
 	Physics::Register(this);
 }
@@ -30,7 +31,7 @@ void RigidBody::Create(RigidBody* copy)
 {
 	assert(copy);
 	shape = copy->shape;
-	body = std::make_unique<btRigidBody>(copy->body->getMass(), motion, shape.get(), copy->body->getLocalInertia());
+	body = std::make_unique<btRigidBody>(copy->body->getMass(), &motion, shape.get(), copy->body->getLocalInertia());
 	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
 	Physics::Register(this);
 }
@@ -43,6 +44,11 @@ bool RigidBody::IsInSimulation()
 btRigidBody* RigidBody::GetBody()
 {
 	return body.get();
+}
+
+btDefaultMotionState* RigidBody::GetMotionState()
+{
+	return &motion;
 }
 
 RigidBody::~RigidBody()
