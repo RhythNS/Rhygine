@@ -24,9 +24,9 @@ public:
 	/// </summary>
 	struct WindowDefinition {
 	public:
-		HINSTANCE hInstance;
-		LPSTR lpCmdLine;
-		int nCmdShow;
+		HINSTANCE hInstance = 0;
+		LPSTR lpCmdLine{};
+		int nCmdShow = 0;
 		Scene* startScene = nullptr;
 		int width = 1600;
 		int height = 900;

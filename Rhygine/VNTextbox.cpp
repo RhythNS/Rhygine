@@ -44,7 +44,7 @@ void VNTextbox::Update()
 		// skip node
 		else
 		{
-			atCharacter = currentScene[atNode].text.size() - 1;
+			atCharacter = static_cast<int>(currentScene[atNode].text.size()) - 1;
 			text = currentScene[atNode].text;
 		}
 		return;
@@ -59,7 +59,7 @@ void VNTextbox::Update()
 	if (timer < 0)
 	{
 		++atCharacter;
-		text = currentScene[atNode].text.substr(0, atCharacter + 1);
+		text = currentScene[atNode].text.substr(0, static_cast<size_t>(atCharacter) + 1);
 		timer = timeForCharacter;
 	}
 }

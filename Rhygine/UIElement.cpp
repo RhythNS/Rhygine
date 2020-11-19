@@ -208,7 +208,7 @@ inline void UIElement::DrawTextureRegion(SpriteBatch* batch, TextureRegion* tex)
 
 inline void UIElement::DrawTexture(SpriteBatch* batch, Texture* tex)
 {
-	batch->Draw(tex, 0.0f, 0.0f, tex->GetWidth(), tex->GetHeight(), RhyM::Vec3(bounds.x, bounds.y, GetGlobalZ()), bounds.width, bounds.height, 0, color);
+	batch->Draw(tex, 0.0f, 0.0f, static_cast<float>(tex->GetWidth()), static_cast<float>(tex->GetHeight()), RhyM::Vec3(bounds.x, bounds.y, GetGlobalZ()), bounds.width, bounds.height, 0.0f, color);
 }
 
 RhyM::Vec3 UIElement::GetDrawPosition()
@@ -285,7 +285,7 @@ void UIElement::SetParent(UIElement* element)
 
 int UIElement::GetChildrenCount()
 {
-	return children.size();
+	return static_cast<int>(children.size());
 }
 
 UIElement* UIElement::GetChildAt(int at)

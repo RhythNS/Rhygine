@@ -79,7 +79,7 @@ public:
 		memcpy(resource.pData, newInds.data(), sizeof(Index) * newInds.size());
 		GetContext()->Unmap(indexPointer.Get(), 0);
 
-		size = newInds.size();
+		size = static_cast<UINT>(newInds.size());
 	}
 
 	void Bind()

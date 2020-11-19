@@ -19,7 +19,7 @@ Texture::Texture(const char* fileName, int slot) : slot(slot)
 		throw RHY_EXCEP(stbi_failure_reason());
 
 	// transfer the image to a part of memory that we own.
-	std::vector<unsigned char> image(width * height * 4);
+	std::vector<unsigned char> image(static_cast<size_t>(width) * static_cast<size_t>(height) * 4);
 	for (int i = 0; i < width * height * 4; i++)
 	{
 		image[i] = load[i];

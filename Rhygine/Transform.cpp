@@ -45,7 +45,7 @@ Transform* Transform::GetChildAt(int index)
 
 int Transform::GetChildCount()
 {
-	return children.size();
+	return static_cast<int>(children.size());
 }
 
 RhyM::Vec3 Transform::GetForward()

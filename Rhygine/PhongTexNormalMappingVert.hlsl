@@ -20,9 +20,13 @@ VSOut main(float3 pos : Position, float3 tangent : TANGENT, float3 normal : BINO
     VSOut vso;
     vso.pos = mul(float4(pos, 1.0f), transform);
     vso.texCoord = texCoord;
-    vso.worldPos = (float3) mul(float4(pos, 1.0f), worldPos);
-    vso.tangent = normalize(mul(float4(tangent, 1.0f), localScaleRotation));
-    vso.biTangent = normalize(mul(float4(cross(tangent, normal), 1.0f), localScaleRotation));
-    vso.normal = normalize(mul(float4(normal, 1.0f), localScaleRotation));
+    vso.worldPos = mul(float4(pos, 1.0f), worldPos).xyz;
+    
+    // the tangent, bitangent and normal need to be rotated
+    // the bitagent can be caluclated by the cross product of the normal and tangent.
+    vso.tangent = normalize(mul(float4(tangent, 1.0f), localScaleRotation)).xyz;
+    vso.biTangent = normalize(mul(float4(cross(tangent, normal), 1.0f), localScaleRotation)).xyz;
+    vso.normal = normalize(mul(float4(normal, 1.0f), localScaleRotation)).xyz;
+    
     return vso;
 }

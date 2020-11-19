@@ -128,12 +128,12 @@ private:
 	/// Scroll the mouse wheel in the vertical direction.
 	/// </summary>
 	/// <param name="distance">The distance of the scroll.</param>
-	void VertScroll(int distance);
+	void VertScroll(float distance);
 	/// <summary>
 	/// Scroll the mouse wheel in the horizontal direction.
 	/// </summary>
 	/// <param name="distance">The distance of the scroll.</param>
-	void HoriScroll(int distance);
+	void HoriScroll(float distance);
 
 	/// <summary>
 	/// Update values for the beginning of the frame.

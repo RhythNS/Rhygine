@@ -71,17 +71,16 @@ void UITester::Init()
 	UIImage* back = game->AddComponent<UIImage>();
 	back->SetParent(root);
 	UIVertGroupSizer* backSizer = dynamic_cast<UIVertGroupSizer*>(back->SetSizer(std::make_unique<UIVertGroupSizer>(10.0f, 30.0f)));
-	back->image = TextureRegion(0.0f, 0.0f, orange->GetWidth(), orange->GetHeight(), orange.get());
+	back->image = TextureRegion(0.0f, 0.0f, static_cast<float>(orange->GetWidth()), static_cast<float>(orange->GetHeight()), orange.get());
 	back->SetPosSizeScale(100.0f, 100.0f, 20.0f, 300.0f, 300.0f, 1.0f, 1.0f);
 
-	UIButton* verts[4];
 	for (int i = 0; i < 4; i++)
 	{
 		UIButton* onVert = game->AddComponent<UIButton>();
 		onVert->SetParent(back);
-		TextureRegion clickedTex = TextureRegion(0.0f, 0.0f, white->GetWidth(), white->GetHeight(), white.get());
-		TextureRegion hoverTex = TextureRegion(0.0f, 0.0f, blue->GetWidth(), blue->GetHeight(), blue.get());
-		TextureRegion normalTex = TextureRegion(0.0f, 0.0f, silver->GetWidth(), silver->GetHeight(), silver.get());
+		TextureRegion clickedTex = TextureRegion(0.0f, 0.0f, static_cast<float>(white->GetWidth()), static_cast<float>(white->GetHeight()), white.get());
+		TextureRegion hoverTex = TextureRegion(0.0f, 0.0f, static_cast<float>(blue->GetWidth()), static_cast<float>(blue->GetHeight()), blue.get());
+		TextureRegion normalTex = TextureRegion(0.0f, 0.0f, static_cast<float>(silver->GetWidth()), static_cast<float>(silver->GetHeight()), silver.get());
 		onVert->SetTextures(&normalTex, &hoverTex, &clickedTex);
 
 		UIFont* fontOnButton = game->AddComponent<UIFont>();

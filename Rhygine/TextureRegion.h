@@ -34,7 +34,7 @@ public:
 	/// </summary>
 	/// <param name="texture">A reference to the texture that the region is off.</param>
 	TextureRegion(Texture* texture) :
-		x(0.0f), y(0.0f), width(texture->GetWidth()), height(texture->GetHeight()), texture(texture)
+		x(0.0f), y(0.0f), width((float)texture->GetWidth()), height((float)texture->GetHeight()), texture(texture)
 	{ }
 
 	virtual ~TextureRegion() { }

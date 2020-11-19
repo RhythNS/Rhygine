@@ -7,16 +7,15 @@
 #include "UIKeepWidthSizer.h"
 #include "TextureGenerator.h"
 #include "PresentResources.h"
+#include "Camera.h"
+#include "CameraMover.h"
 
 #include <functional>
 
 void PresentVNManager::Init()
 {
+	GetGameObject()->GetStage()->Get3DCamera()->GetGameObject()->GetComponent<CameraMover>()->Disable();
 
-	//TextureGenerator texGen = TextureGenerator(2, 2, RhyC::orange);
-	//rootTex = std::make_unique<Texture>(&texGen, 0);
-	//rootContainer = GetGameObject()->AddComponent<UIImage>();
-	//rootContainer->image = TextureRegion(rootTex.get());
 	rootContainer = GetGameObject()->AddComponent<UIContainer>();
 	rootContainer->SetParent(GetGameObject()->GetStage()->GetUIRoot());
 	rootContainer->SetSize(RhyM::Vec2(1300, 800));
@@ -32,19 +31,8 @@ void PresentVNManager::Init()
 	textBoxBackground = GetGameObject()->AddComponent<UIImage>();
 	textBoxBackground->SetParent(rootContainer);
 	textBoxBackground->image = TextureRegion(textBoxBackgroundTexture);
-	textBoxBackground->SetSize(RhyM::Vec2(textBoxBackgroundTexture->GetWidth(), textBoxBackgroundTexture->GetHeight()));
+	textBoxBackground->SetSize(RhyM::Vec2(static_cast<float>(textBoxBackgroundTexture->GetWidth()), static_cast<float>(textBoxBackgroundTexture->GetHeight())));
 	textBoxBackground->SetSizer(std::make_unique<UIKeepWidth>(UISizer::VertAlignment::Down, UISizer::HoriAlignment::Middle, 120.0f, 50.0f));
-
-	/*
-	texGen.brush = RhyC::aqua;
-	texGen.Fill(0, 0);
-	testTex = std::make_unique<Texture>(&texGen, 0);
-
-	UIImage* test = GetGameObject()->AddComponent<UIImage>();
-	test->SetParent(textBoxBackground);
-	test->image = TextureRegion(testTex.get());
-	test->SetSizer(std::make_unique<UIFitToParentRelativeSizer>(0.07f, 0.97f, 0.18f, 0.82f));
-	*/
 
 	std::vector<VNTextbox::Node> scene =
 	{
@@ -62,6 +50,8 @@ void PresentVNManager::Init()
 
 void PresentVNManager::OnFinish()
 {
+	GetGameObject()->GetStage()->Get3DCamera()->GetGameObject()->GetComponent<CameraMover>()->Enable();
+
 	GetGameObject()->RemoveComponent(textBox);
 	GetGameObject()->RemoveComponent(textBoxBackground);
 	GetGameObject()->RemoveComponent(character);

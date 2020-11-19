@@ -84,5 +84,5 @@ protected:
 	/// <returns></returns>
 	RhyM::Rect GetParentRect();
 
-	UIElement* element;
+	UIElement* element = nullptr;
 };

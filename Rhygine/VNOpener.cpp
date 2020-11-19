@@ -2,11 +2,18 @@
 #include "Gameobject.h"
 #include "PresentVNManager.h"
 #include "PresentResources.h"
+#include "UIFitToParentSizer.h"
 
 void VNOpener::Init()
 {
 	reg = TextureRegion(PresentResources::instance->exclamationMark.get());
 	SetTextures(&reg);
+	font = GetGameObject()->AddComponent<UIFont>();
+	font->SetParent(this);
+	font->Set(&PresentResources::instance->defFont, true, UIFont::VertAlignment::Middle, UIFont::HoriAlignment::Middle, 0.3f);
+	font->SetSizer(std::make_unique<UIFitToParentSizer>());
+	font->text = "Click\nMe!";
+	font->color = RhyC::black;
 }
 
 void VNOpener::OnClick()
@@ -26,10 +33,13 @@ void VNOpener::Update()
 	}
 
 	float perc = timer / timeForFullR;
-	r = rIncrementing ? 255 * perc : 255 * (1 - perc);
+	r = rIncrementing ? static_cast<unsigned char>(255 * perc) : static_cast<unsigned char>(255 * (1 - perc));
 
-	color = RhyC::FromARGB(255, r, 255, 255);
+	color = RhyC::FromRGBA(r, 122, 122, 255);
 
 	if (deleteReq)
+	{
+		GetGameObject()->RemoveComponent(font);
 		GetGameObject()->RemoveComponent(this);
+	}
 }

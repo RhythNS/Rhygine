@@ -52,5 +52,5 @@ void InfoDisplayer::Update()
 	}
 	avgDuration /= 100;
 
-	frameDurationFont->text = "Info about how long a frame took to process\nLast duration: " + std::to_string(currentDuration) + "\nAvg duration: " + std::to_string(avgDuration);
+	frameDurationFont->text = "Info about how long a frame took to process\nLast duration: " + std::to_string(currentDuration) + "\nAvg (last 100 frames) duration: " + std::to_string(avgDuration);
 }

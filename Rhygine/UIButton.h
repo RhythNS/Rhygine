@@ -26,6 +26,6 @@ public:
 
 private:
 	TextureRegion normalTex, hoverTex, clickedTex;
-	TextureRegion* currentTex;
+	TextureRegion* currentTex = nullptr;
 };
 

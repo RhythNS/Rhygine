@@ -82,14 +82,14 @@ void Mouse::ButtonReleased(int button)
 	events.push(ButtonEvent(false, (Button)button));
 }
 
-void Mouse::VertScroll(int distance)
+void Mouse::VertScroll(float distance)
 {
-	curVertScroll += ((float)distance) / WHEEL_DELTA;
+	curVertScroll += distance / WHEEL_DELTA;
 }
 
-void Mouse::HoriScroll(int distance)
+void Mouse::HoriScroll(float distance)
 {
-	curHoriScroll += ((float)distance) / WHEEL_DELTA;
+	curHoriScroll += distance / WHEEL_DELTA;
 }
 
 void Mouse::Tick()

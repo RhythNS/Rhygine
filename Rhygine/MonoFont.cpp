@@ -9,7 +9,13 @@ MonoFont::MonoFont(std::string imagePath, int charWidth, int charHeight)
 
 	InitRegions(charWidth, charHeight, xCount, yCount);
 
-	regions[0] = TextureRegion((xCount - 1) * charWidth, (yCount - 1) * charHeight, charWidth, charHeight, font.get());
+	regions[0] = TextureRegion(
+		static_cast<float>((xCount - 1) * charWidth),
+		static_cast<float>((yCount - 1) * charHeight),
+		static_cast<float>(charWidth),
+		static_cast<float>(charHeight),
+		font.get()
+	);
 }
 
 TextureRegion* MonoFont::GetRegion(char character)
@@ -30,7 +36,13 @@ inline void MonoFont::InitRegions(int charWidth, int charHeight, int xCount, int
 	{
 		for (int x = 0; x < xCount; x++)
 		{
-			regions[++atCount] = TextureRegion(x * charWidth, y * charHeight, charWidth, charHeight, font.get());
+			regions[++atCount] = TextureRegion(
+				static_cast<float>(x * charWidth),
+				static_cast<float>(y * charHeight),
+				static_cast<float>(charWidth),
+				static_cast<float>(charHeight),
+				font.get()
+			);
 
 			if (atCount == 94)
 				return;

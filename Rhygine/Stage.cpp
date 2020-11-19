@@ -8,7 +8,7 @@
 Stage::Stage() : width(Window::GetInstance()->GetWidth()), height(Window::GetInstance()->GetHeight()),
 front(new GameObject(this)), back(new GameObject(this)),
 camera(front->AddComponent<Camera>()), rootUI(back->AddComponent<UIRootElement>()),
-uiCamera(RhyM::Vec3(-width / 2, -height / 2, -5.0f))
+uiCamera(RhyM::Vec3(static_cast<float>(-width) / 2, static_cast<float>(-height) / 2, -5.0f))
 {
 	// Move the camera a bit back to not start at 0,0,0
 	camera->GetTransform()->localPosition = RhyM::Vec3(0.0f, 0.0f, -4.0f);
@@ -150,10 +150,10 @@ void Stage::Draw()
 
 void Stage::OnResize(int newWidth, int newHeight)
 {
-	uiCamera.position.m_floats[0] = -newWidth / 2;
-	uiCamera.position.m_floats[1] = -newHeight / 2;
+	uiCamera.position.m_floats[0] = static_cast<float>(-newWidth / 2);
+	uiCamera.position.m_floats[1] = static_cast<float>(-newHeight / 2);
 
-	rootUI->SetSize(newWidth, newHeight);
+	rootUI->SetSize(static_cast<float>(newWidth), static_cast<float>(newHeight));
 	rootUI->SetPos(0.0f, 0.0f);
 
 	width = newWidth;

@@ -4,9 +4,6 @@
 #include "Transform.h"
 #include "RigidBody.h"
 
-#include <functional>
-
-class BulletShowcaser;
 class DeleteWhenBelow : public Component, public Updatable
 {
 public:
@@ -14,7 +11,6 @@ public:
 	void Update();
 	float y = -10;
 
-	BulletShowcaser* bulletShowcaser;
 private:
 	Transform* trans;
 };

@@ -9,7 +9,6 @@
 #include "Keys.h"
 #include "bullet\btBulletCollisionCommon.h"
 
-#include <functional>
 #include <algorithm>
 
 void BulletShowcaser::Init()
@@ -22,36 +21,6 @@ void BulletShowcaser::Init()
 void BulletShowcaser::Update()
 {
 	timer -= GetDelta();
-
-	if (GetKeys()->IsKeyDownThisFrame('T'))
-	{
-		RhyM::Vec3 explosionStartPoint = baseSpawnPoint - RhyM::Vec3(0.0f, 4.0f, 0.0f);
-		for (RigidBody* body : bodies)
-		{
-			body->GetBody()->activate();
-
-			Transform* trans = body->GetGameObject()->GetComponent<Transform>();
-			RhyM::Vec3 position = trans->GetWorldPosition();
-			float distance = explosionStartPoint.distance(position);
-
-			RhyM::Vec3 direction = position - explosionStartPoint;
-			direction.normalize();
-			RhyM::Vec3 force = direction * (explosionFactor / distance);
-
-			OutputDebugString(
-				(std::to_string(direction.m_floats[0]) + " "
-					+ std::to_string(direction.m_floats[1]) + " "
-					+ std::to_string(direction.m_floats[2]) + "\n").c_str());
-
-
-			btTransform btTrans, relativeTrans;
-			body->GetMotionState()->getWorldTransform(btTrans);
-			relativeTrans.setOrigin(force);
-			auto relativeForce = (btTrans * relativeTrans).getOrigin();
-
-			body->GetBody()->applyImpulse(force, quatRotate(trans->GetWorldRotation(), explosionStartPoint - position));
-		}
-	}
 
 	if (GetKeys()->IsKeyDownThisFrame('G'))
 		timer = 0;
@@ -69,13 +38,7 @@ void BulletShowcaser::Update()
 		);
 
 	RigidBody* box = CreateBox(baseSpawnPoint + position, RhyM::Vec3(1.0f, 1.0f, 1.0f), 1.0f);
-	box->GetGameObject()->AddComponent<DeleteWhenBelow>()->bulletShowcaser = this;
-	bodies.push_back(box);
-}
-
-void BulletShowcaser::DeleteCallback(RigidBody* body)
-{
-	bodies.erase(std::remove(bodies.begin(), bodies.end(), body), bodies.end());
+	box->GetGameObject()->AddComponent<DeleteWhenBelow>();
 }
 
 RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass)

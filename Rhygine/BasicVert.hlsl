@@ -1,6 +1,6 @@
 cbuffer CBuf
 {
-    matrix transform;
+    matrix transform; // perspective matrix
 };
 
 struct VSOut

@@ -17,8 +17,8 @@ VSOut main( float3 pos : POSITION, float3 normal : NORMAL, float2 texCoord : TEX
 {
     VSOut vsout;
     vsout.texCoord = texCoord;
-    vsout.worldPos = mul(float4(pos, 1.0f), worldPos);
-    vsout.normal = mul(float4(normal, 1.0f), localScaleRotation);
+    vsout.worldPos = mul(float4(pos, 1.0f), worldPos).xyz;
+    vsout.normal = mul(float4(normal, 1.0f), localScaleRotation).xyz;
     vsout.pos = mul(float4(pos, 1.0f), transform);
 	return vsout;
 }

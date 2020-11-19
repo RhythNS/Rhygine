@@ -74,6 +74,11 @@ public:
 	/// Checks if the debug viewer is enabled or disabled.
 	/// </summary>
 	static bool IsDebugEnabled();
+
+	/// <summary>
+	/// Gets bullet world.
+	/// </summary>
+	btDiscreteDynamicsWorld* GetWorld();
 private:
 	/// <summary>
 	/// Draws the debug viewer.

@@ -1,8 +1,8 @@
 cbuffer CBuf
 {
-    matrix transform;
-    matrix worldPos;
-    matrix localScaleRotation;
+    matrix transform; // perspective matrix
+    matrix worldPos; // matrix for scale, rotation, translation
+    matrix localScaleRotation; // matrix for scale, rotation
 };
 
 struct VSOut
@@ -16,9 +16,13 @@ struct VSOut
 VSOut main(float3 pos : POSITION, float3 normal : NORMAL, float2 texCoords : TEXCOORD)
 {
     VSOut vso;
+    // pass through uv coordinates
     vso.texCoords = texCoords;
-    vso.normal = mul(float4(normal, 1.0f), localScaleRotation);
-    vso.worldPos = (float3) mul(float4(pos, 1.0f), worldPos);
+    // Normal needs to be rotated
+    vso.normal = mul(float4(normal, 1.0f), localScaleRotation).xyz;
+    // worldpos is the vertex position multiplied by the scale, rotation and translation
+    vso.worldPos = mul(float4(pos, 1.0f), worldPos).xyz;
+    // pixel pos is the vertex position multiplied with the perspective matrix
     vso.pos = mul(float4(pos, 1.0f), transform);
     return vso;
 }

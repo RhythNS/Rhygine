@@ -6,7 +6,7 @@
 
 int UISizer::GetChildCount()
 {
-	return element->children.size();
+	return static_cast<int>(element->children.size());
 }
 
 RhyM::Rect& UISizer::GetRect()

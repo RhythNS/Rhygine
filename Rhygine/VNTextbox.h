@@ -34,7 +34,7 @@ public:
 	void Update();
 	void InnerDraw(SpriteBatch* batch);
 
-	float defWidth;
+	float defWidth = 100.0f;
 
 private:
 	/// <summary>
@@ -42,11 +42,11 @@ private:
 	/// </summary>
 	std::function<void()> finishCallback;
 	std::vector<Node> currentScene;
-	int atNode;
-	VNCharacter* character;
+	int atNode = 0;
+	VNCharacter* character = nullptr;
 
-	int atCharacter;
-	float timeForCharacter;
-	float timer;
+	int atCharacter = 0;
+	float timeForCharacter = 0.2f;
+	float timer = 0;
 
 };

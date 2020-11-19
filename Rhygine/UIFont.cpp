@@ -43,7 +43,7 @@ void UIFont::InnerDraw(SpriteBatch* batch)
 	for (int i = 0; i < strings.size(); i++)
 	{
 		// get the x and y based on the alignment specified.
-		float y;
+		float y = 0;
 		switch (vert)
 		{
 		case UIFont::VertAlignment::Up:
@@ -52,7 +52,7 @@ void UIFont::InnerDraw(SpriteBatch* batch)
 
 		case UIFont::VertAlignment::Middle:
 		{
-			int halfSize = strings.size() / 2;
+			int halfSize = static_cast<int>(strings.size()) / 2;
 			if (strings.size() % 2 == 0) // even
 			{
 				y = (bounds.y + bounds.height / 2) + singleSize.y * (halfSize - i - 1);
@@ -75,7 +75,7 @@ void UIFont::InnerDraw(SpriteBatch* batch)
 		// iterate over each character in the current line.
 		for (int j = 0; j < strings[i].size(); j++)
 		{
-			float x;
+			float x = 0;
 			switch (hori)
 			{
 			case UIFont::HoriAlignment::Left:
@@ -84,7 +84,7 @@ void UIFont::InnerDraw(SpriteBatch* batch)
 
 			case UIFont::HoriAlignment::Middle:
 			{
-				int halfSize = strings[i].size() / 2;
+				int halfSize = static_cast<int>(strings[i].size()) / 2;
 				if (strings[i].size() % 2 == 0) // even
 				{
 					x = (bounds.x + bounds.width / 2) - singleSize.x * (halfSize - j + 1);

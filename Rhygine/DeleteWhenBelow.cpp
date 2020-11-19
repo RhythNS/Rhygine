@@ -12,7 +12,6 @@ void DeleteWhenBelow::Update()
 {
 	if (trans->GetWorldPosition().m_floats[1] < y)
 	{
-		bulletShowcaser->DeleteCallback(GetGameObject()->GetComponent<RigidBody>());
 		GetGameObject()->GetStage()->RemoveGameObject(GetGameObject());
 	}
 }

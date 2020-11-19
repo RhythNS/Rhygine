@@ -5,17 +5,21 @@
 #include <vector>
 #include <algorithm>
 
-TextureGenerator::TextureGenerator(size_t width, size_t height) : width(width), height(height)
+// Disable warning about arithmetic overflow and conversion loss of data
+#pragma warning(push)
+#pragma warning(disable : 26451 4244)
+
+TextureGenerator::TextureGenerator(int width, int height) : width(width), height(height)
 {
-	tex.resize(width * height, brush);
+	tex.resize(static_cast<size_t>(width) * static_cast<size_t>(height), brush);
 }
 
-TextureGenerator::TextureGenerator(size_t width, size_t height, RhyC::color initialColor) : width(width), height(height)
+TextureGenerator::TextureGenerator(int width, int height, RhyC::color initialColor) : width(width), height(height)
 {
-	tex.resize(width * height, initialColor);
+	tex.resize(static_cast<size_t>(width) * static_cast<size_t>(height), initialColor);
 }
 
-void TextureGenerator::Fill(size_t x, size_t y)
+void TextureGenerator::Fill(int x, int y)
 {
 	assert(x >= 0 && x < width && y >= 0 && y < height);
 
@@ -73,18 +77,18 @@ void TextureGenerator::Fill(size_t x, size_t y)
 
 }
 
-void TextureGenerator::DrawPixel(size_t x, size_t y)
+void TextureGenerator::DrawPixel(int x, int y)
 {
 	assert(x >= 0 && x < width&& y >= 0 && y < height);
 	tex[x * height + y] = brush;
 }
 
-size_t TextureGenerator::GetWidth()
+int TextureGenerator::GetWidth()
 {
 	return width;
 }
 
-size_t TextureGenerator::GetHeight()
+int TextureGenerator::GetHeight()
 {
 	return height;
 }
@@ -93,3 +97,5 @@ std::vector<RhyC::color>* TextureGenerator::GetTexture()
 {
 	return &tex;
 }
+
+#pragma warning(pop)

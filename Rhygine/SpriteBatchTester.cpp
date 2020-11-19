@@ -12,6 +12,6 @@ void SpriteBatchTester::Init()
 
 void SpriteBatchTester::Draw()
 {
-	GetSpriteBatch()->Draw(texs[0].get(), 0, 0, texs[0]->GetWidth(), texs[0]->GetHeight(), RhyM::Vec3(0.0f, 0.0f, 20.0f), 300.0f, 300.0f, 0, RhyC::white);
-	GetSpriteBatch()->Draw(texs[0].get(), 0, 0, texs[0]->GetWidth(), texs[0]->GetHeight(), RhyM::Vec3(-100.0f, -100.0f, 20.0f), 300.0f, 300.0f, 0, RhyC::white);
+	GetSpriteBatch()->Draw(texs[0].get(), 0.0f, 0.0f, static_cast<float>(texs[0]->GetWidth()), static_cast<float>(texs[0]->GetHeight()), RhyM::Vec3(0.0f, 0.0f, 20.0f), 300.0f, 300.0f, 0.0f, RhyC::white);
+	GetSpriteBatch()->Draw(texs[0].get(), 0.0f, 0.0f, static_cast<float>(texs[0]->GetWidth()), static_cast<float>(texs[0]->GetHeight()), RhyM::Vec3(-100.0f, -100.0f, 20.0f), 300.0f, 300.0f, 0.0f, RhyC::white);
 }

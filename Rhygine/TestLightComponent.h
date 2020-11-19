@@ -14,11 +14,10 @@ public:
 	void Init();
 	void Update();
 
-	int id;
-	RhyM::Vec3 direction;
+	int id = 0;
 	float color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 private:
 	bool guiWindowOpen = true;
-	Transform* transform;
+	Transform* transform = nullptr;
 };
 

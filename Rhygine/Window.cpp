@@ -363,8 +363,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		// https://docs.microsoft.com/de-de/windows/win32/inputdev/using-raw-input#registering-for-raw-input
 	case WM_INPUT:
 	{
-		HRESULT hResult;
-		UINT dwSize;
+		UINT dwSize = 0;
 
 		GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
 		LPBYTE lpb = new BYTE[dwSize];
@@ -385,7 +384,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			// raw->data.keyboard
 			if (raw->data.keyboard.Flags & RI_KEY_BREAK)
 			{
-				keys.ReleaseKey(raw->data.keyboard.VKey);
+				keys.ReleaseKey(static_cast<unsigned char>(raw->data.keyboard.VKey));
 			}
 			else
 			{
@@ -401,7 +400,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 					SetFullscreen(!inFullscreen);
 				}
 
-				keys.PressKey(raw->data.keyboard.VKey);
+				keys.PressKey(static_cast<unsigned char>(raw->data.keyboard.VKey));
 			}
 		}
 		// Is it for the mouse?
@@ -450,10 +449,10 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				mouse.ButtonReleased(RH_MOUSE_X2);
 				break;
 			case RI_MOUSE_WHEEL:
-				mouse.VertScroll((float)(short)raw->data.mouse.usButtonData);
+				mouse.VertScroll(static_cast<float>(raw->data.mouse.usButtonData));
 				break;
 			case RI_MOUSE_HWHEEL:
-				mouse.HoriScroll((float)(short)raw->data.mouse.usButtonData);
+				mouse.HoriScroll(static_cast<float>(raw->data.mouse.usButtonData));
 				break;
 			default:
 				break;

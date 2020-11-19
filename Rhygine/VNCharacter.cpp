@@ -40,5 +40,5 @@ void VNCharacter::InnerDraw(SpriteBatch* batch)
 
 RhyM::Vec2 VNCharacter::GetPrefSize()
 {
-	return RhyM::Vec2(happy->GetWidth(), happy->GetHeight());
+	return RhyM::Vec2(static_cast<float>(happy->GetWidth()), static_cast<float>(happy->GetHeight()));
 }

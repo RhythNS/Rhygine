@@ -19,9 +19,9 @@ public:
 
 	void OnFinish();
 private:
-	UIContainer* rootContainer;
-	UIImage* textBoxBackground;
-	VNTextbox* textBox;
-	VNCharacter* character;
+	UIContainer* rootContainer = nullptr;
+	UIImage* textBoxBackground = nullptr;
+	VNTextbox* textBox = nullptr;
+	VNCharacter* character = nullptr;
 };
 

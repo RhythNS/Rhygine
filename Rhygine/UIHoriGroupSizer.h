@@ -14,7 +14,7 @@ public:
 	/// </summary>
 	/// <param name="paddingX>Keept space left and right.</param>
 	/// <param name="paddingY">Keept space up and down of each UIElement.</param>
-	UIHoriGroupSizer(float paddingX = 0, float paddingY = 0);
+	UIHoriGroupSizer(float paddingX, float paddingY);
 	virtual ~UIHoriGroupSizer() { }
 
 	const bool isControllingChildren();

@@ -129,6 +129,11 @@ bool Physics::IsDebugEnabled()
 	return instance->debugMode;
 }
 
+btDiscreteDynamicsWorld* Physics::GetWorld()
+{
+	return &world;
+}
+
 void Physics::DebugDraw()
 {
 	world.debugDrawWorld();

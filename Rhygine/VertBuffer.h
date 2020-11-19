@@ -81,7 +81,7 @@ public:
 		memcpy(resource.pData, verts.data(), sizeof(Vertex) * verts.size());
 		GetContext()->Unmap(bufferPointer.Get(), 0);
 
-		amount = verts.size();
+		amount = static_cast<UINT>(verts.size());
 	}
 
 	void Bind()
