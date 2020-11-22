@@ -147,8 +147,8 @@ void Gfx::OnResize(int newWidth, int newHeight)
 
 	THROW_IF_FAILED(swap->ResizeTarget(&desc));
 
-	target.ReleaseAndGetAddressOf();
-	depthStencilView.ReleaseAndGetAddressOf();
+	target = nullptr;
+	depthStencilView = nullptr;
 	THROW_IF_FAILED(swap->ResizeBuffers(1, newWidth, newHeight, DXGI_FORMAT_UNKNOWN, 0));
 
 	CreateTargetAndDepth();

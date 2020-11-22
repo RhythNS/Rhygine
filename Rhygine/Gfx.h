@@ -7,7 +7,7 @@ class Window;
 class Bindable;
 
 /// <summary>
-/// Represents the conncetion to all dxd classes.
+/// Represents the conncetion to all d3d classes.
 /// </summary>
 class Gfx
 {
