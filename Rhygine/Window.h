@@ -33,6 +33,7 @@ public:
 		int left = 0;
 		int top = 0;
 		LPCSTR windowName = "Rhygine";
+		bool enableVSync = true;
 		int targetFramesPerSecond = 144;
 		bool enablePhysics = true;
 		bool physicsStartDebugMode = false;

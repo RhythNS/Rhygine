@@ -3,6 +3,9 @@
 #include "Updatable.h"
 #include "UIFont.h"
 
+/// <summary>
+/// Component which shows frame times and controls.
+/// </summary>
 class InfoDisplayer : public Component, public Updatable
 {
 public:

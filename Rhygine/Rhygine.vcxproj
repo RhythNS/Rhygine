@@ -194,6 +194,11 @@
     <ClCompile Include="LightTestScene.cpp" />
     <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="OptBasic.cpp" />
+    <ClCompile Include="OptBatch.cpp" />
+    <ClCompile Include="OptModel.cpp" />
+    <ClCompile Include="OptNep.cpp" />
+    <ClCompile Include="OptScene.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PresentResources.cpp" />
@@ -287,6 +292,11 @@
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="LightTestScene.h" />
     <ClInclude Include="MonoFont.h" />
+    <ClInclude Include="OptBasic.h" />
+    <ClInclude Include="OptBatch.h" />
+    <ClInclude Include="OptModel.h" />
+    <ClInclude Include="OptNep.h" />
+    <ClInclude Include="OptScene.h" />
     <ClInclude Include="OrthographicCamera.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PresentResources.h" />

@@ -76,7 +76,7 @@ Window::Window(WindowDefinition definition) :
 	if (windowHandle == nullptr)
 		throw RHY_EXCEP("Could not create window!");
 
-	gfx = new Gfx(this, definition.targetFramesPerSecond);
+	gfx = new Gfx(this, definition.targetFramesPerSecond, definition.enableVSync);
 
 	// init imgui
 	IMGUI_CHECKVERSION();

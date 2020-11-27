@@ -4,6 +4,9 @@
 #include "Transform.h"
 #include "RigidBody.h"
 
+/// <summary>
+/// Deletes a gameobject when it is below a given value.
+/// </summary>
 class DeleteWhenBelow : public Component, public Updatable
 {
 public:
@@ -12,5 +15,5 @@ public:
 	float y = -10;
 
 private:
-	Transform* trans;
+	Transform* trans = nullptr;
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+// Helper typedef to encapsulate a color.
+
 namespace RhyC
 {
 	typedef int color;
@@ -21,6 +23,14 @@ namespace RhyC
 	constexpr color fuchsia = 0xFFFF00FF;
 	constexpr color purple =  0xFF800080;
 
+	/// <summary>
+	/// Creates a color from RGBA values.
+	/// </summary>
+	/// <param name="r">The red value.</param>
+	/// <param name="g">The green value.</param>
+	/// <param name="b">The blue value.</param>
+	/// <param name="a">The alpha value.</param>
+	/// <returns></returns>
 	static color FromRGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 	{
 		color col = r;
@@ -30,6 +40,14 @@ namespace RhyC
 		return col;
 	}
 
+	/// <summary>
+	/// Gets the RGBA values from a color.
+	/// </summary>
+	/// <param name="color">The color where the RGBA values need to be extracted from.</param>
+	/// <param name="r">The red value.</param>
+	/// <param name="g">The green value.</param>
+	/// <param name="b">The blue value.</param>
+	/// <param name="a">The alpha value.</param>
 	static void GetRGBA(color& color, unsigned char& r, unsigned char& g, unsigned char& b, unsigned char& a)
 	{
 		a = (unsigned char)(color >> 24);

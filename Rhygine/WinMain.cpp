@@ -7,6 +7,7 @@
 #include "LightTestScene.h"
 #include "BulletTestScene.h"
 #include "PresentScene.h"
+#include "OptScene.h"
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -16,9 +17,10 @@ int CALLBACK WinMain(
 {
 	try {
 
-		// BulletTestScene scene;
+		// BulletTestScene scene = new BulletTestScene();
 		// TestScene* scene = new TestScene();
-		// LightTestScene scene;
+		// LightTestScene scene = new LightTestScene();
+		// OptScene* scene = new OptScene();
 		PresentScene* scene = new PresentScene();
 
 		// Get all information needed for the start and put it into WindowDefinition.
@@ -32,6 +34,7 @@ int CALLBACK WinMain(
 		winDef.top = 100;
 		winDef.left = 100;
 		winDef.targetFramesPerSecond = -1;
+		winDef.enableVSync = false;
 		winDef.enablePhysics = true;
 		winDef.physicsStartDebugMode = false;
 		winDef.physicsUpdateTime = 0.01f;

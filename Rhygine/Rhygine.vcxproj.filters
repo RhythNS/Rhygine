@@ -142,6 +142,12 @@
     <Filter Include="Source Files\TestGameobjects\Shaders">
       <UniqueIdentifier>{c1bf6f5d-293f-4235-84d7-22693e4ab2be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TestGameobjects\Opt">
+      <UniqueIdentifier>{d5deef34-61f0-426d-b386-3c0f5c82ab23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TestGameobjects\Opt">
+      <UniqueIdentifier>{a5008718-ec74-4e47-aa7b-506892435766}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -404,6 +410,21 @@
     </ClCompile>
     <ClCompile Include="DeleteWhenBelow.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="OptBatch.cpp">
+      <Filter>Source Files\TestGameobjects\Opt</Filter>
+    </ClCompile>
+    <ClCompile Include="OptModel.cpp">
+      <Filter>Source Files\TestGameobjects\Opt</Filter>
+    </ClCompile>
+    <ClCompile Include="OptNep.cpp">
+      <Filter>Source Files\TestGameobjects\Opt</Filter>
+    </ClCompile>
+    <ClCompile Include="OptScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="OptBasic.cpp">
+      <Filter>Source Files\TestGameobjects\Opt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -742,6 +763,21 @@
     </ClInclude>
     <ClInclude Include="DeleteWhenBelow.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="OptBatch.h">
+      <Filter>Header Files\TestGameobjects\Opt</Filter>
+    </ClInclude>
+    <ClInclude Include="OptModel.h">
+      <Filter>Header Files\TestGameobjects\Opt</Filter>
+    </ClInclude>
+    <ClInclude Include="OptNep.h">
+      <Filter>Header Files\TestGameobjects\Opt</Filter>
+    </ClInclude>
+    <ClInclude Include="OptScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="OptBasic.h">
+      <Filter>Header Files\TestGameobjects\Opt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
+// Shader for displaying the bounds of a bullet rigidbody.
+
 cbuffer CBuf
 {
-    matrix transform;
+    matrix transform; // perspective matrix
 };
 
 struct VSOut
@@ -12,7 +14,9 @@ struct VSOut
 VSOut main(float3 pos : Position, float3 color : COLOR)
 {
     VSOut vsout;
+    // pixel pos is the vertex position multiplied with the perspective matrix
     vsout.pos = mul(float4(pos, 1.0f), transform);
+    // pass through color
     vsout.color = color;
 	return vsout;
 }

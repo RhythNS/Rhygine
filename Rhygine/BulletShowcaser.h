@@ -7,6 +7,9 @@
 
 #include <memory>
 
+/// <summary>
+/// Component for showing of bullet3.
+/// </summary>
 class BulletShowcaser : public Component, public Updatable
 {
 public:

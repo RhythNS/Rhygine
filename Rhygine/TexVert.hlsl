@@ -1,6 +1,8 @@
+// Shader for displaying an unlit texture.
+
 cbuffer CBuf
 {
-    matrix transform;
+    matrix transform; // perspective matrix
 };
 
 struct VSOut
@@ -12,7 +14,9 @@ struct VSOut
 VSOut main(float3 pos : POSITION, float2 texCoord : TEXCOORD)
 {
     VSOut vso;
+    // pixel pos is the vertex position multiplied with the perspective matrix
     vso.pos = mul(float4(pos, 1.0f), transform);
+    // pass through uv coordinates
     vso.texCoord = texCoord;
     return vso;
 }

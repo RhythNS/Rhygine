@@ -15,7 +15,7 @@ class Gfx
 	friend class Bindable;
 public:
 	Gfx() = delete;
-	Gfx(Window* window, int refreshRate);
+	Gfx(Window* window, int refreshRate, bool vsync);
 
 	/// <summary>
 	/// Singleton to get the Gfx instance.
@@ -55,6 +55,7 @@ public:
 	/// </summary>
 	DirectX::XMMATRIX GetPerspectiveMatrix();
 
+	bool vsync = true;
 	float nearZ = 0.5f;
 	float farZ = 500.0f;
 private:

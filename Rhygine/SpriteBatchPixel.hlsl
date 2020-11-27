@@ -1,3 +1,5 @@
+// Shader for the spritebatch for drawing 2D sprites on the screen.
+
 Texture2D tex;
 
 SamplerState textureSampler

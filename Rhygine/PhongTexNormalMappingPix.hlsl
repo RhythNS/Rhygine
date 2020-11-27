@@ -1,3 +1,7 @@
+// Uses a texture, normal which is in the normal texture, light information and the camera position to light up a 3D object.
+// The pixel is lit up depending on the angle of its normal and light direction.
+// A specular highlight is added depending on the cameras position.
+
 Texture2D tex : register(t0);
 Texture2D normalMap : register(t1);
 
@@ -30,6 +34,7 @@ float4 main(float2 texCoord : Texcoord, float3 worldPos : Position, float3 tange
     float3 viewDir = mul(normalize(cameraPos - worldPos), tbn);
     float specMultiplier = pow(max(0, dot(reflectionLight, viewDir)), specStrength);
     
+    // Lastly put everything together
     float4 lightColorAdd = lightColor * (angleMultiplier + ambientStrength  + specMultiplier);
     return tex.Sample(textureSampler, texCoord) * lightColorAdd;
 }

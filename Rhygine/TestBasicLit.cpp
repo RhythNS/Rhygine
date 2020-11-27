@@ -2,8 +2,13 @@
 #include "Verticies.h"
 #include "RotateAround.h"
 #include "BasicTextureLit.h"
+#include "Texture.h"
 
 TestBasicLit::TestBasicLit(std::string imagePath, TestLightComponent* tlc) : imagePath(imagePath), tlc(tlc)
+{
+}
+
+TestBasicLit::TestBasicLit(Texture* texture, TestLightComponent* tlc) : texture(texture), tlc(tlc)
 {
 }
 
@@ -60,7 +65,12 @@ void TestBasicLit::AddData(GameObject* toAddTo)
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	drawer->AddBindable(std::make_unique<Sampler>(0));
-	BasicTextureLit* btl = static_cast<BasicTextureLit*>(drawer->AddBindable(std::make_unique<BasicTextureLit>(imagePath.c_str())));
+	BasicTextureLit* btl;
+	if (!texture)
+		btl = static_cast<BasicTextureLit*>(drawer->AddBindable(std::make_unique<BasicTextureLit>(imagePath.c_str())));
+	else
+		btl = static_cast<BasicTextureLit*>(drawer->AddBindable(std::make_unique<BasicTextureLit>(texture)));
+
 	btl->light = tlc;
 
 	RotateAround* rotateAround = toAddTo->AddComponent<RotateAround>();

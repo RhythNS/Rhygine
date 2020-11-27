@@ -4,9 +4,13 @@
 #include "Transform.h"
 #include "Drawer.h"
 
-BasicTextureLit::BasicTextureLit(std::string texturePath)
+BasicTextureLit::BasicTextureLit(std::string texturePath) : texture(std::make_unique<Texture>(texturePath.c_str(), 0))
 {
-	texture = std::make_unique<Texture>(texturePath.c_str(), 0);
+
+}
+
+BasicTextureLit::BasicTextureLit(Texture* texture) : texture(std::make_unique<Texture>(texture, 0))
+{
 }
 
 void BasicTextureLit::Init()
@@ -20,7 +24,7 @@ void BasicTextureLit::Init()
 	};
 
 	CreateShaders(L"BasicLitPix.hlsl", L"BasicLitVert.hlsl", &inputLayoutDesc);
-	
+
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
 	InitBindable(pixBuffer.get());
 
@@ -38,7 +42,7 @@ void BasicTextureLit::Update()
 
 
 	lightBuffer.ambientStrength = ambientStrength;
-	
+
 	float* lightColor = light->color;
 	lightBuffer.lightColor[0] = lightColor[0];
 	lightBuffer.lightColor[1] = lightColor[1];

@@ -1,3 +1,6 @@
+// Uses a texture, normal and light information to light up a 3D object.
+// The pixel is lit up depending on the angle of its normal and the light direction.
+
 Texture2D tex;
 SamplerState textureSampler;
 

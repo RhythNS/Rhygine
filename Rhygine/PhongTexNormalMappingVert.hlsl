@@ -1,8 +1,12 @@
+// Uses a texture, normal which is in the normal texture, light information and the camera position to light up a 3D object.
+// The pixel is lit up depending on the angle of its normal and light direction.
+// A specular highlight is added depending on the cameras position.
+
 cbuffer CBuf
 {
-    matrix transform;
-    matrix worldPos;
-    matrix localScaleRotation;
+    matrix transform; // perspective matrix
+    matrix worldPos; // matrix for scale, rotation, translation
+    matrix localScaleRotation; // matrix for scale, rotation
 };
 
 struct VSOut
@@ -18,8 +22,11 @@ struct VSOut
 VSOut main(float3 pos : Position, float3 tangent : TANGENT, float3 normal : BINORMAL, float2 texCoord : Texcoord)
 {
     VSOut vso;
+    // pixel pos is the vertex position multiplied with the perspective matrix
     vso.pos = mul(float4(pos, 1.0f), transform);
+    // pass through uv coordinates
     vso.texCoord = texCoord;
+    // worldpos is the vertex position multiplied by the scale, rotation and translation
     vso.worldPos = mul(float4(pos, 1.0f), worldPos).xyz;
     
     // the tangent, bitangent and normal need to be rotated

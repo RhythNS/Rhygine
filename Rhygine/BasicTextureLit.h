@@ -13,6 +13,7 @@ class BasicTextureLit : public CombinedShader, public Updatable
 {
 public:
 	BasicTextureLit(std::string texturePath);
+	BasicTextureLit(Texture* texture);
 	virtual ~BasicTextureLit() { }
 
 	void Init();

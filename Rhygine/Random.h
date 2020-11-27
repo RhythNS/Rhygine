@@ -3,6 +3,8 @@
 #include <cassert>
 #include <ctime>
 
+// Helper header for generating random values.
+
 namespace RhyM
 {
 	static std::mt19937 rng(static_cast<unsigned>(time(0)));

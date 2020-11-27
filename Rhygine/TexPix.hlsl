@@ -1,3 +1,5 @@
+// Shader for displaying an unlit texture.
+
 Texture2D tex;
 
 SamplerState textureSampler

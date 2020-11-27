@@ -10,6 +10,13 @@
 
 TestNeptuneLoader::TestNeptuneLoader(TestLightComponent* tlc) : tlc(tlc)
 {
+	std::string texNames[4] = { "PresentScene\\neptune\\mouth.png", "PresentScene\\neptune\\body.png",
+		"PresentScene\\neptune\\body02.png", "PresentScene\\neptune\\eye.png" };
+
+	for (int i = 0; i < 4; i++)
+	{
+		texs[i] = std::make_unique<Texture>(texNames[i].c_str(), 0);
+	}
 }
 
 void TestNeptuneLoader::AddData(GameObject* toAddTo)
@@ -26,9 +33,6 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 	const aiScene* scene = importer.ReadFile(pFile,
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices);
-
-	std::string texNames[4] = { "PresentScene\\neptune\\mouth.png", "PresentScene\\neptune\\body.png",
-		"PresentScene\\neptune\\body02.png", "PresentScene\\neptune\\eye.png" };
 
 	for (unsigned int i = 0; i < 4; i++)
 	{
@@ -65,7 +69,7 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 
 		drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-		drawer->AddBindable(std::make_unique<Texture>(texNames[i].c_str(), 0));
+		drawer->AddBindable(std::make_unique<Texture>(texs[i].get(), 0));
 		drawer->AddBindable(std::make_unique<Sampler>(0));
 
 		ToonShader* toon = static_cast<ToonShader*>(drawer->AddBindable(std::make_unique<ToonShader>()));

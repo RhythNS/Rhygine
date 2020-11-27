@@ -10,7 +10,7 @@ class CombinedShader;
 /// Bindables represent resources that are needed to render an object.
 /// Bindables exist inside the drawer component. When the drawer is drawing,
 /// every bindable is first updated, when they implement the updatable interface,
-/// and then binded.
+/// and then binded. Lastly they are unbound, when they implement the unbindable interface.
 /// </summary>
 class Bindable
 {

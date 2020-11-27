@@ -9,7 +9,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-Gfx::Gfx(Window* window, int refreshRate) : window(window), refreshRate(refreshRate)
+Gfx::Gfx(Window* window, int refreshRate, bool vsync) : window(window), refreshRate(refreshRate), vsync(vsync)
 {
 	instance = this;
 
@@ -111,7 +111,7 @@ void Gfx::EndDraw()
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	// Present it to the screen.
-	THROW_IF_FAILED(swap->Present(1, 0));
+	THROW_IF_FAILED(swap->Present(vsync ? 1 : 0, 0));
 }
 
 void Gfx::SetDefaultStencilState()

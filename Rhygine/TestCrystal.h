@@ -2,6 +2,9 @@
 #include "GameObjectFactory.h"
 #include "TestLightComponent.h"
 
+/// <summary>
+/// Factory for building a gameobject with the TexLitNormalMapShader
+/// </summary>
 class TestCrystal : public GameObjectFactory
 {
 public:

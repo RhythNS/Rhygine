@@ -4,6 +4,9 @@
 #include "TestLightComponent.h"
 #include "ConstantBuffer.h"
 
+/// <summary>
+/// Shader for a toon effect.
+/// </summary>
 class ToonShader : public CombinedShader, public Updatable 
 {
 public:
@@ -38,10 +41,9 @@ public:
 	int levels = 6;
 
 private:
+	LightInfo lightInfo{};
+	PositionInfo positionInfo{};
 
-	LightInfo lightInfo;
-	PositionInfo positionInfo;
-
-	std::unique_ptr<ConstantPS<LightInfo>> pixBuffer;
-	std::unique_ptr<ConstantVS<PositionInfo>> worldPosBuffer;
+	std::unique_ptr<ConstantPS<LightInfo>> pixBuffer = nullptr;
+	std::unique_ptr<ConstantVS<PositionInfo>> worldPosBuffer = nullptr;
 };
