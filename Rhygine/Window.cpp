@@ -139,6 +139,8 @@ Window::~Window()
 	delete currentScene;
 	delete gfx;
 	delete physics;
+
+	instance = nullptr;
 }
 
 Window* Window::GetInstance()
@@ -202,13 +204,12 @@ bool Window::IsCapturingMouse()
 
 void Window::SetFullscreen(bool enable)
 {
+	if (inFullscreen == enable)
+		return;
+
 	// Want to fullscreen
 	if (enable)
 	{
-		// Already in fullscren?
-		if (inFullscreen)
-			return;
-
 		inFullscreen = true;
 
 		// Get the monitor and monitor info
@@ -233,12 +234,8 @@ void Window::SetFullscreen(bool enable)
 
 		return;
 	}
+
 	// Not fullscreen
-
-	// Already in fullscreen
-	if (!inFullscreen)
-		return;
-
 	inFullscreen = false;
 
 	// Set normal window

@@ -13,6 +13,11 @@ Physics::Physics(float secondsPerTick) :
 	Window::GetInstance()->time.physicsUpdateRate = std::chrono::duration<float>(secondsPerTick);
 }
 
+Physics::~Physics()
+{
+	instance = nullptr;
+}
+
 void Physics::Register(RigidBody* body)
 {
 	assert(body);

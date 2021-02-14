@@ -23,11 +23,11 @@ Stage::~Stage()
 	rootUI->Delete();
 
 	// Go through all Gameobjects and manually delete them.
-	GameObject* current = front->next;
+	GameObject* current = front;
 	while (current->next != nullptr)
 	{
-		delete current->prev;
 		current = current->next;
+		delete current->prev;
 	}
 	delete current;
 }

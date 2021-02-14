@@ -192,6 +192,7 @@
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
+    <ClCompile Include="MemoryLeakTestScene.cpp" />
     <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="OptBasic.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="InfoDisplayer.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="LightTestScene.h" />
+    <ClInclude Include="MemoryLeakTestScene.h" />
     <ClInclude Include="MonoFont.h" />
     <ClInclude Include="OptBasic.h" />
     <ClInclude Include="OptBatch.h" />

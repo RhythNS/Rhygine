@@ -16,6 +16,7 @@ class Gfx
 public:
 	Gfx() = delete;
 	Gfx(Window* window, int refreshRate, bool vsync);
+	~Gfx();
 
 	/// <summary>
 	/// Singleton to get the Gfx instance.

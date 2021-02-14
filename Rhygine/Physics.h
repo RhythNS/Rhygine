@@ -21,7 +21,7 @@ public:
 	/// <param name="secondsPerTick">The simulation step time in seconds.</param>
 	Physics(float secondsPerTick);
 
-	virtual ~Physics() { }
+	~Physics();
 
 	/// <summary>
 	/// Registers a Rigidbody to the physics system.

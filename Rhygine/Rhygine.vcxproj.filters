@@ -426,6 +426,9 @@
     <ClCompile Include="OptBasic.cpp">
       <Filter>Source Files\TestGameobjects\Opt</Filter>
     </ClCompile>
+    <ClCompile Include="MemoryLeakTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -778,6 +781,9 @@
     </ClInclude>
     <ClInclude Include="OptBasic.h">
       <Filter>Header Files\TestGameobjects\Opt</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryLeakTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

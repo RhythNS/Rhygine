@@ -15,7 +15,7 @@ void OptScene::InnerInit()
 	stage->CreateGameObject()->AddComponent<PresentResources>();
 	stage->CreateGameObject()->AddComponent<InfoDisplayer>();
 	stage->CreateGameObject()->AddComponent<OptBasic>();
-	//stage->CreateGameObject()->AddComponent<OptNep>();
-	//stage->CreateGameObject()->AddComponent<OptBatch>();
-	//stage->CreateGameObject()->AddComponent<OptModel>();
+	stage->CreateGameObject()->AddComponent<OptNep>();
+	stage->CreateGameObject()->AddComponent<OptBatch>();
+	stage->CreateGameObject()->AddComponent<OptModel>();
 }

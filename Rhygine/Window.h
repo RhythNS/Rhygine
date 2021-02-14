@@ -141,5 +141,4 @@ private:
 	Physics* physics = nullptr;
 	Gfx* gfx = nullptr;
 	Scene* currentScene;
-
 };

@@ -63,6 +63,11 @@ Gfx::Gfx(Window* window, int refreshRate, bool vsync) : window(window), refreshR
 	CreateTargetAndDepth();
 }
 
+Gfx::~Gfx()
+{
+	instance = nullptr;
+}
+
 Gfx* Gfx::GetInstance()
 {
 	return instance;

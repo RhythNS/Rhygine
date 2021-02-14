@@ -10,6 +10,8 @@ class PresentResources : public Component
 public:
 	void Init();
 
+	~PresentResources();
+
 	static PresentResources* instance;
 
 	std::unique_ptr<Texture> exclamationMark;

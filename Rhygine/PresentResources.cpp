@@ -14,4 +14,9 @@ void PresentResources::Init()
 	embarrassed = std::make_unique<Texture>("PresentScene\\embarrassed.png", 0);
 }
 
+PresentResources::~PresentResources()
+{
+	instance = nullptr;
+}
+
 PresentResources* PresentResources::instance;

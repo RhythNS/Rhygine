@@ -8,6 +8,7 @@
 #include "BulletTestScene.h"
 #include "PresentScene.h"
 #include "OptScene.h"
+#include "MemoryLeakTestScene.h"
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -15,6 +16,11 @@ int CALLBACK WinMain(
 	_In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow)
 {
+	/*
+	// Memory leak breakpoint setter
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetBreakAlloc(2073);
+	*/
 	try {
 
 		// BulletTestScene scene = new BulletTestScene();
@@ -22,6 +28,7 @@ int CALLBACK WinMain(
 		// LightTestScene scene = new LightTestScene();
 		// OptScene* scene = new OptScene();
 		PresentScene* scene = new PresentScene();
+		// MemoryLeakTestScene* scene = new MemoryLeakTestScene();
 
 		// Get all information needed for the start and put it into WindowDefinition.
 		Window::WindowDefinition winDef;
