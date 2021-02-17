@@ -50,32 +50,32 @@ int Transform::GetChildCount()
 
 RhyM::Vec3 Transform::GetForward()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(0.0f, 0.0f, 1.0f));
+	return GetWorldRotation() * RhyM::Vec3(0.0f, 0.0f, 1.0f);
 }
 
 RhyM::Vec3 Transform::GetBackwards()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(0.0f, 0.0f, -1.0f));
+	return GetWorldRotation() * RhyM::Vec3(0.0f, 0.0f, -1.0f);
 }
 
 RhyM::Vec3 Transform::GetLeft()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(-1.0f, 0.0f, 0.0f));
+	return GetWorldRotation() * RhyM::Vec3(-1.0f, 0.0f, 0.0f);
 }
 
 RhyM::Vec3 Transform::GetRight()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(1.0f, 0.0f, 0.0f));
+	return GetWorldRotation() * RhyM::Vec3(1.0f, 0.0f, 0.0f);
 }
 
 RhyM::Vec3 Transform::GetUp()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(0.0f, 1.0f, 0.0f));
+	return GetWorldRotation() * RhyM::Vec3(0.0f, 1.0f, 0.0f);
 }
 
 RhyM::Vec3 Transform::GetDown()
 {
-	return quatRotate(GetWorldRotation(), RhyM::Vec3(0.0f, -1.0f, 0.0f));
+	return  GetWorldRotation() * RhyM::Vec3(0.0f, -1.0f, 0.0f);
 }
 
 DirectX::XMMATRIX Transform::GetWorldMatrix()
@@ -85,9 +85,9 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 	// Move the object
 	if (parent == nullptr)
 		return
-		DirectX::XMMatrixScaling(localScale.m_floats[0], localScale.m_floats[1], localScale.m_floats[2]) *
-		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.getX(), localRotation.getY(), localRotation.getZ(), localRotation.getW())) *
-		DirectX::XMMatrixTranslation(localPosition.m_floats[0], localPosition.m_floats[1], localPosition.m_floats[2])
+		DirectX::XMMatrixScaling(localScale.x, localScale.y, localScale.z) *
+		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.x, localRotation.y, localRotation.z, localRotation.w))*
+		DirectX::XMMatrixTranslation(localPosition.x, localPosition.y, localPosition.z)
 		;
 	// Scale the object ->
 	// Rotate the object ->
@@ -95,9 +95,9 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 	// Scale, Rotate and move to parent
 	else
 		return
-		DirectX::XMMatrixScaling(localScale.m_floats[0], localScale.m_floats[1], localScale.m_floats[2]) *
-		DirectX::XMMatrixTranslation(localPosition.m_floats[0], localPosition.m_floats[1], localPosition.m_floats[2]) *
-		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.getX(), localRotation.getY(), localRotation.getZ(), localRotation.getW())) *
+		DirectX::XMMatrixScaling(localScale.x, localScale.y, localScale.z) *
+		DirectX::XMMatrixTranslation(localPosition.x, localPosition.y, localPosition.z) *
+		DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(localRotation.x, localRotation.y, localRotation.z, localRotation.w)) *
 		parent->GetWorldMatrix()
 		;
 }
@@ -130,8 +130,8 @@ DirectX::XMMATRIX Transform::GetLocalMatrix()
 	return
 		DirectX::XMMatrixTranspose
 		(
-			DirectX::XMMatrixScaling(scale.m_floats[0], scale.m_floats[1], scale.m_floats[2]) *
-			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW()))
+			DirectX::XMMatrixScaling(scale.x, scale.y, scale.z) *
+			DirectX::XMMatrixRotationQuaternion(DirectX::XMVectorSet(rotation.x, rotation.y, rotation.z, rotation.w))
 		);
 }
 
@@ -157,11 +157,11 @@ RhyM::Quat Transform::GetWorldRotation()
 
 void Transform::SetWorldScale(RhyM::Vec3 scl)
 {
-	assert(scl.x() != 0 && scl.y() != 0 && scl.z() != 0);
-	localScale = (parent == nullptr ? scl : scl / parent->GetWorldScale());
+	assert(scl.x != 0 && scl.y != 0 && scl.z != 0);
+	localScale = (parent == nullptr ? scl : RhyM::Vec3::Divide(scl, parent->GetWorldScale()));
 }
 
 RhyM::Vec3 Transform::GetWorldScale()
 {
-	return parent == nullptr ? localScale : localScale * parent->GetWorldScale();
+	return parent == nullptr ? localScale : RhyM::Vec3::Scale(localScale, parent->GetWorldScale());
 }

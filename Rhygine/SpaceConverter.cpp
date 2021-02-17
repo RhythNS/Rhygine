@@ -13,11 +13,11 @@ RhyM::Vec3 RhyM::GetTangentFromTextureSpace(RhyM::Vec3 pos1, RhyM::Vec3 pos2, Rh
 
 	RhyM::Vec3 tangent;
 
-	tangent.m_floats[0] = f * (deltaUV2.y * edge1.m_floats[0] - deltaUV1.y * edge2.m_floats[0]);
-	tangent.m_floats[1] = f * (deltaUV2.y * edge1.m_floats[1] - deltaUV1.y * edge2.m_floats[1]);
-	tangent.m_floats[2] = f * (deltaUV2.y * edge1.m_floats[2] - deltaUV1.y * edge2.m_floats[2]);
+	tangent.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
+	tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
+	tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
 
-	tangent.normalize();
+	tangent.Normalize();
 
 	return tangent;
 }

@@ -150,8 +150,8 @@ void Stage::Draw()
 
 void Stage::OnResize(int newWidth, int newHeight)
 {
-	uiCamera.position.m_floats[0] = static_cast<float>(-newWidth / 2);
-	uiCamera.position.m_floats[1] = static_cast<float>(-newHeight / 2);
+	uiCamera.position.x = static_cast<float>(-newWidth / 2);
+	uiCamera.position.y = static_cast<float>(-newHeight / 2);
 
 	rootUI->SetSize(static_cast<float>(newWidth), static_cast<float>(newHeight));
 	rootUI->SetPos(0.0f, 0.0f);
@@ -163,8 +163,8 @@ void Stage::OnResize(int newWidth, int newHeight)
 void Stage::OnMouseMove(int x, int y)
 {
 	RhyM::Vec2 trans = RhyM::Vec2(
-		x + uiCamera.position.m_floats[0] + width / 2,
-		height - y + uiCamera.position.m_floats[1] + height / 2
+		x + uiCamera.position.x + width / 2,
+		height - y + uiCamera.position.y + height / 2
 	);
 
 	rootUI->OnMouseMove(trans);

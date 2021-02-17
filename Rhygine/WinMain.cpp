@@ -23,9 +23,9 @@ int CALLBACK WinMain(
 	*/
 	try {
 
-		// BulletTestScene scene = new BulletTestScene();
+		// BulletTestScene* scene = new BulletTestScene();
 		// TestScene* scene = new TestScene();
-		// LightTestScene scene = new LightTestScene();
+		// LightTestScene* scene = new LightTestScene();
 		// OptScene* scene = new OptScene();
 		PresentScene* scene = new PresentScene();
 		// MemoryLeakTestScene* scene = new MemoryLeakTestScene();

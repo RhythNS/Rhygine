@@ -56,8 +56,8 @@ void UISizer::ResizeSelf(RhyM::Rect& rect, RhyM::Vec2 currentWorldScale)
 void UISizer::UpdatePositionSelf(RhyM::Rect& rect)
 {
 	RhyM::Rect parentRect = GetParentRect();
-	rect.x = parentRect.x + element->pos.m_floats[0];
-	rect.y = parentRect.y + element->pos.m_floats[1];
+	rect.x = parentRect.x + element->pos.x;
+	rect.y = parentRect.y + element->pos.y;
 }
 
 void UISizer::UpdatePositionDefaultHoriVert(RhyM::Rect& rect, VertAlignment vert, HoriAlignment hori, float paddingX, float paddingY)

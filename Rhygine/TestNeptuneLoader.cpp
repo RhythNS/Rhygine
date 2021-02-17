@@ -23,9 +23,9 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 {
 	Transform* transform = AddTransform(toAddTo);
 
-	transform->localScale.setValue(0.02f, 0.02f, 0.02f);
-	transform->localPosition.setValue(-5.0f, 0.0f, -2.0f);
-	transform->localRotation = RhyM::Quat(-180.0f, 0.0f, 0.0f);
+	transform->localScale.Set(0.02f, 0.02f, 0.02f);
+	transform->localPosition.Set(-5.0f, 0.0f, -2.0f);
+	transform->localRotation = RhyM::Quat::Identity();
 
 	const std::string pFile = "PresentScene\\neptune\\neptune.obj";
 	Assimp::Importer importer;
@@ -76,5 +76,5 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 		toon->light = tlc;
 	}
 	
-	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(1.0, 0.0f, 0.0f);
+	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.0f, 1.0f, 0.0f);
 }

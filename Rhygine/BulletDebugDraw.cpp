@@ -42,18 +42,18 @@ void BulletDebugDraw::drawLine(const btVector3& from, const btVector3& to, const
 	// just push back both points with the given color attached.
 	verts.push_back({ 
 		from.m_floats[0], 
-		from.m_floats[1], 
-		from.m_floats[2], 
-		(unsigned char)(color.m_floats[0] * 255.0f), 
+		from.m_floats[1],
+		from.m_floats[2],
+		(unsigned char)(color.m_floats[0] * 255.0f),
 		(unsigned char)(color.m_floats[1] * 255.0f),
 		(unsigned char)(color.m_floats[2] * 255.0f),
 		255 
 		});
 
 	verts.push_back({ 
-		to.m_floats[0], 
-		to.m_floats[1], 
-		to.m_floats[2], 
+		to.m_floats[0],
+		to.m_floats[1],
+		to.m_floats[2],
 		(unsigned char)(color.m_floats[0] * 255.0f),  
 		(unsigned char)(color.m_floats[1] * 255.0f),  
 		(unsigned char)(color.m_floats[2] * 255.0f),  

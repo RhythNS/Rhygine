@@ -128,7 +128,7 @@ UISizer* UIElement::SetSizer(std::unique_ptr<UISizer> newSizer)
 
 RhyM::Vec3 UIElement::GetPos()
 {
-	return RhyM::Vec3(bounds.x, bounds.y, pos.m_floats[2]);
+	return RhyM::Vec3(bounds.x, bounds.y, pos.z);
 }
 
 void UIElement::SetPos(RhyM::Vec3 _pos)
@@ -139,32 +139,32 @@ void UIElement::SetPos(RhyM::Vec3 _pos)
 
 void UIElement::SetPos(RhyM::Vec2 _pos)
 {
-	pos.m_floats[0] = _pos.x;
-	pos.m_floats[1] = _pos.y;
+	pos.x = _pos.x;
+	pos.y = _pos.y;
 	OnUpdatePosition();
 }
 
 void UIElement::SetPos(float x, float y, float z)
 {
-	pos.setValue(x, y, z);
+	pos.Set(x, y, z);
 	OnUpdatePosition();
 }
 
 void UIElement::SetPos(float x, float y)
 {
-	pos.m_floats[0] = x;
-	pos.m_floats[1] = y;
+	pos.x = x;
+	pos.y = y;
 	OnUpdatePosition();
 }
 
 void UIElement::SetZ(float z)
 {
-	pos.m_floats[2] = z;
+	pos.z = z;
 }
 
 float UIElement::GetGlobalZ()
 {
-	return parent == nullptr ? pos.m_floats[2] : parent->GetGlobalZ() + pos.m_floats[2];
+	return parent == nullptr ? pos.z : parent->GetGlobalZ() + pos.z;
 }
 
 RhyM::Vec2 UIElement::GetSize()
@@ -218,7 +218,7 @@ RhyM::Vec3 UIElement::GetDrawPosition()
 
 void UIElement::OnResize(RhyM::Vec2 parentScale)
 {
-	parentScale.SymMul(scale);
+	parentScale.Scl(scale);
 	sizer->OnResize(parentScale);
 	for (auto& child : children)
 	{
@@ -237,7 +237,7 @@ void UIElement::OnUpdatePosition()
 
 RhyM::Vec2 UIElement::GetWorldScale()
 {
-	return parent == nullptr ? scale : parent->GetWorldScale().SymMul(scale);
+	return parent == nullptr ? scale : RhyM::Vec2::Scale(parent->GetWorldScale(), scale);
 }
 
 RhyM::Vec2 UIElement::GetParentWorldScale()
@@ -247,7 +247,7 @@ RhyM::Vec2 UIElement::GetParentWorldScale()
 
 void UIElement::SetPosSizeScale(float posX, float posY, float posZ, float width, float height, float scaleX, float scaleY)
 {
-	pos.setValue(posX, posY, posZ);
+	pos.Set(posX, posY, posZ);
 	size.Set(width, height);
 	scale.Set(scaleX, scaleY);
 	OnResize(GetParentWorldScale());

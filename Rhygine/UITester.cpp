@@ -95,6 +95,6 @@ void UITester::Update()
 {
 	RhyM::Vec3 pos = GetGameObject()->GetStage()->GetUICamera()->position;
 	ImGui::Begin("UI Test");
-	ImGui::Text((std::to_string(pos.m_floats[0]) + " " + std::to_string(pos.m_floats[1])).c_str());
+	ImGui::Text((std::to_string(pos.x) + " " + std::to_string(pos.y)).c_str());
 	ImGui::End();
 }

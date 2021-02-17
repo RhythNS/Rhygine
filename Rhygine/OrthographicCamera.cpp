@@ -15,7 +15,7 @@ DirectX::XMMATRIX OrthographicCamera::GetOrthoMatrix()
 	// Transpose the matirx
 	return DirectX::XMMatrixTranspose
 	(
-		DirectX::XMMatrixTranslation(position.m_floats[0], position.m_floats[1], position.m_floats[2]) *
+		DirectX::XMMatrixTranslation(position.x, position.y, position.z) *
 		DirectX::XMMatrixRotationX(rotation.x) *
 		DirectX::XMMatrixRotationY(rotation.y) *
 		DirectX::XMMatrixOrthographicLH(((float)win->GetWidth()) * zoom.x, ((float)win->GetHeight()) * zoom.y, win->GetGfx()->nearZ, win->GetGfx()->farZ)

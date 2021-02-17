@@ -14,7 +14,7 @@ void TestLitPlate::AddData(GameObject* toAddTo)
 	Transform* transform = toAddTo->AddComponent<Transform>();
 	Drawer* drawer = toAddTo->AddComponent<Drawer>();
 
-	transform->localPosition.setValue(0.0f, 0.0f, 5.0f);
+	transform->localPosition.Set(0.0f, 0.0f, 5.0f);
 	//transform->scale.Set(3.0f, 3.0f, 3.0f);
 
 	std::vector<VertexPosNormalUV> verts =
@@ -73,7 +73,7 @@ void TestLitPlate::AddData(GameObject* toAddTo)
 	txs->light = tlc;
 
 	RotateAround* rotateAround = toAddTo->AddComponent<RotateAround>();
-	rotateAround->rotationSpeed.setValue(-1.0f, 0.0f, 0.0f);
+	rotateAround->rotationSpeed.Set(0.0f, -1.0f, 0.0f);
 	rotateAround->Disable();
 
 	toAddTo->AddComponent<TestLitPlateComponent>();

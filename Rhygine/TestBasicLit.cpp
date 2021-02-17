@@ -74,7 +74,7 @@ void TestBasicLit::AddData(GameObject* toAddTo)
 	btl->light = tlc;
 
 	RotateAround* rotateAround = toAddTo->AddComponent<RotateAround>();
-	rotateAround->rotationSpeed.setValue(-1.0f, 0.0f, 0.0f);
+	rotateAround->rotationSpeed.Set(-1.0f, 0.0f, 0.0f);
 	rotateAround->Disable();
 
 

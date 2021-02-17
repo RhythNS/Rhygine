@@ -37,9 +37,9 @@ void ToonShader::Update()
 	lightInfo.lightColor[3] = lightColor[3];
 
 	RhyM::Vec3* lightPos = &light->GetGameObject()->GetComponent<Transform>()->localPosition;
-	lightInfo.lightPosition[0] = lightPos->m_floats[0];
-	lightInfo.lightPosition[1] = lightPos->m_floats[1];
-	lightInfo.lightPosition[2] = lightPos->m_floats[2];
+	lightInfo.lightPosition[0] = lightPos->x;
+	lightInfo.lightPosition[1] = lightPos->y;
+	lightInfo.lightPosition[2] = lightPos->z;
 
 	pixBuffer->SetAndUpdate(&lightInfo);
 }

@@ -42,20 +42,20 @@ void PresentScene::InnerInit()
 
 	TestLitPlate tlp = TestLitPlate(tlc);
 	GameObject* litMovingSprite = GameObjectFactory::Add(stage.get(), &tlp);
-	litMovingSprite->GetComponent<Transform>()->localPosition.setValue(-2.0f, 0.0f, 0.0f);
-	litMovingSprite->GetComponent<Transform>()->localScale.setValue(1.0f, 1.0f, 1.0f);
+	litMovingSprite->GetComponent<Transform>()->localPosition.Set(-2.0f, 0.0f, 0.0f);
+	litMovingSprite->GetComponent<Transform>()->localScale.Set(1.0f, 1.0f, 1.0f);
 	litMovingSprite->GetComponent<RotateAround>()->Enable();
 
 
 	TestFloor tf = TestFloor(15.0f, 15.0f, tlc);
 	GameObject* floor = GameObjectFactory::Add(stage.get(), &tf);
-	floor->GetComponent<Transform>()->localPosition.setValue(0.0f, -2.0f, 0.0f);
+	floor->GetComponent<Transform>()->localPosition.Set(0.0f, -2.0f, 0.0f);
 
 
 	TestBasicLit tbl = TestBasicLit("PresentScene\\carpet.jpg", tlc);
 	GameObject* litCarpet = GameObjectFactory::Add(stage.get(), &tbl);
-	litCarpet->GetComponent<Transform>()->localPosition.setValue(2.0f, 0.0f, 0.0f);
-	litCarpet->GetComponent<Transform>()->localScale.setValue(1.0f, 1.0f, 1.0f);
+	litCarpet->GetComponent<Transform>()->localPosition.Set(2.0f, 0.0f, 0.0f);
+	litCarpet->GetComponent<Transform>()->localScale.Set(1.0f, 1.0f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.2f, 0.5f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->Enable();
 

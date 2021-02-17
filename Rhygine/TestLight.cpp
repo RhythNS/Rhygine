@@ -14,7 +14,7 @@
 void TestLight::AddData(GameObject* toAddTo)
 {
 	Transform* transform = AddTransform(toAddTo);
-	transform->localScale.setValue(0.1f, 0.1f, 0.1f);
+	transform->localScale.Set(0.1f, 0.1f, 0.1f);
 	Drawer* drawer = AddDrawer(toAddTo);
 
 	struct Vertex {
@@ -47,5 +47,5 @@ void TestLight::AddData(GameObject* toAddTo)
 
 	toAddTo->AddComponent<TestLightComponent>();
 
-	transform->localPosition.m_floats[2] = -2.0f;
+	transform->localPosition.z = -2.0f;
 }

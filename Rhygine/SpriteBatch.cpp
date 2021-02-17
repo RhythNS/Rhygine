@@ -47,7 +47,7 @@ void SpriteBatch::Draw(Texture* texture, float texX, float texY, float texWidth,
 	GrowArray();
 
 	sprites[currentBufferCount++] = {
-		position.m_floats[0], position.m_floats[1], position.m_floats[2], width, height, rotation,
+		position.x, position.y, position.z, width, height, rotation,
 		texX, texY, texWidth, texHeight, texture, color
 	};
 }
@@ -60,7 +60,7 @@ void SpriteBatch::Draw(TextureRegion* texture, RhyM::Vec3 position, float width,
 	GrowArray();
 
 	sprites[currentBufferCount++] = {
-		position.m_floats[0], position.m_floats[1], position.m_floats[2], width, height, rotation,
+		position.x, position.y, position.z, width, height, rotation,
 		texture->x, texture->y, texture->width, texture->height, texture->texture, color
 	};
 }

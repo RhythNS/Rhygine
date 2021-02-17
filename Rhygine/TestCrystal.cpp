@@ -77,7 +77,7 @@ void TestCrystal::AddData(GameObject* toAddTo)
 
 		for (size_t j = 0; j < 4; j++)
 		{
-			verts[i + j].tangent = { tangent[0], tangent[1], tangent[2] };
+			verts[i + j].tangent = { tangent.x, tangent.y, tangent.z };
 		}
 	}
 
@@ -99,5 +99,5 @@ void TestCrystal::AddData(GameObject* toAddTo)
 	tlnms->specStrength = 0.4f;
 	tlnms->light = tlc;
 
-	toAddTo->AddComponent<RotateAround>()->rotationSpeed.setValue(0.0f, 1.0f, 0.0f);
+	toAddTo->AddComponent<RotateAround>()->rotationSpeed.Set(1.0f, 0.0f, 0.0f);
 }

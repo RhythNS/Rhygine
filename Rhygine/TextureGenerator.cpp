@@ -38,7 +38,7 @@ void TextureGenerator::Fill(int x, int y)
 	{
 		// take a pixel out of the openset and add it to the closedset.
 		auto currentIt = openSet.begin();
-		RhyM::Vec2 current = *currentIt;
+		RhyM::Vec2I current = *currentIt;
 		closedSet.push_back(current);
 		openSet.erase(currentIt);
 

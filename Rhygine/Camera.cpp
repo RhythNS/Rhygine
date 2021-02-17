@@ -23,8 +23,8 @@ void Camera::UpdateMatrix()
 {
 	// First move and then rotate
 	matrix =
-		DirectX::XMMatrixTranslation(-transform->localPosition.m_floats[0], -transform->localPosition.m_floats[1], -transform->localPosition.m_floats[2]) *
+		DirectX::XMMatrixTranslation(-transform->localPosition.x, -transform->localPosition.y, -transform->localPosition.z) *
 		DirectX::XMMatrixRotationQuaternion(
-			DirectX::XMVectorSet(-transform->localRotation.getX(), -transform->localRotation.getY(), -transform->localRotation.getZ(), transform->localRotation.getW())
+			DirectX::XMVectorSet(-transform->localRotation.x, -transform->localRotation.y, -transform->localRotation.z, transform->localRotation.w)
 		);
 }

@@ -50,9 +50,9 @@ void BasicTextureLit::Update()
 	lightBuffer.lightColor[3] = lightColor[3];
 
 	RhyM::Vec3* lightPos = &light->GetGameObject()->GetComponent<Transform>()->localPosition;
-	lightBuffer.lightPosition[0] = lightPos->m_floats[0];
-	lightBuffer.lightPosition[1] = lightPos->m_floats[1];
-	lightBuffer.lightPosition[2] = lightPos->m_floats[2];
+	lightBuffer.lightPosition[0] = lightPos->x;
+	lightBuffer.lightPosition[1] = lightPos->y;
+	lightBuffer.lightPosition[2] = lightPos->z;
 	pixBuffer->SetAndUpdate(&lightBuffer);
 }
 

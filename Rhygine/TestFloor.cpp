@@ -43,10 +43,10 @@ void TestFloor::AddData(GameObject* toAddTo)
 	std::vector<Vertex> verts =
 	{
 		//     x        y         z       									  nx	ny	  nz         u          v
-		{ -width / 2,  0.0f, -depth / 2, tangent[0], tangent[1], tangent[2], 0.0f, 1.0f, 0.0f, -depth / 2,  width / 2 },
-		{  width / 2,  0.0f, -depth / 2, tangent[0], tangent[1], tangent[2], 0.0f, 1.0f, 0.0f,  depth / 2,  width / 2 },
-		{ -width / 2,  0.0f,  depth / 2, tangent[0], tangent[1], tangent[2], 0.0f, 1.0f, 0.0f, -depth / 2, -width / 2 },
-		{  width / 2,  0.0f,  depth / 2, tangent[0], tangent[1], tangent[2], 0.0f, 1.0f, 0.0f,  depth / 2, -width / 2 }
+		{ -width / 2,  0.0f, -depth / 2, tangent.x, tangent.y, tangent.z, 0.0f, 1.0f, 0.0f, -depth / 2,  width / 2 },
+		{  width / 2,  0.0f, -depth / 2, tangent.x, tangent.y, tangent.z, 0.0f, 1.0f, 0.0f,  depth / 2,  width / 2 },
+		{ -width / 2,  0.0f,  depth / 2, tangent.x, tangent.y, tangent.z, 0.0f, 1.0f, 0.0f, -depth / 2, -width / 2 },
+		{  width / 2,  0.0f,  depth / 2, tangent.x, tangent.y, tangent.z, 0.0f, 1.0f, 0.0f,  depth / 2, -width / 2 }
 	};
 
 	std::vector<unsigned short> indexes =

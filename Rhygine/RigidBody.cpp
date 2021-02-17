@@ -2,6 +2,7 @@
 #include "Physics.h"
 #include "Transform.h"
 #include "Gameobject.h"
+#include "BulletConverter.h"
 
 void RigidBody::Init()
 {
@@ -22,8 +23,8 @@ void RigidBody::Create(float mass, std::shared_ptr<btCollisionShape> _shape, Rhy
 {
 	assert(_shape);
 	shape = _shape;
-	body = std::make_unique<btRigidBody>(mass, &motion, shape.get(), localInertia);
-	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
+	body = std::make_unique<btRigidBody>(mass, &motion, shape.get(), Vec3ToBullet(localInertia));
+	body->setWorldTransform(btTransform(QuatToBullet(transform->localRotation), Vec3ToBullet(transform->localPosition)));
 	Physics::Register(this);
 }
 
@@ -32,7 +33,7 @@ void RigidBody::Create(RigidBody* copy)
 	assert(copy);
 	shape = copy->shape;
 	body = std::make_unique<btRigidBody>(copy->body->getMass(), &motion, shape.get(), copy->body->getLocalInertia());
-	body->setWorldTransform(btTransform(transform->localRotation, transform->localPosition));
+	body->setWorldTransform(btTransform(QuatToBullet(transform->localRotation), Vec3ToBullet(transform->localPosition)));
 	Physics::Register(this);
 }
 
@@ -71,6 +72,6 @@ void RigidBody::OnDisabled()
 
 void RigidBody::UpdatePosition()
 {
-	transform->localPosition = body->getWorldTransform().getOrigin();
-	transform->localRotation = body->getOrientation();
+	transform->localPosition = Vec3ToRhy(body->getWorldTransform().getOrigin());
+	transform->localRotation = QuatToRhy(body->getOrientation());
 }

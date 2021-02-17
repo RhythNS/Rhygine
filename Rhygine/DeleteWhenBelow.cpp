@@ -10,7 +10,7 @@ void DeleteWhenBelow::Init()
 
 void DeleteWhenBelow::Update()
 {
-	if (trans->GetWorldPosition().m_floats[1] < y)
+	if (trans->GetWorldPosition().y < y)
 	{
 		GetGameObject()->GetStage()->RemoveGameObject(GetGameObject());
 	}

@@ -7,6 +7,7 @@
 #include "Random.h"
 #include "DeleteWhenBelow.h"
 #include "Keys.h"
+#include "BulletConverter.h"
 #include "bullet\btBulletCollisionCommon.h"
 
 #include <algorithm>
@@ -106,7 +107,7 @@ RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, floa
 	drawer->AddBindable(std::make_unique<Texture>(boxTexture.get(), 0));
 
 	RigidBody* body = go->AddComponent<RigidBody>();
-	body->Create(mass, std::make_unique<btBoxShape>(size / 2), size / 2);
+	body->Create(mass, std::make_unique<btBoxShape>(Vec3ToBullet(size / 2)), size / 2);
 
 	return body;
 }

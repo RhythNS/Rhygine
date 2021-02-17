@@ -66,7 +66,7 @@ public:
 
 	void SetWorldRotation(RhyM::Quat rotation);
 	RhyM::Quat GetWorldRotation();
-	RhyM::Quat localRotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
+	RhyM::Quat localRotation = RhyM::Quat::FromEuler(0.0f, 0.0f, 0.0f);
 
 	void SetWorldScale(RhyM::Vec3 scale);
 	RhyM::Vec3 GetWorldScale();

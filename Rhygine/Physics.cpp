@@ -2,13 +2,14 @@
 #include "RigidBody.h"
 #include "Window.h"
 #include "BulletDebugDraw.h"
+#include "BulletConverter.h"
 
 Physics::Physics(float secondsPerTick) :
 	secondsPerTick(secondsPerTick)
 {
 	instance = this;
 
-	world.setGravity(RhyM::Vec3(0.0f, -9.81f, 0.0f));
+	world.setGravity(btVector3(0.0f, -9.81f, 0.0f));
 
 	Window::GetInstance()->time.physicsUpdateRate = std::chrono::duration<float>(secondsPerTick);
 }
@@ -97,12 +98,12 @@ void Physics::SetUpdateRate(float _secondsPerTick)
 
 void Physics::SetGravity(RhyM::Vec3& gravity)
 {
-	world.setGravity(gravity);
+	world.setGravity(Vec3ToBullet(gravity));
 }
 
 RhyM::Vec3 Physics::GetGravity()
 {
-	return world.getGravity();
+	return Vec3ToRhy(world.getGravity());
 }
 
 void Physics::EnableDebug(Stage* stage)

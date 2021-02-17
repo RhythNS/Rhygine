@@ -21,17 +21,17 @@ void CameraMover::Update()
 	// Rotation control with ZHGJTU
 	RhyM::Vec3 rotate = RhyM::Vec3(0.0f, 0.0f, 0.0f);
 	if (keys->IsKeyDown('Z'))
-		rotate.m_floats[2] -= 5 * delta;
+		rotate.z -= 5 * delta;
 	if (keys->IsKeyDown('H'))
-		rotate.m_floats[2] += 5 * delta;
+		rotate.z += 5 * delta;
 	if (keys->IsKeyDown('G'))
-		rotate.m_floats[0] -= 5 * delta;
+		rotate.x -= 5 * delta;
 	if (keys->IsKeyDown('J'))
-		rotate.m_floats[0] += 5 * delta;
+		rotate.x += 5 * delta;
 	if (keys->IsKeyDown('T'))
-		rotate.m_floats[1] += 5 * delta;
+		rotate.y += 5 * delta;
 	if (keys->IsKeyDown('U'))
-		rotate.m_floats[1] -= 5 * delta;
+		rotate.y -= 5 * delta;
 
 	// Rotate the transform
 	//transform->rotation = transform->rotation * RhyM::Quat(rotate.x(), rotate.y(), rotate.z());
@@ -53,33 +53,33 @@ void CameraMover::Update()
 	if (mouse->IsButtonDown(RH_MOUSE_RIGHT))
 	{
 		transform->localRotation =
-			RhyM::Quat(RhyM::Vec3(0.0f, 1.0f, 0.0f), rp->x * speed) *
+			RhyM::Quat::FromAngleAxis(rp->x * speed, RhyM::Vec3(0.0f, 1.0f, 0.0f)) *
 			transform->localRotation *
-			RhyM::Quat(RhyM::Vec3(1.0f, 0.0f, 0.0f), rp->y * speed)
+			RhyM::Quat::FromAngleAxis(rp->y * speed, RhyM::Vec3(1.0f, 0.0f, 0.0f))
 			;
 	}
 
 	// Move the camera around with WASDQE
 	RhyM::Vec3 move = RhyM::Vec3(0.0f, 0.0f, 0.0f);
 	if (keys->IsKeyDown('S'))
-		move.m_floats[2] -= 5 * delta;
+		move.z -= 5 * delta;
 	if (keys->IsKeyDown('W'))
-		move.m_floats[2] += 5 * delta;
+		move.z += 5 * delta;
 	if (keys->IsKeyDown('A'))
-		move.m_floats[0] -= 5 * delta;
+		move.x -= 5 * delta;
 	if (keys->IsKeyDown('D'))
-		move.m_floats[0] += 5 * delta;
+		move.x += 5 * delta;
 	if (keys->IsKeyDown('Q'))
-		move.m_floats[1] -= 5 * delta;
+		move.y -= 5 * delta;
 	if (keys->IsKeyDown('E'))
-		move.m_floats[1] += 5 * delta;
+		move.y += 5 * delta;
 
 	// To make the camera feel more natrual, the move is rotated based on the current rotation of the camera.
 	// So the movement is now in local space and not in global space.
-	move = quatRotate(transform->localRotation, move);
+	move = transform->localRotation * move;
 	transform->localPosition += move;
 
 	// If the r keys is pressed, then reset the rotation.
 	if (keys->IsKeyDown('R'))
-		transform->localRotation = RhyM::Quat(0.0f, 0.0f, 0.0f);
+		transform->localRotation = RhyM::Quat::FromEuler(0.0f, 0.0f, 0.0f);
 }

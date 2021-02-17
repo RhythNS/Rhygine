@@ -266,6 +266,7 @@
     <ClInclude Include="BasicTextureLit.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendStateBindable.h" />
+    <ClInclude Include="BulletConverter.h" />
     <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="BulletShowcaser.h" />
     <ClInclude Include="BulletTestScene.h" />
@@ -292,6 +293,7 @@
     <ClInclude Include="InfoDisplayer.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="LightTestScene.h" />
+    <ClInclude Include="Matrix3x3.hpp" />
     <ClInclude Include="MemoryLeakTestScene.h" />
     <ClInclude Include="MonoFont.h" />
     <ClInclude Include="OptBasic.h" />
@@ -305,6 +307,7 @@
     <ClInclude Include="PresentScene.h" />
     <ClInclude Include="PresentVNManager.h" />
     <ClInclude Include="PrimitiveTopolpgy.h" />
+    <ClInclude Include="Quaternion.hpp" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="RhyAssimp.h" />
@@ -370,6 +373,9 @@
     <ClInclude Include="UIVertGroupSizer.h" />
     <ClInclude Include="UnBindable.h" />
     <ClInclude Include="Updatable.h" />
+    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector2Int.hpp" />
+    <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="VertBuffer.h" />
     <ClInclude Include="Verticies.h" />
     <ClInclude Include="VertIndexes.h" />
