@@ -1,18 +1,12 @@
 #pragma once
-#include "UISizer.h"
+#include "UIOwnSizer.h"
 
 /// <summary>
 /// Default sizer which sets the bounds of its UIElement relative to its parent
 /// using the size and position of the UIElement.
 /// </summary>
-class UILocalSizer : public UISizer
+class UILocalSizer : public UIOwnSizer
 {
 public:
 	virtual ~UILocalSizer() { }
-
-	const bool isControllingChildren();
-
-private:
-	static const bool controllingChildren = false;
 };
-

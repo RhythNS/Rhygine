@@ -1,5 +1,5 @@
 #pragma once
-#include "UISizer.h"
+#include "UIOwnSizer.h"
 
 /// <summary>
 /// Fits the UIElement to the bounds of its parent relativly based on the from and to values.
@@ -9,7 +9,7 @@
 /// then the sizer would resize the bounds to width=0.6, height=0.5 at the
 /// position x=20, y=0.
 /// </summary>
-class UIFitToParentRelativeSizer : public UISizer
+class UIFitToParentRelativeSizer : public UIOwnSizer
 {
 public:
 	UIFitToParentRelativeSizer(float fromX, float toX, float fromY, float toY);
@@ -24,4 +24,3 @@ public:
 private:
 	static const bool controllingChildren = false;
 };
-

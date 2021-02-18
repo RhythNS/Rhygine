@@ -1,11 +1,11 @@
 #pragma once
-#include "UISizer.h"
+#include "UIChildSizer.h"
 
 /// <summary>
 /// Resizes and reposition its children so they form a horizontal list inside the
 /// bounds of the UIElement.
 /// </summary>
-class UIHoriGroupSizer : public UISizer
+class UIHoriGroupSizer : public UIChildSizer
 {
 public:
 	UIHoriGroupSizer();
@@ -17,14 +17,8 @@ public:
 	UIHoriGroupSizer(float paddingX, float paddingY);
 	virtual ~UIHoriGroupSizer() { }
 
-	const bool isControllingChildren();
-
 	void ResizeChildren(RhyM::Vec2 currentWorldScale);
 	void UpdatePositionChildren();
 
 	float paddingX = 0, paddingY = 0;
-
-private:
-	static const bool controllingChildren = true;
-
 };

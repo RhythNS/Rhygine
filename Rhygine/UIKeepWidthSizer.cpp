@@ -7,11 +7,6 @@ UIKeepWidth::UIKeepWidth(VertAlignment vert, HoriAlignment hori, float paddingX,
 {
 }
 
-const bool UIKeepWidth::isControllingChildren()
-{
-	return controllingChildren;
-}
-
 void UIKeepWidth::ResizeSelf(RhyM::Rect& rect, RhyM::Vec2 currentWorldScale)
 {
 	RhyM::Vec2 size = element->GetSize();

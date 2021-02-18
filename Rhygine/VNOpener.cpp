@@ -11,7 +11,7 @@ void VNOpener::Init()
 	font = GetGameObject()->AddComponent<UIFont>();
 	font->SetParent(this);
 	font->Set(&PresentResources::instance->defFont, true, UIFont::VertAlignment::Middle, UIFont::HoriAlignment::Middle, 0.3f);
-	font->SetSizer(std::make_unique<UIFitToParentSizer>());
+	font->SetOwnSizer(std::make_unique<UIFitToParentSizer>());
 	font->text = "Click\nMe!";
 	font->color = RhyC::black;
 }

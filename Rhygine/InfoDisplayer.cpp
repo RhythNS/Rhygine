@@ -12,13 +12,13 @@ void InfoDisplayer::Init()
 {
 	frameDurationFont = GetGameObject()->AddComponent<UIFont>();
 	frameDurationFont->SetParent(GetGameObject()->GetStage()->GetUIRoot());
-	frameDurationFont->SetSizer(std::make_unique<UIFitToParentSizer>());
+	frameDurationFont->SetOwnSizer(std::make_unique<UIFitToParentSizer>());
 	frameDurationFont->Set(&PresentResources::instance->defFont, true, UIFont::VertAlignment::Up, UIFont::HoriAlignment::Right, 0.3f);
 
 	
 	infoFont = GetGameObject()->AddComponent<UIFont>();
 	infoFont->SetParent(GetGameObject()->GetStage()->GetUIRoot());
-	infoFont->SetSizer(std::make_unique<UIFitToParentSizer>());
+	infoFont->SetOwnSizer(std::make_unique<UIFitToParentSizer>());
 	infoFont->Set(&PresentResources::instance->defFont, true, UIFont::VertAlignment::Up, UIFont::HoriAlignment::Left, 0.3f);
 
 	infoFont->text =

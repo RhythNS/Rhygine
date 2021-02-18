@@ -1,11 +1,6 @@
 #include "UIFitToParentSizer.h"
 #include "UIElement.h"
 
-const bool UIFitToParentSizer::isControllingChildren()
-{
-    return controllingChildren;
-}
-
 void UIFitToParentSizer::ResizeSelf(RhyM::Rect& rect, RhyM::Vec2 currentWorldScale)
 {
     RhyM::Rect parent = GetParentRect();

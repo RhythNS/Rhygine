@@ -23,5 +23,5 @@ public:
 	Emotion currentEmotion = Emotion::Happy;
 
 private:
-	Texture *happy, *mad, *sad, *surprised, *embarrassed;
+	Texture *happy = nullptr, *mad = nullptr, *sad = nullptr, *surprised = nullptr, *embarrassed = nullptr;
 };

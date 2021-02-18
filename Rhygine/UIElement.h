@@ -4,10 +4,18 @@
 #include "Rect.h"
 #include "Component.h"
 #include "Drawable.h"
-#include "UISizer.h"
+#include "UIChildSizer.h"
+#include "UIOwnSizer.h"
 
 #include <vector>
 #include <memory>
+
+enum class VertAlignment {
+	Up, Middle, Down
+};
+enum class HoriAlignment {
+	Left, Middle, Right
+};
 
 class SpriteBatch;
 class TextureRegion;
@@ -22,6 +30,8 @@ class UIRootElement;
 class UIElement : public Component
 {
 	friend class UISizer;
+	friend class UIOwnSizer;
+	friend class UIChildSizer;
 	friend class UIRootElement;
 public:
 	UIElement();
@@ -85,14 +95,23 @@ public:
 	virtual void InnerDraw(SpriteBatch* batch) = 0;
 
 	/// <summary>
-	/// Gets a reference to the current sizer.
+	/// Gets a reference to the current own sizer.
 	/// </summary>
-	UISizer* GetSizer();
+	UIOwnSizer* GetOwnSizer();
 	/// <summary>
-	/// Sets the current sizer.
+	/// Sets the own sizer.
 	/// </summary>
-	/// <returns>A reference to the current sizer for chaining.</returns>
-	UISizer* SetSizer(std::unique_ptr<UISizer> newSizer);
+	/// <returns>A reference to the own sizer for chaining.</returns>
+	UIOwnSizer* SetOwnSizer(std::unique_ptr<UIOwnSizer> newSizer);
+	/// <summary>
+	/// Gets a reference to the current child sizer.
+	/// </summary>
+	UIChildSizer* GetChildSizer();
+	/// <summary>
+	/// Sets the current child sizer.
+	/// </summary>
+	/// <returns>A reference to the current child sizer for chaining.</returns>
+	UIChildSizer* SetChildSizer(std::unique_ptr<UIChildSizer> newSizer);
 
 	RhyM::Vec3 GetPos();
 	void SetPos(RhyM::Vec3 pos);
@@ -169,7 +188,8 @@ private:
 	RhyM::Vec2 scale = RhyM::Vec2(1.0f, 1.0f);
 	RhyM::Vec3 pos = RhyM::Vec3(0.0f, 0.0f, 20.0f);
 
-	std::unique_ptr<UISizer> sizer;
 	UIElement* parent;
+	std::unique_ptr<UIOwnSizer> ownSizer;
+	std::unique_ptr<UIChildSizer> childSizer;
 	std::vector<UIElement*> children;
 };

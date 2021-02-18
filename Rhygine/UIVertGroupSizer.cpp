@@ -6,11 +6,6 @@ UIVertGroupSizer::UIVertGroupSizer()
 UIVertGroupSizer::UIVertGroupSizer(float paddingX, float paddingY) : paddingX(paddingX), paddingY(paddingY)
 {}
 
-const bool UIVertGroupSizer::isControllingChildren()
-{
-	return controllingChildren;
-}
-
 void UIVertGroupSizer::ResizeChildren(RhyM::Vec2 currentWorldScale)
 {
 	int childCount = GetChildCount();

@@ -1,6 +1,5 @@
 #include "UIElement.h"
 #include "Gameobject.h"
-#include "UISizer.h"
 #include "UILocalSizer.h"
 #include "SpriteBatch.h"
 #include "TextureRegion.h"
@@ -9,9 +8,9 @@
 
 #include <cassert>
 
-UIElement::UIElement() : sizer(std::make_unique<UILocalSizer>()), bounds(), parent(nullptr)
+UIElement::UIElement() : ownSizer(std::make_unique<UILocalSizer>()), bounds(), parent(nullptr)
 {
-	sizer->element = this;
+	ownSizer->element = this;
 }
 
 void UIElement::OnRemove()
@@ -111,19 +110,34 @@ void UIElement::Draw(SpriteBatch* batch)
 	}
 }
 
-UISizer* UIElement::GetSizer()
+UIOwnSizer* UIElement::GetOwnSizer()
 {
-	return sizer.get();
+	return ownSizer.get();
 }
 
-UISizer* UIElement::SetSizer(std::unique_ptr<UISizer> newSizer)
+UIOwnSizer* UIElement::SetOwnSizer(std::unique_ptr<UIOwnSizer> newSizer)
 {
 	newSizer->element = this;
-	sizer.reset();
-	sizer.swap(newSizer);
+	ownSizer.reset();
+	ownSizer.swap(newSizer);
 	OnResize(GetParentWorldScale());
 	OnUpdatePosition();
-	return sizer.get();
+	return ownSizer.get();
+}
+
+UIChildSizer* UIElement::GetChildSizer()
+{
+	return childSizer.get();
+}
+
+UIChildSizer* UIElement::SetChildSizer(std::unique_ptr<UIChildSizer> newSizer)
+{
+	newSizer->element = this;
+	childSizer.reset();
+	childSizer.swap(newSizer);
+	OnResize(GetParentWorldScale());
+	OnUpdatePosition();
+	return childSizer.get();
 }
 
 RhyM::Vec3 UIElement::GetPos()
@@ -219,7 +233,13 @@ RhyM::Vec3 UIElement::GetDrawPosition()
 void UIElement::OnResize(RhyM::Vec2 parentScale)
 {
 	parentScale.Scl(scale);
-	sizer->OnResize(parentScale);
+
+	if (parent == nullptr || !parent->childSizer)
+		ownSizer->ResizeSelf(bounds, parentScale);
+
+	if (childSizer)
+ 		childSizer->ResizeChildren(parentScale);
+
 	for (auto& child : children)
 	{
 		child->OnResize(parentScale);
@@ -228,7 +248,12 @@ void UIElement::OnResize(RhyM::Vec2 parentScale)
 
 void UIElement::OnUpdatePosition()
 {
-	sizer->OnUpdatePosition();
+	if (parent == nullptr || !parent->childSizer)
+		ownSizer->UpdatePositionSelf(bounds);
+
+	if (childSizer)
+		childSizer->UpdatePositionChildren();
+
 	for (auto& child : children)
 	{
 		child->OnUpdatePosition();
@@ -271,7 +296,7 @@ void UIElement::SetParent(UIElement* element)
 	parent = element;
 
 	// parent is controlling us?
-	if (parent != nullptr && parent->GetSizer()->isControllingChildren())
+	if (parent != nullptr && parent->childSizer)
 	{
 		parent->OnResize(parent->GetParentWorldScale());
 		parent->OnUpdatePosition();

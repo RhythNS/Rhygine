@@ -31,7 +31,7 @@ public:
 	VertAlignment vert = VertAlignment::Up;
 	HoriAlignment hori = HoriAlignment::Left;
 	bool wordWrap = false;
-	float textScale;
+	float textScale = 1.0f;
 private:
-	MonoFont* font;
+	MonoFont* font = nullptr;
 };

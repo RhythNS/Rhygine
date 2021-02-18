@@ -239,6 +239,7 @@
     <ClCompile Include="ToonShader.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIChildSizer.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIFitToParentRelativeSizer.cpp" />
     <ClCompile Include="UIFitToParentSizer.cpp" />
@@ -246,10 +247,9 @@
     <ClCompile Include="UIHoriGroupSizer.cpp" />
     <ClCompile Include="UIImage.cpp" />
     <ClCompile Include="UIKeepWidthSizer.cpp" />
-    <ClCompile Include="UILocalSizer.cpp" />
+    <ClCompile Include="UIOwnSizer.cpp" />
     <ClCompile Include="UIRootElement.cpp" />
     <ClCompile Include="UIRootSizer.cpp" />
-    <ClCompile Include="UISizer.cpp" />
     <ClCompile Include="UITester.cpp" />
     <ClCompile Include="UIVertGroupSizer.cpp" />
     <ClCompile Include="VertShader.cpp" />
@@ -357,6 +357,7 @@
     <ClInclude Include="ToonShader.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIChildSizer.h" />
     <ClInclude Include="UIContainer.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIFitToParentRelativeSizer.h" />
@@ -366,9 +367,9 @@
     <ClInclude Include="UIImage.h" />
     <ClInclude Include="UIKeepWidthSizer.h" />
     <ClInclude Include="UILocalSizer.h" />
+    <ClInclude Include="UIOwnSizer.h" />
     <ClInclude Include="UIRootElement.h" />
     <ClInclude Include="UIRootSizer.h" />
-    <ClInclude Include="UISizer.h" />
     <ClInclude Include="UITester.h" />
     <ClInclude Include="UIVertGroupSizer.h" />
     <ClInclude Include="UnBindable.h" />

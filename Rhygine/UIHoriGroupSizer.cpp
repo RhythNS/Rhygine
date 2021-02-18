@@ -7,11 +7,6 @@ UIHoriGroupSizer::UIHoriGroupSizer()
 UIHoriGroupSizer::UIHoriGroupSizer(float paddingX, float paddingY) : paddingX(paddingX), paddingY(paddingY)
 {}
 
-const bool UIHoriGroupSizer::isControllingChildren()
-{
-	return controllingChildren;
-}
-
 void UIHoriGroupSizer::ResizeChildren(RhyM::Vec2 currentWorldScale)
 {
 	int childCount = GetChildCount();

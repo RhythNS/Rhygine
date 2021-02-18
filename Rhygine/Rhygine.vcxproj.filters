@@ -294,12 +294,6 @@
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files\2D\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UISizer.cpp">
-      <Filter>Source Files\2D\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UILocalSizer.cpp">
-      <Filter>Source Files\2D\UI\Sizers</Filter>
-    </ClCompile>
     <ClCompile Include="UIFitToParentSizer.cpp">
       <Filter>Source Files\2D\UI\Sizers</Filter>
     </ClCompile>
@@ -428,6 +422,12 @@
     </ClCompile>
     <ClCompile Include="MemoryLeakTestScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UIOwnSizer.cpp">
+      <Filter>Source Files\2D\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIChildSizer.cpp">
+      <Filter>Source Files\2D\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -641,9 +641,6 @@
     <ClInclude Include="UIElement.h">
       <Filter>Header Files\2D\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UISizer.h">
-      <Filter>Header Files\2D\UI</Filter>
-    </ClInclude>
     <ClInclude Include="UIContainer.h">
       <Filter>Header Files\2D\UI\Elements</Filter>
     </ClInclude>
@@ -802,6 +799,12 @@
     </ClInclude>
     <ClInclude Include="BulletConverter.h">
       <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="UIOwnSizer.h">
+      <Filter>Header Files\2D\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIChildSizer.h">
+      <Filter>Header Files\2D\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

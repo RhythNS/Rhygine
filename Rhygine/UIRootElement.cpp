@@ -4,7 +4,7 @@
 
 void UIRootElement::Init()
 {
-	SetSizer(std::make_unique<UIRootSizer>());
+	SetOwnSizer(std::make_unique<UIRootSizer>());
 }
 
 void UIRootElement::Delete()
