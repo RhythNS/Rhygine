@@ -195,12 +195,14 @@
     <ClCompile Include="MemoryLeakTestScene.cpp" />
     <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="NewFeatureTestScene.cpp" />
     <ClCompile Include="OptBasic.cpp" />
     <ClCompile Include="OptBatch.cpp" />
     <ClCompile Include="OptModel.cpp" />
     <ClCompile Include="OptNep.cpp" />
     <ClCompile Include="OptScene.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
+    <ClCompile Include="ParallelPrint.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PresentResources.cpp" />
     <ClCompile Include="PresentScene.cpp" />
@@ -217,6 +219,7 @@
     <ClCompile Include="SpriteBatchTester.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StencilStates.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
     <ClCompile Include="TestBasicLit.cpp" />
     <ClCompile Include="TestCrystal.cpp" />
     <ClCompile Include="TestFloor.cpp" />
@@ -229,6 +232,8 @@
     <ClCompile Include="TestPhysicsMover.cpp" />
     <ClCompile Include="TestPyramid.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TestParallelAsUpdate.cpp" />
+    <ClCompile Include="TestParallelMaker.cpp" />
     <ClCompile Include="TestTexture.cpp" />
     <ClCompile Include="TexLitNormalMapShader.cpp" />
     <ClCompile Include="TexLitShader.cpp" />
@@ -258,6 +263,7 @@
     <ClCompile Include="VNTextbox.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -292,16 +298,19 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InfoDisplayer.h" />
     <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="LateUpdatable.h" />
     <ClInclude Include="LightTestScene.h" />
     <ClInclude Include="Matrix3x3.hpp" />
     <ClInclude Include="MemoryLeakTestScene.h" />
     <ClInclude Include="MonoFont.h" />
+    <ClInclude Include="NewFeatureTestScene.h" />
     <ClInclude Include="OptBasic.h" />
     <ClInclude Include="OptBatch.h" />
     <ClInclude Include="OptModel.h" />
     <ClInclude Include="OptNep.h" />
     <ClInclude Include="OptScene.h" />
     <ClInclude Include="OrthographicCamera.h" />
+    <ClInclude Include="ParallelPrint.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PresentResources.h" />
     <ClInclude Include="PresentScene.h" />
@@ -333,6 +342,8 @@
     <ClInclude Include="SpriteBatchTester.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StencilStates.h" />
+    <ClInclude Include="ParallelUpdatable.h" />
+    <ClInclude Include="TaskManager.h" />
     <ClInclude Include="TestBasicLit.h" />
     <ClInclude Include="TestCrystal.h" />
     <ClInclude Include="TestFloor.h" />
@@ -345,6 +356,8 @@
     <ClInclude Include="TestPhysicsMover.h" />
     <ClInclude Include="TestPyramid.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TestParallelAsUpdate.h" />
+    <ClInclude Include="TestParallelMaker.h" />
     <ClInclude Include="TestTexture.h" />
     <ClInclude Include="TexLitNormalMapShader.h" />
     <ClInclude Include="TexLitShader.h" />
@@ -385,6 +398,7 @@
     <ClInclude Include="VNOpener.h" />
     <ClInclude Include="VNTextbox.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="Worker.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicLitPix.hlsl">

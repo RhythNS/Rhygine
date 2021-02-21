@@ -11,6 +11,7 @@ class Gfx;
 class Physics;
 class Scene;
 class Tickable;
+class TaskManager;
 
 /// <summary>
 /// Representation of a window in win32. Holds the Gfx, manages messages and
@@ -39,6 +40,7 @@ public:
 		bool physicsStartDebugMode = false;
 		float physicsUpdateTime = 0.02f;
 		bool mouseCaptured = false;
+		int coreCountOverride = -1;
 	};
 
 	Window() = delete;
@@ -57,6 +59,11 @@ public:
 	/// Gets a reference to the current scene.
 	/// </summary>
 	Scene* GetCurrentScene();
+	/// <summary>
+	/// Gets a reference to the task manager.
+	/// </summary>
+	/// <returns></returns>
+	TaskManager* GetTaskManager();
 	/// <summary>
 	/// Gets the window handle.
 	/// </summary>
@@ -140,5 +147,6 @@ private:
 	HINSTANCE hInstance;
 	Physics* physics = nullptr;
 	Gfx* gfx = nullptr;
+	TaskManager* taskManager = nullptr;
 	Scene* currentScene;
 };

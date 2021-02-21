@@ -9,6 +9,7 @@
 #include "PresentScene.h"
 #include "OptScene.h"
 #include "MemoryLeakTestScene.h"
+#include "NewFeatureTestScene.h"
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -29,6 +30,7 @@ int CALLBACK WinMain(
 		// OptScene* scene = new OptScene();
 		PresentScene* scene = new PresentScene();
 		// MemoryLeakTestScene* scene = new MemoryLeakTestScene();
+		// NewFeatureTestScene* scene = new NewFeatureTestScene();
 
 		// Get all information needed for the start and put it into WindowDefinition.
 		Window::WindowDefinition winDef;
@@ -45,6 +47,7 @@ int CALLBACK WinMain(
 		winDef.enablePhysics = true;
 		winDef.physicsStartDebugMode = false;
 		winDef.physicsUpdateTime = 0.01f;
+		winDef.coreCountOverride = -1;
 
 		// Create the window.
 		Window window(winDef);

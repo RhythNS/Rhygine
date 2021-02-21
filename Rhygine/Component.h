@@ -4,6 +4,8 @@ class GameObject;
 class Keys;
 class Mouse;
 class SpriteBatch;
+class ParallelUpdatable;
+
 /// <summary>
 /// Components can implement updatable and/ or drawable for functionality.
 /// Components add functionalty to the gameobjects on which they are on.
@@ -57,6 +59,11 @@ protected:
 	/// Get a pointer to the spritebatch.
 	/// </summary>
 	SpriteBatch* GetSpriteBatch();
+	/// <summary>
+	/// Adds a OneShot to the TaskManager.
+	/// </summary>
+	/// <param name="parallel">The Parallel to be added.</param>
+	void AddOneShot(ParallelUpdatable* parallel);
 
 	/// <summary>
 	/// Calles when a component that was disabled was enabled.

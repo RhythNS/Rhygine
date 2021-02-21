@@ -148,6 +148,12 @@
     <Filter Include="Source Files\TestGameobjects\Opt">
       <UniqueIdentifier>{a5008718-ec74-4e47-aa7b-506892435766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gameobject\Task">
+      <UniqueIdentifier>{8ba4496c-571d-4b8e-bd02-a6bc08c85cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameobject\Task">
+      <UniqueIdentifier>{2050f1f9-afd0-4e95-9d00-1d875154da3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -428,6 +434,24 @@
     </ClCompile>
     <ClCompile Include="UIChildSizer.cpp">
       <Filter>Source Files\2D\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskManager.cpp">
+      <Filter>Source Files\Gameobject\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Source Files\Gameobject\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="NewFeatureTestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TestParallelMaker.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TestParallelAsUpdate.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ParallelPrint.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -805,6 +829,30 @@
     </ClInclude>
     <ClInclude Include="UIChildSizer.h">
       <Filter>Header Files\2D\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LateUpdatable.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.h">
+      <Filter>Header Files\Gameobject\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskManager.h">
+      <Filter>Header Files\Gameobject\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="NewFeatureTestScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestParallelAsUpdate.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TestParallelMaker.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallelUpdatable.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallelPrint.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

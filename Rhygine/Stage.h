@@ -11,6 +11,7 @@ class GameObject;
 class Camera;
 class Scene;
 class UIRootElement;
+
 /// <summary>
 /// Manages all gameobjects.
 /// </summary>
@@ -127,11 +128,13 @@ private:
 	// Iterates over each gameobject that is inside the stage, and executes
 	// a given method.
 #define FOR_EACH_GAMEOBJECT( method ) \
-	GameObject* current = front; \
-	while (current->next != nullptr) \
 	{ \
+		GameObject* current = front; \
+		while (current->next != nullptr) \
+		{ \
+			current->method; \
+			current = current->next; \
+		} \
 		current->method; \
-		current = current->next; \
-	} \
-	current->method
+	}
 };

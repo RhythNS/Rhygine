@@ -118,6 +118,14 @@ void GameObject::Update()
 	}
 }
 
+void GameObject::LateUpdate()
+{
+	for (auto& late : lateUpdatables)
+	{
+		late->LateUpdate();
+	}
+}
+
 void GameObject::Draw()
 {
 	for (auto& drawable : drawables)

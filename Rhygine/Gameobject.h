@@ -1,13 +1,16 @@
 #pragma once
 #include "Updatable.h"
+#include "LateUpdatable.h"
 #include "Drawable.h"
 #include "Component.h"
+#include "ParallelUpdatable.h"
 
 #include <vector>
 #include <memory>
 #include <string>
 
 class Stage;
+class TaskManager;
 
 /// <summary>
 /// Represent an object in the simulation. Gameobjects are being held by the Stage. The
@@ -16,6 +19,7 @@ class Stage;
 class GameObject
 {
 	friend class Stage;
+	friend class TaskManager;
 public:
 	GameObject() = delete;
 
@@ -27,6 +31,10 @@ public:
 	/// Called every frame. This is used to update the gameobject for the simulation.
 	/// </summary>
 	void Update();
+	/// <summary>
+	/// Called after update on every component that implements LateUpdatable.
+	/// </summary>
+	void LateUpdate();
 	/// <summary>
 	/// Called ever frame. This is used to draw the gameobject onto the screen.
 	/// </summary>
@@ -54,6 +62,14 @@ public:
 		Drawable* drawable;
 		if (drawable = dynamic_cast<Drawable*>(t))
 			drawables.push_back(drawable);
+
+		LateUpdatable* late;
+		if (late = dynamic_cast<LateUpdatable*>(t))
+			lateUpdatables.push_back(late);
+
+		ParallelUpdatable* parallel;
+		if (parallel = dynamic_cast<ParallelUpdatable*>(t))
+			parallels.push_back(parallel);
 
 		return t;
 	}
@@ -110,6 +126,16 @@ public:
 				Drawable* drawable;
 				if (drawable = dynamic_cast<Drawable*>(t))
 					std::erase(drawables, drawable);
+
+				// If it is lateUpdatable, remove it from the late updatables.
+				LateUpdatable* late;
+				if (late = dynamic_cast<LateUpdatable*>(t))
+					std::erase(lateUpdatables, late);
+
+				// If it is a Parallel, remove it from parallels.
+				ParallelUpdatable* parallel;
+				if (parallel = dynamic_cast<ParallelUpdatable*>(t))
+					std::erase(parallels, parallel);
 
 				components.erase(components.begin() + i);
 
@@ -198,5 +224,7 @@ private:
 
 	std::vector<std::unique_ptr<Component>> components;
 	std::vector<Updatable*> updatables;
+	std::vector<LateUpdatable*> lateUpdatables;
 	std::vector<Drawable*> drawables;
+	std::vector<ParallelUpdatable*> parallels;
 };

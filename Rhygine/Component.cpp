@@ -5,6 +5,7 @@
 #include "Mouse.h"
 #include "Stage.h"
 #include "SpriteBatch.h"
+#include "TaskManager.h"
 
 GameObject* Component::GetGameObject()
 {
@@ -46,6 +47,11 @@ Keys* Component::GetKeys()
 SpriteBatch* Component::GetSpriteBatch()
 {
 	return gameObject->GetStage()->GetSpriteBatch();
+}
+
+void Component::AddOneShot(ParallelUpdatable* parallel)
+{
+	Window::GetInstance()->GetTaskManager()->AddOneShot(parallel);
 }
 
 void Component::SetGameObject(GameObject* game)

@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "UIRootElement.h"
 #include "Window.h"
+#include "TaskManager.h"
 
 Stage::Stage() : width(Window::GetInstance()->GetWidth()), height(Window::GetInstance()->GetHeight()),
 front(new GameObject(this)), back(new GameObject(this)),
@@ -116,7 +117,9 @@ SpriteBatch* Stage::GetSpriteBatch()
 void Stage::Update()
 {
 	FOR_EACH_GAMEOBJECT(Update());
+	FOR_EACH_GAMEOBJECT(LateUpdate());
 
+	Window::GetInstance()->GetTaskManager()->Work(this);
 
 	while (toRemoveGameobjects.size() != 0)
 	{

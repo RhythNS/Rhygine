@@ -13,6 +13,7 @@
 #include "Physics.h"
 #include "Scene.h"
 #include "Tickable.h"
+#include "TaskManager.h"
 
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),
@@ -108,6 +109,21 @@ Window::Window(WindowDefinition definition) :
 	if (definition.targetFramesPerSecond > 0)
 		time.wantedFrameTime = std::chrono::microseconds(1000000 / definition.targetFramesPerSecond);
 
+	// Get the system info to get the number of cores
+	if (definition.coreCountOverride < 1)
+	{
+		SYSTEM_INFO info;
+		GetSystemInfo(&info);
+		// If core count can not be gotten, set the default to 4 cores.
+		// ThreadsToStart = CoreCount - MainThread(1)
+		int coreCount = info.dwNumberOfProcessors <= 0 ? 3 : info.dwNumberOfProcessors - 1;
+		taskManager = new TaskManager(coreCount);
+	}
+	else
+	{
+		taskManager = new TaskManager(definition.coreCountOverride - 1);
+	}
+
 	// Init the current scene
 	currentScene->Init();
 
@@ -137,6 +153,7 @@ Window::~Window()
 	ImGui::DestroyContext();
 
 	delete currentScene;
+	delete taskManager;
 	delete gfx;
 	delete physics;
 
@@ -156,6 +173,11 @@ Gfx* Window::GetGfx()
 Scene* Window::GetCurrentScene()
 {
 	return currentScene;
+}
+
+TaskManager* Window::GetTaskManager()
+{
+	return taskManager;
 }
 
 HWND* Window::GetWindowHandle()
@@ -257,7 +279,7 @@ bool Window::IsInFullscreen()
 
 void Window::Resize(int posX, int posY, int width, int height)
 {
-	SetWindowPos( windowHandle, 0, posX, posY, width, height, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+	SetWindowPos(windowHandle, 0, posX, posY, width, height, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 }
 
 int Window::MainLoop()
@@ -513,7 +535,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 void Window::CaptureMouse()
 {
 	// Get the current client size and clip the cursor to it.
-	WINDOWINFO windowinfo;
+	WINDOWINFO windowinfo{};
 	windowinfo.cbSize = sizeof(WINDOWINFO);
 	GetWindowInfo(windowHandle, &windowinfo);
 
