@@ -34,7 +34,7 @@ void TaskManager::Work(Stage* stage)
 	{
 		ParallelUpdatable* parallel = GetParallel();
 		if (parallel)
-			parallel->Update();
+			parallel->ParallelUpdate();
 		else
 			break;
 	}

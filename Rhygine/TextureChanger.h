@@ -13,7 +13,8 @@ class Texture;
 class TextureChanger : public Bindable, public Updatable
 {
 public:
-	void Init();
+	TextureChanger();
+
 	void Bind();
 	void Update();
 private:

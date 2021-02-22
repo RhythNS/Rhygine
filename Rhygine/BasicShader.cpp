@@ -5,11 +5,10 @@ BasicShader::BasicShader(LPCWSTR pixName, LPCWSTR vertName, std::vector<D3D11_IN
 	CreateShaders(pixName, vertName, inputLayoutDesc);
 }
 
-void BasicShader::Init()
+void BasicShader::AfterDrawerSet()
 {
 	UpdateBuffer();
 	worldConstant = std::make_unique<ConstantVS<WorldPos>>(&worldBuffer, 0);
-	InitBindable(worldConstant.get());
 }
 
 void BasicShader::Update()
@@ -26,5 +25,5 @@ void BasicShader::InnerBind()
 
 void BasicShader::UpdateBuffer()
 {
-	worldBuffer.transform = GetPerspectiveMatrix();
+	worldBuffer.transform = GetPerspectiveMatrix(GetDrawer());
 }

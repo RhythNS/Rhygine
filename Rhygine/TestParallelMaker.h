@@ -7,7 +7,7 @@ class Stage;
 class TestParallelMaker : public Component, public ParallelUpdatable
 {
 public:
-	void Update();
+	void ParallelUpdate();
 	static void AddToStage(Stage* stage);
 };
 

@@ -7,5 +7,5 @@
 class ParallelUpdatable
 {
 public:
-	virtual void Update() = 0;
+	virtual void ParallelUpdate() = 0;
 };

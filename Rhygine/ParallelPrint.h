@@ -3,5 +3,5 @@
 
 class ParallelPrint : public ParallelUpdatable
 {
-	void Update();
+	void ParallelUpdate();
 };

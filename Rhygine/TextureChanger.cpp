@@ -4,7 +4,7 @@
 
 #include <string>
 
-void TextureChanger::Init()
+TextureChanger::TextureChanger()
 {
 	for (int i = 1; i < 21; i++)
 	{

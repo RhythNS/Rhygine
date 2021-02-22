@@ -59,7 +59,7 @@ void Worker::Work()
 
 		ParallelUpdatable* parallel = taskManager->GetParallel();
 		if (parallel)
-			parallel->Update();
+			parallel->ParallelUpdate();
 		else
 			execute = false;
 	}

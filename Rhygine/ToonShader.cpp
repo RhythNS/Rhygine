@@ -2,7 +2,7 @@
 #include "Gameobject.h"
 #include "Transform.h"
 
-void ToonShader::Init()
+void ToonShader::AfterDrawerSet()
 {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -13,17 +13,15 @@ void ToonShader::Init()
 	CreateShaders(L"ToonPix.hlsl", L"ToonVert.hlsl", &inputLayoutDesc);
 
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightInfo, 0);
-	InitBindable<ConstantPS<LightInfo>>(pixBuffer.get());
-
 	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&positionInfo, 0);
-	InitBindable<ConstantVS<PositionInfo>>(worldPosBuffer.get());
 }
 
 void ToonShader::Update()
 {
-	positionInfo.projection = GetPerspectiveMatrix();
-	positionInfo.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix());
-	positionInfo.localScaleRotation = GetLocalMatrix();
+	Drawer* drawer = GetDrawer();
+	positionInfo.projection = GetPerspectiveMatrix(drawer);
+	positionInfo.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix(drawer));
+	positionInfo.localScaleRotation = GetLocalMatrix(drawer);
 
 	worldPosBuffer->SetAndUpdate(&positionInfo);
 

@@ -13,7 +13,7 @@ public:
 	TexLitNormalMapShader(std::string texturePath, std::string normalMapPath, D3D11_SAMPLER_DESC samplerDesc);
 	virtual ~TexLitNormalMapShader() { }
 
-	void Init();
+	void AfterDrawerSet();
 
 protected:
 	void InnerBind();

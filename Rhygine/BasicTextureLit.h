@@ -16,7 +16,7 @@ public:
 	BasicTextureLit(Texture* texture);
 	virtual ~BasicTextureLit() { }
 
-	void Init();
+	void AfterDrawerSet();
 	void Update();
 	void InnerBind();
 

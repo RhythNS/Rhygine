@@ -19,6 +19,6 @@ public:
 	/// </summary>
 	RhyM::Vec3 rotationSpeed = RhyM::Vec3(1.0f, 1.0f, 1.0f);
 private:
-	Transform* transform;
+	Transform* transform = nullptr;
 };
 

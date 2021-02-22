@@ -4,7 +4,7 @@
 #include "Random.h"
 #include "Gameobject.h"
 
-void TestParallelMaker::Update()
+void TestParallelMaker::ParallelUpdate()
 {
 	for (int i = 0; i < 1000; i++)
 	{

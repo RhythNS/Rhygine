@@ -14,7 +14,7 @@ TexLitNormalMapShader::TexLitNormalMapShader(std::string texturePath, std::strin
 	sampler = std::make_unique<Sampler>(0, samplerDesc);
 }
 
-void TexLitNormalMapShader::Init()
+void TexLitNormalMapShader::AfterDrawerSet()
 {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -25,15 +25,8 @@ void TexLitNormalMapShader::Init()
 
 	CreateShaders(L"PhongTexNormalMappingPix.hlsl", L"PhongTexNormalMappingVert.hlsl", &inputLayoutDesc);
 
-	InitBindable(sampler.get());
-	InitBindable(texture.get());
-	InitBindable(normalMap.get());
-
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
-	InitBindable<ConstantPS<LightInfo>>(pixBuffer.get());
-
 	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
-	InitBindable<ConstantVS<PositionInfo>>(worldPosBuffer.get());
 }
 
 void TexLitNormalMapShader::InnerBind()

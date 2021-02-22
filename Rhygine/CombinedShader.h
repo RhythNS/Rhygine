@@ -1,5 +1,6 @@
 #pragma once
 #include "Bindable.h"
+#include "DrawerBindable.h"
 
 #include <memory>
 #include <vector>
@@ -11,23 +12,12 @@ class InputLayout;
 /// <summary>
 /// Represents a shader. Holds a pixel and vertex shader and an input layer bindable.
 /// </summary>
-class CombinedShader : public Bindable
+class CombinedShader : public Bindable, public DrawerBindable
 {
 public:
 	void Bind();
 
 protected:
-	/// <summary>
-	/// Creates a new bindable.
-	/// </summary>
-	/// <typeparam name="T">The type of bindable that should be created.</typeparam>
-	/// <param name="t">A reference to the bindable.</param>
-	template<class T>
-	inline void InitBindable(T* t)
-	{
-		t->drawer = drawer;
-		t->Init();
-	}
 	/// <summary>
 	/// Create the shaders and input layout.
 	/// </summary>

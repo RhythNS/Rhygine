@@ -6,17 +6,14 @@
 
 BasicTextureLit::BasicTextureLit(std::string texturePath) : texture(std::make_unique<Texture>(texturePath.c_str(), 0))
 {
-
 }
 
 BasicTextureLit::BasicTextureLit(Texture* texture) : texture(std::make_unique<Texture>(texture, 0))
 {
 }
 
-void BasicTextureLit::Init()
+void BasicTextureLit::AfterDrawerSet()
 {
-	InitBindable(texture.get());
-
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12u, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -26,17 +23,15 @@ void BasicTextureLit::Init()
 	CreateShaders(L"BasicLitPix.hlsl", L"BasicLitVert.hlsl", &inputLayoutDesc);
 
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
-	InitBindable(pixBuffer.get());
-
 	vertBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
-	InitBindable(vertBuffer.get());
 }
 
 void BasicTextureLit::Update()
 {
-	posBuffer.projection = GetPerspectiveMatrix();
-	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix());
-	posBuffer.localScaleRotation = GetLocalMatrix();
+	Drawer* drawer = GetDrawer();
+	posBuffer.projection = GetPerspectiveMatrix(drawer);
+	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix(drawer));
+	posBuffer.localScaleRotation = GetLocalMatrix(drawer);
 
 	vertBuffer->SetAndUpdate(&posBuffer);
 

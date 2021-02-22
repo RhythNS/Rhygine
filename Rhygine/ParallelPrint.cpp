@@ -1,7 +1,7 @@
 #include "ParallelPrint.h"
 #include "RhyWin.h"
 
-void ParallelPrint::Update()
+void ParallelPrint::ParallelUpdate()
 {
 	OutputDebugString("Yay\n");
 }

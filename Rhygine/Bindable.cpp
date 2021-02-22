@@ -29,24 +29,17 @@ Microsoft::WRL::ComPtr<ID3D11DepthStencilView> Bindable::GetDepthStencilView()
     return Gfx::instance->depthStencilView;
 }
 
-DirectX::XMMATRIX Bindable::GetWorldMatrix()
+DirectX::XMMATRIX Bindable::GetWorldMatrix(Drawer* drawer)
 {
     return drawer->GetTransform()->GetWorldMatrix();
 }
 
-DirectX::XMMATRIX Bindable::GetPerspectiveMatrix()
+DirectX::XMMATRIX Bindable::GetPerspectiveMatrix(Drawer* drawer)
 {
     return drawer->GetTransform()->GetPerspectiveMatrix();
 }
 
-DirectX::XMMATRIX Bindable::GetLocalMatrix()
+DirectX::XMMATRIX Bindable::GetLocalMatrix(Drawer* drawer)
 {
     return drawer->GetTransform()->GetLocalMatrix();
 }
-
-Drawer* Bindable::GetDrawer()
-{
-    return drawer;
-}
-
-

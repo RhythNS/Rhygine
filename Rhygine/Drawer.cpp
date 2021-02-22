@@ -6,6 +6,7 @@
 #include "Stage.h"
 #include "PrimitiveTopolpgy.h"
 #include "UnBindable.h"
+#include "DrawerBindable.h"
 
 void Drawer::Init()
 {
@@ -60,10 +61,6 @@ Bindable* Drawer::AddBindable(std::unique_ptr<Bindable> bindable)
 
 	AnalyseBindable(bindable.get());
 
-	// Init the bindable
-	bindable->drawer = this;
-	bindable->Init();
-
 	// add it to the bindable list
 	bindables.push_back(std::move(bindable));
 
@@ -105,6 +102,13 @@ inline void Drawer::AnalyseBindable(Bindable* bindable)
 			break;
 		}
 		return;
+	}
+
+	DrawerBindable* drawerBindable;
+	if (drawerBindable = dynamic_cast<DrawerBindable*>(bindable))
+	{
+		drawerBindable->drawer = this;
+		drawerBindable->AfterDrawerSet();
 	}
 }
 

@@ -16,7 +16,7 @@ class TexLitShader : public CombinedShader, public Updatable
 public:
 	virtual ~TexLitShader() {}
 
-	virtual void Init();
+	virtual void AfterDrawerSet();
 	virtual void Update();
 
 	/// <summary>

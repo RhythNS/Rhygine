@@ -7,7 +7,7 @@
 #include "Drawer.h"
 #include "Rhyimgui.h"
 
-void TexLitShader::Init()
+void TexLitShader::AfterDrawerSet()
 {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -18,10 +18,7 @@ void TexLitShader::Init()
 	CreateShaders(L"PhongTexPix.hlsl", L"PhongTexVert.hlsl", &inputLayoutDesc);
 
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
-	InitBindable<ConstantPS<LightInfo>>(pixBuffer.get());
-
 	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
-	InitBindable<ConstantVS<PositionInfo>>(worldPosBuffer.get());
 }
 
 void TexLitShader::Update()
@@ -64,15 +61,16 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.cameraPos[0] = cameraPos->x;
 	lightBuffer.cameraPos[1] = cameraPos->y;
 	lightBuffer.cameraPos[2] = cameraPos->z;
-
+	
 	pixBuffer->SetAndUpdate(&lightBuffer);
 }
 
 void TexLitShader::UpdatePositionInfo()
 {
-	posBuffer.projection = GetPerspectiveMatrix();
-	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix());
-	posBuffer.localScaleRotation = GetLocalMatrix();
+	Drawer* drawer = GetDrawer();
+	posBuffer.projection = GetPerspectiveMatrix(drawer);
+	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix(drawer));
+	posBuffer.localScaleRotation = GetLocalMatrix(drawer);
 
 	worldPosBuffer->SetAndUpdate(&posBuffer);
 }
