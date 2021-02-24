@@ -6,6 +6,7 @@
 #include "Stage.h"
 #include "SpriteBatch.h"
 #include "TaskManager.h"
+#include "Coroutine.h"
 
 GameObject* Component::GetGameObject()
 {
@@ -52,6 +53,11 @@ SpriteBatch* Component::GetSpriteBatch()
 void Component::AddOneShot(ParallelUpdatable* parallel)
 {
 	Window::GetInstance()->GetTaskManager()->AddOneShot(parallel);
+}
+
+std::weak_ptr<Coroutine> Component::StartCoroutine(Yielder yielder, std::function<void()> onFinish)
+{
+	return gameObject->StartCoroutine(yielder, onFinish);
 }
 
 void Component::SetGameObject(GameObject* game)

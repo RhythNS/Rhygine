@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{843e96c3-7711-4976-a8b5-11350dad04e7}</UniqueIdentifier>
     </Filter>
@@ -153,6 +149,16 @@
     </Filter>
     <Filter Include="Header Files\Gameobject\Task">
       <UniqueIdentifier>{2050f1f9-afd0-4e95-9d00-1d875154da3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameobject\Coroutines">
+      <UniqueIdentifier>{02efb422-0e3c-48a0-8163-6639aebb28fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameobject\Coroutines">
+      <UniqueIdentifier>{a5c6e222-aaf1-4496-aa01-9d0fdfb18996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +461,15 @@
     </ClCompile>
     <ClCompile Include="DrawerBindable.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="CoroutineTestComponent.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Coroutine.cpp">
+      <Filter>Source Files\Gameobject\Coroutines</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitForSeconds.cpp">
+      <Filter>Source Files\Gameobject\Coroutines</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -859,6 +874,27 @@
     </ClInclude>
     <ClInclude Include="DrawerBindable.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Generator.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CoroutineTestComponent.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Coroutine.h">
+      <Filter>Header Files\Gameobject\Coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="RhyCoroutine.h">
+      <Filter>Header Files\Includers</Filter>
+    </ClInclude>
+    <ClInclude Include="YieldInstruction.h">
+      <Filter>Header Files\Gameobject\Coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="Yielder.h">
+      <Filter>Header Files\Gameobject\Coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitForSeconds.h">
+      <Filter>Header Files\Gameobject\Coroutines</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

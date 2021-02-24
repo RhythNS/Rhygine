@@ -101,6 +101,25 @@ Component* GameObject::GetComponentAt(int at)
 	return components[at].get();
 }
 
+std::weak_ptr<Coroutine> GameObject::StartCoroutine(Yielder yielder, std::function<void()> onFinish)
+{
+	coroutines.push_back(std::shared_ptr<Coroutine>(new Coroutine(yielder, this, onFinish)));
+	return std::weak_ptr<Coroutine>(coroutines[coroutines.size() - 1]);
+}
+
+void GameObject::RemoveCoroutine(Coroutine* coroutine)
+{
+	int size = static_cast<int>(coroutines.size());
+	for (int i = 0; i < size; i++)
+	{
+		if (coroutines[i].get() == coroutine)
+		{
+			coroutines.erase(coroutines.begin() + i);
+			return;
+		}
+	}
+}
+
 Stage* GameObject::GetStage()
 {
 	return stage;
@@ -112,6 +131,14 @@ void GameObject::Init()
 
 void GameObject::Update()
 {
+	for (int i = static_cast<int>(coroutines.size()) - 1; i >= 0; i--)
+	{
+		if (coroutines[i]->Update())
+		{
+			coroutines.erase(coroutines.begin() + i);
+		}
+	}
+
 	for (auto& updatable : updatables)
 	{
 		updatable->Update();

@@ -1,10 +1,14 @@
 #pragma once
+#include <memory>
+#include <functional>
 
 class GameObject;
 class Keys;
 class Mouse;
 class SpriteBatch;
 class ParallelUpdatable;
+class Coroutine;
+struct Yielder;
 
 /// <summary>
 /// Components can implement updatable and/ or drawable for functionality.
@@ -64,6 +68,13 @@ protected:
 	/// </summary>
 	/// <param name="parallel">The Parallel to be added.</param>
 	void AddOneShot(ParallelUpdatable* parallel);
+	/// <summary>
+	/// Starts a coroutine on the GameObject this component is on.
+	/// </summary>
+	/// <param name="yielder">The yielder method that this coroutine uses.</param>
+	/// <param name="onFinish">The function that is called when the coroutine finishes.</param>
+	/// <returns>A weak reference to the coroutine.</returns>
+	std::weak_ptr<Coroutine> StartCoroutine(Yielder yielder, std::function<void()> onFinish = nullptr);
 
 	/// <summary>
 	/// Calles when a component that was disabled was enabled.

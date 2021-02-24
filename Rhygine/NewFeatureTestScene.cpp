@@ -7,12 +7,14 @@
 #include "TestParallelAsUpdate.h"
 #include "Window.h"
 #include "TaskManager.h"
+#include "CoroutineTestComponent.h"
 
 void NewFeatureTestScene::InnerInit()
 {
 	stage->CreateGameObject()->AddComponent<PresentResources>();
 	stage->CreateGameObject()->AddComponent<InfoDisplayer>();
 	// TestParallelAsUpdate::AddToStage(stage.get());
-	 TestParallelMaker::AddToStage(stage.get());
-	Window::GetInstance()->GetTaskManager()->AddOneShot(&print);
+	// TestParallelMaker::AddToStage(stage.get());
+	// Window::GetInstance()->GetTaskManager()->AddOneShot(&print);
+	stage->CreateGameObject()->AddComponent<CoroutineTestComponent>();
 }

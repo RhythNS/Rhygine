@@ -4,6 +4,7 @@
 #include "Drawable.h"
 #include "Component.h"
 #include "ParallelUpdatable.h"
+#include "Coroutine.h"
 
 #include <vector>
 #include <memory>
@@ -20,6 +21,7 @@ class GameObject
 {
 	friend class Stage;
 	friend class TaskManager;
+	friend class Coroutine;
 public:
 	GameObject() = delete;
 
@@ -168,6 +170,15 @@ public:
 	/// <param name="at">The index for the component.</param>
 	/// <returns>A reference to the component.</returns>
 	Component* GetComponentAt(int at);
+
+	/// <summary>
+	/// Starts a coroutine on this GameObject.
+	/// </summary>
+	/// <param name="yielder">The yielder method that this coroutine uses.</param>
+	/// <param name="onFinish">The function that is called when the coroutine finishes.</param>
+	/// <returns>A weak reference to the coroutine.</returns>
+	std::weak_ptr<Coroutine> StartCoroutine(Yielder yielder, std::function<void()> onFinish = nullptr);
+
 	/// <summary>
 	/// Gets a reference to the stage that this gameobject is on.
 	/// </summary>
@@ -177,6 +188,12 @@ public:
 
 private:
 	GameObject(Stage* stage);
+
+	/// <summary>
+	/// Removes the coroutine from this GameObject. Should only be called from inside the coroutine.
+	/// </summary>
+	/// <param name="coroutine">The coroutine to be removed.</param>
+	void RemoveCoroutine(Coroutine* coroutine);
 
 	Stage* stage;
 	/// <summary>
@@ -227,4 +244,5 @@ private:
 	std::vector<LateUpdatable*> lateUpdatables;
 	std::vector<Drawable*> drawables;
 	std::vector<ParallelUpdatable*> parallels;
+	std::vector<std::shared_ptr<Coroutine>> coroutines;
 };

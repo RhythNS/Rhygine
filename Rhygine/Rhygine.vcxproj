@@ -177,6 +177,8 @@
     <ClCompile Include="CameraMover.cpp" />
     <ClCompile Include="CombinedShader.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Coroutine.cpp" />
+    <ClCompile Include="CoroutineTestComponent.cpp" />
     <ClCompile Include="DeleteWhenBelow.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="DrawerBindable.cpp" />
@@ -262,6 +264,7 @@
     <ClCompile Include="VNCharacter.cpp" />
     <ClCompile Include="VNOpener.cpp" />
     <ClCompile Include="VNTextbox.cpp" />
+    <ClCompile Include="WaitForSeconds.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Worker.cpp" />
@@ -282,12 +285,15 @@
     <ClInclude Include="CombinedShader.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Coroutine.h" />
+    <ClInclude Include="CoroutineTestComponent.h" />
     <ClInclude Include="DeleteWhenBelow.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="DrawerBindable.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="GeoShader.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -325,6 +331,7 @@
     <ClInclude Include="RhyBindables.h" />
     <ClInclude Include="RhyBullet.h" />
     <ClInclude Include="RhyColor.h" />
+    <ClInclude Include="RhyCoroutine.h" />
     <ClInclude Include="RhyException.h" />
     <ClInclude Include="Gfx.h" />
     <ClInclude Include="Keys.h" />
@@ -399,8 +406,11 @@
     <ClInclude Include="VNCharacter.h" />
     <ClInclude Include="VNOpener.h" />
     <ClInclude Include="VNTextbox.h" />
+    <ClInclude Include="WaitForSeconds.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Worker.h" />
+    <ClInclude Include="Yielder.h" />
+    <ClInclude Include="YieldInstruction.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicLitPix.hlsl">
