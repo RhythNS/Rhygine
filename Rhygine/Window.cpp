@@ -282,6 +282,12 @@ void Window::Resize(int posX, int posY, int width, int height)
 	SetWindowPos(windowHandle, 0, posX, posY, width, height, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 }
 
+void Window::ChangeScene(Scene* toChangeTo)
+{
+	assert(changeRequest == nullptr);
+	changeRequest = toChangeTo;
+}
+
 int Window::MainLoop()
 {
 	MSG msg;
@@ -348,6 +354,15 @@ int Window::MainLoop()
 		for (Tickable* i : tickables)
 		{
 			i->EndTick();
+		}
+
+		// Change the scene if there was a change request.
+		if (changeRequest)
+		{
+			changeRequest->OnSceneChange(currentScene);
+			delete currentScene;
+			currentScene = changeRequest;
+			changeRequest = nullptr;
 		}
 
 		// Set the frame time and sleep if needed.

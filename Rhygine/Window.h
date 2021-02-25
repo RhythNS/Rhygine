@@ -105,6 +105,12 @@ public:
 	void Resize(int posX, int posY, int width, int height);
 
 	/// <summary>
+	/// Changes the scene to after the current frame.
+	/// </summary>
+	/// <param name="toChangeTo">The scene to change to.</param>
+	void ChangeScene(Scene* toChangeTo);
+
+	/// <summary>
 	/// Executes the main game loop.
 	/// </summary>
 	/// <returns>The exit code of the program.</returns>
@@ -149,4 +155,5 @@ private:
 	Gfx* gfx = nullptr;
 	TaskManager* taskManager = nullptr;
 	Scene* currentScene;
+	Scene* changeRequest = nullptr;
 };

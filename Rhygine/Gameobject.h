@@ -184,6 +184,11 @@ public:
 	/// </summary>
 	Stage* GetStage();
 
+	/// <summary>
+	/// Wheter this gameobject survives a scene change.
+	/// </summary>
+	bool survivesSceneChange = false;
+
 	std::string name;
 
 private:

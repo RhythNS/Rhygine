@@ -116,6 +116,19 @@ private:
 	/// </summary>
 	void OnMouseUp();
 
+	/// <summary>
+	/// Removes all GameObjects that can surive a scene change from this scene and
+	/// puts them together in a linked list so they can be added to another scene.
+	/// </summary>
+	/// <returns>The first survivor of the linked list.</returns>
+	GameObject* GetSurvivors();
+
+	/// <summary>
+	/// Adds survivors that survived a scene change to this scene.
+	/// </summary>
+	/// <param name="toAdd">The first survivor of the linked list.</param>
+	void AddSurvivors(GameObject* firstSurvivor);
+
 	int width, height;
 	GameObject* front;
 	GameObject* back;

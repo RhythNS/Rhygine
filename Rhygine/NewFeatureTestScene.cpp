@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "TaskManager.h"
 #include "CoroutineTestComponent.h"
+#include "ChangeSceneTest.h"
 
 void NewFeatureTestScene::InnerInit()
 {
@@ -17,4 +18,5 @@ void NewFeatureTestScene::InnerInit()
 	// TestParallelMaker::AddToStage(stage.get());
 	// Window::GetInstance()->GetTaskManager()->AddOneShot(&print);
 	stage->CreateGameObject()->AddComponent<CoroutineTestComponent>();
+	stage->CreateGameObject()->AddComponent<ChangeSceneTest>();
 }

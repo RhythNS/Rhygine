@@ -471,6 +471,9 @@
     <ClCompile Include="WaitForSeconds.cpp">
       <Filter>Source Files\Gameobject\Coroutines</Filter>
     </ClCompile>
+    <ClCompile Include="ChangeSceneTest.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -895,6 +898,9 @@
     </ClInclude>
     <ClInclude Include="WaitForSeconds.h">
       <Filter>Header Files\Gameobject\Coroutines</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeSceneTest.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

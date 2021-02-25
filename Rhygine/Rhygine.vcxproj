@@ -175,6 +175,7 @@
     <ClCompile Include="BulletTestScene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraMover.cpp" />
+    <ClCompile Include="ChangeSceneTest.cpp" />
     <ClCompile Include="CombinedShader.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Coroutine.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="BulletTestScene.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraMover.h" />
+    <ClInclude Include="ChangeSceneTest.h" />
     <ClInclude Include="CombinedShader.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />

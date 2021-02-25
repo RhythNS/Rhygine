@@ -89,4 +89,10 @@ private:
 	/// Called when the left mouse button was released.
 	/// </summary>
 	void OnMouseUp();
+
+	/// <summary>
+	/// Inits this scene and adds survivors from the previous scene to this scene.
+	/// </summary>
+	/// <param name="prevScene">The previous scene that was loaded.</param>
+	void OnSceneChange(Scene* prevScene);
 };

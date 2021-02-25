@@ -44,6 +44,13 @@ void Scene::OnMouseUp()
 	stage->OnMouseUp();
 }
 
+void Scene::OnSceneChange(Scene* prevScene)
+{
+	Init();
+	stage->AddSurvivors(prevScene->stage->GetSurvivors());
+	InnerInit();
+}
+
 float* Scene::GetClearColor()
 {
 	return clearColor;

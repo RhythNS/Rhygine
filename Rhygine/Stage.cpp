@@ -182,3 +182,66 @@ void Stage::OnMouseUp()
 {
 	rootUI->ClickUp();
 }
+
+GameObject* Stage::GetSurvivors()
+{
+	/* We are trying to get all survivor objects in a linked list that looks like this:
+	* firstSurvivor -> ... -> ... -> currentSurvivor.
+	* We then set the prev Gameobject of firstSurvivor to currentSurvivor to make them easily
+	* addable to the next scene. All we have to do in the next scene is set the prev reference
+	* of firstSurvivor to front and the currentSurvivor next reference to back. Front and back do then need
+	* to point to firstSurvivor and currentSurvivor.
+	*/
+	GameObject* firstSurvivor = nullptr;
+	GameObject* currentSurvivor = nullptr;
+
+	GameObject* current = front;
+	while (current != nullptr)
+	{
+		if (current->survivesSceneChange)
+		{
+			// Is it the first survivor?
+			if (firstSurvivor == nullptr)
+			{
+				firstSurvivor = currentSurvivor = current;
+			}
+			else // already have one survivor, so add it to the list
+			{
+				current->prev = currentSurvivor;
+				currentSurvivor->next = current;
+				currentSurvivor = current;
+			}
+
+			// Remove the current from the gameobject linked list, so they dont get deleted once this scene is destroyed.
+			current->prev->next = current->next;
+			if (current->next != nullptr)
+				current->next->prev = current->prev;
+		}
+
+		// Get the next object.
+		current = current->next;
+	}
+
+	// If we got any survivors set the reference from prev to the last survivor in the list.
+	if (firstSurvivor)
+		firstSurvivor->prev = currentSurvivor;
+
+	return firstSurvivor;
+}
+
+void Stage::AddSurvivors(GameObject* firstSurvivor)
+{
+	if (firstSurvivor == nullptr)
+		return;
+
+	/* Change the scene from:
+	* prev -> back
+	* to:
+	* prev -> firstSurvivor -> ... -> lastSurvivor -> back.
+	* The last survivor is the prev of the firstSurvivor.
+	*/
+	front->next = firstSurvivor;
+	firstSurvivor->prev->next = back;
+	back->prev = firstSurvivor->prev;
+	firstSurvivor->prev = front;
+}
