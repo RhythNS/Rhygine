@@ -6,7 +6,7 @@
 #include "Stage.h"
 #include "PrimitiveTopolpgy.h"
 #include "UnBindable.h"
-#include "DrawerBindable.h"
+#include "DrawerUpdatable.h"
 
 void Drawer::Init()
 {
@@ -20,6 +20,10 @@ void Drawer::Draw()
 	for (auto& updatable : updatables)
 	{
 		updatable->Update();
+	}
+	for (auto& drawerUpdatable : drawerUpdatables)
+	{
+		drawerUpdatable->Update(this);
 	}
 	for (auto& bindable : bindables)
 	{
@@ -104,11 +108,11 @@ inline void Drawer::AnalyseBindable(Bindable* bindable)
 		return;
 	}
 
-	DrawerBindable* drawerBindable;
-	if (drawerBindable = dynamic_cast<DrawerBindable*>(bindable))
+	DrawerUpdatable* drawerUpdatable;
+	if (drawerUpdatable = dynamic_cast<DrawerUpdatable*>(bindable))
 	{
-		drawerBindable->drawer = this;
-		drawerBindable->AfterDrawerSet();
+		drawerUpdatables.push_back(drawerUpdatable);
+		return;
 	}
 }
 
@@ -129,6 +133,10 @@ bool Drawer::RemoveBindable(Bindable* bindable)
 			if (unbindable = dynamic_cast<UnBindable*>(bindable))
 				std::erase(unBindables, unbindable);
 
+			DrawerUpdatable* drawerUpdatable;
+			if (drawerUpdatable = dynamic_cast<DrawerUpdatable*>(bindable))
+				std::erase(drawerUpdatables, drawerUpdatable);
+			
 			bindables.erase(bind);
 
 			return true;

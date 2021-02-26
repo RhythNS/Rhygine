@@ -14,10 +14,10 @@
 class TexLitShader : public CombinedShader, public Updatable
 {
 public:
+	TexLitShader();
 	virtual ~TexLitShader() {}
 
-	virtual void AfterDrawerSet();
-	virtual void Update();
+	virtual void Update(Drawer* drawer);
 
 	/// <summary>
 	/// Info about the lights in the scene.
@@ -53,11 +53,11 @@ protected:
 	/// <summary>
 	/// Updates the lightinfo buffer.
 	/// </summary>
-	virtual void UpdateLightInfo();
+	virtual void UpdateLightInfo(Drawer* drawer);
 	/// <summary>
 	/// Updates the position buffer.
 	/// </summary>
-	virtual void UpdatePositionInfo();
+	virtual void UpdatePositionInfo(Drawer* drawer);
 
 	LightInfo lightBuffer;
 	PositionInfo posBuffer;

@@ -28,9 +28,9 @@ int CALLBACK WinMain(
 		// TestScene* scene = new TestScene();
 		// LightTestScene* scene = new LightTestScene();
 		// OptScene* scene = new OptScene();
-		// PresentScene* scene = new PresentScene();
+		PresentScene* scene = new PresentScene();
 		// MemoryLeakTestScene* scene = new MemoryLeakTestScene();
-		NewFeatureTestScene* scene = new NewFeatureTestScene();
+		// NewFeatureTestScene* scene = new NewFeatureTestScene();
 
 		// Get all information needed for the start and put it into WindowDefinition.
 		Window::WindowDefinition winDef;

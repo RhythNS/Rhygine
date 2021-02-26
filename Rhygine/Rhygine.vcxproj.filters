@@ -459,9 +459,6 @@
     <ClCompile Include="ParallelPrint.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
-    <ClCompile Include="DrawerBindable.cpp">
-      <Filter>Source Files\Gameobject\Components\Drawer\Bindables</Filter>
-    </ClCompile>
     <ClCompile Include="CoroutineTestComponent.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
     </ClCompile>
@@ -875,9 +872,6 @@
     <ClInclude Include="ParallelPrint.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="DrawerBindable.h">
-      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
-    </ClInclude>
     <ClInclude Include="Generator.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
     </ClInclude>
@@ -901,6 +895,9 @@
     </ClInclude>
     <ClInclude Include="ChangeSceneTest.h">
       <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawerUpdatable.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ class Bindable;
 class UnBindable;
 class Transform;
 class Camera;
+class DrawerUpdatable;
 
 /// <summary>
 /// The drawer holds bindables which are used for drawing something onto the screen.
@@ -81,6 +82,7 @@ private:
 	std::vector<std::unique_ptr<Bindable>> bindables;
 	std::vector<Updatable*> updatables;
 	std::vector<UnBindable*> unBindables;
+	std::vector<DrawerUpdatable*> drawerUpdatables;
 	Transform* transform = nullptr;
 	IndexBufferAmount* indexAmount = nullptr;
 	VertBufferAmount* vertAmount = nullptr;

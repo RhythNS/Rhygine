@@ -22,13 +22,11 @@ public:
 	BasicShader() = delete;
 	virtual ~BasicShader() { }
 
-	void AfterDrawerSet();
-
 	struct WorldPos {
 		DirectX::XMMATRIX transform;
 	};
 
-	void Update();
+	void Update(Drawer* drawer);
 protected:
 	void InnerBind();
 	void UpdateBuffer();

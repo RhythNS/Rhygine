@@ -16,8 +16,8 @@ public:
 	BasicTextureLit(Texture* texture);
 	virtual ~BasicTextureLit() { }
 
-	void AfterDrawerSet();
-	void Update();
+	void Init();
+	void Update(Drawer* drawer);
 	void InnerBind();
 
 	struct LightInfo {

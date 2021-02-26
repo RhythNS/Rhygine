@@ -6,13 +6,15 @@
 
 BasicTextureLit::BasicTextureLit(std::string texturePath) : texture(std::make_unique<Texture>(texturePath.c_str(), 0))
 {
+	Init();
 }
 
 BasicTextureLit::BasicTextureLit(Texture* texture) : texture(std::make_unique<Texture>(texture, 0))
 {
+	Init();
 }
 
-void BasicTextureLit::AfterDrawerSet()
+void BasicTextureLit::Init()
 {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -26,9 +28,8 @@ void BasicTextureLit::AfterDrawerSet()
 	vertBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
 }
 
-void BasicTextureLit::Update()
+void BasicTextureLit::Update(Drawer* drawer)
 {
-	Drawer* drawer = GetDrawer();
 	posBuffer.projection = GetPerspectiveMatrix(drawer);
 	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix(drawer));
 	posBuffer.localScaleRotation = GetLocalMatrix(drawer);

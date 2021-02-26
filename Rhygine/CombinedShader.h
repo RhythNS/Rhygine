@@ -1,6 +1,6 @@
 #pragma once
 #include "Bindable.h"
-#include "DrawerBindable.h"
+#include "DrawerUpdatable.h"
 
 #include <memory>
 #include <vector>
@@ -12,7 +12,7 @@ class InputLayout;
 /// <summary>
 /// Represents a shader. Holds a pixel and vertex shader and an input layer bindable.
 /// </summary>
-class CombinedShader : public Bindable, public DrawerBindable
+class CombinedShader : public Bindable, public DrawerUpdatable
 {
 public:
 	void Bind();

@@ -10,8 +10,8 @@
 class ToonShader : public CombinedShader, public Updatable 
 {
 public:
-	void AfterDrawerSet();
-	void Update();
+	ToonShader();
+	void Update(Drawer* drawer);
 	void InnerBind();
 
 	/// <summary>

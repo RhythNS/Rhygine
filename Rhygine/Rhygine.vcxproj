@@ -182,7 +182,6 @@
     <ClCompile Include="CoroutineTestComponent.cpp" />
     <ClCompile Include="DeleteWhenBelow.cpp" />
     <ClCompile Include="Drawer.cpp" />
-    <ClCompile Include="DrawerBindable.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
@@ -292,7 +291,7 @@
     <ClInclude Include="DeleteWhenBelow.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Drawer.h" />
-    <ClInclude Include="DrawerBindable.h" />
+    <ClInclude Include="DrawerUpdatable.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="Generator.h" />

@@ -7,7 +7,7 @@
 #include "Drawer.h"
 #include "Rhyimgui.h"
 
-void TexLitShader::AfterDrawerSet()
+TexLitShader::TexLitShader()
 {
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc = {
 		{ "Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -21,10 +21,10 @@ void TexLitShader::AfterDrawerSet()
 	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
 }
 
-void TexLitShader::Update()
+void TexLitShader::Update(Drawer* drawer)
 {
-	UpdateLightInfo();
-	UpdatePositionInfo();
+	UpdateLightInfo(drawer);
+	UpdatePositionInfo(drawer);
 }
 
 void TexLitShader::InnerBind()
@@ -33,7 +33,7 @@ void TexLitShader::InnerBind()
 	worldPosBuffer->Bind();
 }
 
-void TexLitShader::UpdateLightInfo()
+void TexLitShader::UpdateLightInfo(Drawer* drawer)
 {
 	/*
 	ImGui::Begin("TexLitShader");
@@ -57,7 +57,7 @@ void TexLitShader::UpdateLightInfo()
 	lightBuffer.lightPosition[1] = lightPos->y;
 	lightBuffer.lightPosition[2] = lightPos->z;
 
-	RhyM::Vec3* cameraPos = &GetDrawer()->Get3DCamera()->GetTransform()->localPosition;
+	RhyM::Vec3* cameraPos = &drawer->Get3DCamera()->GetTransform()->localPosition;
 	lightBuffer.cameraPos[0] = cameraPos->x;
 	lightBuffer.cameraPos[1] = cameraPos->y;
 	lightBuffer.cameraPos[2] = cameraPos->z;
@@ -65,9 +65,8 @@ void TexLitShader::UpdateLightInfo()
 	pixBuffer->SetAndUpdate(&lightBuffer);
 }
 
-void TexLitShader::UpdatePositionInfo()
+void TexLitShader::UpdatePositionInfo(Drawer* drawer)
 {
-	Drawer* drawer = GetDrawer();
 	posBuffer.projection = GetPerspectiveMatrix(drawer);
 	posBuffer.worldPos = DirectX::XMMatrixTranspose(GetWorldMatrix(drawer));
 	posBuffer.localScaleRotation = GetLocalMatrix(drawer);
