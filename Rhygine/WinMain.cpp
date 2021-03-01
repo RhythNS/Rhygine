@@ -48,6 +48,7 @@ int CALLBACK WinMain(
 		winDef.physicsStartDebugMode = false;
 		winDef.physicsUpdateTime = 0.01f;
 		winDef.coreCountOverride = -1;
+		winDef.createModelLoader = true;
 
 		// Create the window.
 		Window window(winDef);

@@ -7,6 +7,8 @@
 #include "RotateAround.h"
 #include "ToonShader.h"
 #include "Verticies.h"
+#include "ModelLoader.h"
+#include "Mesh.h"
 
 TestNeptuneLoader::TestNeptuneLoader(TestLightComponent* tlc) : tlc(tlc)
 {
@@ -28,44 +30,37 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 	transform->localRotation = RhyM::Quat::Identity();
 
 	const std::string pFile = "PresentScene\\neptune\\neptune.obj";
-	Assimp::Importer importer;
 
-	const aiScene* scene = importer.ReadFile(pFile,
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices);
+	ModelLoader* loader = ModelLoader::GetInstance();
 
-	for (unsigned int i = 0; i < 4; i++)
+	loader->LoadScene(pFile, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+
+	for (unsigned int i = 0; i < loader->GetMeshCount(); i++)
 	{
+		std::shared_ptr<Mesh> mesh = loader->LoadMesh(i);
+
 		std::vector<VertexPosNormalUV> verts;
-		std::vector<unsigned short> indexes;
+		std::vector<unsigned int> indexes = mesh->indicies;
+
+		verts.reserve(mesh->verticies.size());
+		indexes.reserve(mesh->indicies.size());
 
 		Drawer* drawer = AddDrawer(toAddTo);
 
-		const aiMesh* mesh = scene->mMeshes[i];
-
-		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+		for (unsigned int i = 0; i < mesh->verticies.size(); i++)
 		{
-			const aiVector3D* texVec = &mesh->mTextureCoords[0][i];
-			verts.push_back( { 
-				mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, // pos
-				mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, // normal
-				texVec->x, 1 - texVec->y // uv 
+			verts.push_back(
+				{
+				mesh->verticies[i].x, mesh->verticies[i].y, mesh->verticies[i].z, // pos
+				mesh->normals[i].x, mesh->normals[i].y, mesh->normals[i].z, // normal
+				mesh->uvChannels[0][i].x, 1 - mesh->uvChannels[0][i].y// uv 
 				}
 			);
-
-		}
-
-		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
-		{
-			const aiFace& face = mesh->mFaces[i];
-			indexes.push_back(face.mIndices[0]);
-			indexes.push_back(face.mIndices[1]);
-			indexes.push_back(face.mIndices[2]);
 		}
 
 		drawer->AddBindable(std::make_unique<VertBuffer<VertexPosNormalUV>>(verts, 0));
 
-		drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
+		drawer->AddBindable(std::make_unique<IndexBufferUI>(indexes, 0));
 
 		drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
@@ -75,6 +70,7 @@ void TestNeptuneLoader::AddData(GameObject* toAddTo)
 		ToonShader* toon = static_cast<ToonShader*>(drawer->AddBindable(std::make_unique<ToonShader>()));
 		toon->light = tlc;
 	}
-	
+
+	loader->UnLoadScene();
 	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.0f, 1.0f, 0.0f);
 }

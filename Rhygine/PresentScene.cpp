@@ -13,6 +13,7 @@
 #include "TexLitShader.h"
 #include "TestBasicLit.h"
 #include "TestNeptuneLoader.h"
+#include "TestModelLoader.h"
 #include "TestCrystal.h"
 #include "TestLitPlate.h"
 #include "TestLight.h"
@@ -58,6 +59,9 @@ void PresentScene::InnerInit()
 	litCarpet->GetComponent<Transform>()->localScale.Set(1.0f, 1.0f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.2f, 0.5f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->Enable();
+
+	TestModelLoader testLoader = TestModelLoader(tlc);
+	GameObjectFactory::Add(stage.get(), &testLoader);
 
 	TestNeptuneLoader nepLoader = TestNeptuneLoader(tlc);
 	GameObjectFactory::Add(stage.get(), &nepLoader);

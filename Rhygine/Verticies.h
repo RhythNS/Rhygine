@@ -2,29 +2,28 @@
 #include "RhyColor.h"
 // Helper class for different Vertex classes.
 
-struct VertexPosColor {
+struct VertexPosColor
+{
 	struct {
 		float x, y, z;
 	} pos;
 	struct {
-		unsigned char r;
-		unsigned char g;
-		unsigned char b;
-		unsigned char a;
+		unsigned char r, g, b, a;
 	} color;
 };
 
-struct VertexPosUV {
+struct VertexPosUV
+{
 	struct {
 		float x, y, z;
 	} pos;
 	struct {
-		float u;
-		float v;
+		float u, v;
 	} texCoords;
 };
 
-struct VertexPosNormalUV {
+struct VertexPosNormalUV
+{
 	struct {
 		float x, y, z;
 	} pos;
@@ -32,12 +31,47 @@ struct VertexPosNormalUV {
 		float nx, ny, nz;
 	} normal;
 	struct {
-		float u;
-		float v;
+		float u, v;
 	} texCoords;
 };
 
-struct VertexPosNormalColor {
+struct VertexPosTangentNormalUV
+{
+	struct {
+		float x, y, z;
+	} pos;
+	struct {
+		float x, y, z;
+	} tangent;
+	struct {
+		float x, y, z;
+	} normal;
+	struct {
+		float u, v;
+	} texCoords;
+};
+
+struct VertexPosBiTangentTangentNormalUV
+{
+	struct {
+		float x, y, z;
+	} pos;
+	struct {
+		float x, y, z;
+	} biTangent;
+	struct {
+		float x, y, z;
+	} tangent;
+	struct {
+		float x, y, z;
+	} normal;
+	struct {
+		float u, v;
+	} texCoords;
+};
+
+struct VertexPosNormalColor
+{
 	struct {
 		float x, y, z;
 	} pos;
@@ -45,20 +79,17 @@ struct VertexPosNormalColor {
 		float nx, ny, nz;
 	} normal;
 	struct {
-		unsigned char r;
-		unsigned char g;
-		unsigned char b;
-		unsigned char a;
+		unsigned char r, g, b, a;
 	} color;
 };
 
-struct VertexPosColorUV {
+struct VertexPosColorUV
+{
 	struct {
 		float x, y, z;
 	} pos;
 	RhyC::color color;
 	struct {
-		float u;
-		float v;
+		float u, v;
 	};
 };

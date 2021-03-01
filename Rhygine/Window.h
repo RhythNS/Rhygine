@@ -12,6 +12,7 @@ class Physics;
 class Scene;
 class Tickable;
 class TaskManager;
+class ModelLoader;
 
 /// <summary>
 /// Representation of a window in win32. Holds the Gfx, manages messages and
@@ -41,6 +42,7 @@ public:
 		float physicsUpdateTime = 0.02f;
 		bool mouseCaptured = false;
 		int coreCountOverride = -1;
+		bool createModelLoader = true;
 	};
 
 	Window() = delete;
@@ -156,4 +158,5 @@ private:
 	TaskManager* taskManager = nullptr;
 	Scene* currentScene;
 	Scene* changeRequest = nullptr;
+	ModelLoader* modelLoader;
 };

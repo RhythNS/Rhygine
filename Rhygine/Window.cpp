@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Tickable.h"
 #include "TaskManager.h"
+#include "ModelLoader.h"
 
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),
@@ -124,6 +125,10 @@ Window::Window(WindowDefinition definition) :
 		taskManager = new TaskManager(definition.coreCountOverride - 1);
 	}
 
+	// Create the model loader
+	if (definition.createModelLoader)
+		modelLoader = new ModelLoader();
+
 	// Init the current scene
 	currentScene->Init();
 
@@ -154,6 +159,7 @@ Window::~Window()
 
 	delete currentScene;
 	delete taskManager;
+	delete modelLoader;
 	delete gfx;
 	delete physics;
 

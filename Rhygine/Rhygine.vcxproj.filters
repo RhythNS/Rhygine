@@ -160,6 +160,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Gameobject\Components\Drawer\Model">
+      <UniqueIdentifier>{7c649594-92b1-471a-b5b3-5d5e0ec0bc38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameobject\Components\Drawer\Model">
+      <UniqueIdentifier>{9a3ec604-772b-4415-95f9-d7834d5d1b21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -470,6 +476,18 @@
     </ClCompile>
     <ClCompile Include="ChangeSceneTest.cpp">
       <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModelLoader.cpp">
+      <Filter>Source Files\TestGameobjects\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -898,6 +916,18 @@
     </ClInclude>
     <ClInclude Include="DrawerUpdatable.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModelLoader.h">
+      <Filter>Header Files\TestGameobjects\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

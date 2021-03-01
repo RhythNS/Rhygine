@@ -2,6 +2,8 @@
 #include "Bindable.h"
 
 class TextureGenerator;
+struct aiTexture;
+
 /// <summary>
 /// Representation of a texture.
 /// </summary>
@@ -21,6 +23,13 @@ public:
 	/// <param name="gen">The texture generator where the pixels are read from.</param>
 	/// <param name="slot">The slot to where the texture will be bound to.</param>
 	Texture(TextureGenerator* gen, int slot);
+
+	/// <summary>
+	/// Creates a texture from assimp.
+	/// </summary>
+	/// <param name="texture">A reference to the image.</param>
+	/// <param name="slot">The slot to where the texture will be bound to.</param>
+	Texture(aiTexture* texture, int slot);
 
 	/// <summary>
 	/// Creates a copy of a texture.
@@ -47,6 +56,8 @@ public:
 
 	int slot;
 private:
+	void LoadFromstbi(unsigned char* load);
+
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texturePointer;
 	int width;
 	int height;

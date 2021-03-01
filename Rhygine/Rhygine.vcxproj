@@ -170,6 +170,7 @@
     <ClCompile Include="BasicTextureLit.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendStateBindable.cpp" />
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
     <ClCompile Include="BulletShowcaser.cpp" />
     <ClCompile Include="BulletTestScene.cpp" />
@@ -196,6 +197,8 @@
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
     <ClCompile Include="MemoryLeakTestScene.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="NewFeatureTestScene.cpp" />
@@ -231,6 +234,7 @@
     <ClCompile Include="TestLitPlate.cpp" />
     <ClCompile Include="TestLitPlateComponent.cpp" />
     <ClCompile Include="TestModel.cpp" />
+    <ClCompile Include="TestModelLoader.cpp" />
     <ClCompile Include="TestNeptuneLoader.cpp" />
     <ClCompile Include="TestPhysicsMover.cpp" />
     <ClCompile Include="TestPyramid.cpp" />
@@ -276,6 +280,7 @@
     <ClInclude Include="BasicTextureLit.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendStateBindable.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="BulletConverter.h" />
     <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="BulletShowcaser.h" />
@@ -311,6 +316,8 @@
     <ClInclude Include="LightTestScene.h" />
     <ClInclude Include="Matrix3x3.hpp" />
     <ClInclude Include="MemoryLeakTestScene.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MonoFont.h" />
     <ClInclude Include="NewFeatureTestScene.h" />
     <ClInclude Include="OptBasic.h" />
@@ -362,6 +369,7 @@
     <ClInclude Include="TestLitPlate.h" />
     <ClInclude Include="TestLitPlateComponent.h" />
     <ClInclude Include="TestModel.h" />
+    <ClInclude Include="TestModelLoader.h" />
     <ClInclude Include="TestNeptuneLoader.h" />
     <ClInclude Include="TestPhysicsMover.h" />
     <ClInclude Include="TestPyramid.h" />

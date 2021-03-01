@@ -14,22 +14,7 @@ void TestCrystal::AddData(GameObject* toAddTo)
 	Transform* trans = toAddTo->AddComponent<Transform>();
 	Drawer* drawer = toAddTo->AddComponent<Drawer>();
 
-	struct Vertex {
-		struct {
-			float x, y, z;
-		} pos;
-		struct {
-			float x, y, z;
-		} tangent;
-		struct {
-			float x, y, z;
-		} normal;
-		struct {
-			float u, v;
-		} texCoords;
-	};
-
-	std::vector<Vertex> verts =
+	std::vector<VertexPosTangentNormalUV> verts =
 	{
 		//   x     y     z        tx    ty    tz      nx     ny     nz      u      v
 		{ -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 0.0f,   0.0f,  0.0f, -1.0f,   0.0f, 1.0f }, // 0 VUL
@@ -91,7 +76,7 @@ void TestCrystal::AddData(GameObject* toAddTo)
 		20,  22,  21,  22,  23,  21,
 	};
 
-	drawer->AddBindable(std::make_unique<VertBuffer<Vertex>>(verts, 0));
+	drawer->AddBindable(std::make_unique<VertBuffer<VertexPosTangentNormalUV>>(verts, 0));
 	drawer->AddBindable(std::make_unique<IndexBufferUS>(indexes, 0));
 	drawer->AddBindable(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
