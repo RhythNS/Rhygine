@@ -9,7 +9,7 @@ class Mesh
 {
 public:
 	Mesh(unsigned int numVerticies, unsigned int numNormals, unsigned int numTangents, unsigned int numBiTangents,
-		unsigned int numColorChannels, unsigned int numUVChannels, unsigned int numBones, const char* name);
+		unsigned int numColorChannels, unsigned int numUVChannels, unsigned int numBones, const char* name, unsigned int materialIndex);
 
 	bool HasIndicies();
 	bool HasNormals();
@@ -29,4 +29,5 @@ public:
 	std::vector<Bone> bones{};
 	Bone* rootBone = nullptr;
 	const char* name{};
+	unsigned int materialIndex;
 };

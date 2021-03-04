@@ -1,6 +1,8 @@
 #pragma once
 #include "Bindable.h"
 
+#include <string>
+
 class TextureGenerator;
 struct aiTexture;
 
@@ -55,6 +57,7 @@ public:
 	ID3D11ShaderResourceView* Get();
 
 	int slot;
+	std::string name{};
 private:
 	void LoadFromstbi(unsigned char* load);
 

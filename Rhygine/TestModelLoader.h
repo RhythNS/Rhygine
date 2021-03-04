@@ -13,6 +13,4 @@ public:
 	TestModelLoader(TestLightComponent* tlc);
 	void AddData(GameObject* toAddTo);
 	TestLightComponent* tlc;
-
-	std::vector<std::unique_ptr<Texture>> texs;
 };

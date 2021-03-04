@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-Texture::Texture(const char* fileName, int slot) : slot(slot)
+Texture::Texture(const char* fileName, int slot) : slot(slot), name(fileName)
 {
 	int bits;
 
@@ -50,7 +50,7 @@ Texture::Texture(TextureGenerator* gen, int slot) : slot(slot), width(gen->GetWi
 	THROW_IF_FAILED(GetDevice()->CreateShaderResourceView(tex.Get(), &resourceView, &texturePointer));
 }
 
-Texture::Texture(aiTexture* texture, int slot) : slot(slot), width(texture->mWidth), height(texture->mHeight)
+Texture::Texture(aiTexture* texture, int slot) : slot(slot), width(texture->mWidth), height(texture->mHeight), name(texture->mFilename.C_Str())
 {
 	if (height == 0)
 	{
@@ -105,7 +105,7 @@ Texture::Texture(aiTexture* texture, int slot) : slot(slot), width(texture->mWid
 }
 
 Texture::Texture(Texture* texture, int slot)
-	: texturePointer(texture->texturePointer), slot(slot), width(texture->width), height(texture->height)
+	: texturePointer(texture->texturePointer), slot(slot), width(texture->width), height(texture->height), name(texture->name)
 {
 }
 

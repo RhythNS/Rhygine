@@ -27,18 +27,23 @@ void TaskManager::Work(Stage* stage)
 	currentGameObject = stage->GetFront();
 	currentParallel = atOneShot = 0;
 
+	// Get one parralel, if there are no parallels, we do not need to start all the other threads.
+	ParallelUpdatable* parallel = GetParallel();
+	if (!parallel)
+		return;
+
+	// Start other therads.
 	for (auto& worker : workers)
 		worker->Play();
 
-	while (true)
+	// Also work on getting through each parallel update
+	do
 	{
-		ParallelUpdatable* parallel = GetParallel();
-		if (parallel)
-			parallel->ParallelUpdate();
-		else
-			break;
-	}
+		parallel->ParallelUpdate();
+		parallel = GetParallel();
+	} while (parallel);
 
+	// Wait for all other threads to stop working
 	bool workerStillWorking = true;
 	while (workerStillWorking)
 	{
@@ -58,23 +63,30 @@ void TaskManager::Work(Stage* stage)
 
 ParallelUpdatable* TaskManager::GetParallel()
 {
+	// This must be synchronized
 	std::unique_lock<std::mutex> lock(l);
 
+	// If there are oneshots available, just return the one shot.
 	if (atOneShot < oneShots.size())
 		return oneShots[atOneShot++];
 
+	// Continue iterating throught the gameObjects to find parallel updates.
 	while (true)
 	{
+		// Did we reach the end of the linked list?
 		if (!currentGameObject)
 			return nullptr;
 
+		// Check to see if every parallel of the current object has been done
 		if (currentGameObject->parallels.size() <= currentParallel)
 		{
+			// Reset and continue on the next gameObject
 			currentGameObject = currentGameObject->next;
 			currentParallel = 0;
 			continue;
 		}
 
+		// No parallel found on this object. Look at the next one.
 		return currentGameObject->parallels[currentParallel++];
 	}
 }

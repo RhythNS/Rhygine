@@ -67,6 +67,20 @@ const char* ModelLoader::GetTextureNameAt(unsigned int number)
 	return currentScene->mTextures[number]->mFilename.C_Str();
 }
 
+unsigned int ModelLoader::GatMaterialCount()
+{
+	assert(currentScene);
+	currentScene->mMaterials;
+	return currentScene->mNumMaterials;
+}
+
+aiMaterial* ModelLoader::GetMaterial(unsigned int number)
+{
+	assert(currentScene && number < currentScene->mNumMaterials);
+
+	return currentScene->mMaterials[number];
+}
+
 std::unique_ptr<Texture> ModelLoader::LoadTexture(unsigned int number, int slot)
 {
 	assert(currentScene && number < currentScene->mNumTextures);
@@ -88,7 +102,8 @@ std::shared_ptr<Mesh> ModelLoader::LoadMesh(unsigned int number)
 		aiMesh->GetNumColorChannels(),
 		aiMesh->GetNumUVChannels(),
 		aiMesh->HasBones() ? aiMesh->mNumBones : 0,
-		aiMesh->mName.C_Str()
+		aiMesh->mName.C_Str(),
+		aiMesh->mMaterialIndex
 		);
 
 	for (unsigned int i = 0; i < aiMesh->mNumVertices; i++)

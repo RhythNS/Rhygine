@@ -23,6 +23,8 @@ public:
 	unsigned int GetAnimationCount();
 	unsigned int GetTextureCount();
 	const char* GetTextureNameAt(unsigned int number);
+	unsigned int GatMaterialCount();
+	aiMaterial* GetMaterial(unsigned int number);
 
 	std::unique_ptr<Texture> LoadTexture(unsigned int number, int slot);
 	std::shared_ptr<Mesh> LoadMesh(unsigned int number);
