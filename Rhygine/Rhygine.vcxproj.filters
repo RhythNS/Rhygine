@@ -489,6 +489,12 @@
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
     </ClCompile>
+    <ClCompile Include="RinModelShower.cpp">
+      <Filter>Source Files\TestGameobjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonMesh.cpp">
+      <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertBuffer.h">
@@ -927,6 +933,12 @@
       <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
     </ClInclude>
     <ClInclude Include="Bone.h">
+      <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RinModelShower.h">
+      <Filter>Header Files\TestGameobjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonMesh.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
     </ClInclude>
   </ItemGroup>

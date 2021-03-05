@@ -216,10 +216,12 @@
     <ClCompile Include="PrimitiveTopolpgy.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RinModelShower.cpp" />
     <ClCompile Include="RotateAround.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="PixShader.cpp" />
+    <ClCompile Include="SkeletonMesh.cpp" />
     <ClCompile Include="SpaceConverter.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="SpriteBatchTester.cpp" />
@@ -349,11 +351,13 @@
     <ClInclude Include="RhySTB.h" />
     <ClInclude Include="RhyWin.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RinModelShower.h" />
     <ClInclude Include="RotateAround.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="PixShader.h" />
     <ClInclude Include="ShapeFactory.h" />
+    <ClInclude Include="SkeletonMesh.h" />
     <ClInclude Include="SpaceConverter.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SpriteBatchTester.h" />

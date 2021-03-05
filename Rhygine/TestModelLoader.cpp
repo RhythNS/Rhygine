@@ -9,6 +9,7 @@
 #include "Verticies.h"
 #include "ModelLoader.h"
 #include "Mesh.h"
+#include "RinModelShower.h"
 
 TestModelLoader::TestModelLoader(TestLightComponent* tlc) : tlc(tlc)
 {
@@ -20,7 +21,7 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 
 	transform->localScale.Set(1.0f, 1.0f, 1.0f);
 	transform->localPosition.Set(-5.0f, 0.0f, 2.0f);
-	transform->localRotation = RhyM::Quat::Identity();
+	transform->localRotation = RhyM::Quat::FromEuler(0, 0, 180);
 
 	const std::string rootFile = "PresentScene\\Rin\\";
 	const std::string pFile = rootFile + "\\Rin.fbx";
@@ -29,6 +30,7 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 
 	loader->LoadScene(pFile, aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 
+	std::vector<Drawer*> drawers = std::vector<Drawer*>(loader->GetMeshCount(), nullptr);
 	for (unsigned int i = 0; i < loader->GetMeshCount(); i++)
 	{
 		std::shared_ptr<Mesh> mesh = loader->LoadMesh(i);
@@ -40,6 +42,7 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 		indexes.reserve(mesh->indicies.size());
 
 		Drawer* drawer = AddDrawer(toAddTo);
+		drawers[i] = drawer;
 
 		for (unsigned int i = 0; i < mesh->verticies.size(); i++)
 		{
@@ -71,5 +74,6 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 	}
 
 	loader->UnLoadScene();
-	transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.0f, 1.0f, 0.0f);
+	transform->GetGameObject()->AddComponent<RinModelShower>()->Set(drawers);
+	//transform->GetGameObject()->AddComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.0f, 1.0f, 0.0f);
 }
