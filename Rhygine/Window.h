@@ -7,6 +7,8 @@
 #include "Time.h"
 #include "Mouse.h"
 
+class Module;
+class IWin32MessageHandler;
 class Gfx;
 class Physics;
 class Scene;
@@ -37,12 +39,9 @@ public:
 		LPCSTR windowName = "Rhygine";
 		bool enableVSync = true;
 		int targetFramesPerSecond = 144;
-		bool enablePhysics = true;
-		bool physicsStartDebugMode = false;
-		float physicsUpdateTime = 0.02f;
 		bool mouseCaptured = false;
 		int coreCountOverride = -1;
-		bool createModelLoader = true;
+		std::vector<Module*> modules;
 	};
 
 	Window() = delete;
@@ -123,6 +122,21 @@ public:
 	/// </summary>
 	void AddTickable(Tickable* tickable);
 
+	void AddModule(Module* module);
+
+	void SortModules();
+
+	template <class T>
+	T* GetModule()
+	{
+		T* t = nullptr;
+		for (int i = 0; i < modules.size(); i++)
+			if (t = dynamic_cast<T*>(modules[i]))
+				return t;
+
+		return nullptr;
+	}
+
 	Keys keys;
 	Time time;
 	Mouse mouse;
@@ -140,6 +154,8 @@ private:
 	/// </summary>
 	void CaptureMouse();
 
+	void InitModule(Module* module);
+
 	static Window* instance;
 	static std::string className;
 
@@ -150,13 +166,13 @@ private:
 	RECT beforeFullscreenWindowPos;
 	bool inFullscreen;
 	
+	std::vector<Module*> modules;
+	std::vector<IWin32MessageHandler*> messageHandlers;
 	std::vector<Tickable*> tickables;
 	HWND windowHandle;
 	HINSTANCE hInstance;
-	Physics* physics = nullptr;
 	Gfx* gfx = nullptr;
 	TaskManager* taskManager = nullptr;
 	Scene* currentScene;
 	Scene* changeRequest = nullptr;
-	ModelLoader* modelLoader;
 };

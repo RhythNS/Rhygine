@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{63E56790-0977-47CC-B52B-B1BF8746AFD4}</ProjectGuid>
     <RootNamespace>Rhygine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -58,15 +58,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MainPropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MainPropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MainPropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="MainPropertySheet.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -186,6 +190,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeoShader.cpp" />
     <ClCompile Include="Gfx.cpp" />
+    <ClCompile Include="ImGuiModule.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -194,11 +199,14 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="InfoDisplayer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
+    <ClCompile Include="IWin32MessageHandler.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LightTestScene.cpp" />
     <ClCompile Include="MemoryLeakTestScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model3DModule.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="Module.cpp" />
     <ClCompile Include="MonoFont.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="NewFeatureTestScene.cpp" />
@@ -303,6 +311,7 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="GeoShader.h" />
+    <ClInclude Include="ImGuiModule.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -314,12 +323,15 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InfoDisplayer.h" />
     <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="IWin32MessageHandler.h" />
     <ClInclude Include="LateUpdatable.h" />
     <ClInclude Include="LightTestScene.h" />
     <ClInclude Include="Matrix3x3.hpp" />
     <ClInclude Include="MemoryLeakTestScene.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model3DModule.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="Module.h" />
     <ClInclude Include="MonoFont.h" />
     <ClInclude Include="NewFeatureTestScene.h" />
     <ClInclude Include="OptBasic.h" />

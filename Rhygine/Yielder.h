@@ -16,7 +16,7 @@ struct Yielder
 		}
 		
 		std::suspend_always initial_suspend() { return {}; }
-		std::suspend_always final_suspend() { return {}; }
+		std::suspend_always final_suspend() noexcept { return {}; }
 		void unhandled_exception() {}
 		
 		std::suspend_always yield_value(YieldInstruction* value) 

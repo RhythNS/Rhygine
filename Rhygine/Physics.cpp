@@ -3,20 +3,27 @@
 #include "Window.h"
 #include "BulletDebugDraw.h"
 #include "BulletConverter.h"
+#include "Gfx.h"
+#include "Stage.h"
+#include "Scene.h"
 
 Physics::Physics(float secondsPerTick) :
 	secondsPerTick(secondsPerTick)
 {
-	instance = this;
-
-	world.setGravity(btVector3(0.0f, -9.81f, 0.0f));
-
-	Window::GetInstance()->time.physicsUpdateRate = std::chrono::duration<float>(secondsPerTick);
 }
 
 Physics::~Physics()
 {
 	instance = nullptr;
+}
+
+void Physics::Setup()
+{
+	instance = this;
+
+	world.setGravity(btVector3(0.0f, -9.81f, 0.0f));
+
+	GetWindow()->time.physicsUpdateRate = std::chrono::duration<float>(secondsPerTick);
 }
 
 void Physics::Register(RigidBody* body)
@@ -69,6 +76,29 @@ void Physics::DeRegister(RigidBody* body)
 	}
 }
 
+void Physics::StartOfFramePreUpdate()
+{
+	bool moved = false;
+	while (GetWindow()->time.ShouldUpdatePhysics())
+	{
+		Tick();
+		moved = true;
+	}
+	if (moved)
+		UpdatePositions();
+}
+
+void Physics::LateDraw()
+{
+	// If physics is enabled and the debug mode is enabled then draw the wireframes of
+// the physics objects.
+	if (IsDebugEnabled())
+	{
+		GetGfx()->ClearDepth();
+		DebugDraw();
+	}
+}
+
 void Physics::Tick()
 {
 	world.stepSimulation(secondsPerTick, 1, secondsPerTick);
@@ -106,13 +136,22 @@ RhyM::Vec3 Physics::GetGravity()
 	return Vec3ToRhy(world.getGravity());
 }
 
+void Physics::OnSceneChange(Scene* scene)
+{
+	if (debugMode)
+	{
+		DisableDebug();
+	}
+	EnableDebug(GetStage(scene));
+}
+
 void Physics::EnableDebug(Stage* stage)
 {
 	// Is the debug drawer already enabled?
 	if (!instance->debugDraw)
 	{
 		instance->debugDraw = std::make_unique<BulletDebugDraw>();
-		instance->debugDraw->Init(stage);
+		instance->debugDraw->Init(instance->GetCurrentStage());
 	}
 	instance->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	instance->world.setDebugDrawer(instance->debugDraw.get());

@@ -5,6 +5,7 @@
 
 class Window;
 class Bindable;
+class Module;
 
 /// <summary>
 /// Represents the conncetion to all d3d classes.
@@ -13,6 +14,7 @@ class Gfx
 {
 	friend class Window;
 	friend class Bindable;
+	friend class Module;
 public:
 	Gfx() = delete;
 	Gfx(Window* window, int refreshRate, bool vsync);

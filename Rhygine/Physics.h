@@ -2,6 +2,7 @@
 #include "RhyBullet.h"
 #include "RhyMath.h"
 #include "BulletDebugDraw.h"
+#include "Module.h"
 
 #include <memory>
 
@@ -11,9 +12,8 @@ class Stage;
 /// <summary>
 /// Wrapper class around the Bullet physics engine.
 /// </summary>
-class Physics
+class Physics : public Module
 {
-	friend class Window;
 public:
 	/// <summary>
 	/// Standard constructor.
@@ -22,6 +22,8 @@ public:
 	Physics(float secondsPerTick);
 
 	~Physics();
+
+	virtual void Setup() override;
 
 	/// <summary>
 	/// Registers a Rigidbody to the physics system.
@@ -33,6 +35,10 @@ public:
 	/// </summary>
 	/// <param name="body">The Rigidbody to be deregistered.</param>
 	static void DeRegister(RigidBody* body);
+
+	virtual void StartOfFramePreUpdate();
+
+	virtual void LateDraw() override;
 
 	/// <summary>
 	/// Steps the simulation forward by the specified seconds per tick.
@@ -61,11 +67,17 @@ public:
 	/// </summary>
 	RhyM::Vec3 GetGravity();
 
+	virtual void OnSceneChange(Scene* scene) override;
+
 	/// <summary>
 	/// Enables the debug viewer.
 	/// </summary>
 	/// <param name="stage">The current stage of the program.</param>
 	static void EnableDebug(Stage* stage);
+	/// <summary>
+	/// Enables the debug viewer.
+	/// </summary>
+	static void EnableDebug();
 	/// <summary>
 	/// Disables the debug viewer.
 	/// </summary>

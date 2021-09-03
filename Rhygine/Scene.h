@@ -4,6 +4,7 @@
 #include <memory>
 
 class Window;
+class Module;
 
 /// <summary>
 /// Represents a gamestate.
@@ -11,6 +12,7 @@ class Window;
 class Scene
 {
 	friend class Window;
+	friend class Module;
 public:
 	virtual ~Scene() { }
 

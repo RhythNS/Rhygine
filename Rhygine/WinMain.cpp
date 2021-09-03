@@ -11,6 +11,10 @@
 #include "MemoryLeakTestScene.h"
 #include "NewFeatureTestScene.h"
 
+#include "Physics.h"
+#include "ImGuiModule.h"
+#include "Model3DModule.h"
+
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -44,11 +48,10 @@ int CALLBACK WinMain(
 		winDef.left = 100;
 		winDef.targetFramesPerSecond = -1;
 		winDef.enableVSync = false;
-		winDef.enablePhysics = true;
-		winDef.physicsStartDebugMode = false;
-		winDef.physicsUpdateTime = 0.01f;
 		winDef.coreCountOverride = -1;
-		winDef.createModelLoader = true;
+		winDef.modules.push_back(new Physics(0.02f));
+		winDef.modules.push_back(new ImGuiModule());
+		winDef.modules.push_back(new Model3DModule());
 
 		// Create the window.
 		Window window(winDef);

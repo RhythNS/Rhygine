@@ -3,9 +3,9 @@
 #include <thread>
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 #include "RhyException.h"
-#include "Rhyimgui.h"
 #include "Keys.h"
 #include "Time.h"
 #include "Mouse.h"
@@ -15,6 +15,8 @@
 #include "Tickable.h"
 #include "TaskManager.h"
 #include "ModelLoader.h"
+#include "Module.h"
+#include "IWin32MessageHandler.h"
 
 Window::Window(WindowDefinition definition) :
 	hInstance(definition.hInstance),
@@ -80,15 +82,6 @@ Window::Window(WindowDefinition definition) :
 
 	gfx = new Gfx(this, definition.targetFramesPerSecond, definition.enableVSync);
 
-	// init imgui
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplWin32_Init(windowHandle);
-	ImGui_ImplDX11_Init(gfx->device.Get(), gfx->context.Get());
-
 	// registe raw inputs
 	RAWINPUTDEVICE Rid[2];
 	// Add mouse
@@ -125,23 +118,13 @@ Window::Window(WindowDefinition definition) :
 		taskManager = new TaskManager(definition.coreCountOverride - 1);
 	}
 
-	// Create the model loader
-	if (definition.createModelLoader)
-		modelLoader = new ModelLoader();
+	// Init and sort add modules
+	for (int i = 0; i < definition.modules.size(); i++)
+		InitModule(definition.modules[i]);
+	SortModules();
 
 	// Init the current scene
 	currentScene->Init();
-
-	// If physics should be enabled, then init it now
-	if (definition.enablePhysics)
-	{
-		physics = new Physics(definition.physicsUpdateTime);
-		if (definition.physicsStartDebugMode)
-			physics->EnableDebug(currentScene->stage.get());
-	}
-
-	// Let the user init their scene
-	currentScene->InnerInit();
 
 	// Lastly show the created window
 	if (ShowWindow(windowHandle, SW_SHOW))
@@ -152,16 +135,13 @@ Window::Window(WindowDefinition definition) :
 
 Window::~Window()
 {
-	// Destroy imgui
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-
 	delete currentScene;
+
+	for (int i = 0; i < modules.size(); i++)
+		delete modules[i];
+
 	delete taskManager;
-	delete modelLoader;
 	delete gfx;
-	delete physics;
 
 	instance = nullptr;
 }
@@ -313,44 +293,28 @@ int Window::MainLoop()
 
 		time.StartOfFrame();
 
+
 		// Beginning of frame for tickables.
 		for (Tickable* i : tickables)
-		{
 			i->Tick();
-		}
 
-		// If physics are enabled, then simulate the physics world
-		if (physics)
-		{
-			bool moved = false;
-			while (time.ShouldUpdatePhysics())
-			{
-				physics->Tick();
-				moved = true;
-			}
-			if (moved)
-				physics->UpdatePositions();
-		}
-
-		// Prepare imgui for a new frame
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
+		// Beginning of frame for modules
+		for (int i = 0; i < modules.size(); i++)
+			modules[i]->StartOfFramePreUpdate();
 
 		// Update the scene
 		currentScene->Update();
+
+		for (int i = 0; i < modules.size(); i++)
+			modules[i]->PreDrawAfterUpdate();
+
 
 		// Draw the scene
 		gfx->BeginDraw();
 		currentScene->Draw();
 
-		// If physics is enabled and the debug mode is enabled then draw the wireframes of
-		// the physics objects.
-		if (physics && physics->IsDebugEnabled())
-		{
-			gfx->ClearDepth();
-			physics->DebugDraw();
-		}
+		for (int i = 0; i < modules.size(); i++)
+			modules[i]->LateDraw();
 
 		// Draw everything and present the frame.
 		gfx->EndDraw();
@@ -358,18 +322,25 @@ int Window::MainLoop()
 
 		// End of frame for tickables.
 		for (Tickable* i : tickables)
-		{
 			i->EndTick();
-		}
+
+		for (int i = 0; i < modules.size(); i++)
+			modules[i]->EndOfFramePreSleep();
+
 
 		// Change the scene if there was a change request.
 		if (changeRequest)
 		{
 			changeRequest->OnSceneChange(currentScene);
+
+			for (int i = 0; i < modules.size(); i++)
+				modules[i]->OnSceneChange(changeRequest);
+
 			delete currentScene;
 			currentScene = changeRequest;
 			changeRequest = nullptr;
 		}
+
 
 		// Set the frame time and sleep if needed.
 		time.EndOfFrame();
@@ -385,6 +356,21 @@ void Window::AddTickable(Tickable* tickable)
 	tickables.push_back(tickable);
 }
 
+void Window::AddModule(Module* module)
+{
+	InitModule(module);
+	SortModules();
+}
+
+void Window::SortModules()
+{
+	std::sort(modules.begin(), modules.end(), [](Module* first, Module* second) -> bool
+		{
+			return first->GetExecutionOrder() > second->GetExecutionOrder();
+		}
+	);
+}
+
 LRESULT CALLBACK Window::ProcessPassthrough(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	return instance->ProcessMessage(hWnd, msg, wParam, lParam);
@@ -392,9 +378,10 @@ LRESULT CALLBACK Window::ProcessPassthrough(HWND hWnd, UINT msg, WPARAM wParam, 
 
 LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	// Let ImGUI handle the message first
-	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-		return true;
+	// Let custom message handlers handle the message first
+	for (int i = 0; i < messageHandlers.size(); i++)
+		if (messageHandlers[i]->ProcessMessage(hWnd, msg, wParam, lParam))
+			return true;
 
 	// switch case with all implemented message types
 	switch (msg)
@@ -549,7 +536,7 @@ LRESULT Window::ProcessMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		break;
 	}
 
-	// return the default window proc, to make the window responsive.
+	// No known message. Let the default window handle it.
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
@@ -561,6 +548,21 @@ void Window::CaptureMouse()
 	GetWindowInfo(windowHandle, &windowinfo);
 
 	ClipCursor(&windowinfo.rcClient);
+}
+
+void Window::InitModule(Module* module)
+{
+	assert(module);
+
+	module->window = this;
+	module->gfx = gfx;
+	module->Setup();
+
+	IWin32MessageHandler* messageHandler = dynamic_cast<IWin32MessageHandler*>(module);
+	if (messageHandler != nullptr)
+		messageHandlers.push_back(messageHandler);
+	
+	modules.push_back(module);
 }
 
 // init of static fields

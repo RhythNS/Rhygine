@@ -166,6 +166,12 @@
     <Filter Include="Source Files\Gameobject\Components\Drawer\Model">
       <UniqueIdentifier>{9a3ec604-772b-4415-95f9-d7834d5d1b21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Module">
+      <UniqueIdentifier>{da7ffc71-662c-4635-84c5-1bb7b1acd5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Module">
+      <UniqueIdentifier>{4748e229-21c1-4b36-9123-e5f92f1f83c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -494,6 +500,18 @@
     </ClCompile>
     <ClCompile Include="SkeletonMesh.cpp">
       <Filter>Source Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Module.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuiModule.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="IWin32MessageHandler.cpp">
+      <Filter>Source Files\Core\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Model3DModule.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -940,6 +958,18 @@
     </ClInclude>
     <ClInclude Include="SkeletonMesh.h">
       <Filter>Header Files\Gameobject\Components\Drawer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuiModule.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Module.h">
+      <Filter>Header Files\Core\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="IWin32MessageHandler.h">
+      <Filter>Header Files\Core\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Model3DModule.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
