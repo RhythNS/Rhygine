@@ -1,0 +1,5 @@
+add_subdirectory ("BulletPhysics")
+add_subdirectory ("CommonComponents")
+add_subdirectory ("Core")
+add_subdirectory ("ImGui")
+add_subdirectory ("Model3D")

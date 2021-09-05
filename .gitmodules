@@ -1,0 +1,9 @@
+[submodule "Libs/assimp"]
+	path = Libs/assimp
+	url = https://github.com/assimp/assimp
+[submodule "Libs/bullet3"]
+	path = Libs/bullet3
+	url = https://github.com/bulletphysics/bullet3
+[submodule "Libs/stb/stb"]
+	path = Libs/stb/stb
+	url = https://github.com/nothings/stb
