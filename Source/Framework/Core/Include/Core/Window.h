@@ -6,6 +6,7 @@
 #include <Input/Keys.h>
 #include <Input/Mouse.h>
 #include <Core/Time.h>
+#include <Core/Log.h>
 
 class Module;
 class IWin32MessageHandler;
@@ -15,6 +16,7 @@ class Scene;
 class Tickable;
 class TaskManager;
 class ModelLoader;
+class Log;
 
 /// <summary>
 /// Representation of a window in win32. Holds the Gfx, manages messages and
@@ -41,6 +43,7 @@ public:
 		int targetFramesPerSecond = 144;
 		bool mouseCaptured = false;
 		int coreCountOverride = -1;
+		bool consoleEnabled = false;
 		std::vector<Module*> modules;
 	};
 
@@ -140,6 +143,8 @@ public:
 	Keys keys;
 	Time time;
 	Mouse mouse;
+	Log log;
+
 private:
 	/// <summary>
 	/// Message passthrough which is given to win32.

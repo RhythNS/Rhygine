@@ -49,6 +49,7 @@ int CALLBACK WinMain(
 		winDef.targetFramesPerSecond = -1;
 		winDef.enableVSync = false;
 		winDef.coreCountOverride = -1;
+		winDef.consoleEnabled = true;
 		winDef.modules.push_back(new Physics(0.02f));
 		winDef.modules.push_back(new ImGuiModule());
 		winDef.modules.push_back(new Model3DModule());

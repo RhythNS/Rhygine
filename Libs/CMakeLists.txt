@@ -1,5 +1,10 @@
 add_subdirectory ("stb")
 
+set (SPDLOG_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
+set (SPDLOG_BUILD_TESTING OFF CACHE BOOL "Build spdlog tests")
+
+add_subdirectory ("spdlog")
+
 set (INSTALL_LIBS ON CACHE BOOL "Install bullet libraries")
 set (BUILD_EXTRAS OFF CACHE BOOL "Build extras")
 set (BUILD_BULLET2_DEMOS OFF CACHE BOOL "Build Bullet 2 demos")

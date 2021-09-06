@@ -1,4 +1,9 @@
-﻿set ( 
+﻿set (RHY_LOG_LEVEL 2 CACHE STRING "spdlog log level")
+
+message ("Log level is:  ${RHY_LOG_LEVEL}")
+add_compile_definitions (RHY_LOG_LEVEL=${RHY_LOG_LEVEL})
+
+set ( 
 	SHADER_VERT_FILES
 	Shaders/SpriteBatchVert.hlsl
 )
@@ -28,6 +33,7 @@ add_library(
 	Include/Core/Module/IWin32MessageHandler.h
 	Include/Core/Module/Module.h
 	Include/Core/Gfx.h
+	Include/Core/Log.h
 	Include/Core/Scene.h
 	Include/Core/Tickable.h
 	Include/Core/Time.h
@@ -107,6 +113,7 @@ add_library(
 	Source/Core/Module/IWin32MessageHandler.cpp
 	Source/Core/Module/Module.cpp
 	Source/Core/Gfx.cpp
+	Source/Core/Log.cpp
 	Source/Core/Scene.cpp
 	Source/Core/Time.cpp
 	Source/Core/Window.cpp
@@ -159,4 +166,8 @@ add_library(
 target_include_directories (RhyCore PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Include")
 target_include_directories (RhyCore PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Source")
 
-target_link_libraries (RhyCore LINK_PUBLIC stb)
+target_link_libraries (
+	RhyCore
+	LINK_PUBLIC stb
+	LINK_PUBLIC spdlog
+)

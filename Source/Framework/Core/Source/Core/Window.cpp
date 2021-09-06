@@ -26,6 +26,28 @@ Window::Window(WindowDefinition definition) :
 	tickables.push_back(&mouse);
 	tickables.push_back(&keys);
 
+	// Attach console
+	if (definition.consoleEnabled)
+	{
+		if (!AllocConsole())
+			throw RHY_EXCEP("Could not open console!");
+
+		FILE* fDummy;
+		freopen_s(&fDummy, "CONOUT$", "w", stdout);
+		freopen_s(&fDummy, "CONOUT$", "w", stderr);
+		std::cout.clear();
+		std::clog.clear();
+		std::cerr.clear();
+
+		HANDLE hConOut = CreateFile(TEXT("CONOUT$"), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		SetStdHandle(STD_OUTPUT_HANDLE, hConOut);
+		SetStdHandle(STD_ERROR_HANDLE, hConOut);
+		std::wcout.clear();
+		std::wclog.clear();
+		std::wcerr.clear();
+	}
+	log.Init();
+
 	// Create all variables needed for the window creation
 	DWORD dwExStyle = 0;
 	DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX;
@@ -120,8 +142,12 @@ Window::Window(WindowDefinition definition) :
 		InitModule(definition.modules[i]);
 	SortModules();
 
+	LOG_INFO("Rhygine initialized");
+
 	// Init the current scene
 	currentScene->Init();
+
+	LOG_INFO("Scene loaded");
 
 	// Lastly show the created window
 	if (ShowWindow(windowHandle, SW_SHOW))
@@ -558,7 +584,7 @@ void Window::InitModule(Module* module)
 	IWin32MessageHandler* messageHandler = dynamic_cast<IWin32MessageHandler*>(module);
 	if (messageHandler != nullptr)
 		messageHandlers.push_back(messageHandler);
-	
+
 	modules.push_back(module);
 }
 
