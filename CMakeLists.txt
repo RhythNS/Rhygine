@@ -12,21 +12,21 @@ set (RHY_ASSETS_DIR ${RHY_EXECUTABLE_DIR}/Assets)
 set (RHY_SHADER_FOLDER ${RHY_ASSETS_DIR}/Shader)
 
 # Download and update submodules
-find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+#find_package(Git QUIET)
+#if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 # Update submodules as needed
-    option(GIT_SUBMODULE "Check submodules during build" ON)
-    if(GIT_SUBMODULE)
-        message(STATUS "Submodule update")
-        execute_process(
-            COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            RESULT_VARIABLE GIT_SUBMOD_RESULT)
-        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
-        endif()
-    endif()
-endif()
+#    option(GIT_SUBMODULE "Check submodules during build" ON)
+#    if(GIT_SUBMODULE)
+#        message(STATUS "Submodule update")
+#        execute_process(
+#            COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+#            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#            RESULT_VARIABLE GIT_SUBMOD_RESULT)
+#        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+#            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+#        endif()
+#    endif()
+#endif()
 
 # find fxc for shader compiling
 find_program(FXC fxc DOC "fx compiler")
@@ -81,12 +81,28 @@ add_custom_command(
 endmacro ()
 
 # Set bullet library
+set(USE_BULLET_PHYSICS ON CACHE BOOL "Adds the bullet physics engine via the physics module")
+
+if (USE_BULLET_PHYSICS)
 set (BULLET_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Libs/bullet3/src/)
 set (BULLET_LIBRARY BulletDynamics BulletCollision LinearMath)
+endif ()
+
+
+set(USE_REACT_PHYSICS ON CACHE BOOL "Adds the react physics engine via the physics module")
+
+set(USE_MODEL3D ON CACHE BOOL "Adds libraries for 3D models via the Model3D module")
+set(USE_IMGUI ON CACHE BOOL "Adds imgui via the ImGUI module")
+set(USE_COMMON_COMPOENTS ON CACHE BOOL "Adds default components and shaders")
 
 # Add external libs
 add_subdirectory ("Libs")
 
 # Include sub-projects.
+
+set(RHY_USE_EXAMPLES ON CACHE BOOL "Adds examples")
+if (RHY_USE_EXAMPLES)
 add_subdirectory ("Examples")
+endif ()
+
 add_subdirectory ("Source")

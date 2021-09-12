@@ -7,6 +7,7 @@ add_executable (
 	Include/Components/CoroutineTestComponent.h
 	Include/Components/InfoDisplayer.h
 	Include/Components/ParallelPrint.h
+	Include/Components/ReactShowcaser.h
 	Include/Components/RinModelShower.h
 	Include/Components/RotateAround.h
 	Include/Components/SpriteBatchTester.h
@@ -48,6 +49,7 @@ add_executable (
 	Source/Components/CoroutineTestComponent.cpp
 	Source/Components/InfoDisplayer.cpp
 	Source/Components/ParallelPrint.cpp
+	Source/Components/ReactShowcaser.cpp
 	Source/Components/RinModelShower.cpp
 	Source/Components/RotateAround.cpp
 	Source/Components/SpriteBatchTester.cpp
@@ -95,6 +97,7 @@ target_link_libraries (
 	LINK_PUBLIC BulletPhysics
 	LINK_PUBLIC ImGUI
 	LINK_PUBLIC Model3D
+	LINK_PUBLIC ReactPhysics
 )
 
 RHY_COPY_ASSETS (TestingScene ${CMAKE_CURRENT_SOURCE_DIR})

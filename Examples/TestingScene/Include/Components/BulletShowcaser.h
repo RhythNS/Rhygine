@@ -16,7 +16,7 @@ public:
 	void Init();
 	void Update();
 private:
-	RigidBody* CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass);
+	RhyBullet::RigidBody* CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass);
 
 	float timer = 0;
 	float secondsPerBox = 0.5f;

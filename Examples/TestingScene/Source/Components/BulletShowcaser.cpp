@@ -17,7 +17,7 @@ void BulletShowcaser::Init()
 {
 	boxTexture = std::make_unique<Texture>("Assets\\PresentScene\\box.png", 0);
 
-	RigidBody* ground = CreateBox(baseSpawnPoint - RhyM::Vec3(0.0f, 3.0f, 0.0f), RhyM::Vec3(5.0f, 1.0f, 5.0f), 0.0f);
+	RhyBullet::RigidBody* ground = CreateBox(baseSpawnPoint - RhyM::Vec3(0.0f, 3.0f, 0.0f), RhyM::Vec3(5.0f, 1.0f, 5.0f), 0.0f);
 }
 
 void BulletShowcaser::Update()
@@ -39,11 +39,11 @@ void BulletShowcaser::Update()
 			RhyM::GetRandomFloat() * 5.0f - 2.5f
 		);
 
-	RigidBody* box = CreateBox(baseSpawnPoint + position, RhyM::Vec3(1.0f, 1.0f, 1.0f), 1.0f);
+	RhyBullet::RigidBody* box = CreateBox(baseSpawnPoint + position, RhyM::Vec3(1.0f, 1.0f, 1.0f), 1.0f);
 	box->GetGameObject()->AddComponent<DeleteWhenBelow>();
 }
 
-RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass)
+RhyBullet::RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, float mass)
 {
 	GameObject* go = GetGameObject()->GetStage()->CreateGameObject();
 
@@ -107,8 +107,8 @@ RigidBody* BulletShowcaser::CreateBox(RhyM::Vec3 position, RhyM::Vec3 size, floa
 	drawer->AddBindable(std::make_unique<Sampler>(0));
 	drawer->AddBindable(std::make_unique<Texture>(boxTexture.get(), 0));
 
-	RigidBody* body = go->AddComponent<RigidBody>();
-	body->Create(mass, std::make_unique<btBoxShape>(Vec3ToBullet(size / 2)), size / 2);
+	RhyBullet::RigidBody* body = go->AddComponent<RhyBullet::RigidBody>();
+	body->Create(mass, std::make_unique<btBoxShape>(RhyBullet::Vec3ToBullet(size / 2)), size / 2);
 
 	return body;
 }

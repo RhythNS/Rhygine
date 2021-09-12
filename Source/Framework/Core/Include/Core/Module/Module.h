@@ -11,9 +11,9 @@ class Module
 	friend class Window;
 
 public:
-	Module();
+	Module() = default;
 	Module(int overwriteExecutionOrder);
-	virtual ~Module();
+	virtual ~Module() = default;
 
 	int GetExecutionOrder();
 

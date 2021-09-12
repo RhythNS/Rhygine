@@ -167,7 +167,7 @@ private:
 	
 	// ------ All required bindables ------
 	std::unique_ptr<IndexBufferUS> indexBuffer;
-	std::unique_ptr<VertBuffer<VertexPosColorUV>> vertBuffer;
+	std::unique_ptr<VertBuffer<VertexPosRhyColorUV>> vertBuffer;
 	std::unique_ptr<PrimitiveTopology> primitiveTopology;
 	std::unique_ptr<Sampler> sampler;
 	std::unique_ptr<VertShader> vertShader;

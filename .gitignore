@@ -52,7 +52,8 @@ build/*
 
 include/*
 lib/*
-out/*
+out/
+*/out/
 test/test_runner
 
 # ignore copyrighted material

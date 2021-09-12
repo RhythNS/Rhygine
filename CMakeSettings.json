@@ -13,6 +13,11 @@
           "name": "RHY_LOG_LEVEL",
           "value": "0",
           "type": "STRING"
+        },
+        {
+          "name": "RHY_USE_EXAMPLES",
+          "value": "True",
+          "type": "BOOL"
         }
       ]
     },

@@ -8,6 +8,7 @@
 #include <RhyBindables.h>
 #include <RhyWin.h>
 
+using namespace RhyBullet;
 
 void BulletDebugDraw::Init(Stage* stage)
 {

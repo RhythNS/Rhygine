@@ -10,3 +10,6 @@
 [submodule "Libs/spdlog"]
 	path = Libs/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Libs/reactphysics3d"]
+	path = Libs/reactphysics3d
+	url = https://github.com/DanielChappuis/reactphysics3d

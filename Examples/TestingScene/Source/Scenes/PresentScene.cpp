@@ -12,9 +12,13 @@
 #include <Components/InfoDisplayer.h>
 #include <Components/RotateAround.h>
 #include <Components/TestLitPlateComponent.h>
-#include <Components/BulletShowcaser.h>
+//#include <Components/BulletShowcaser.h>
+#include <Components/ReactShowcaser.h>
 #include <CC/TestLightComponent.h>
 #include <UI/Elements/UIRootElement.h>
+
+#include <React/ReactPhysicsModule.h>
+#include <Core/Window.h>
 
 #include <ECS/Bindable/Drawer.h>
 #include <ECS/Bindable/Texture.h>
@@ -41,7 +45,7 @@ void PresentScene::InnerInit()
 
 	TestLight tl;
 	TestLightComponent* tlc = GameObjectFactory::Add(stage.get(), &tl)->GetComponent<TestLightComponent>();
-	
+
 
 	TestLitPlate tlp = TestLitPlate(tlc);
 	GameObject* litMovingSprite = GameObjectFactory::Add(stage.get(), &tlp);
@@ -71,5 +75,7 @@ void PresentScene::InnerInit()
 	TestCrystal crystal(tlc);
 	GameObjectFactory::Add(stage.get(), &crystal);
 
-	stage->CreateGameObject()->AddComponent<BulletShowcaser>();
+	//stage->CreateGameObject()->AddComponent<BulletShowcaser>();
+	stage->CreateGameObject()->AddComponent<ReactShowcaser>();
+	//Window::GetInstance()->GetModule<RhyReact::ReactPhysicsModule>()->EnableDebug(this);
 }

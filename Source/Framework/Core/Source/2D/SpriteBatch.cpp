@@ -12,7 +12,7 @@ SpriteBatch::SpriteBatch(SortMode sortMode, bool alphaBlending) :
 	sortMode(sortMode),
 	alphaBlending(alphaBlending),
 	indexBuffer(std::make_unique<IndexBufferUS>(0, startingSize * 6, 0)),
-	vertBuffer(std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), startingSize * 4, 0)),
+	vertBuffer(std::make_unique<VertBuffer<VertexPosRhyColorUV>>(VertexPosRhyColorUV(), startingSize * 4, 0)),
 	primitiveTopology(std::make_unique<PrimitiveTopology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
 	sampler(std::make_unique<Sampler>(0)),
 	vertShader(std::make_unique<VertShader>(L"Assets\\Shader\\SpriteBatchVert.cso")),
@@ -93,7 +93,7 @@ void SpriteBatch::End()
 #pragma warning(push)
 #pragma warning(disable : 26451)
 
-	std::vector<VertexPosColorUV> verts(currentBufferCount * 4);
+	std::vector<VertexPosRhyColorUV> verts(currentBufferCount * 4);
 	std::vector<unsigned short> indexes(currentBufferCount * 6);
 
 	// Go over each sprite in the buffer and put them to the verts and indexes list.
@@ -214,7 +214,7 @@ inline void SpriteBatch::GrowArray()
 
 	// create the new buffers
 	indexBuffer = std::make_unique<IndexBufferUS>(0, maxBufferSize * 6, 0);
-	vertBuffer = std::make_unique<VertBuffer<VertexPosColorUV>>(VertexPosColorUV(), maxBufferSize * 4, 0);
+	vertBuffer = std::make_unique<VertBuffer<VertexPosRhyColorUV>>(VertexPosRhyColorUV(), maxBufferSize * 4, 0);
 
 	// resize the vectors
 	sprites.resize(maxBufferSize);

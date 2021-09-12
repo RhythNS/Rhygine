@@ -21,11 +21,11 @@ add_library(
 	BulletPhysics
 	Include/Bullet/BulletConverter.h
 	Include/Bullet/BulletDebugDraw.h
-	Include/Bullet/Physics.h
+	Include/Bullet/BulletPhysicsModule.h
 	Include/Bullet/RigidBody.h
 	Include/RhyBullet.h
 	Source/Bullet/BulletDebugDraw.cpp
-	Source/Bullet/Physics.cpp
+	Source/Bullet/BulletPhysicsModule.cpp
 	Source/Bullet/RigidBody.cpp
 	)
 	

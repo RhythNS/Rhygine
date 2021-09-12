@@ -1,4 +1,4 @@
-#include <Bullet/Physics.h>
+#include <Bullet/BulletPhysicsModule.h>
 #include <Bullet/RigidBody.h>
 #include <Bullet/BulletDebugDraw.h>
 #include <Bullet/BulletConverter.h>
@@ -7,26 +7,28 @@
 #include <Core/Scene.h>
 #include <ECS/Stage.h>
 
-Physics::Physics(float secondsPerTick) :
+using namespace RhyBullet;
+
+BulletPhysicsModule::BulletPhysicsModule(float secondsPerTick) :
 	secondsPerTick(secondsPerTick)
 {
 }
 
-Physics::~Physics()
+BulletPhysicsModule::~BulletPhysicsModule()
 {
 	instance = nullptr;
 }
 
-void Physics::Setup()
+void BulletPhysicsModule::Setup()
 {
 	instance = this;
 
 	world.setGravity(btVector3(0.0f, -9.81f, 0.0f));
 
-	GetWindow()->time.physicsUpdateRate = std::chrono::duration<float>(secondsPerTick);
+	SetUpdateRate(secondsPerTick);
 }
 
-void Physics::Register(RigidBody* body)
+void BulletPhysicsModule::Register(RigidBody* body)
 {
 	assert(body);
 	instance->world.addRigidBody(body->body.get());
@@ -41,7 +43,7 @@ void Physics::Register(RigidBody* body)
 	instance->first = body;
 }
 
-void Physics::DeRegister(RigidBody* body)
+void BulletPhysicsModule::DeRegister(RigidBody* body)
 {
 	assert(body);
 	instance->world.removeRigidBody(body->body.get());
@@ -76,19 +78,7 @@ void Physics::DeRegister(RigidBody* body)
 	}
 }
 
-void Physics::StartOfFramePreUpdate()
-{
-	bool moved = false;
-	while (GetWindow()->time.ShouldUpdatePhysics())
-	{
-		Tick();
-		moved = true;
-	}
-	if (moved)
-		UpdatePositions();
-}
-
-void Physics::LateDraw()
+void BulletPhysicsModule::LateDraw()
 {
 	// If physics is enabled and the debug mode is enabled then draw the wireframes of
 // the physics objects.
@@ -99,17 +89,12 @@ void Physics::LateDraw()
 	}
 }
 
-void Physics::Tick()
+void BulletPhysicsModule::TickSimulation()
 {
 	world.stepSimulation(secondsPerTick, 1, secondsPerTick);
 }
 
-void Physics::Tick(float delta)
-{
-	world.stepSimulation(delta, 1, delta);
-}
-
-void Physics::UpdatePositions()
+void BulletPhysicsModule::UpdatePositions()
 {
 	// iterate over each body and call UpdatePosition.
 	RigidBody* current = first;
@@ -120,23 +105,23 @@ void Physics::UpdatePositions()
 	}
 }
 
-void Physics::SetUpdateRate(float _secondsPerTick)
+void BulletPhysicsModule::SetUpdateRate(float _secondsPerTick)
 {
-	Window::GetInstance()->time.physicsUpdateRate = std::chrono::duration<float>(_secondsPerTick);
+	PhysicsModule::SetUpdateRate(std::chrono::duration<float>(_secondsPerTick));
 	secondsPerTick = _secondsPerTick;
 }
 
-void Physics::SetGravity(RhyM::Vec3& gravity)
+void BulletPhysicsModule::SetGravity(RhyM::Vec3& gravity)
 {
 	world.setGravity(Vec3ToBullet(gravity));
 }
 
-RhyM::Vec3 Physics::GetGravity()
+RhyM::Vec3 BulletPhysicsModule::GetGravity()
 {
 	return Vec3ToRhy(world.getGravity());
 }
 
-void Physics::OnSceneChange(Scene* scene)
+void BulletPhysicsModule::OnSceneChange(Scene* scene)
 {
 	if (debugMode)
 	{
@@ -145,7 +130,7 @@ void Physics::OnSceneChange(Scene* scene)
 	EnableDebug(GetStage(scene));
 }
 
-void Physics::EnableDebug(Stage* stage)
+void BulletPhysicsModule::EnableDebug(Stage* stage)
 {
 	// Is the debug drawer already enabled?
 	if (!instance->debugDraw)
@@ -158,7 +143,7 @@ void Physics::EnableDebug(Stage* stage)
 	instance->debugMode = true;
 }
 
-void Physics::DisableDebug()
+void BulletPhysicsModule::DisableDebug()
 {
 	instance->world.setDebugDrawer(nullptr);
 	instance->debugMode = false;
@@ -169,19 +154,19 @@ void Physics::DisableDebug()
 	}
 }
 
-bool Physics::IsDebugEnabled()
+bool BulletPhysicsModule::IsDebugEnabled()
 {
 	return instance->debugMode;
 }
 
-btDiscreteDynamicsWorld* Physics::GetWorld()
+btDiscreteDynamicsWorld* BulletPhysicsModule::GetWorld()
 {
 	return &world;
 }
 
-void Physics::DebugDraw()
+void BulletPhysicsModule::DebugDraw()
 {
 	world.debugDrawWorld();
 }
 
-Physics* Physics::instance;
+BulletPhysicsModule* BulletPhysicsModule::instance;

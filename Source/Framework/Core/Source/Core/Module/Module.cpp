@@ -4,15 +4,7 @@
 #include <Core/Scene.h>
 #include <ECS/Stage.h>
 
-Module::Module()
-{
-}
-
 Module::Module(int overwriteExecutionOrder) : executionOrder(overwriteExecutionOrder)
-{
-}
-
-Module::~Module()
 {
 }
 

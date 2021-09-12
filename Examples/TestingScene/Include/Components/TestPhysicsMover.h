@@ -2,7 +2,7 @@
 #include <ECS/Component.h>
 #include <ECS/Updatable.h>
 
-class RigidBody;
+namespace RhyBullet { class RigidBody; }
 
 /// <summary>
 /// For moving gameobjects inside a physics simulation.
@@ -13,5 +13,5 @@ public:
 	void Init();
 	void Update();
 private:
-	RigidBody* body = nullptr;
+	RhyBullet::RigidBody* body = nullptr;
 };

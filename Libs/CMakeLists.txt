@@ -12,7 +12,9 @@ set (BUILD_CPU_DEMOS OFF CACHE BOOL "Build original Bullet CPU examples")
 set (BUILD_UNIT_TESTS OFF CACHE BOOL "Do not build unit tests for bullet.")
 set (BUILD_SHARED_LIBS OFF)
 
+if (USE_BULLET_PHYSICS)
 add_subdirectory ("bullet3")
+endif ()
 
 # assimp configs taken from: https://github.com/Shervanator/Engine
 set( ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "Build assimp tools" )
@@ -148,4 +150,15 @@ add_definitions(-DASSIMP_BUILD_NO_GLTF_EXPORTER)
 set( ASSIMP_BUILD_3MF_IMPORTER OFF CACHE BOOL "Build importer" )
 add_definitions(-DASSIMP_BUILD_NO_3MF_EXPORTER)
 
+if (USE_MODEL3D)
 add_subdirectory ("assimp")
+endif ()
+
+
+set( RP3D_COMPILE_TESTBED OFF CACHE BOOL "React settings" )
+set( RP3D_COMPILE_TESTS OFF CACHE BOOL "React settings" )
+set( RP3D_DOUBLE_PRECISION_ENABLED OFF CACHE BOOL "React settings" )
+
+if (USE_REACT_PHYSICS)
+add_subdirectory ("reactphysics3d")
+endif ()

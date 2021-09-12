@@ -7,7 +7,7 @@
 class Time
 {
 	friend class Window;
-	friend class Physics;
+	friend class PhysicsModule;
 public:
 	Time();
 	/// <summary>

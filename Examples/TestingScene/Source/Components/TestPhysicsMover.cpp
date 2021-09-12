@@ -6,7 +6,7 @@
 
 void TestPhysicsMover::Init()
 {
-	body = GetGameObject()->GetComponent<RigidBody>();
+	body = GetGameObject()->GetComponent<RhyBullet::RigidBody>();
 }
 
 void TestPhysicsMover::Update()

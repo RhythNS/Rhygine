@@ -12,6 +12,14 @@ struct VertexPosColor
 	} color;
 };
 
+struct VertexPosRhyColor
+{
+	struct {
+		float x, y, z;
+	} pos;
+	RhyC::color color;
+};
+
 struct VertexPosUV
 {
 	struct {
@@ -83,7 +91,7 @@ struct VertexPosNormalColor
 	} color;
 };
 
-struct VertexPosColorUV
+struct VertexPosRhyColorUV
 {
 	struct {
 		float x, y, z;

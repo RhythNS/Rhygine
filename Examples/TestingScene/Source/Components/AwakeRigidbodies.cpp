@@ -2,7 +2,7 @@
 #include <Input/Keys.h>
 #include <Bullet/RigidBody.h>
 
-void AwakeRigidbodies::Set(std::vector<RigidBody*> _bodies)
+void AwakeRigidbodies::Set(std::vector<RhyBullet::RigidBody*> _bodies)
 {
 	bodies = _bodies;
 }

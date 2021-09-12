@@ -32,6 +32,7 @@ add_library(
 	Include/2D/TextureRegion.h
 	Include/Core/Module/IWin32MessageHandler.h
 	Include/Core/Module/Module.h
+	Include/Core/Module/PhysicsModule.h
 	Include/Core/Gfx.h
 	Include/Core/Log.h
 	Include/Core/Scene.h
@@ -112,6 +113,7 @@ add_library(
 	Source/2D/TextureGenerator.cpp
 	Source/Core/Module/IWin32MessageHandler.cpp
 	Source/Core/Module/Module.cpp
+	Source/Core/Module/PhysicsModule.cpp
 	Source/Core/Gfx.cpp
 	Source/Core/Log.cpp
 	Source/Core/Scene.cpp

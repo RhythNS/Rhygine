@@ -11,7 +11,8 @@
 #include <Scenes/OptScene.h>
 #include <Scenes/PresentScene.h>
 
-#include <Bullet/Physics.h>
+#include <Bullet/BulletPhysicsModule.h>
+#include <React/ReactPhysicsModule.h>
 #include <imgui/ImGuiModule.h>
 #include <Model3D/Model3DModule.h>
 
@@ -50,7 +51,8 @@ int CALLBACK WinMain(
 		winDef.enableVSync = false;
 		winDef.coreCountOverride = -1;
 		winDef.consoleEnabled = true;
-		winDef.modules.push_back(new Physics(0.02f));
+		winDef.modules.push_back(new RhyReact::ReactPhysicsModule(0.02f));
+		//winDef.modules.push_back(new RhyBullet::BulletPhysicsModule(0.02f));
 		winDef.modules.push_back(new ImGuiModule());
 		winDef.modules.push_back(new Model3DModule());
 
