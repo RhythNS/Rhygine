@@ -23,8 +23,8 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 	transform->localPosition.Set(-5.0f, 0.0f, 2.0f);
 	transform->localRotation = RhyM::Quat::FromEuler(0, 0, 180);
 
-	const std::string rootFile = "Assets\\PresentScene\\Rin\\";
-	const std::string pFile = rootFile + "\\Rin.fbx";
+	const std::string rootFile = "Assets\\PresentScene\\Mixamo\\";
+	const std::string pFile = rootFile + "\\kachujin_g_rosales.fbx";
 
 	ModelLoader* loader = ModelLoader::GetInstance();
 
@@ -64,9 +64,19 @@ void TestModelLoader::AddData(GameObject* toAddTo)
 		aiMaterial* mat = loader->GetMaterial(mesh->materialIndex);
 		aiString path;
 		mat->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-		std::string acctualPath = rootFile + path.C_Str();
 
-		drawer->AddBindable(std::make_unique<Texture>(acctualPath.c_str(), 0));
+		if (path.data[0] == '*')
+		{
+			//loader->LoadTexture
+			// embedded texture
+		}
+		else
+		{
+			std::string acctualPath = rootFile + path.C_Str();
+			drawer->AddBindable(std::make_unique<Texture>(acctualPath.c_str(), 0));
+		}
+
+
 		drawer->AddBindable(std::make_unique<Sampler>(0));
 
 		ToonShader* toon = static_cast<ToonShader*>(drawer->AddBindable(std::make_unique<ToonShader>()));

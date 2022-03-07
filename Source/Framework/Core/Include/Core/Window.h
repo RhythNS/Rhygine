@@ -71,11 +71,11 @@ public:
 	/// <summary>
 	/// Gets the window handle.
 	/// </summary>
-	HWND* GetWindowHandle();
+	HWND GetWindowHandle();
 	/// <summary>
 	/// Gets the HINSTANCE.
 	/// </summary>
-	HINSTANCE* GetHInstance();
+	HINSTANCE GetHInstance();
 	/// <summary>
 	/// Gets the width of the window.
 	/// </summary>
@@ -128,6 +128,10 @@ public:
 	void AddModule(Module* module);
 
 	void SortModules();
+
+	void AddMessageHandler(IWin32MessageHandler* handler);
+
+	void RemoveMessageHandler(IWin32MessageHandler* handler);
 
 	template <class T>
 	T* GetModule()

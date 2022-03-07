@@ -60,6 +60,7 @@ public:
 
 	int slot;
 	std::string name{};
+
 private:
 	void LoadFromstbi(unsigned char* load);
 

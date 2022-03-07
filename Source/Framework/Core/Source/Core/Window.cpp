@@ -50,7 +50,8 @@ Window::Window(WindowDefinition definition) :
 
 	// Create all variables needed for the window creation
 	DWORD dwExStyle = 0;
-	DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX;
+	// DWORD dwStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SIZEBOX | WS_MAXIMIZEBOX;
+	DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 	HWND hWndParent = nullptr;
 	HMENU hMenu = nullptr;
 	LPVOID lpParam = nullptr;
@@ -189,14 +190,14 @@ TaskManager* Window::GetTaskManager()
 	return taskManager;
 }
 
-HWND* Window::GetWindowHandle()
+HWND Window::GetWindowHandle()
 {
-	return &windowHandle;
+	return windowHandle;
 }
 
-HINSTANCE* Window::GetHInstance()
+HINSTANCE Window::GetHInstance()
 {
-	return &hInstance;
+	return hInstance;
 }
 
 int Window::GetWidth()
@@ -394,6 +395,28 @@ void Window::SortModules()
 	);
 }
 
+void Window::InitModule(Module* module)
+{
+	assert(module);
+
+	module->window = this;
+	module->gfx = gfx;
+	module->Setup();
+
+	modules.push_back(module);
+}
+
+
+void Window::AddMessageHandler(IWin32MessageHandler* handler)
+{
+	messageHandlers.push_back(handler);
+}
+
+void Window::RemoveMessageHandler(IWin32MessageHandler* handler)
+{
+	std::erase(messageHandlers, handler);
+}
+
 LRESULT CALLBACK Window::ProcessPassthrough(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	return instance->ProcessMessage(hWnd, msg, wParam, lParam);
@@ -571,21 +594,6 @@ void Window::CaptureMouse()
 	GetWindowInfo(windowHandle, &windowinfo);
 
 	ClipCursor(&windowinfo.rcClient);
-}
-
-void Window::InitModule(Module* module)
-{
-	assert(module);
-
-	module->window = this;
-	module->gfx = gfx;
-	module->Setup();
-
-	IWin32MessageHandler* messageHandler = dynamic_cast<IWin32MessageHandler*>(module);
-	if (messageHandler != nullptr)
-		messageHandlers.push_back(messageHandler);
-
-	modules.push_back(module);
 }
 
 // init of static fields

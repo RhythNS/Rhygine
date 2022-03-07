@@ -25,7 +25,7 @@ Gfx::Gfx(Window* window, int refreshRate, bool vsync) : window(window), refreshR
 	desc.SampleDesc.Quality = 0;
 	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	desc.BufferCount = 1;
-	desc.OutputWindow = *window->GetWindowHandle();
+	desc.OutputWindow = window->GetWindowHandle();
 	desc.Windowed = TRUE;
 	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	desc.Flags = 0;

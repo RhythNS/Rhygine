@@ -18,6 +18,11 @@
           "name": "RHY_USE_EXAMPLES",
           "value": "True",
           "type": "BOOL"
+        },
+        {
+          "name": "USE_MODEL3D",
+          "value": "True",
+          "type": "BOOL"
         }
       ]
     },

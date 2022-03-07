@@ -66,14 +66,18 @@ void PresentScene::InnerInit()
 	litCarpet->GetComponent<RotateAround>()->rotationSpeed = RhyM::Vec3(0.2f, 0.5f, 1.0f);
 	litCarpet->GetComponent<RotateAround>()->Enable();
 
+#ifdef USE_MODEL3D
+
 	TestModelLoader testLoader = TestModelLoader(tlc);
-	GameObjectFactory::Add(stage.get(), &testLoader);
+	//GameObjectFactory::Add(stage.get(), &testLoader);
 
 	TestNeptuneLoader nepLoader = TestNeptuneLoader(tlc);
 	GameObjectFactory::Add(stage.get(), &nepLoader);
 
 	TestCrystal crystal(tlc);
 	GameObjectFactory::Add(stage.get(), &crystal);
+
+#endif
 
 	//stage->CreateGameObject()->AddComponent<BulletShowcaser>();
 	stage->CreateGameObject()->AddComponent<ReactShowcaser>();

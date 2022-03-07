@@ -15,7 +15,6 @@ TexLitShader::TexLitShader()
 	};
 
 	CreateShaders(L"Assets\\Shader\\PhongTexPix.cso", L"Assets\\Shader\\PhongTexVert.cso", &inputLayoutDesc);
-
 	pixBuffer = std::make_unique<ConstantPS<LightInfo>>(&lightBuffer, 0);
 	worldPosBuffer = std::make_unique<ConstantVS<PositionInfo>>(&posBuffer, 0);
 }

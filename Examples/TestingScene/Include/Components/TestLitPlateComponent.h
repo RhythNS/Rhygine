@@ -20,6 +20,6 @@ public:
 
 private:
 	float direction[3] = {0.0f, 0.0f, 0.0f};
-	bool guiWindowOpen;
-	Transform* transform;
+	bool guiWindowOpen = true;
+	Transform* transform = nullptr;
 };

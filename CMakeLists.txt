@@ -92,6 +92,10 @@ endif ()
 set(USE_REACT_PHYSICS ON CACHE BOOL "Adds the react physics engine via the physics module")
 
 set(USE_MODEL3D ON CACHE BOOL "Adds libraries for 3D models via the Model3D module")
+if (USE_MODEL3D)
+add_definitions(-DUSE_MODEL3D)
+endif ()
+
 set(USE_IMGUI ON CACHE BOOL "Adds imgui via the ImGUI module")
 set(USE_COMMON_COMPOENTS ON CACHE BOOL "Adds default components and shaders")
 

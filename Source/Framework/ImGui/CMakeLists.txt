@@ -16,8 +16,9 @@ add_library(
 	Source/imgui_draw.cpp
 	Source/imgui_impl_dx11.cpp
 	Source/imgui_impl_win32.cpp
+	Source/imgui_tables.cpp
 	Source/imgui_widgets.cpp
-	)
+)
 	
 target_include_directories (ImGUI PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Include")
 target_include_directories (ImGUI PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Source")
@@ -25,5 +26,5 @@ target_include_directories (ImGUI PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Source")
 target_link_libraries (
 	ImGUI 
 	LINK_PUBLIC RhyCore
-	)
+)
 	
