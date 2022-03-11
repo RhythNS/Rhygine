@@ -50,9 +50,10 @@ namespace RhyBullet
 		btDefaultMotionState* GetMotionState();
 
 		~RigidBody();
+
 	protected:
-		void OnEnabled();
-		void OnDisabled();
+		void OnEnabled() override;
+		void OnDisabled() override;
 
 	private:
 		/// <summary>

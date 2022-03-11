@@ -98,6 +98,7 @@ target_link_libraries (
 	LINK_PUBLIC ImGUI
 	LINK_PUBLIC Model3D
 	LINK_PUBLIC ReactPhysics
+	LINK_PUBLIC SoloudSound
 )
 
 RHY_COPY_ASSETS (TestingScene ${CMAKE_CURRENT_SOURCE_DIR})

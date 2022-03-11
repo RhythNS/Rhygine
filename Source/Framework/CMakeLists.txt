@@ -19,3 +19,7 @@ endif ()
 if (USE_MODEL3D)
 add_subdirectory ("Model3D")
 endif ()
+
+if (USE_SOLOUD)
+add_subdirectory ("soloud")
+endif ()

@@ -162,3 +162,7 @@ set( RP3D_DOUBLE_PRECISION_ENABLED OFF CACHE BOOL "React settings" )
 if (USE_REACT_PHYSICS)
 add_subdirectory ("reactphysics3d")
 endif ()
+
+if (USE_SOLOUD)
+add_subdirectory ("soloud/contrib")
+endif ()

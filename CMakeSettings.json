@@ -23,6 +23,31 @@
           "name": "USE_MODEL3D",
           "value": "True",
           "type": "BOOL"
+        },
+        {
+          "name": "SOLOUD_BACKEND_NULL",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "SOLOUD_BACKEND_SDL2",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "SOLOUD_BACKEND_WINMM",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "SOLOUD_STATIC",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "SOLOUD_DYNAMIC",
+          "value": "True",
+          "type": "BOOL"
         }
       ]
     },

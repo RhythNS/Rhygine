@@ -13,3 +13,6 @@
 [submodule "Libs/reactphysics3d"]
 	path = Libs/reactphysics3d
 	url = https://github.com/DanielChappuis/reactphysics3d
+[submodule "Libs/soloud"]
+	path = Libs/soloud
+	url = https://github.com/jarikomppa/soloud

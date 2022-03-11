@@ -69,7 +69,7 @@ void PresentScene::InnerInit()
 #ifdef USE_MODEL3D
 
 	TestModelLoader testLoader = TestModelLoader(tlc);
-	//GameObjectFactory::Add(stage.get(), &testLoader);
+	// GameObjectFactory::Add(stage.get(), &testLoader);
 
 	TestNeptuneLoader nepLoader = TestNeptuneLoader(tlc);
 	GameObjectFactory::Add(stage.get(), &nepLoader);

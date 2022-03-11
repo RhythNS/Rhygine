@@ -23,7 +23,6 @@ void ImGuiModule::Setup()
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	static ImGuiIO& io = ImGui::GetIO();
 
 	ImGui_ImplWin32_Init(GetWindow()->GetWindowHandle());
 	ImGui_ImplDX11_Init(GetDevice().Get(), GetContext().Get());
@@ -36,9 +35,6 @@ void ImGuiModule::StartOfFramePreUpdate()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-
-	static bool show_demo_window = true;
-	ImGui::ShowDemoWindow(&show_demo_window);
 }
 
 void ImGuiModule::LateDraw()

@@ -52,8 +52,11 @@ public:
 	{
 		components.push_back(std::make_unique<T>());
 		T* t = static_cast<T*>(components[components.size() - 1].get());
-		t->SetGameObject(this);
-		t->Init();
+
+		Component* comp = dynamic_cast<Component*>(t);
+		comp->SetGameObject(this);
+		comp->Init();
+		comp->OnEnabled();
 
 		// Check if the component is an updatable or an drawable
 		// and add them to the drawables or updatables lists.
@@ -138,6 +141,10 @@ public:
 				ParallelUpdatable* parallel;
 				if (parallel = dynamic_cast<ParallelUpdatable*>(t))
 					std::erase(parallels, parallel);
+
+				Component* comp = dynamic_cast<Component*>(t);
+				comp->OnDisabled();
+				comp->OnRemove();
 
 				components.erase(components.begin() + i);
 

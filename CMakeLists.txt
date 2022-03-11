@@ -90,6 +90,7 @@ endif ()
 
 
 set(USE_REACT_PHYSICS ON CACHE BOOL "Adds the react physics engine via the physics module")
+set(USE_SOLOUD ON CACHE BOOL "Adds the soloud sound library")
 
 set(USE_MODEL3D ON CACHE BOOL "Adds libraries for 3D models via the Model3D module")
 if (USE_MODEL3D)

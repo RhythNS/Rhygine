@@ -15,6 +15,7 @@
 #include <React/ReactPhysicsModule.h>
 #include <imgui/ImGuiModule.h>
 #include <Model3D/Model3DModule.h>
+#include <Sound/SoloudModule.h>
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -27,8 +28,8 @@ int CALLBACK WinMain(
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtSetBreakAlloc(2073);
 	*/
-	try {
-
+	try
+	{
 		// BulletTestScene* scene = new BulletTestScene();
 		// TestScene* scene = new TestScene();
 		// LightTestScene* scene = new LightTestScene();
@@ -55,6 +56,7 @@ int CALLBACK WinMain(
 		//winDef.modules.push_back(new RhyBullet::BulletPhysicsModule(0.02f));
 		winDef.modules.push_back(new ImGuiModule());
 		winDef.modules.push_back(new Model3DModule());
+		winDef.modules.push_back(new SoloudModule());
 
 		// Create the window.
 		Window window(winDef);
@@ -63,13 +65,16 @@ int CALLBACK WinMain(
 		return window.MainLoop();
 	}
 	// catch any exceptions and display a MessageBox with the exception info.
-	catch (RhyException& rhy) {
+	catch (RhyException& rhy)
+	{
 		MessageBoxA(nullptr, rhy.what(), "Rhygine Failure", MB_OK | MB_ICONEXCLAMATION);
 	}
-	catch (std::exception exep) {
+	catch (std::exception exep)
+	{
 		MessageBoxA(nullptr, exep.what(), "Uncaught Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
-	catch (...) {
+	catch (...)
+	{
 		MessageBoxA(nullptr, "Unknown error...", "Uncaught Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	// If an exception occured simply return the exit code -1

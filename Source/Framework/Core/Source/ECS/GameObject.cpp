@@ -70,6 +70,7 @@ bool GameObject::RemoveComponent(Component* toRemove)
 			if (drawable = dynamic_cast<Drawable*>(toRemove))
 				std::erase(drawables, drawable);
 
+			toRemove->OnDisabled();
 			toRemove->OnRemove();
 
 			// Lastly removed the component from the main list and return true.
@@ -86,6 +87,7 @@ void GameObject::OnRemove()
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
+		components[i]->OnDisabled();
 		components[i]->OnRemove();
 	}
 }
