@@ -1,0 +1,9 @@
+[submodule "Rhygine/Libs/Spdlog"]
+	path = Rhygine/Libs/Spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "Rhygine/Libs/Backward"]
+	path = Rhygine/Libs/Backward
+	url = https://github.com/bombela/backward-cpp
+[submodule "Rhygine/Libs/Tracy"]
+	path = Rhygine/Libs/Tracy
+	url = https://github.com/wolfpld/tracy
