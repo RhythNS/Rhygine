@@ -1,20 +1,21 @@
+#include <tracy\Tracy.hpp>
+#include <chrono>
+
 #include "Debug\Logger.h"
 #include "Debug\StackTrace.h"
+#include "DataTypes\Concurrency\Thread.h"
 
 using namespace Rhygine;
+static Logger logger;
 
-static void Test(Logger& p_logger)
+static void LogStackTrace()
 {
 	Rhygine::StackTrace st;
-	p_logger.Log(Logger::Level::Debug, "Stack trace here", st);
+	logger.Log(Logger::Level::Debug, "Stack trace here", st);
 }
 
-int main(int argc, char* argv[])
+static void LogOnAllLevels()
 {
-	Logger logger;
-
-	Test(logger);
-
 	logger.Log(Logger::Level::Trace, "trace");
 	logger.Log(Logger::Level::Debug, "debug");
 	logger.Log(Logger::Level::Info, "info");
@@ -23,4 +24,28 @@ int main(int argc, char* argv[])
 
 	logger.Log(Logger::Level::Info, "a?");
 	logger.Log(Logger::Level::Error, "main.cpp", 10, "main", "a!");
+}
+
+void EndlessThreadLoop()
+{
+	while (true)
+	{
+		ZoneScoped;
+		std::this_thread::sleep_for(std::chrono::milliseconds(std::rand() % 200));
+		logger.Log(Logger::Level::Info, "a");
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	ZoneScoped;
+
+	Thread a(EndlessThreadLoop, "A thread");
+	Thread b(EndlessThreadLoop);
+
+	a.Start();
+	b.Start();
+
+	a.Join();
+	b.Join();
 }

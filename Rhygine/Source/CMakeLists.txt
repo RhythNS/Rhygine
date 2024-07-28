@@ -1,5 +1,9 @@
 add_library(
 	Rhygine
+	"Core/EntryPoint.cpp"
+	"Core/EntryPoint.h"
+	"DataTypes/Concurrency/Thread.cpp"
+	"DataTypes/Concurrency/Thread.h"
 	"Debug/Logger.cpp"
 	"Debug/Logger.h"
 	"Debug/StackTrace.cpp"

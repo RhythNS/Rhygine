@@ -17,7 +17,7 @@ Rhygine::StackTrace::StackTrace()
 	buffer = stringStream.str();
 }
 
-std::string& Rhygine::StackTrace::Print() const
+const std::string& Rhygine::StackTrace::Print() const
 {
 	return buffer;
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 namespace Rhygine
@@ -6,9 +7,9 @@ namespace Rhygine
 	{
 	public:
 		StackTrace();
-		std::string& Print() const;
+		const std::string& Print() const;
 
 	private:
-		mutable std::string buffer;
+		std::string buffer;
 	};
 }
