@@ -7,3 +7,6 @@
 [submodule "Rhygine/Libs/Tracy"]
 	path = Rhygine/Libs/Tracy
 	url = https://github.com/wolfpld/tracy
+[submodule "Rhygine/Libs/Mimalloc"]
+	path = Rhygine/Libs/Mimalloc
+	url = https://github.com/microsoft/mimalloc

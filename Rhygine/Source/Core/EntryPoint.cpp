@@ -3,10 +3,11 @@
 #include <backward.hpp>
 
 #include "Debug\Logger.h"
+#include "Core\MemoryAllocation.h"
 
 backward::SignalHandling sh;
 
-int Run()
+static int Run()
 {
 	using namespace Rhygine;
 

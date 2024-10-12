@@ -7,5 +7,10 @@ add_executable(
 
 target_link_libraries(
 	CCTests
+	PRIVATE Common
+)
+
+target_link_libraries(
+	CCTests
 	LINK_PUBLIC Rhygine
 )

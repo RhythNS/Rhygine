@@ -2,5 +2,5 @@
 
 namespace Rhygine
 {
-	int Run();
+	static int Run();
 }
