@@ -7,10 +7,10 @@
 
 #if defined(TRACY_MEMORY_EVERYTHING)
 #include <tracy/Tracy.hpp>
-#define track_alloc(ptr, count) TracyAlloc(ptr, count)
+#define track_alloc(ptr, size) TracyAlloc(ptr, size)
 #define track_delete(ptr) TracyFree(ptr)
 #else
-#define track_alloc(ptr, count)
+#define track_alloc(ptr, size)
 #define track_delete(ptr)
 #endif
 
