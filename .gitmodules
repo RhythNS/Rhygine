@@ -10,3 +10,9 @@
 [submodule "Rhygine/Libs/Mimalloc"]
 	path = Rhygine/Libs/Mimalloc
 	url = https://github.com/microsoft/mimalloc
+[submodule "Rhygine/Libs/Tomlplusplus"]
+	path = Rhygine/Libs/Tomlplusplus
+	url = https://github.com/marzer/tomlplusplus
+[submodule "Rhygine/Libs/Glm"]
+	path = Rhygine/Libs/Glm
+	url = https://github.com/g-truc/glm

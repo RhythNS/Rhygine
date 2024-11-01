@@ -1,10 +1,14 @@
 add_subdirectory("Backward")
 
+add_subdirectory("Glm")
+
 add_subdirectory("Mimalloc")
 
 set(SPDLOG_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 set(SPDLOG_BUILD_TESTING OFF CACHE BOOL "Build spdlog tests")
 add_subdirectory("Spdlog")
+
+add_subdirectory("Tomlplusplus")
 
 option(TRACY_ENABLE "" ON)
 
@@ -23,4 +27,4 @@ if (TRACY_MEMORY_EVERYTHING)
     target_compile_definitions(Common INTERFACE TRACY_MEMORY_EVERYTHING)
 endif()
 
-add_subdirectory(Tracy)
+add_subdirectory("Tracy")
