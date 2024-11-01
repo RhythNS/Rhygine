@@ -1,12 +1,15 @@
 #include <tracy\Tracy.hpp>
 #include <chrono>
+#include <map>
+#include <string>
+#include <any>
 
 #include "Debug\Logger.h"
 #include "Debug\StackTrace.h"
 #include "DataTypes\Concurrency\Thread.h"
-#include "Core\MemoryAllocation.h"
 #include "DataTypes\Concurrency\Mutex.h"
 #include "DataTypes\Concurrency\Locks.h"
+#include "Core\EntryPoint.h"
 
 using namespace Rhygine;
 static Logger logger;
@@ -30,7 +33,7 @@ static void LogOnAllLevels()
 	logger.Log(Logger::Level::Error, "main.cpp", 10, "main", "a!");
 }
 
-void EndlessThreadLoop()
+static void EndlessThreadLoop()
 {
 	while (true)
 	{
@@ -46,7 +49,7 @@ void EndlessThreadLoop()
 	}
 }
 
-int main(int argc, char* argv[])
+static void EndlessTest()
 {
 	ZoneScoped;
 
@@ -58,4 +61,25 @@ int main(int argc, char* argv[])
 
 	a.Join();
 	b.Join();
+}
+
+static void AnyTest()
+{
+	std::map<std::string, std::any> map;
+	{
+		std::map<std::string, std::any> sub;
+		sub["zero"] = 2;
+		sub["one"] = "what";
+
+		map["a"] = sub;
+	}
+
+	std::map<std::string, std::any> a = std::any_cast<std::map<std::string, std::any>>(map.at("a"));
+	//int zero = std::any_cast<int>(map["a"]["zero"]);
+}
+
+int main(int argc, char* argv[])
+{
+	// EndlessTest();
+	EntryPoint::Run(argc, argv);
 }

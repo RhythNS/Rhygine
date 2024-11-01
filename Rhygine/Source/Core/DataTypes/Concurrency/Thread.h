@@ -20,11 +20,11 @@ namespace Rhygine
 		Thread& operator=(const Thread&) = delete;
 
 		void Start();
-		bool IsStarted() const;
+		[[nodiscard]] bool IsStarted() const;
 		void Join();
-		bool IsFinished() const;
-		Priority GetPriority() const;
-		const std::string& GetName() const;
+		[[nodiscard]] bool IsFinished() const;
+		[[nodiscard]] Priority GetPriority() const;
+		[[nodiscard]] const std::string& GetName() const;
 
 	private:
 		std::function<void()> m_function;

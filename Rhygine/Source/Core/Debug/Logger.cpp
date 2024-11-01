@@ -7,7 +7,16 @@
 
 #include "StackTrace.h"
 
+Rhygine::Logger* Rhygine::Logger::s_instance = nullptr;
+
 Rhygine::Logger::Logger()
+{
+	s_instance = this;
+
+	ResetToDefaultLogger();
+}
+
+void Rhygine::Logger::ResetToDefaultLogger() const
 {
 	std::vector<spdlog::sink_ptr> sinks;
 
@@ -54,6 +63,11 @@ void Rhygine::Logger::Log(const Level t_level, const char* t_file, int t_line, c
 	TracyMessage(t_message.c_str(), t_message.size());
 #endif // !TRACY_NO_LOG
 	m_logger->log(spdlog::source_loc(t_file, t_line, t_function), FromInternalLevel(t_level), "{0}\n{1}", t_message, t_stackTrace.Print());
+}
+
+const Rhygine::Logger* Rhygine::Logger::GetInstance()
+{
+	return s_instance;
 }
 
 spdlog::level::level_enum Rhygine::Logger::FromInternalLevel(const Level t_level) const

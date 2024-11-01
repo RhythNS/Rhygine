@@ -18,7 +18,7 @@ namespace Rhygine
 		Semaphore(const Semaphore&) = delete;
 		Semaphore& operator=(const Semaphore&) = delete;
 
-		bool TryLock()
+		[[nodiscard]] bool TryLock()
 		{
 			const auto acquired = m_semaphore.try_acquire();
 #ifdef TRACY_NO_LOCKS

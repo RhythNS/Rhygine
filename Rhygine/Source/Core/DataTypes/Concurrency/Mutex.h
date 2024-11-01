@@ -17,7 +17,7 @@ namespace Rhygine
 		Mutex(const Mutex&) = delete;
 		Mutex& operator=(const Mutex&) = delete;
 
-		bool TryLock();
+		[[nodiscard]] bool TryLock();
 		void Lock();
 		void Unlock();
 

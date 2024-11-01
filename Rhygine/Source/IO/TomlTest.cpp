@@ -8,7 +8,7 @@ void Test()
     constexpr std::string_view some_toml = R"(
         [library]
         name = "toml++"
-        authors = ["Mark Gillard <mark.gillard@outlook.com.au>"]
+        authors = ["Mark Gillard"]
         cpp = 17
     )"sv;
     try

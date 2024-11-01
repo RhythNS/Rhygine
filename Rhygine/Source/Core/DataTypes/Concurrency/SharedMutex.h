@@ -16,11 +16,11 @@ namespace Rhygine
 		SharedMutex(const SharedMutex&) = delete;
 		SharedMutex& operator=(const SharedMutex&) = delete;
 
-		bool TryLock();
+		[[nodiscard]] bool TryLock();
 		void Lock();
 		void Unlock();
 
-		bool TryLockShared();
+		[[nodiscard]] bool TryLockShared();
 		void LockShared();
 		void UnlockShared();
 
