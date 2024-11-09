@@ -44,6 +44,42 @@ namespace Rhygine
 		}
 
 		template <typename T>
+		[[nodiscard]] T GetOr(const std::string& t_key, T t_or) const
+		{
+			Lock lock(m_sharedMutex);
+			if (m_map.find(t_key) == m_map.end())
+			{
+				return t_or;
+			}
+			try
+			{
+				return std::any_cast<T>(m_map.at(t_key));
+			}
+			catch (const std::bad_any_cast& e)
+			{
+				return t_or;
+			}
+		}
+
+		template <typename T>
+		[[nodiscard]] T GetOr(const std::string& t_key, T& t_or) const
+		{
+			Lock lock(m_sharedMutex);
+			if (m_map.find(t_key) == m_map.end())
+			{
+				return t_or;
+			}
+			try
+			{
+				return std::any_cast<T>(m_map.at(t_key));
+			}
+			catch (const std::bad_any_cast& e)
+			{
+				return t_or;
+			}
+		}
+
+		template <typename T>
 		bool Set(const std::string& t_key, T& t_value, bool t_overwrite = false)
 		{
 			SharedLock lock(m_sharedMutex);

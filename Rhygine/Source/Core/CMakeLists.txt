@@ -34,6 +34,7 @@ target_link_libraries(
 	PUBLIC Backward::Interface
 	PUBLIC Tracy::TracyClient
 	PUBLIC mimalloc-static
+	PUBLIC RhyGfx
 	PUBLIC RhyIO
 	PUBLIC RhySystems
 )
@@ -42,5 +43,6 @@ if(WIN32)
 	target_link_libraries(
 		RhyCore
 		PUBLIC RhyWindowsSystems
+		PUBLIC RhyDx11Gfx
 	)
 endif()

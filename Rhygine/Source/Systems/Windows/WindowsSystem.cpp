@@ -3,6 +3,7 @@
 #include <iostream>
 #include <tracy\Tracy.hpp>
 
+#include "Gfx.h"
 #include "Config\Config.h"
 #include "Debug\Logger.h"
 
@@ -147,9 +148,16 @@ Rhygine::Window::WindowId Rhygine::WindowsSystem::AddWindow()
 		);
 
 	// TODO: remove
-	ShowWindow(windowHandle, SW_SHOW);
+	{
+		static bool primary = true;
+		static Window::WindowId ids = 0;
+		m_windows.push_back(std::make_unique<WindowsWindow>(ids++, primary, x, y, width, height, windowHandle));
+		primary = false;
+		WindowsWindow* window = m_windows.back().get();
+		Gfx::GetInstance()->OnWindowAdded(window);
+		ShowWindow(windowHandle, SW_SHOW);
+	}
 
-	// TODO: Create new window here
 
 	return Window::WindowId();
 }

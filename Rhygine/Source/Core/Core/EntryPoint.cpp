@@ -55,26 +55,6 @@ namespace Rhygine
 		}
 		WindowsSystem system(t_instance, t_prev_instance, config);
 
-		/*
-		if (t_config.TryGet<bool>("System/AttachConsole").value_or(false))
-		{
-
-		}
-		*/
-		system.CreateConsole();
-		system.AddWindow();
-
-		while (true)
-		{
-			std::optional<int> return_code = system.ProcessMessages();
-			if (return_code.has_value())
-			{
-				return return_code.value();
-			}
-			
-			LOG_ERROR("what?");
-		}
-
 		Engine engine(&config);
 		return engine.Run();
 	}

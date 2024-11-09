@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WIN32
-#include "Windows\Windows.h"
+#include "Windows\RhyWindows.h"
 #endif // _WIN32
 #include "Config\Config.h"
 

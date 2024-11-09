@@ -1,9 +1,12 @@
 add_library(
 	RhyWindowsSystems
-	"Windows.h"
+	"RhyWindows.h"
 	"WindowsSystem.h"
 	"WindowsSystem.cpp"
- "WindowsWindow.h" "WindowsWindow.cpp" "IWindowsMessageHandler.h")
+	"WindowsWindow.h"
+	"WindowsWindow.cpp"
+	"IWindowsMessageHandler.h"
+)
 
 target_link_libraries(
 	RhyWindowsSystems

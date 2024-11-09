@@ -2,10 +2,22 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
-#include "Windows.h"
+#include "RhyWindows.h"
 #include "IWindowsMessageHandler.h"
 #include "System.h"
+#include "WindowsWindow.h"
+
+#define ASSERT_HRES_MESSAGE(hResult, message) \
+	if (FAILED(hResult)) \
+	{ \
+		LOG_ERROR(WindowsSystem::GetLastSystemError() + " " + message); \
+		STOP_EXECUTION; \
+	} 
+
+#define ASSERT_HRES(hResult) \
+	ASSERT_HRES_MESSAGE(hResult, "#cond asserted to false!")
 
 namespace Rhygine
 {
@@ -31,17 +43,18 @@ namespace Rhygine
 		bool AddMessageHandler(IWindowsMessageHandler* t_message_handler);
 		bool RemoveMessageHandler(IWindowsMessageHandler* t_message_handler);
 
-		[[nodiscard]] std::string GetLastSystemError();
+		[[nodiscard]] static std::string GetLastSystemError();
 
 	private:
 		static LRESULT CALLBACK ProcessPassthrough(HWND t_window, UINT t_message, WPARAM t_w_param, LPARAM t_l_param);
 		LRESULT ProcessMessage(HWND t_window, UINT t_message, WPARAM t_w_param, LPARAM t_l_param);
-
+		
 	private:
 		HINSTANCE m_instance;
 		HINSTANCE m_prev_instance;
 		std::string m_window_class_name = "Rhygine Window";
 		std::vector<IWindowsMessageHandler*> m_message_handlers;
+		std::vector<std::unique_ptr<WindowsWindow>> m_windows;
 
 		static WindowsSystem* s_instance;
 	};
