@@ -14,6 +14,7 @@ namespace Rhygine
 	private:
 		ILockable& m_lockable;
 	};
+	typedef Lock ReadLock;
 
 	class SharedLock
 	{
@@ -24,4 +25,6 @@ namespace Rhygine
 	private:
 		SharedMutex& m_mutex;
 	};
+
+	typedef SharedLock ReadWriteLock;
 }

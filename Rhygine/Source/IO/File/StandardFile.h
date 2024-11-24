@@ -1,7 +1,9 @@
 #pragma once
 
 #include "File.h"
+
 #include <fstream>
+#include <string>
 
 namespace Rhygine
 {

@@ -22,7 +22,7 @@ add_library(
 	"Core/Engine.cpp"
 	"Config/Config.h"
 	"Config/Config.cpp"
-)
+  )
 
 target_include_directories (RhyCore PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

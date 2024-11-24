@@ -3,6 +3,8 @@
 #include <map>
 #include <string>
 #include <any>
+#include <memory>
+#include <iostream>
 
 #include "Debug\Logger.h"
 #include "Debug\StackTrace.h"
@@ -10,6 +12,9 @@
 #include "DataTypes\Concurrency\Mutex.h"
 #include "DataTypes\Concurrency\Locks.h"
 #include "Core\EntryPoint.h"
+#include "File\StandardFileProvider.h"
+#include "File\FileManager.h"
+#include "Interpreters\TomlInterpreter.h"
 
 using namespace Rhygine;
 static Logger logger;
@@ -78,8 +83,37 @@ static void AnyTest()
 	//int zero = std::any_cast<int>(map["a"]["zero"]);
 }
 
+static void TomlTest()
+{
+	FileManager fm;
+	fm.Mount(std::make_unique<StandardFileProvider>("res", "res/"));
+	TomlInterpreter interpreter;
+	std::unique_ptr<File> file = fm.Open("test.toml", FileMode::Read);
+	if (!file)
+	{
+		logger.Log(Logger::Level::Error, "Could not open file");
+		return;
+	}
+
+	interpreter.Load(*file);
+
+	auto value = interpreter.GetValue<int>("test");
+
+	if (!value)
+	{
+		logger.Log(Logger::Level::Error, "Could not get value");
+		return;
+	}
+	logger.Log(Logger::Level::Info, std::to_string(*value));
+}
+
 int main(int argc, char* argv[])
 {
 	// EndlessTest();
-	EntryPoint::Run(argc, argv);
+	// EntryPoint::Run(argc, argv);
+
+	TomlTest();
+
+	std::cout << "..." << std::endl;
+	std::cin.get();
 }
