@@ -12,16 +12,17 @@ namespace Rhygine
 		template<typename T>
 		std::optional<T> GetValue(const std::string& key)
 		{
-			auto value = m_table;
+			toml::v3::node_view<toml::v3::node> value(m_table);
 			size_t start = 0;
 			size_t end = key.find('.');
 
-			while (end != -1)
+			while (end != std::string::npos)
 			{
-				std::string k = key.substr(start, end - start);
-				if (value.contains(k))
+				const std::string k = key.substr(start, end - start);
+				auto newValue = value.at_path(k);
+				if (newValue)
 				{
-					value = value[k];
+					value = newValue;
 				}
 				else
 				{
@@ -31,12 +32,9 @@ namespace Rhygine
 				end = key.find('.', start);
 			}
 
-			std::string k = key.substr(start);
-			if (value.contains(k))
-			{
-				value = value[k];
-			}
-			else
+			const std::string k = key.substr(start);
+			value = value.at_path(k);
+			if (!value)
 			{
 				return {};
 			}

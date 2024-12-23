@@ -97,7 +97,7 @@ static void TomlTest()
 
 	interpreter.Load(*file);
 
-	auto value = interpreter.GetValue<int>("test");
+	auto value = interpreter.GetValue<int64_t>("application.info.version");
 
 	if (!value)
 	{
