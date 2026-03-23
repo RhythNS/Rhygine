@@ -10,7 +10,6 @@
 #include "Debug\StackTrace.h"
 #include "DataTypes\Concurrency\Thread.h"
 #include "DataTypes\Concurrency\Mutex.h"
-#include "DataTypes\Concurrency\Locks.h"
 #include "Core\EntryPoint.h"
 #include "File\StandardFileProvider.h"
 #include "File\FileManager.h"
@@ -45,7 +44,7 @@ static void EndlessThreadLoop()
 		Logger* log = new Logger();
 		ZoneScoped;
 		{
-			Lock lock = Lock(mutex);
+			std::unique_lock<Rhygine::Mutex> lock(mutex);
 			std::this_thread::sleep_for(std::chrono::milliseconds(std::rand() % 200));
 		}
 		logger.Log(Logger::Level::Info, "a");

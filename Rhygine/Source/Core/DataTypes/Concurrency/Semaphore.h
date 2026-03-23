@@ -5,12 +5,10 @@
 #include <client/TracyLock.hpp>
 #endif
 
-#include "ILockable.h"
-
 namespace Rhygine
 {
-	template<class T>
-	class Semaphore : public ILockable
+	template<auto T>
+	class Semaphore
 	{
 	public:
 		Semaphore() = delete;
@@ -50,6 +48,10 @@ namespace Rhygine
 			m_ctx.AfterUnlock();
 #endif // TRACY_NO_LOCKS
 		}
+
+		bool try_lock() { return TryLock(); }
+		void lock() { Lock(); }
+		void unlock() { Unlock(); }
 
 	private:
 		std::counting_semaphore<T> m_semaphore;

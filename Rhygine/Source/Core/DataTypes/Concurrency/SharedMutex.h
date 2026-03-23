@@ -5,11 +5,9 @@
 #include <client/TracyLock.hpp>
 #endif // !TRACY_NO_LOCKS
 
-#include "ILockable.h"
-
 namespace Rhygine
 {
-	class SharedMutex : public ILockable
+	class SharedMutex
 	{
 	public:
 		SharedMutex() = default;
@@ -23,6 +21,14 @@ namespace Rhygine
 		[[nodiscard]] bool TryLockShared();
 		void LockShared();
 		void UnlockShared();
+
+		[[nodiscard]] bool try_lock() { return TryLock(); }
+		void lock() { Lock(); }
+		void unlock() { Unlock(); }
+
+		[[nodiscard]] bool try_lock_shared() { return TryLockShared(); }
+		void lock_shared() { LockShared(); }
+		void unlock_shared() { UnlockShared(); }
 
 	private:
 		std::shared_mutex m_mutex;

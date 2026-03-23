@@ -2,9 +2,6 @@ cmake_minimum_required (VERSION 3.15)
 
 project("RhygineGlobalProject")
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 add_library(Common INTERFACE)
 
 # Download and update submodules

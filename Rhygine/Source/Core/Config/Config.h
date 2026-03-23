@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "DataTypes\Concurrency\SharedMutex.h"
-#include "DataTypes\Concurrency\Locks.h"
 #include "Debug\Error.h"
 
 namespace Rhygine
@@ -20,7 +19,7 @@ namespace Rhygine
 		template <typename T>
 		[[nodiscard]] T Get(const std::string& t_key) const
 		{
-			Lock lock(m_sharedMutex);
+			std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			ASSERT_ERROR_MESSAGE(m_map.find(t_key) != m_map.end(), "Config tried to access a key which was not in it's map!");
 			return std::any_cast<T>(m_map.at(t_key));
 		}
@@ -28,7 +27,7 @@ namespace Rhygine
 		template <typename T>
 		[[nodiscard]] std::optional<T> TryGet(const std::string& t_key) const
 		{
-			Lock lock(m_sharedMutex);
+			std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			if (m_map.find(t_key) == m_map.end())
 			{
 				return {};
@@ -46,7 +45,7 @@ namespace Rhygine
 		template <typename T>
 		[[nodiscard]] T GetOr(const std::string& t_key, T t_or) const
 		{
-			Lock lock(m_sharedMutex);
+			std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			if (m_map.find(t_key) == m_map.end())
 			{
 				return t_or;
@@ -64,7 +63,7 @@ namespace Rhygine
 		template <typename T>
 		[[nodiscard]] T GetOr(const std::string& t_key, T& t_or) const
 		{
-			Lock lock(m_sharedMutex);
+			std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			if (m_map.find(t_key) == m_map.end())
 			{
 				return t_or;
@@ -82,7 +81,7 @@ namespace Rhygine
 		template <typename T>
 		bool Set(const std::string& t_key, T& t_value, bool t_overwrite = false)
 		{
-			SharedLock lock(m_sharedMutex);
+			std::unique_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			if (!t_overwrite && m_map.find(t_key) != m_map.end())
 			{
 				return false;
@@ -95,7 +94,7 @@ namespace Rhygine
 		template <typename T>
 		bool Set(const std::string& t_key, T t_value, bool t_overwrite = false)
 		{
-			SharedLock lock(m_sharedMutex);
+			std::unique_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 			if (!t_overwrite && m_map.find(t_key) != m_map.end())
 			{
 				return false;

@@ -5,12 +5,9 @@
 #include <client/TracyLock.hpp>
 #endif // !TRACY_NO_LOCKS
 
-
-#include "ILockable.h"
-
 namespace Rhygine
 {
-	class Mutex : public ILockable
+	class Mutex
 	{
 	public:
 		Mutex() = default;
@@ -20,6 +17,10 @@ namespace Rhygine
 		[[nodiscard]] bool TryLock();
 		void Lock();
 		void Unlock();
+
+		bool try_lock() { return TryLock(); }
+		void lock() { Lock(); }
+		void unlock() { Unlock(); }
 
 	private:
 		std::mutex m_mutex;

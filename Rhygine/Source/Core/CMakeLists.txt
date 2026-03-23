@@ -3,9 +3,6 @@ add_library(
 	"Core/EntryPoint.cpp"
 	"Core/EntryPoint.h"
 	"Core/MemoryAllocation.h"
-	"DataTypes/Concurrency/ILockable.h"
-	"DataTypes/Concurrency/Locks.h"
-	"DataTypes/Concurrency/Locks.cpp"
 	"DataTypes/Concurrency/Mutex.h"
 	"DataTypes/Concurrency/Mutex.cpp"
 	"DataTypes/Concurrency/Semaphore.h"
@@ -25,6 +22,8 @@ add_library(
   )
 
 target_include_directories (RhyCore PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
+target_compile_features(RhyCore PUBLIC cxx_std_23)
 
 target_link_libraries(
 	RhyCore

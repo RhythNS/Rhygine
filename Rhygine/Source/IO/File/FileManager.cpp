@@ -1,11 +1,10 @@
 #include "FileManager.h"
 
 #include "Debug\Error.h"
-#include "DataTypes\Concurrency\Locks.h"
 
 void Rhygine::FileManager::Mount(std::unique_ptr<FileProvider> t_provider)
 {
-	ReadWriteLock lock(m_sharedMutex);
+	std::unique_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 
     ASSERT_ERROR_MESSAGE \
     (\
@@ -16,7 +15,7 @@ void Rhygine::FileManager::Mount(std::unique_ptr<FileProvider> t_provider)
             { \
                 return t_provider->GetName() == x->GetName(); \
             } \
-        ) != m_providers.end(), \
+        ) == m_providers.end(), \
         t_provider->GetName() + " has already been mounted!" \
     );
 
@@ -25,7 +24,7 @@ void Rhygine::FileManager::Mount(std::unique_ptr<FileProvider> t_provider)
 
 std::unique_ptr<Rhygine::File> Rhygine::FileManager::Open(const std::string& t_path, FileMode t_fileMode) const
 {
-	ReadLock lock(m_sharedMutex);
+	std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 
 	//TODO: Is this desired behaviour or should it be something like provider = t_path.Split(":")[0]?
 	for (const auto& provider : m_providers)
@@ -41,7 +40,7 @@ std::unique_ptr<Rhygine::File> Rhygine::FileManager::Open(const std::string& t_p
 
 std::unique_ptr<Rhygine::File> Rhygine::FileManager::Open(const std::string& t_provider, const std::string& t_path, FileMode t_fileMode) const
 {
-	ReadLock lock(m_sharedMutex);
+	std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 
 	for (const auto& provider : m_providers)
 	{
@@ -61,7 +60,7 @@ std::unique_ptr<Rhygine::File> Rhygine::FileManager::Open(const std::string& t_p
 
 bool Rhygine::FileManager::Has(const std::string& t_path) const
 {
-	ReadLock lock(m_sharedMutex);
+	std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 
 	for (const auto& provider : m_providers)
 	{
@@ -75,7 +74,7 @@ bool Rhygine::FileManager::Has(const std::string& t_path) const
 
 bool Rhygine::FileManager::Has(const std::string& t_provider, const std::string& t_path) const
 {
-	ReadLock lock(m_sharedMutex);
+	std::shared_lock<Rhygine::SharedMutex> lock(m_sharedMutex);
 
 	for (const auto& provider : m_providers)
 	{
