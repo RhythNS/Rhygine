@@ -1,7 +1,7 @@
 #include "TomlInterpreter.h"
 
-#include "File\File.h"
-#include "Debug\Error.h"
+#include "File/File.h"
+#include "Debug/Error.h"
 
 bool Rhygine::TomlInterpreter::Load(File& t_file)
 {

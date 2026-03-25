@@ -1,11 +1,11 @@
 #include "WindowsSystem.h"
 
 #include <iostream>
-#include <tracy\Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #include "Gfx.h"
-#include "Config\Config.h"
-#include "Debug\Logger.h"
+#include "Config/Config.h"
+#include "Debug/Logger.h"
 
 Rhygine::WindowsSystem* Rhygine::WindowsSystem::s_instance = nullptr;
 

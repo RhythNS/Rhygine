@@ -3,7 +3,7 @@
 #include <filesystem>
 
 #include "StandardFile.h"
-#include "Debug\Error.h"
+#include "Debug/Error.h"
 
 Rhygine::StandardFileProvider::StandardFileProvider(const std::string& t_name, const std::string& t_path)
 	: FileProvider(t_name), m_path(t_path)

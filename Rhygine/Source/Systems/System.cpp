@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "Debug\Logger.h"
-#include "Debug\Error.h"
+#include "Debug/Logger.h"
+#include "Debug/Error.h"
 
 Rhygine::System* Rhygine::System::s_instance = nullptr;
 

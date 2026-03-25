@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef _WIN32
-#include "Windows\RhyWindows.h"
+#include "Windows/RhyWindows.h"
 #endif // _WIN32
-#include "Config\Config.h"
+#include "Config/Config.h"
 
 namespace Rhygine
 {

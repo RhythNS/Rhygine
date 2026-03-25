@@ -1,13 +1,13 @@
 #include "Engine.h"
 
-#include <tracy\Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
-#include "Config\Config.h"
+#include "Config/Config.h"
 #include "System.h"
-#include "Debug\Logger.h"
-#include "Debug\Error.h"
+#include "Debug/Logger.h"
+#include "Debug/Error.h"
 #ifdef _WIN32
-#include "DX11\DX11.h"
+#include "DX11/DX11.h"
 #endif
 
 Rhygine::Engine::Engine(Config* t_config) : m_config(t_config)

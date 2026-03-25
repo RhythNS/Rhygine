@@ -6,8 +6,8 @@
 #include <optional>
 #include <vector>
 
-#include "DataTypes\Concurrency\SharedMutex.h"
-#include "Debug\Error.h"
+#include "DataTypes/Concurrency/SharedMutex.h"
+#include "Debug/Error.h"
 
 namespace Rhygine
 {

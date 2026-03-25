@@ -2,6 +2,7 @@ add_subdirectory("Backward")
 
 add_subdirectory("Glm")
 
+set(MI_OVERRIDE OFF CACHE BOOL "Override the standard malloc interface" FORCE)
 add_subdirectory("Mimalloc")
 
 set(SPDLOG_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")

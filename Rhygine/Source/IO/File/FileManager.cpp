@@ -1,6 +1,6 @@
 #include "FileManager.h"
 
-#include "Debug\Error.h"
+#include "Debug/Error.h"
 
 void Rhygine::FileManager::Mount(std::unique_ptr<FileProvider> t_provider)
 {

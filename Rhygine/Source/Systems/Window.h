@@ -18,24 +18,24 @@ namespace Rhygine
 		Window(WindowId t_id, bool t_primary, int t_width, int t_height, int t_pos_x, int t_pos_y);
 		virtual ~Window() = default;
 
-		virtual [[nodiscard]] int GetX() const;
-		virtual [[nodiscard]] int GetY() const;
+		[[nodiscard]] virtual int GetX() const;
+		[[nodiscard]] virtual int GetY() const;
 
-		virtual [[nodiscard]] int GetWidth() const;
-		virtual [[nodiscard]] int GetHeight() const;
+		[[nodiscard]] virtual int GetWidth() const;
+		[[nodiscard]] virtual int GetHeight() const;
 
-		virtual [[nodiscard]] bool IsPrimary() const;
+		[[nodiscard]] virtual bool IsPrimary() const;
 
 		virtual void Resize(int t_pos_x, int t_pos_y, int t_width, int t_height) = 0;
 
 		virtual bool SetTitle(const std::string& m_title) = 0;
-		virtual [[nodiscard]] const std::string& GetTitle() const;
+		[[nodiscard]] virtual const std::string& GetTitle() const;
 
 		virtual bool SetCaptureMouse(bool m_enable) = 0;
-		virtual [[nodiscard]] bool IsCapturingMouse() const;
+		[[nodiscard]] virtual bool IsCapturingMouse() const;
 
 		virtual bool SetFullscreenMode(FullscreenMode m_mode) = 0;
-		virtual [[nodiscard]] FullscreenMode GetFullscreenMode() const;
+		[[nodiscard]] virtual FullscreenMode GetFullscreenMode() const;
 
 		WindowId GetID();
 

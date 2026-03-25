@@ -11,5 +11,8 @@ target_link_libraries(
 	PUBLIC RhyCore
 )
 
-# TODO:
-add_subdirectory("DX11")
+option(ENABLE_DX11 "Enable DirectX 11 support" OFF)
+
+if(ENABLE_DX11)
+    add_subdirectory("DX11")
+endif()

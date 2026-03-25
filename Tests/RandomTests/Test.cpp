@@ -1,4 +1,4 @@
-#include <tracy\Tracy.hpp>
+#include <tracy/Tracy.hpp>
 #include <chrono>
 #include <map>
 #include <string>
@@ -6,14 +6,14 @@
 #include <memory>
 #include <iostream>
 
-#include "Debug\Logger.h"
-#include "Debug\StackTrace.h"
-#include "DataTypes\Concurrency\Thread.h"
-#include "DataTypes\Concurrency\Mutex.h"
-#include "Core\EntryPoint.h"
-#include "File\StandardFileProvider.h"
-#include "File\FileManager.h"
-#include "Interpreters\TomlInterpreter.h"
+#include "Debug/Logger.h"
+#include "Debug/StackTrace.h"
+#include "DataTypes/Concurrency/Thread.h"
+#include "DataTypes/Concurrency/Mutex.h"
+#include "Core/EntryPoint.h"
+#include "File/StandardFileProvider.h"
+#include "File/FileManager.h"
+#include "Interpreters/TomlInterpreter.h"
 
 using namespace Rhygine;
 static Logger logger;

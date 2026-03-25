@@ -1,7 +1,12 @@
 #pragma once
-#include "Debug\Logger.h"
+#include "Debug/Logger.h"
 
+#ifdef _MSC_VER
 #define STOP_EXECUTION __debugbreak()
+#else
+#include <csignal>
+#define STOP_EXECUTION raise(SIGTRAP)
+#endif
 
 #define STOP_EXECUTION_MESSAGE(message) \
 	{ \

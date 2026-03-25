@@ -12,6 +12,8 @@ namespace Rhygine
 	public:
 		FileProvider() = delete;
 		FileProvider(const std::string& t_name);
+		virtual ~FileProvider() = default;
+		
 		[[nodiscard]] std::string GetName() const;
 
 		virtual bool Has(const std::string& t_path) const = 0;

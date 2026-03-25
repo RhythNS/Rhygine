@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "FileProvider.h"
-#include "DataTypes\Concurrency\SharedMutex.h"
+#include "DataTypes/Concurrency/SharedMutex.h"
 
 namespace Rhygine
 {

@@ -1,5 +1,5 @@
 #include "Gfx.h"
-#include "Debug\Error.h"
+#include "Debug/Error.h"
 
 Rhygine::Gfx* Rhygine::Gfx::s_instance = nullptr;
 

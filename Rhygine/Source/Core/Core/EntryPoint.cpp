@@ -3,15 +3,15 @@
 #include <backward.hpp>
 #include <vector>
 #include <string>
-#include <tracy\Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
-#include "Debug\Logger.h"
-#include "Debug\Error.h"
-#include "Core\MemoryAllocation.h"
-#include "Core\Engine.h"
+#include "Debug/Logger.h"
+#include "Debug/Error.h"
+#include "Core/MemoryAllocation.h"
+#include "Core/Engine.h"
 
 #ifdef _WIN32
-#include "Windows\WindowsSystem.h"
+#include "Windows/WindowsSystem.h"
 #endif
 
 backward::SignalHandling sh;
@@ -22,6 +22,7 @@ namespace Rhygine
 	{
 		Logger logger;
 		Config config;
+		config.Set<bool>("System/AttachConsole", true);
 		{
 			std::vector<std::string> args;
 			for (int i = 0; i < t_args_count; i++)

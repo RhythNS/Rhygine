@@ -1,12 +1,12 @@
 #include "DX11.h"
 
 #include <algorithm>
-#include <tracy\Tracy.hpp>
+#include <tracy/Tracy.hpp>
 
 #include "DX11Screen.h"
-#include "Windows\WindowsWindow.h"
-#include "Windows\WindowsSystem.h"
-#include "Debug\Error.h"
+#include "Windows/WindowsWindow.h"
+#include "Windows/WindowsSystem.h"
+#include "Debug/Error.h"
 
 Rhygine::DX11::DX11()
 {
