@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <memory>
 
 #include "Window.h"
 
@@ -24,6 +25,7 @@ namespace Rhygine
 		virtual bool DestroyConsole() = 0;
 
 		virtual Window::WindowId AddWindow() = 0;
+		[[nodiscard]] virtual Window* GetWindow(Window::WindowId t_id) const = 0;
 		virtual bool DestroyWindow(Window::WindowId t_id) = 0;
 
 	private:

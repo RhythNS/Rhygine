@@ -10,10 +10,10 @@ namespace Rhygine
 	{
 	public:
 		WindowsWindow() = delete;
-		WindowsWindow(WindowId t_id, bool t_primary, int t_width, int t_height, int t_pos_x, int t_pos_y, HWND t_handle);
+		WindowsWindow(WindowId t_id, bool t_primary, uint32_t t_width, uint32_t t_height, uint32_t t_pos_x, uint32_t t_pos_y, HWND t_handle);
 		~WindowsWindow() = default;
 
-		virtual void Resize(int t_pos_x, int t_pos_y, int t_width, int t_height) override;
+		virtual void Resize(uint32_t t_pos_x, uint32_t t_pos_y, uint32_t t_width, uint32_t t_height) override;
 
 		virtual bool SetTitle(const std::string& m_title) override;
 		
@@ -22,6 +22,8 @@ namespace Rhygine
 		virtual bool SetFullscreenMode(FullscreenMode m_mode) override;
 
 		HWND GetHandle() const;
+
+		[[nodiscard]] virtual void* GetNativeHandle() const override { return m_handle; }
 
 	private:
 		HWND m_handle;

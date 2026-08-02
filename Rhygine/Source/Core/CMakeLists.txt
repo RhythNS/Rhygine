@@ -15,13 +15,14 @@ add_library(
 	"Debug/StackTrace.cpp"
 	"Debug/StackTrace.h"
 	"Debug/Error.h"
-	"Core/Engine.h"
-	"Core/Engine.cpp"
 	"Config/Config.h"
 	"Config/Config.cpp"
   )
 
-target_include_directories (RhyCore PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+target_include_directories (RhyCore PUBLIC 
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_SOURCE_DIR}/Rhygine/Source"
+)
 
 target_compile_features(RhyCore PUBLIC cxx_std_23)
 
@@ -33,15 +34,15 @@ target_link_libraries(
 	PUBLIC Backward::Interface
 	PUBLIC Tracy::TracyClient
 	PUBLIC mimalloc-static
-	PUBLIC RhyGfx
 	PUBLIC RhyIO
 	PUBLIC RhySystems
+	PUBLIC RhyRHI
+	PUBLIC RhyRenderGraph
 )
 
 if(WIN32)
 	target_link_libraries(
 		RhyCore
 		PUBLIC RhyWindowsSystems
-		PUBLIC RhyDx11Gfx
 	)
 endif()

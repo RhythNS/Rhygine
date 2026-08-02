@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 
 namespace Rhygine
@@ -7,7 +8,7 @@ namespace Rhygine
 	class Window
 	{
 	public:
-		using WindowId = unsigned int;
+		using WindowId = uint32_t;
 
 		enum class FullscreenMode
 		{
@@ -15,18 +16,18 @@ namespace Rhygine
 		};
 
 		Window() = delete;
-		Window(WindowId t_id, bool t_primary, int t_width, int t_height, int t_pos_x, int t_pos_y);
+		Window(WindowId t_id, bool t_primary, uint32_t t_width, uint32_t t_height, uint32_t t_pos_x, uint32_t t_pos_y);
 		virtual ~Window() = default;
 
-		[[nodiscard]] virtual int GetX() const;
-		[[nodiscard]] virtual int GetY() const;
+		[[nodiscard]] virtual uint32_t GetX() const;
+		[[nodiscard]] virtual uint32_t GetY() const;
 
-		[[nodiscard]] virtual int GetWidth() const;
-		[[nodiscard]] virtual int GetHeight() const;
+		[[nodiscard]] virtual uint32_t GetWidth() const;
+		[[nodiscard]] virtual uint32_t GetHeight() const;
 
 		[[nodiscard]] virtual bool IsPrimary() const;
 
-		virtual void Resize(int t_pos_x, int t_pos_y, int t_width, int t_height) = 0;
+		virtual void Resize(uint32_t t_pos_x, uint32_t t_pos_y, uint32_t t_width, uint32_t t_height) = 0;
 
 		virtual bool SetTitle(const std::string& m_title) = 0;
 		[[nodiscard]] virtual const std::string& GetTitle() const;
@@ -37,13 +38,15 @@ namespace Rhygine
 		virtual bool SetFullscreenMode(FullscreenMode m_mode) = 0;
 		[[nodiscard]] virtual FullscreenMode GetFullscreenMode() const;
 
-		WindowId GetID();
+		[[nodiscard]] WindowId GetID() const;
+
+		[[nodiscard]] virtual void* GetNativeHandle() const = 0;
 
 	protected:
-		int m_width = 0;
-		int m_height = 0;
-		int m_pos_x = 0;
-		int m_pos_y = 0;
+		uint32_t m_width = 0;
+		uint32_t m_height = 0;
+		uint32_t m_pos_x = 0;
+		uint32_t m_pos_y = 0;
 		FullscreenMode m_mode = FullscreenMode::Windowed;
 		bool m_capture_mouse = false;
 		std::string m_title = "Rhygine";

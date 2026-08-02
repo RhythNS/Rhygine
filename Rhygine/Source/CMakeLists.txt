@@ -1,4 +1,5 @@
 add_subdirectory("Core")
-add_subdirectory("Gfx")
 add_subdirectory("IO")
 add_subdirectory("Systems")
+add_subdirectory("RHI")
+add_subdirectory("RenderGraph")

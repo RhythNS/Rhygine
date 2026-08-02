@@ -3,7 +3,6 @@
 #include <iostream>
 #include <tracy/Tracy.hpp>
 
-#include "Gfx.h"
 #include "Config/Config.h"
 #include "Debug/Logger.h"
 
@@ -147,19 +146,32 @@ Rhygine::Window::WindowId Rhygine::WindowsSystem::AddWindow()
 			lpParam
 		);
 
+	static Window::WindowId ids = 0;
+	Window::WindowId id = ids++;
+
 	// TODO: remove
 	{
 		static bool primary = true;
-		static Window::WindowId ids = 0;
-		m_windows.push_back(std::make_unique<WindowsWindow>(ids++, primary, x, y, width, height, windowHandle));
+		m_windows.push_back(new WindowsWindow(id, primary, x, y, width, height, windowHandle));
 		primary = false;
-		WindowsWindow* window = m_windows.back().get();
-		Gfx::GetInstance()->OnWindowAdded(window);
+		WindowsWindow* window = m_windows.back();
+		// Gfx::GetInstance()->OnWindowAdded(window);
 		ShowWindow(windowHandle, SW_SHOW);
 	}
 
 
-	return Window::WindowId();
+	return id;
+}
+
+Rhygine::Window* Rhygine::WindowsSystem::GetWindow(Window::WindowId t_id) const
+{
+	auto it = std::find_if(m_windows.begin(), m_windows.end(),
+		[t_id](const auto& window) { return window->GetID() == t_id; });
+
+	if (it == m_windows.end())
+		return {};
+
+	return *it;
 }
 
 bool Rhygine::WindowsSystem::DestroyWindow(Window::WindowId t_id)

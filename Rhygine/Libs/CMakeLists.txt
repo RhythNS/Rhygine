@@ -29,3 +29,10 @@ if (TRACY_MEMORY_EVERYTHING)
 endif()
 
 add_subdirectory("Tracy")
+
+option(ENABLE_VULKAN "Enable Vulkan support" ON)
+
+if (ENABLE_VULKAN)
+    add_subdirectory("VulkanMemoryAllocator")
+    add_subdirectory("Volk")
+endif()

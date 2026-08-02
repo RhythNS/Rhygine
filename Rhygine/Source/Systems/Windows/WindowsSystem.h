@@ -38,6 +38,7 @@ namespace Rhygine
 		bool DestroyConsole() override;
 
 		Window::WindowId AddWindow() override;
+		[[nodiscard]] virtual Window* GetWindow(Window::WindowId t_id) const override;
 		bool DestroyWindow(Window::WindowId t_id) override;
 
 		bool AddMessageHandler(IWindowsMessageHandler* t_message_handler);
@@ -54,7 +55,7 @@ namespace Rhygine
 		HINSTANCE m_prev_instance;
 		std::string m_window_class_name = "Rhygine Window";
 		std::vector<IWindowsMessageHandler*> m_message_handlers;
-		std::vector<std::unique_ptr<WindowsWindow>> m_windows;
+		std::vector<WindowsWindow*> m_windows;
 
 		static WindowsSystem* s_instance;
 	};

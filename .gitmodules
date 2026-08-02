@@ -16,3 +16,9 @@
 [submodule "Rhygine/Libs/Glm"]
 	path = Rhygine/Libs/Glm
 	url = https://github.com/g-truc/glm
+[submodule "Rhygine/Libs/VulkanMemoryAllocator"]
+	path = Rhygine/Libs/VulkanMemoryAllocator
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+[submodule "Rhygine/Libs/Volk"]
+	path = Rhygine/Libs/Volk
+	url = https://github.com/zeux/volk

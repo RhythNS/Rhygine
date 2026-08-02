@@ -1,5 +1,6 @@
 #pragma once
 #include "Debug/Logger.h"
+#include "Debug/StackTrace.h"
 
 #ifdef _MSC_VER
 #define STOP_EXECUTION __debugbreak()
@@ -10,7 +11,7 @@
 
 #define STOP_EXECUTION_MESSAGE(message) \
 	{ \
-		LOG_ERROR(message); \
+		LOG_ERROR_STACK(message); \
 		STOP_EXECUTION;  \
 	} 
 
@@ -19,7 +20,7 @@
 #define ASSERT_ERROR_MESSAGE(cond, message) \
 	if (!(cond)) \
 	{ \
-		LOG_ERROR(message); \
+		LOG_ERROR_STACK(message); \
 		STOP_EXECUTION; \
 	} 
 

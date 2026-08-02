@@ -22,5 +22,7 @@ namespace Rhygine
 
 	private:
 		static inline void ParseRuntimeArguments(std::vector<std::string>& t_args, Config& t_config);
+
+		static inline int Run(Config& t_config);
 	};
 }
