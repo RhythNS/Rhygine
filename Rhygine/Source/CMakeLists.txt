@@ -1,5 +1,6 @@
 add_subdirectory("Core")
 add_subdirectory("IO")
 add_subdirectory("Systems")
+add_subdirectory("World")
 add_subdirectory("RHI")
 add_subdirectory("RenderGraph")

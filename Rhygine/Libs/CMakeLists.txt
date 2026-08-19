@@ -5,6 +5,8 @@ add_subdirectory("Glm")
 set(MI_OVERRIDE OFF CACHE BOOL "Override the standard malloc interface" FORCE)
 add_subdirectory("Mimalloc")
 
+add_subdirectory("ReaderWriterQueue")
+
 set(SPDLOG_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 set(SPDLOG_BUILD_TESTING OFF CACHE BOOL "Build spdlog tests")
 add_subdirectory("Spdlog")

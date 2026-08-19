@@ -22,3 +22,6 @@
 [submodule "Rhygine/Libs/Volk"]
 	path = Rhygine/Libs/Volk
 	url = https://github.com/zeux/volk
+[submodule "Rhygine/Libs/Readerwriterqueue"]
+	path = Rhygine/Libs/Readerwriterqueue
+	url = https://github.com/cameron314/readerwriterqueue

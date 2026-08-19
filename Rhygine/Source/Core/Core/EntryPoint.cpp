@@ -8,7 +8,9 @@
 #include "Debug/Logger.h"
 #include "Debug/Error.h"
 #include "Core/MemoryAllocation.h"
+#include "World.h"
 #include "RenderGraph/TempGfx.h"
+#include "IDevice.h"
 
 #ifdef _WIN32
 #include "Windows/WindowsSystem.h"
@@ -107,7 +109,10 @@ namespace Rhygine
 		}
 		*/
 
-		TempGfx gfx;
+		std::unique_ptr<IDevice> device = IDevice::Create();
+
+		World world;
+		TempGfx gfx(device.get());
 
 		int exitCode = 0;
 		bool running = true;
