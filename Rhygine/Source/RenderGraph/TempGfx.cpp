@@ -46,7 +46,7 @@ namespace
 	}
 }
 
-Rhygine::TempGfx::TempGfx()
+Rhygine::TempGfx::TempGfx(IDevice* t_device) : m_device(t_device)
 {
 	ZoneScoped;
 
@@ -54,8 +54,6 @@ Rhygine::TempGfx::TempGfx()
 
 	System* system = System::GetInstance();
 	Window* window = system->GetWindow(1);
-
-	m_device = IDevice::Create();
 
 	SwapchainDesc swapDesc{};
 	swapDesc.window = window;

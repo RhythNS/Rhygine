@@ -1,12 +1,14 @@
 #include "StandardFile.h"
 
 #include <filesystem> 
+#include <tracy/Tracy.hpp>
 
 #include "Debug/Error.h"
 
 Rhygine::StandardFile::StandardFile(std::string& t_filePath, FileMode t_mode)
 	: File(t_filePath, t_mode)
 {
+    ZoneScoped;
     ASSERT_ERROR_MESSAGE(std::filesystem::exists(t_filePath), t_filePath + " file not found!");
 
     std::ios_base::openmode openMode = std::ios::in;
@@ -44,6 +46,7 @@ Rhygine::StandardFile::~StandardFile()
 
 size_t Rhygine::StandardFile::Read(void* buffer, size_t size)
 {
+    ZoneScoped;
     m_fileStream.read(static_cast<char*>(buffer), size);
     return m_fileStream.gcount();
 }
@@ -55,6 +58,7 @@ std::istream& Rhygine::StandardFile::GetInputStream()
 
 size_t Rhygine::StandardFile::Write(const void* buffer, size_t size)
 {
+    ZoneScoped;
     m_fileStream.write(static_cast<const char*>(buffer), size);
     return size;
 }

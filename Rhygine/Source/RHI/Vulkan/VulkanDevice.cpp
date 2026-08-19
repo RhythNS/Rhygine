@@ -1,6 +1,7 @@
 #include "VulkanDevice.h"
 
 #include <iostream>
+#include <format>
 #include <set>
 #include <algorithm>
 #include <optional>
@@ -137,6 +138,7 @@ namespace Rhygine
 	void VulkanDevice::Initialize()
 	{
 		ZoneScoped;
+		LOG_INFO("Initializing Vulkan Device...");
 
 		CreateInstance();
 		CreatePhysicalDevice();
@@ -147,6 +149,7 @@ namespace Rhygine
 		CreateDefaultSampler();
 
 		m_valid = true;
+		LOG_INFO("Vulkan Device initialized successfully");
 	}
 
 	void VulkanDevice::CreateInstance()
@@ -189,6 +192,7 @@ namespace Rhygine
 		}
 
 		VK_CHECK(vkCreateInstance(&createInfo, nullptr, &m_instance));
+		LOG_INFO(std::format("Vulkan instance created successfully (Validation layers: {})", m_enableValidationLayers ? "Enabled" : "Disabled"));
 
 		if (m_enableValidationLayers)
 		{
@@ -335,6 +339,7 @@ namespace Rhygine
 		VkPhysicalDeviceProperties properties;
 		vkGetPhysicalDeviceProperties(m_physicalDevice, &properties);
 		m_deviceName = properties.deviceName;
+		LOG_INFO(std::format("Selected Vulkan Physical Device: {}", m_deviceName));
 	}
 
 	uint32_t VulkanDevice::ScorePhysicalDevice(VkPhysicalDevice t_device) const
@@ -521,6 +526,7 @@ namespace Rhygine
 		deviceCreateInfo.pNext = &deviceFeatures;
 
 		VK_CHECK(vkCreateDevice(m_physicalDevice, &deviceCreateInfo, nullptr, &m_device));
+		LOG_INFO("Vulkan logical device created successfully");
 	}
 
 	void VulkanDevice::CreateQueues()
@@ -542,6 +548,7 @@ namespace Rhygine
 		allocatorInfo.instance = m_instance;
 
 		VK_CHECK(vmaCreateAllocator(&allocatorInfo, &m_vmaAllocator));
+		LOG_DEBUG("Vulkan Memory Allocator (VMA) initialized");
 	}
 
 
@@ -574,6 +581,7 @@ namespace Rhygine
 	void VulkanDevice::Cleanup()
 	{
 		ZoneScoped;
+		LOG_INFO("Shutting down Vulkan device");
 
 		if (m_debugMessenger != VK_NULL_HANDLE)
 		{

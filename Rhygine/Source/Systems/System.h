@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Window.h"
+#include "File/FileManager.h"
 
 namespace Rhygine
 {
@@ -28,7 +29,10 @@ namespace Rhygine
 		[[nodiscard]] virtual Window* GetWindow(Window::WindowId t_id) const = 0;
 		virtual bool DestroyWindow(Window::WindowId t_id) = 0;
 
+		[[nodiscard]] FileManager& GetFileManager() const;
+
 	private:
+		std::unique_ptr<FileManager> m_fileManager;
 		static System* s_instance;
 	};
 }

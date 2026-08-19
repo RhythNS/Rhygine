@@ -1,9 +1,11 @@
 #include "VulkanPipeline.h"
 
 #include <vulkan/vulkan.h>
+#include <format>
 #include <tracy/Tracy.hpp>
 
 #include "Debug/Error.h"
+#include "Debug/Logger.h"
 #include "VulkanDevice.h"
 #include "VulkanShader.h"
 #include "VulkanResourceLayout.h"
@@ -372,6 +374,7 @@ namespace Rhygine
 		pipelineInfo.layout = m_pipelineLayout;
 
 		VK_CHECK(vkCreateGraphicsPipelines(t_device->GetVkDevice(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_pipeline));
+		LOG_DEBUG(std::format("Created Vulkan graphics pipeline: '{}'", t_desc.debugName.empty() ? "<unnamed>" : t_desc.debugName));
 
 		m_device->SetDebugName(VK_OBJECT_TYPE_PIPELINE, (uint64_t)m_pipeline, t_desc.debugName);
 	}
@@ -435,6 +438,7 @@ namespace Rhygine
 		pipelineInfo.layout = m_pipelineLayout;
 
 		VK_CHECK(vkCreateComputePipelines(t_device->GetVkDevice(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &m_pipeline));
+		LOG_DEBUG(std::format("Created Vulkan compute pipeline: '{}'", t_desc.debugName.empty() ? "<unnamed>" : t_desc.debugName));
 
 		m_device->SetDebugName(VK_OBJECT_TYPE_PIPELINE, (uint64_t)m_pipeline, t_desc.debugName);
 	}

@@ -11,6 +11,7 @@ target_include_directories (RhySystems PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(
 	RhySystems
 	PUBLIC RhyCore
+	PUBLIC RhyIO
 )
 
 if(WIN32)

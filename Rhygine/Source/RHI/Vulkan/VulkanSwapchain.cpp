@@ -1,8 +1,10 @@
 #include "VulkanSwapchain.h"
 
 #include <tracy/Tracy.hpp>
+#include <format>
 
 #include "Debug/Error.h"
+#include "Debug/Logger.h"
 #include "Systems/Window.h"
 #include "VulkanDevice.h"
 #include "VulkanSurface.h"
@@ -156,6 +158,7 @@ namespace Rhygine
 		swapchainInfo.clipped = VK_TRUE;
 
 		VK_CHECK(vkCreateSwapchainKHR(m_device->GetVkDevice(), &swapchainInfo, nullptr, &m_swapchain));
+		LOG_INFO(std::format("Created Vulkan Swapchain (Resolution: {}x{}, Images: {})", m_width, m_height, imageCount));
 	}
 
 	void VulkanSwapchain::CreateImages()
@@ -271,6 +274,7 @@ namespace Rhygine
 	void VulkanSwapchain::Cleanup()
 	{
 		ZoneScoped;
+		LOG_DEBUG("Cleaning up Vulkan Swapchain");
 
 		for (auto* texture : m_textures)
 		{
@@ -352,6 +356,7 @@ namespace Rhygine
 	void VulkanSwapchain::RecreateSwapchain()
 	{
 		ZoneScoped;
+		LOG_INFO(std::format("Recreating Vulkan Swapchain (Resolution: {}x{})", m_width, m_height));
 
 		// Wait for device to finish all operations
 		vkDeviceWaitIdle(m_device->GetVkDevice());

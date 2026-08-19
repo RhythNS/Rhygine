@@ -1,6 +1,7 @@
 #include "WindowsSystem.h"
 
 #include <iostream>
+#include <format>
 #include <tracy/Tracy.hpp>
 
 #include "Config/Config.h"
@@ -11,6 +12,7 @@ Rhygine::WindowsSystem* Rhygine::WindowsSystem::s_instance = nullptr;
 Rhygine::WindowsSystem::WindowsSystem(HINSTANCE t_instance, HINSTANCE t_prev_instance, Config& t_config) :
 	System(t_config), m_instance(t_instance), m_prev_instance(t_prev_instance)
 {
+	ZoneScoped;
 	ASSERT_ERROR_MESSAGE(!s_instance, "Another WindowsSystem has already been created!");
 	s_instance = this;
 
@@ -28,10 +30,13 @@ Rhygine::WindowsSystem::WindowsSystem(HINSTANCE t_instance, HINSTANCE t_prev_ins
 	windowClass.lpszClassName = m_window_class_name.c_str();
 	windowClass.hIconSm = nullptr;
 	RegisterClassEx(&windowClass);
+	LOG_INFO("WindowsSystem: Initialized Windows subsystem and registered window class");
 }
 
 Rhygine::WindowsSystem::~WindowsSystem()
 {
+	ZoneScoped;
+	LOG_INFO("WindowsSystem: Shutting down Windows subsystem");
 	s_instance = nullptr;
 }
 
@@ -159,7 +164,7 @@ Rhygine::Window::WindowId Rhygine::WindowsSystem::AddWindow()
 		ShowWindow(windowHandle, SW_SHOW);
 	}
 
-
+	LOG_INFO(std::format("WindowsSystem::AddWindow: Created window with ID {} ({}x{})", id, width, height));
 	return id;
 }
 

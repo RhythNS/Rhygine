@@ -1,9 +1,10 @@
 #include "Window.h"
+#include <tracy/Tracy.hpp>
 
 Rhygine::Window::Window(WindowId t_id, bool t_primary, uint32_t t_width, uint32_t t_height, uint32_t t_pos_x, uint32_t t_pos_y)
 	: m_primary(t_primary), m_id(t_id), m_width(t_width), m_height(t_height), m_pos_x(t_pos_x), m_pos_y(t_pos_y)
 {
-
+	ZoneScoped;
 }
 
 uint32_t Rhygine::Window::GetX() const

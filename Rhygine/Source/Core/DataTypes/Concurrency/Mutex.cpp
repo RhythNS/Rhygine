@@ -2,6 +2,8 @@
 
 bool Rhygine::Mutex::TryLock()
 {
+    ZoneScoped;
+
     const auto acquired = m_mutex.try_lock();
 #ifdef TRACY_NO_LOCKS
     return acquired;
@@ -14,6 +16,8 @@ bool Rhygine::Mutex::TryLock()
 
 void Rhygine::Mutex::Lock()
 {
+    ZoneScoped;
+
 #ifdef TRACY_NO_LOCKS
     m_mutex.lock();
 #else
@@ -28,6 +32,8 @@ void Rhygine::Mutex::Lock()
 
 void Rhygine::Mutex::Unlock()
 {
+    ZoneScoped;
+
     m_mutex.unlock();
 #ifndef TRACY_NO_LOCKS
     m_ctx.AfterUnlock();

@@ -1,8 +1,10 @@
 #include "VulkanShader.h"
 
 #include <tracy/Tracy.hpp>
+#include <format>
 
 #include "Debug/Error.h"
+#include "Debug/Logger.h"
 #include "VulkanDevice.h"
 
 namespace Rhygine
@@ -27,6 +29,7 @@ namespace Rhygine
 		m_shaderStage = m_device->GetVkShaderStageFlags(t_desc.stage);
 
 		m_device->SetDebugName(VK_OBJECT_TYPE_SHADER_MODULE, (uint64_t)m_shaderModule, t_desc.debugName);
+		LOG_DEBUG(std::format("Created Vulkan shader module: '{}' (Size: {} bytes)", t_desc.debugName.empty() ? "<unnamed>" : t_desc.debugName, t_desc.bytecodeSize));
 	}
 
 	VulkanShader::~VulkanShader()

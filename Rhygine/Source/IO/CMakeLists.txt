@@ -1,6 +1,5 @@
 add_library(
 	RhyIO
-	"TomlTest.cpp"
 	"File/File.cpp"
 	"File/File.h"
 	"File/StandardFile.cpp"
@@ -13,6 +12,12 @@ add_library(
 	"File/FileProvider.cpp"
 	"File/StandardFileProvider.h"
 	"File/StandardFileProvider.cpp"
+	"StructuredIO/IOError.h"
+	"StructuredIO/Describe.h"
+	"StructuredIO/Read.h"
+	"StructuredIO/Write.h"
+	"StructuredIO/Codecs/TomlCodec.h"
+	"StructuredIO/Codecs/TomlCodec.cpp"
 )
 
 target_include_directories (RhyIO PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

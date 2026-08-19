@@ -10,6 +10,7 @@ Rhygine::Thread::Thread(std::function<void()> t_function, std::string t_name, Pr
 
 void Rhygine::Thread::Start()
 {
+	ZoneScoped;
 	// assert if already started?
 	m_thread = std::thread([this] 
 		{
@@ -36,6 +37,7 @@ bool Rhygine::Thread::IsStarted() const
 
 void Rhygine::Thread::Join()
 {
+	ZoneScoped;
 	// assert if already started?if (m_thread.joinable()) {
 	if (m_thread.joinable())
 	{

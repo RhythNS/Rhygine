@@ -33,4 +33,14 @@ namespace Rhygine
 		std::string m_filePath;
 		FileMode m_fileMode;
 	};
+
+	inline constexpr FileMode operator|(FileMode a, FileMode b)
+	{
+		return static_cast<FileMode>(static_cast<int>(a) | static_cast<int>(b));
+	}
+
+	inline constexpr FileMode operator&(FileMode a, FileMode b)
+	{
+		return static_cast<FileMode>(static_cast<int>(a) & static_cast<int>(b));
+	}
 }
