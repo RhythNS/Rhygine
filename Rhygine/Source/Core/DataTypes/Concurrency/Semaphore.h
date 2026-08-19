@@ -1,4 +1,5 @@
 #pragma once
+
 #include <semaphore>
 #ifndef TRACY_NO_LOCKS
 #include <tracy/Tracy.hpp>

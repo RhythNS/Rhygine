@@ -24,13 +24,13 @@ namespace Rhygine
 	class TempGfx
 	{
 	public:
-		TempGfx();
+		TempGfx(IDevice* t_device);
 		~TempGfx();
 
 		void OnUpdate();
 
 	private:
-		std::unique_ptr<IDevice> m_device;
+		IDevice* m_device;
 		ISwapchain* m_swap;
 		ICommandBuffer* m_commandBuffer;
 

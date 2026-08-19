@@ -8,7 +8,14 @@
 #include "Debug/Logger.h"
 #include "Debug/Error.h"
 #include "Core/MemoryAllocation.h"
-#include "RenderGraph/TempGfx.h"
+#include "DataTypes/Concurrency/Thread.h"
+#include "DataTypes/Concurrency/ThreadPool.h"
+#include "World.h"
+#include "RenderGraph/SceneRenderer.h"
+#include "RenderGraph/TripleBufferedPackets.h"
+#include "RenderGraph/RenderPacketBuilder.h"
+#include "RenderGraph/RenderGraph.h"
+#include "IDevice.h"
 
 #ifdef _WIN32
 #include "Windows/WindowsSystem.h"
@@ -83,31 +90,36 @@ namespace Rhygine
 	inline int EntryPoint::Run(Config& t_config)
 	{
 		ZoneScoped;
+		
+		ThreadPool::Initialize();
 
 		System* system = System::GetInstance();
-		/*
-		if (t_config.TryGet<bool>("System/AttachConsole").value_or(false))
-		{
-
-		}
-		*/
 		system->CreateConsole();
 		system->AddWindow();
+		Window* window = system->GetWindow(1);
 
-		std::string backend = t_config.GetOr<std::string>("Gfx/Backend", "DX11");
+		std::unique_ptr<IDevice> device = IDevice::Create();
 
-		/*
-		if (backend == "DX11")
-		{
-			STOP_EXECUTION_MESSAGE(backend + " is not available!");
-		}
-		else
-		{
-			STOP_EXECUTION_MESSAGE(backend + " not found!");
-		}
-		*/
+		SwapchainDesc swapDesc{};
+		swapDesc.window = window;
+		swapDesc.width = window->GetWidth();
+		swapDesc.height = window->GetHeight();
 
-		TempGfx gfx;
+		ISwapchain* swapchain = device->CreateSwapchain(swapDesc);
+
+		SceneRenderer renderer;
+		renderer.Init(device.get());
+		RenderPacketBuilder renderPacketBuilder(renderer.GetMaterialCache());
+		TripleBufferedPackets tripleBufferedPackets;
+
+		World world(renderer, *device);
+		// world.LoadScene();
+
+		RenderGraph renderGraph;
+
+		RenderThread renderThread(renderer, tripleBufferedPackets, renderGraph, swapchain);
+		Thread renderThreadHandle(&RenderThread::Run, &renderThread, "RenderThread");
+		renderThreadHandle.Start();
 
 		int exitCode = 0;
 		bool running = true;
@@ -122,11 +134,36 @@ namespace Rhygine
 				exitCode = optExitCode.value();
 				running = false;
 			}
+			
+			world.Tick(1.0f / 60.0f);
 
-			gfx.OnUpdate();
+			world.GetResourceManager().ProcessStagingRequests();
+
+			world.BuildRenderPacket(renderPacketBuilder);
+			tripleBufferedPackets.Produce(renderPacketBuilder.Build(renderer.GetCurrentFrameIndex()));
 
 			FrameMark;
 		}
+
+		renderThread.RequestStop();
+		renderThreadHandle.Join();
+
+		ThreadPool::Shutdown();
+
+		renderer.Shutdown();
 		return 0;
+	}
+
+	void EntryPoint::RenderThread::Run()
+	{
+		ZoneScoped;
+
+		while (!m_stopRequested)
+		{
+			if (m_packets.HasNewPacket())
+			{
+				m_renderer.Render(m_packets.ConsumeLatest(), m_graph, m_swapchain);
+			}
+		}
 	}
 }
